@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MaterialHireMng.MaterialHireTransportCost.Domain.MatHireTranCostDetail,SupplyChain" table="THD_MatHireTranCostDetail" lazy="true" select-before-update="true">
+
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.MaterialHireMng.MaterialHireTransportCost.Domain.MatHireTranCostMaster,SupplyChain"></many-to-one>
+   
+    <property name="TransportMoney"></property>
+    <property name="DispatchMoney"></property>
+    <property name="Descript"></property>
+  </class>
+</hibernate-mapping>

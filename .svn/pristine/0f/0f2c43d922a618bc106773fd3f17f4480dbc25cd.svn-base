@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.DisclosureDetail,SupplyChain" table="thd_disclosuredetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.DisclosureMaster,SupplyChain"></many-to-one>
+
+    <property name="Descript"/>
+
+    <property name="SubPackage" />
+    <property name="ContractType" />
+    <property name="ContractInterimMoney" />
+    <property name="QualityBreachDuty" />
+    <property name="DurationBreachDuty" />
+    <property name="SafetyBreachDuty" />
+    <property name="CivilizedBreachDuty" />
+    <property name="LaborDemand"/>
+    <property name="MaterialDemand"/>
+    <property name="PaymentType"/>
+    <property name="WarrantyDateMoney"/>
+    <property name="OtherDesc"/>
+  </class>
+</hibernate-mapping>

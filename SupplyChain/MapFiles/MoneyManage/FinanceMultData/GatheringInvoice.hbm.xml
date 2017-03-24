@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.GatheringInvoice,SupplyChain" table="THD_GatheringInvoice" lazy="true" select-before-update="true">
+
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+	<many-to-one name="Master" column="GatheringID" not-null="true" class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.GatheringMaster,SupplyChain"></many-to-one>
+	<property name="Code"></property>
+	<property name="CreateYear" column="CreateYear"/>
+	<property name="CreateMonth" column="CreateMonth"/>
+	<many-to-one name="CurrencyType" column="CurrencyType" class="Application.Resource.FinancialResource.Domain.Currency,ResourceManager"/>
+	<property name="ExchangeRate" column="ExchangeRate"/>
+    <many-to-one name="CreatePerson" column="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="CreatePersonName"/>
+    <many-to-one name="HandlePerson" column="HandlePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    
+	<property name="HandlePersonName"/> 
+    <property name="CreateDate" column="CreateDate"/>
+    <property name="RealOperationDate" column="RealOperationDate"/>
+    <property name="DocState" column="State" /> 
+    <property name="OpgSysCode" column="OpgSysCode"/>
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperOrgInfoName" column="OperationOrgName"/>
+    <property name="SumMoney" column="SumMoney"/>
+    <property name="Descript" column="Descript"/>
+    <property name="ProjectId"></property>
+    <property name="ProjectName"/>
+
+	<many-to-one name="TheCustomerRelationInfo" class="Application.Resource.PersonAndOrganization.ClientManagement.RelateClass.CustomerRelationInfo,ResourceManager" />
+    <property name="TheCustomerName"></property>
+	  
+	<property name="InvoiceCode"></property>
+	<property name="InvoiceNo"></property>
+  </class>
+</hibernate-mapping>

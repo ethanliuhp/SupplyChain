@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <!--打印方案-->
+  <object id="PrintSrvTarget" type="Application.Business.Erp.SupplyChain.Base.Service.PrintSolutionAccess, SupplyChain">
+
+  </object>
+
+  <object	id="PrintSolutionAccess" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="PrintSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  
+  <!--SessionFactory-->
+  <object id="hibernateSessionFactoryBuilder" type="VirtualMachine.SystemAspect.Persistent.HibernateSessionFactoryBuilder, VirtualMachine">
+    <property name="ApplicationPath" value=" "/>
+    <property name="Configure" ref="configure"/>
+  </object>
+  <object id="hibernateSessionFactory" factory-method="CreateInstance" factory-object="hibernateSessionFactoryBuilder" />
+
+  <!--Transaction切片-->
+  <object id="transactionAspect" type="VirtualMachine.SystemAspect.Transaction.TransactionAspect,VirtualMachine" />
+
+  <!--Session切片-->
+  <object id="sessionManageAspect" type="VirtualMachine.SystemAspect.Session.SessionManageAspect,VirtualMachine">
+    <property name="Factory" ref="hibernateSessionFactory"/>
+  </object>
+
+  <!--Cache通知Srv,用于通知Client刷新Cache-->
+  <object id="CacheMediatorTarget" type="VirtualMachine.SystemAspect.Cache.ClientSideCache.CacheMediator,VirtualMachine" init-method="Init" destroy-method="Close"/>
+  <object id="CacheMediator" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="CacheMediatorTarget" />
+    <property name="interceptorNames">
+      <list>
+      </list>
+    </property>
+  </object>
+
+  <!--表达式转换-->
+  <object id="ExpressionTranslateAspect" type="VirtualMachine.SystemAspect.ExpressionTranslate.ExpressionTranslateAspect,VirtualMachine" />
+
+  <!--DaoCache切片-->
+  <!--<object id="DaoCacheAspect" type="VirtualMachine.SystemAspect.Cache.DaoCacheInterceptor,VirtualMachine" init-method="Init">
+    <property name="CacheManagerName" value="AccountTitle"/>
+    <property name="CachedTypeNames">
+      <list>
+        <value>Application.Business.Erp.Financial.BasicAccount.InitialSetting.Domain.AccountTitle</value>
+      </list>
+    </property>
+  </object>-->
+  
+  <!--Dao-->
+  <object id="DaoTarget" type="VirtualMachine.SystemAspect.Persistent.HibernateDaoImpl,VirtualMachine">
+    <property name="MySessionFactory" ref="hibernateSessionFactory"/>
+  </object>
+
+  <!--业务Dao,其上添加内存对象切片和实例权限切片-->
+  <object id="dao" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="DaoTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <!--<value>DaoCacheAspect</value>-->
+        <value>ExpressionTranslateAspect</value>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+        <!--<value>InstancePermissionCheckAroundAdvice</value>-->
+      </list>
+    </property>
+  </object>
+
+  <!--无权限切片Dao，附带内存管理Dao，主要用于权限配置-->
+  <object id="nakedDao" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="DaoTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--系统模块设置-->
+  <object id="BusinessBasicServiceTarget" type="VirtualMachine.Patterns.DataDictionary.Service.BusinessBasicService,VirtualMachine">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="BusinessBasicService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="BusinessBasicServiceTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--分类树服务-->
+  <object id="CategoryTreeServiceTarget" type="VirtualMachine.Patterns.CategoryTreePattern.Service.CategoryTreeService,VirtualMachine">
+    <property name="Dao" ref="nakedDao" />
+  </object>
+  <object id="CategoryTreeService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="CategoryTreeServiceTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--分类节点服务-->
+  <object id="CategoryNodeServiceTarget" type="VirtualMachine.Patterns.CategoryTreePattern.Service.CategoryNodeService,VirtualMachine">
+    <property name="Dao" ref="dao" />
+    <property name="NakedDao" ref="nakedDao" />
+    <property name="RuleSrv" ref="CategoryRuleService"/>
+    <property name="TreeSrv" ref="CategoryTreeService"/>
+  </object>
+  <object id="CategoryNodeService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="CategoryNodeServiceTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--分类规则服务-->
+  <object id="CategoryRuleServiceTarget" type="VirtualMachine.Patterns.CategoryTreePattern.Service.CategoryRuleService,VirtualMachine">
+    <property name="Dao" ref="nakedDao" />
+    <property name="TreeSrv" ref="CategoryTreeService" />
+  </object>
+  <object id="CategoryRuleService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="CategoryRuleServiceTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--错误日志-->
+  <object id="ExceptionControlTarget" type="VirtualMachine.Component.ExceptionHandle.ExceptionControl, VirtualMachine">
+    <property name="Dao" ref="dao" />
+  </object>
+  <object id="ExceptionControl" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ExceptionControlTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--权限相关-->
+  <!--权限配置基础服务-->
+  <object id="SecurityEssenseSrvTarget" type="VirtualMachine.SystemAspect.Security.SecurityEssense, VirtualMachine">
+    <property name="NakedDao" ref="nakedDao" />
+    <property name="SysManagerRole" value="1" />
+    <property name="PartSysManagerRole" value="2" />
+    <property name="SysRoleClass" value="SysRole,OperationJob" />
+  </object>
+
+  <!--实例权限切片-->
+  <object id="InstancePermissionCheckAroundAdvice" parent="SecurityEssenseSrvTarget" type="VirtualMachine.SystemAspect.Security.InstanceSecurity.Service.InstanceLevelAdvice, VirtualMachine">
+    <property name="SecurityManager" ref="InstanceSecurityManagerSrv" />
+  </object>
+
+  <!--系统验证-->
+  <object id="SysAuthenticTarget" type="VirtualMachine.SystemAspect.Security.SysAuthentication.Service.SysAuthentic, VirtualMachine">
+    <property name="Dao" ref="nakedDao" />
+  </object>
+  <object id="SysAuthentic" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="SysAuthenticTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--实例权限切片配置-->
+  <object id="InstanceSecurityManagerSrvTarget" type="VirtualMachine.SystemAspect.Security.InstanceSecurity.Service.InstanceSecurityManager, VirtualMachine">
+    <property name="Dao" ref="nakedDao" />
+    <property name="DefInsRole" value="2" />
+  </object>
+
+  <object id="InstanceSecurityManagerSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="InstanceSecurityManagerSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--功能权限服务-->
+  <object id="FuncSecurityDaoTarget" parent="SecurityEssenseSrvTarget" type="VirtualMachine.SystemAspect.Security.FunctionSecurity.Service.FuncSecurityDao, VirtualMachine" >
+    <property name="Dao" ref="dao" />
+    <property name="StartSyscode" value="1.9." />
+  </object>
+
+  <object id="FuncSecurityDao" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="FuncSecurityDaoTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--表单模式-->
+  <!--人与岗位-->
+  <object id="AboutOperAndRoleSrvTarget" type="VirtualMachine.Patterns.BusinessEssence.Service.AboutOperAndRoleImpl, VirtualMachine" >
+    <property name="Dao" ref="dao" />
+  </object>
+
+  <object id="AboutOperAndRoleSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="AboutOperAndRoleSrvTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--表单查询基础服务-->
+  <object id="BusinessEssenceQuerySrvTarget" type="VirtualMachine.Patterns.BusinessEssence.Service.BusinessEssenceQueryImpl, VirtualMachine">
+    <property name="Dao" ref="dao" />
+    <property name="NakedDao" ref="nakedDao" />
+  </object>
+
+  <object id="BusinessEssenceQuerySrv" type="Spring.Aop.Framework.ProxyFactoryObject, Spring.Aop">
+    <property name="target" ref="BusinessEssenceQuerySrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--单据审批信息相关-->
+  <object id="AuditOperationSrvTarget" type="VirtualMachine.Patterns.BusinessEssence.Service.AuditOperations, VirtualMachine">
+    <property name="Dao" ref="dao" />
+    <property name="OperRoleSrv" ref="AboutOperAndRoleSrv" />
+  </object>
+
+  <object id="AuditOperationSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="AuditOperationSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--表单模式基础服务-->
+  <object id="BusinessEssenceSrvTarget" type="VirtualMachine.Patterns.BusinessEssence.Service.NewBusinessEssenceSrv, VirtualMachine">
+    <property name="Dao" ref="dao" />
+    <property name="NakedDao" ref="nakedDao" />
+    <property name="AuditSave" ref="AuditOperationSrv" />
+    <property name="QuySrv" ref="BusinessEssenceQuerySrv" />
+  </object>
+
+  <object id="BusinessEssenceSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="BusinessEssenceSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--表单审批服务-->
+  <object id="AuditSrvTarget" type="VirtualMachine.Patterns.BusinessEssence.Service.AuditService, VirtualMachine">
+    <property name="Dao" ref="dao" />
+    <property name="OperRoleSrv" ref="AboutOperAndRoleSrv" />
+  </object>
+
+  <object id="AuditSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="AuditSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>  
+</objects>

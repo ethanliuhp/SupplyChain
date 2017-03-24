@@ -1,0 +1,301 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <!--PBS构造服务-->
+  <object id="PBSTreeSrvTarget" type="Application.Business.Erp.SupplyChain.CostManagement.PBS.Service.PBSTreeSrv,SupplyChain" autowire="byName">
+    <property name="Dao" ref="dao"/>
+    <property name="NodeSrv" ref="CategoryNodeService" />
+    <property name="RuleSrv" ref="CategoryRuleService" />
+    <property name="TreeService" ref="CategoryTreeService" />
+    <property name="TheOpgManage" ref="OPGManagementManager" />
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv" />
+    <property name="StockInSrv" ref="StockInSrv" />
+  </object>
+
+  <object	id="PBSTreeSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="PBSTreeSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--工程任务类型服务-->
+  <object id="ProjectTaskTypeSrvTarget" type="Application.Business.Erp.SupplyChain.CostManagement.WBS.Service.ProjectTaskTypeSrv,SupplyChain" autowire="byName">
+    <property name="Dao" ref="dao"/>
+    <property name="NodeSrv" ref="CategoryNodeService" />
+    <property name="RuleSrv" ref="CategoryRuleService" />
+    <property name="TreeService" ref="CategoryTreeService" />
+    <property name="TheOpgManage" ref="OPGManagementManager" />
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv" />
+  </object>
+
+  <object	id="ProjectTaskTypeSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ProjectTaskTypeSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--契约组服务-->
+  <object id="ContractGroupSrvTarget" type="Application.Business.Erp.SupplyChain.CostManagement.WBS.Service.ContractGroupSrv,SupplyChain" autowire="byName">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="ContractGroupSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ContractGroupSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--工程WBS服务-->
+  <object id="GWBSTreeSrvTarget" type="Application.Business.Erp.SupplyChain.CostManagement.WBS.Service.GWBSTreeSrv,SupplyChain" autowire="byName">
+    <property name="Dao" ref="dao"/>
+    <property name="NodeSrv" ref="CategoryNodeService" />
+    <property name="RuleSrv" ref="CategoryRuleService" />
+    <property name="TreeService" ref="CategoryTreeService" />
+    <property name="TheOpgManage" ref="OPGManagementManager" />
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv" />
+  </object>
+
+  <object	id="GWBSTreeSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    
+    <property name="target" ref="GWBSTreeSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--清单WBS服务-->
+  <object id="QWBSSrvTarget" type="Application.Business.Erp.SupplyChain.CostManagement.QWBS.Service.QWBSSrv,SupplyChain" autowire="byName">
+    <property name="Dao" ref="dao"/>
+    <property name="NodeSrv" ref="CategoryNodeService" />
+    <property name="RuleSrv" ref="CategoryRuleService" />
+    <property name="TreeService" ref="CategoryTreeService" />
+    <property name="TheOpgManage" ref="OPGManagementManager" />
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv" />
+  </object>
+
+  <object	id="QWBSSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="QWBSSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--成本项分类服务-->
+  <object id="CostItemCategorySrvTarget" type="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Service.CostItemCategorySrv,SupplyChain" autowire="byName">
+    <property name="Dao" ref="dao"/>
+    <property name="NodeSrv" ref="CategoryNodeService" />
+    <property name="RuleSrv" ref="CategoryRuleService" />
+    <property name="TreeService" ref="CategoryTreeService" />
+    <property name="TheOpgManage" ref="OPGManagementManager" />
+  </object>
+
+  <object	id="CostItemCategorySrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="CostItemCategorySrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--成本核算科目服务-->
+  <object id="CostAccountSubjectSrvTarget" type="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Service.CostAccountSubjectSrv,SupplyChain" autowire="byName">
+    <property name="Dao" ref="dao"/>
+    <property name="NodeSrv" ref="CategoryNodeService" />
+    <property name="RuleSrv" ref="CategoryRuleService" />
+    <property name="TreeService" ref="CategoryTreeService" />
+    <property name="TheOpgManage" ref="OPGManagementManager" />
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv" />
+  </object>
+
+  <object	id="CostAccountSubjectSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="CostAccountSubjectSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--会计科目服务-->
+  <object id="AccountTitleServiceTarget" type="Application.Business.Erp.Financial.BasicAccount.InitialSetting.Service.AccountTitleService,SupplyChain" autowire="byName">
+    <property name="Dao" ref="dao"/>
+    <property name="NodeSrv" ref="CategoryNodeService" />
+  </object>
+
+  <object	id="AccountTitleService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="AccountTitleServiceTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--会计科目树服务-->
+  <object id="AccountTitleTreeSvrTarget" type="Application.Business.Erp.SupplyChain.FinanceMng.Service.AccountTitleTreeSvr,SupplyChain" autowire="byName">
+    <property name="Dao" ref="dao"/>
+    <property name="NodeSrv" ref="CategoryNodeService" />
+    <property name="RuleSrv" ref="CategoryRuleService" />
+    <property name="TreeService" ref="CategoryTreeService" />
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv" />
+  </object>
+
+  <object	id="AccountTitleTreeSvr" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="AccountTitleTreeSvrTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+
+  <!--成本项服务-->
+  <object id="CostItemSrvTarget" type="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Service.CostItemSrv,SupplyChain" autowire="byName">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="CostItemSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="CostItemSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--生产管理服务-->
+  <object id="ProdManSrvTarget" type="Application.Business.Erp.SupplyChain.ProductionManagement.Service.ProductionManagementSrv,SupplyChain" autowire="byName">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/> 
+    <property name="ProValSrv" ref="SpecialCostSrv"/>
+  </object>
+
+  <object	id="ProductionManagementSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ProdManSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--资源需求计划服务-->
+  <object id="ResourceRequirePlanSrvTarget" type="Application.Business.Erp.SupplyChain.CostManagement.WBS.Service.ResourceRequirePlanSrv,SupplyChain" autowire="byName">
+    <property name="Dao" ref="dao"/>
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv" />
+  </object>
+
+  <object	id="ResourceRequirePlanSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ResourceRequirePlanSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--工程任务核算服务-->
+  <object id="ProjectTaskAccountSrvTarget" type="Application.Business.Erp.SupplyChain.CostManagement.ProjectTaskAccountMng.Service.ProjectTaskAccountSrv,SupplyChain" autowire="byName">
+    <property name="Dao" ref="dao"/>
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+
+  <object	id="ProjectTaskAccountSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ProjectTaskAccountSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--分包结算服务-->
+  <object id="SubContractBalanceBillSrvTarget" type="Application.Business.Erp.SupplyChain.CostManagement.SubContractBalanceMng.Service.SubContractBalanceBillSrv,SupplyChain" autowire="byName">
+    <property name="Dao" ref="dao"/>
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+
+  <object	id="SubContractBalanceBillSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="SubContractBalanceBillSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+
+  
+  <!--月度成本核算服务-->
+  <object id="CostMonthAccountSrvTarget" type="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Service.CostMonthAccountSrv,SupplyChain" autowire="byName">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="CostMonthAccountSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="CostMonthAccountSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--基本服务-->
+  <object id="UtilityControlSrvTarget" type="Application.Business.Erp.SupplyChain.UtilityControlService.UtilityControlSrv,SupplyChain" autowire="byName">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="UtilityControlSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="UtilityControlSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--管控指标和预警服务-->
+  <object id="PMCAndWarningSrvTarget" type="Application.Business.Erp.SupplyChain.PMCAndWarning.Service.PMCAndWarningSrv,SupplyChain" autowire="byName">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="PMCAndWarningSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="PMCAndWarningSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  
+</objects>

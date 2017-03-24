@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MaterialManage.MaterialRentalLedgerMng.Domain.MaterialRentalLedger,SupplyChain" table="THD_MaterialRentalLedger" lazy="true" select-before-update="true">
+
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="OpgSysCode" column="OpgSysCode"/>
+    <property name="Code" column="Code"  />
+    <property name="DocState" column="State" />
+    <property name="Descript" column="Descript"/>
+    <property name="SystemDate" column="SystemDate"/>
+    <property name="RealOperationDate" column="RealOperationDate"/>
+
+    <!--物资-->
+    <many-to-one name="MaterialResource" column="Material"  class="Application.Resource.MaterialResource.Domain.Material,ResourceManager"/>
+    <property name="MaterialCode"/>
+    <property name="MaterialName"/>
+    <property name="MaterialSpec"/>
+
+    <!--计量单位-->
+    <many-to-one name="MatStandardUnit" column="MatStandardUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="MatStandardUnitName"/>
+
+    <!--使用部位-->
+    <!--<many-to-one name="UsedPart"/>-->
+    <many-to-one name="UsedPart" column="UsedPart" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree, SupplyChain"/>
+    <property name="UsedPartName"/>
+    <property name="UsedPartSysCode" />
+
+    <!--结算科目-->
+    <many-to-one name="SubjectGUID" column="SubjectGUID"  class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostAccountSubject,ResourceManager"></many-to-one>
+    <property name="SubjectName"/>
+    <property name="SubjectSysCode"/>
+    
+    <!--队伍（供应商）-->
+    <many-to-one name="TheRank" column="TheRank" class="Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass.SupplierRelationInfo,ResourceManager"/>
+    <property name="TheRankName"/>
+
+
+    <!--出租方（供应商）-->
+    <many-to-one name="TheSupplierRelationInfo" column="SupplierRelation" class="Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass.SupplierRelationInfo,ResourceManager"/>
+    <property name="SupplierName"/>
+
+    <property name="BillId" />
+    <property name="BillCode" />
+    <property name="BillDetailId" />
+
+    <property name="RentalPrice" />
+    <property name="LeftQuantity" />
+    <property name="BalanceQuantity" />
+    <property name="WashType" />
+    <property name="CollectionQuantity" />
+    <property name="ReturnQuantity" />
+    <property name="ProjectId"></property>
+    <property name="ProjectName"/>
+    <property name="OldContractNum"/>
+
+  </class>
+</hibernate-mapping>

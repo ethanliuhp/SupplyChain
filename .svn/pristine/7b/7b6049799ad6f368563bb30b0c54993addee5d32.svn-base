@@ -1,0 +1,530 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Application.Business.Erp.SupplyChain.CostManagement.SubContractBalanceMng.Domain;
+using Application.Business.Erp.SupplyChain.Client.Util;
+using Microsoft.Office.Interop.Excel;
+using System.IO;
+using Application.Business.Erp.SupplyChain.Basic.Domain;
+using Application.Business.Erp.SupplyChain.Client.Basic.CommonClass;
+using VirtualMachine.Component.Util;
+using VirtualMachine.Core;
+using System.Collections;
+using Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain;
+using NHibernate.Criterion;
+using Application.Business.Erp.SupplyChain.CostManagement.ContractExcuteMng.Domain;
+using Application.Business.Erp.SupplyChain.Client.CostManagement.WBS;
+using Application.Business.Erp.SupplyChain.Client.CostManagement.WBS.GWBS;
+using Application.Business.Erp.SupplyChain.Client.StockMng;
+using Application.Business.Erp.SupplyChain.Base.Domain;
+
+namespace Application.Business.Erp.SupplyChain.Client.CostManagement.SubContractBalanceMng
+{
+    public partial class VSubContractBalReport : Form
+    {
+        MSubContractBalance model = new MSubContractBalance();
+        private MStockMng stockModel = new MStockMng();
+        private MGWBSTree modelGWBS = new MGWBSTree();
+        public SubContractBalanceBill subBill = null;
+        public bool ifSign = true;
+        string mainStr = "分包结算报表";
+        string detailStr = "分包结算明细";
+        string[] arrBalanceBase = { "合同内", "分包签证", "计时工", "代工及罚款","其他" };
+        string[] arrCostType = { "建管费", "水电费" };
+        public VSubContractBalReport(SubContractBalanceBill bill)
+        {
+            subBill = bill;
+            InitializeComponent();
+            InitForm();
+        }
+
+        private void InitForm()
+        {
+            InitEvents();
+            InitData();
+        }
+
+        private void InitEvents()
+        {
+            btnClose.Click += new EventHandler(btnClose_Click);
+            btnExcel.Click += new EventHandler(btnExcel_Click);
+            btnPrint.Click += new EventHandler(btnPrint_Click);
+            fGridMain.PrintPage += new FlexCell.Grid.PrintPageEventHandler(btnPrintPage_Click);
+            this.btnPreview.Click += new EventHandler(btnPreview_Click);
+        }
+
+        void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        void btnPrintPage_Click(object sender, FlexCell.Grid.PrintPageEventArgs e)
+        {
+            if (e.Preview == false && e.PageNumber == 1)
+            {
+                stockModel.StockInSrv.UpdateBillPrintTimes(5, subBill.Id);//回写次数
+                //写打印日志
+                StaticMethod.InsertLogData(subBill.Id, "打印", subBill.Code, ConstObject.LoginPersonInfo.Name, "分包结算单", "", subBill.ProjectName);
+            }
+        }
+        void btnPreview_Click(object sender, EventArgs e)
+        {
+            if (this.tabSubBill.SelectedTab.Name.Equals("tabMain"))
+            {
+                FlexCell.PageSetup pageSetup = fGridMain.PageSetup;
+                pageSetup.Landscape = true;
+                this.fGridMain.PrintPreview(true, true, true, 0, 0, 0, 0, 0);
+            }
+            else if (tabSubBill.SelectedTab.Name.Equals("tabDetail"))
+            {
+                FlexCell.PageSetup pageSetup = fGridDetail.PageSetup;
+                pageSetup.Landscape = true;
+                //System.Drawing.Printing.PaperSize paperSize = new System.Drawing.Printing.PaperSize("自定义纸张", 800, 470);
+                //pageSetup.PaperSize = paperSize;
+                this.fGridDetail.PrintPreview(true, true, true, 0, 0, 0, 0, 0);
+            }
+        }
+
+        void btnPrint_Click(object sender, EventArgs e)
+        {
+            FlexCell.PageSetup pageSetup = fGridMain.PageSetup;
+            pageSetup.Landscape = true;
+            this.fGridMain.Print(false);
+
+            pageSetup = fGridDetail.PageSetup;
+            pageSetup.Landscape = true;
+            this.fGridDetail.Print(false);
+
+            //if (this.tabSubBill.SelectedTab.Name.Equals("tabMain"))
+            //{
+            //    FlexCell.PageSetup pageSetup = fGridMain.PageSetup;
+            //    pageSetup.Landscape = true;
+            //    this.fGridMain.Print();
+            //}
+            //else if (tabSubBill.SelectedTab.Name.Equals("tabDetail"))
+            //{
+            //    FlexCell.PageSetup pageSetup = fGridDetail.PageSetup;
+            //    pageSetup.Landscape = true;
+            //    //System.Drawing.Printing.PaperSize paperSize = new System.Drawing.Printing.PaperSize("自定义纸张", 800, 470);
+            //    //pageSetup.PaperSize = paperSize;
+            //    this.fGridDetail.Print();
+            //}
+        }
+
+        void btnExcel_Click(object sender, EventArgs e)
+        {
+            string fileName = this.fGridMain.ExportToExcel(mainStr, false, false, true);
+            if (fileName == "")
+                return;
+
+            ApplicationClass excel = new ApplicationClass();  // 1. 创建Excel应用程序对象的一个实例，相当于我们从开始菜单打开Excel应用程序
+            int startIndex = fileName.LastIndexOf("\\") + 1;
+            int endIndex = fileName.IndexOf(".x");
+            mainStr = fileName.Substring(startIndex, endIndex - startIndex);
+
+            //主文件对象
+            Workbook workbook = excel.Workbooks.Open(fileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing,
+                Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+            Worksheet mySheet = workbook.Sheets[1] as Worksheet;
+            mySheet.Name = "分包结算封面";
+
+            string tempName = fileName.Replace(mainStr, detailStr);
+            this.fGridDetail.ExportToExcel(tempName, false, false, false);
+            Workbook workbook1 = excel.Workbooks.Open(tempName, Type.Missing, Type.Missing, Type.Missing, Type.Missing,
+                Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+            Worksheet mySheet1 = workbook1.Sheets[1] as Worksheet;
+            mySheet1.Name = detailStr;
+
+            try
+            {
+                mySheet1.Copy(Type.Missing, mySheet);
+
+                workbook.Save();
+                MessageBox.Show("导出分包结算报表成功！");
+            }
+            catch (Exception e1)
+            {
+                throw new Exception("导出分包结算报表出错！");
+            }
+            finally {
+                //关闭工作表和退出Excel
+                workbook.Close(false, Type.Missing, Type.Missing);
+                workbook1.Close(false, Type.Missing, Type.Missing);
+                //如果报表文件存在，先删除
+                if (File.Exists(fileName.Replace(mainStr, detailStr)))
+                {
+                    File.Delete(fileName.Replace(mainStr, detailStr));
+                }
+                excel.Quit();
+                excel = null;
+            }
+        }
+
+        private void InitData()
+        {
+            CurrentProjectInfo projectInfo = StaticMethod.GetProjectInfo();
+            LoadTempleteFile(mainStr + ".flx");
+            LoadTempleteFile(detailStr + ".flx");
+
+            IList list = new ArrayList();
+            ObjectQuery oq = new ObjectQuery();
+            oq.AddCriterion(Expression.Eq("Level", 3));
+            list = model.SubBalSrv.ObjectQuery(typeof(CostAccountSubject), oq);
+
+
+            string monthStr = subBill.CreateDate.ToShortDateString().Substring(5, 2);
+
+            if (Application.Business.Erp.SupplyChain.Client.Util.DateUtil.IsNumber(monthStr) == false)
+            {
+                monthStr = monthStr.Substring(0, 1);
+            }
+
+            string banCode = @"select t2.code from thd_subcontractproject t1 join thd_contractgroup t2 on t1.contractgroupid = t2.id join thd_subcontractbalancebill t3 on t1.id = t3.SubContractProjectID where t3.id = '" + subBill.Id + "'";
+
+            DataSet dataSet = modelGWBS.SearchSQL(banCode);
+            System.Data.DataTable dt = dataSet.Tables[0];
+            foreach (DataRow row in dt.Rows)
+            {
+                this.fGridMain.Cell(3, 2).Text = row["code"].ToString();
+            }
+
+            //this.fGridMain.Cell(3, 2).Text = banCode;
+            //构造主表数据
+            this.fGridMain.Cell(1, 1).Text = " 分 包 结 算 书";
+            this.fGridMain.Cell(2, 1).Text = "制单日期： " + subBill.CreateDate.ToShortDateString() + "      结算日期： " + subBill.CreateDate.ToShortDateString().Substring(0, 4) + " 年 " + monthStr + " 月 ";
+            fGridMain.Cell(2, 1).WrapText = true;
+            //this.fGridMain.Cell(3, 2).Text = "编号： " + subBill.Code;
+            //fGridMain.Cell(3, 1).WrapText = true;
+            this.fGridMain.Cell(4, 2).Text = projectInfo.Name;
+            fGridMain.Cell(4, 2).WrapText = true;
+            this.fGridMain.Cell(5, 2).Text = Decimal.Round(subBill.BalanceMoney, 2, MidpointRounding.AwayFromZero) + "";  //本次结算金额
+            this.fGridMain.Cell(6, 2).Text = CurrencyComUtil.GetMoneyChinese(Decimal.Round(subBill.BalanceMoney, 2, MidpointRounding.AwayFromZero));
+            fGridMain.Cell(6, 2).WrapText = true;
+
+            fGridMain.Cell(5, 4).WrapText = true;
+            decimal addUpBalMoney = Decimal.Round(subBill.TheSubContractProject.AddupBalanceMoney, 2, MidpointRounding.AwayFromZero);
+            if (subBill.DocState != VirtualMachine.Patterns.BusinessEssence.Domain.DocumentState.InExecute)
+            {
+                addUpBalMoney += Decimal.Round(subBill.BalanceMoney, 2, MidpointRounding.AwayFromZero);
+            }
+
+            this.fGridMain.Cell(7, 2).Text = addUpBalMoney + "";//累计结算金额
+            this.fGridMain.Cell(8, 2).Text = CurrencyComUtil.GetMoneyChinese(addUpBalMoney);
+            fGridMain.Cell(8, 2).WrapText = true;
+            fGridMain.Cell(9, 2).WrapText = true;
+            this.fGridMain.Cell(3, 4).Text = subBill.TheSubContractProject.SubPackage;//分包内容
+            fGridMain.Cell(3, 4).WrapText = true;
+            this.fGridMain.Cell(9, 2).Text = subBill.Descript + " " + subBill.TheSubContractProject.BalanceStyle;//备注
+            fGridMain.Cell(9, 2).WrapText = true;
+            this.fGridMain.Cell(11, 2).Text = projectInfo.ManagerDepart;
+            this.fGridMain.Cell(11, 2).WrapText = true;
+            this.fGridMain.Cell(12, 4).Text = subBill.SubContractUnitName;
+            fGridMain.Cell(12, 4).WrapText = true;
+            bool flag = false;
+            //条形码
+            string a = Application.Business.Erp.SupplyChain.Client.Util.DateUtil.GetStrMoneyInchar(ClientUtil.ToString(subBill.BalanceMoney));
+            this.fGridMain.Cell(1, 4).Text = subBill.Code.Substring(subBill.Code.Length - 11) + "-" + a;
+            this.fGridMain.Cell(1, 4).CellType = FlexCell.CellTypeEnum.BarCode;
+            this.fGridMain.Cell(1, 4).BarcodeType = FlexCell.BarcodeTypeEnum.CODE128B;
+
+            int printTimes = stockModel.StockInSrv.QueryBillPrintTimes(5, subBill.Id);//取打印次数
+            this.fGridMain.Cell(2, 4).Text = "打印顺序号: " + CommonUtil.GetPrintTimesStr(printTimes + 1);
+
+            //Image image = Bitmap.FromFile(AppDomain.CurrentDomain.BaseDirectory + @"Images\签名.jpg");
+            //fGridMain.Images.Add(image, "sample");
+            //fGridMain.Cell(13, 2).SetImage("sample");
+            //fGridMain.Cell(13, 2).Alignment = FlexCell.AlignmentEnum.LeftGeneral;
+            decimal str1 = 0;
+            decimal str2 = 0;
+            decimal str3 = 0;
+            decimal str4 = 0;
+            decimal str5 = 0;
+            decimal str6 = 0;
+            foreach (SubContractBalanceDetail dtl in subBill.Details)
+            {
+                foreach (SubContractBalanceSubjectDtl ddtl in dtl.Details)
+                {
+                    decimal d = 0;
+                    string costSubjectName = "";
+                    if (ddtl.BalanceSubjectCode != null)
+                    {
+                        foreach (CostAccountSubject costSubject in list)
+                        {
+                            if (ddtl.BalanceSubjectCode.Contains(costSubject.Code))
+                            {
+                                costSubjectName = ddtl.BalanceSubjectCode;
+                                d += ddtl.BalanceTotalPrice;
+                                flag = true;
+                                break;
+                            }
+                        }
+
+                    }
+                    if (flag)
+                    {
+                        if (costSubjectName.IndexOf("C51101") > -1)
+                        {
+                            str1 += d;
+                            this.fGridMain.Cell(4, 4).Text = ClientUtil.ToString(str1);//劳务费
+
+                        }
+                        else if (costSubjectName.IndexOf("C51102") > -1)
+                        {
+                            str2 += d;
+                            this.fGridMain.Cell(5, 4).Text = ClientUtil.ToString(str2);//材料费
+                        }
+                        else if (costSubjectName.IndexOf("C51103") > -1)
+                        {
+                            str3 += d;
+                            this.fGridMain.Cell(6, 4).Text = ClientUtil.ToString(str3);//施工机械费
+                        }
+                        else if (costSubjectName.IndexOf("C51201") > -1 || costSubjectName.IndexOf("C51202") > -1 || costSubjectName.IndexOf("C51203") > -1)
+                        {
+                            str4 += d;
+                            this.fGridMain.Cell(8, 4).Text = ClientUtil.ToString(str4);//安全文明施工费
+                        }
+                        else if (costSubjectName.IndexOf("C51204") > -1)
+                        {
+                            str5 += d;
+                            this.fGridMain.Cell(9, 4).Text = ClientUtil.ToString(str5);//临时施工费
+                        }
+                        else if (costSubjectName.IndexOf("C51104") > -1)
+                        {
+                            str6 += d;
+                            this.fGridMain.Cell(7, 4).Text = ClientUtil.ToString(str6);//专业分包费
+                        }
+                    }
+                }
+            }
+            //没有值的费用加-号
+            if (str1 == 0)
+            {
+                this.fGridMain.Cell(4, 4).Text = "—";//劳务费
+            }
+            if (str2 == 0)
+            {
+                this.fGridMain.Cell(5, 4).Text = "—";
+            }
+            if (str3 == 0)
+            {
+                this.fGridMain.Cell(6, 4).Text = "—";
+            }
+            if (str4 == 0)
+            {
+                this.fGridMain.Cell(8, 4).Text = "—";
+            }
+            if (str5 == 0)
+            {
+                this.fGridMain.Cell(9, 4).Text = "—";
+            }
+            if (str6 == 0)
+            {
+                this.fGridMain.Cell(7, 4).Text = "—";
+            }
+
+            //结算余额
+            this.fGridMain.Cell(10, 4).Text = ClientUtil.ToString(subBill.BalanceMoney - str1 - str2 - str3 - str4 - str5 - str6);
+
+            //条形码
+            this.fGridDetail.Cell(1, 11).Text = subBill.Code.Substring(subBill.Code.Length - 11) + "-" + a;
+            this.fGridDetail.Cell(1, 11).CellType = FlexCell.CellTypeEnum.BarCode;
+            this.fGridDetail.Cell(1, 11).BarcodeType = FlexCell.BarcodeTypeEnum.CODE128B;
+            //构造明细表头数据 
+            this.fGridDetail.Cell(2, 1).Text = "工程名称： " + projectInfo.Name;
+            this.fGridDetail.Cell(2, 6).Text = string.Format("制单日期：{0}", subBill.CreateDate.ToShortDateString());
+            this.fGridDetail.Cell(2, 9).Text = string.Format("开始时间：{0}", subBill.BeginTime.ToShortDateString());
+            this.fGridDetail.Cell(2, 11).Text = string.Format("结束时间：{0}", subBill.EndTime.ToShortDateString());
+
+            //构造明细数据
+            int dtlStartRowNum = 5;//模板中的行号
+            int dtlCount = subBill.Details.Count;
+            ////插入明细行
+            //this.fGridDetail.InsertRow(dtlStartRowNum, dtlCount + 1);
+            ////设置单元格的边框，对齐方式
+            //FlexCell.Range range = fGridDetail.Range(dtlStartRowNum, 1, dtlStartRowNum + dtlCount, fGridDetail.Cols - 1);
+            //this.SetFlexGridDetailFormat(range);
+            fGridDetail.PageSetup.LeftMargin = 0;
+            fGridDetail.PageSetup.RightMargin = 0;
+            fGridDetail.PageSetup.BottomMargin = 1;
+            fGridDetail.PageSetup.TopMargin = 1;
+            fGridDetail.PageSetup.CenterHorizontally = true;  //打印内容水平居中
+
+            fGridDetail.Column(5).Visible = false;//projectInfo.ProjectInfoState == EnumProjectInfoState.新项目;
+            fGridDetail.Column(7).Visible = projectInfo.ProjectInfoState == EnumProjectInfoState.新项目;
+            fGridDetail.Column(8).Visible = false;// projectInfo.ProjectInfoState == EnumProjectInfoState.新项目;
+            
+            //写入明细数据
+            int i = 0, iTemp = 0;
+
+            decimal sumAcctTotalPrice = 0;
+            //string sBalanceBase = string.Empty;
+            FlexCell.Range oRange = null;
+            FlexCell.Cell oCell = null;
+            IList lstTemp = new List<BaseDetail>();
+            //linq排序优先级按从后到前
+
+            foreach (string sName in arrBalanceBase)
+            {
+                var queryDtl = from d in subBill.Details.OfType<SubContractBalanceDetail>()
+                               where
+                                   ((string.Equals(sName, "其他") && !arrCostType.Contains(d.BalanceTaskDtlName) &&
+                                     !arrBalanceBase.Contains(d.BalanceBase))
+                                    || (!string.IsNullOrEmpty(d.BalanceBase) && sName.IndexOf(d.BalanceBase) > -1))
+                               orderby d.BalanceTaskDtlName , d.BalanceTaskName ascending
+                               select d;
+                if (queryDtl.Count() > 0)
+                {
+                    if (!string.Equals(sName, "其他"))
+                    {
+                        fGridDetail.InsertRow(dtlStartRowNum + i, 1);
+                        oRange = fGridDetail.Range(dtlStartRowNum + i, 1, dtlStartRowNum + i, 12);
+                        oRange.Merge();
+                        oCell = fGridDetail.Cell(dtlStartRowNum + i, 1);
+                        oCell.Text = sName;
+                        oCell.Alignment = FlexCell.AlignmentEnum.LeftCenter;
+                        oCell.FontBold = true;
+                        fGridDetail.Row(dtlStartRowNum + i).AutoFit();
+                        i++;
+                        iTemp = 0;
+                    }
+                    foreach (SubContractBalanceDetail detail in queryDtl)
+                    {
+                        fGridDetail.InsertRow(dtlStartRowNum + i, 1);
+                        if (!string.Equals(sName, "其他"))
+                        {
+                            oCell = fGridDetail.Cell(dtlStartRowNum + i, 1); //序号
+                            oCell.Text = (iTemp + 1) + "";
+                            oCell.Alignment = FlexCell.AlignmentEnum.CenterCenter;
+                        }
+
+                        oCell = fGridDetail.Cell(dtlStartRowNum + i, 2); //结算依据
+                        oCell.Text = detail.BalanceBase;
+                        oCell.WrapText = true;
+                        oCell = fGridDetail.Cell(dtlStartRowNum + i, 3); //任务名称
+                        oCell.Text = detail.BalanceTaskName;
+                        oCell.WrapText = true;
+                        oCell = fGridDetail.Cell(dtlStartRowNum + i, 4); //任务内容
+                        oCell.Text = detail.BalanceTaskDtlName;
+                        oCell.WrapText = true;
+                        oCell = fGridDetail.Cell(dtlStartRowNum + i, 5); //计划工程量
+                        oCell.Text = detail.PlanWorkAmount.ToString("N2");
+                        oCell = fGridDetail.Cell(dtlStartRowNum + i, 6); //本次结算工程量
+                        oCell.Text = detail.BalacneQuantity.ToString("N3");
+                        oCell = fGridDetail.Cell(dtlStartRowNum + i, 7); //至本次累计
+                        oCell.Text = detail.AddBalanceQuantity.ToString("N2");
+                        oCell = fGridDetail.Cell(dtlStartRowNum + i, 8); //至本次累计结算比例
+                        oCell.Text = detail.PlanWorkAmount == 0
+                                         ? "0.00"
+                                         : (Math.Round((detail.AddBalanceQuantity/detail.PlanWorkAmount)*100, 2)).
+                                               ToString("N2");
+                        oCell = fGridDetail.Cell(dtlStartRowNum + i, 9); //单位
+                        oCell.Text = detail.QuantityUnitName;
+                        oCell = fGridDetail.Cell(dtlStartRowNum + i, 10); //单价
+                        oCell.Text = detail.BalancePrice.ToString("N2");
+                        oCell = fGridDetail.Cell(dtlStartRowNum + i, 11); //合价
+                        oCell.Text = detail.BalanceTotalPrice.ToString("N2");
+                        oCell = fGridDetail.Cell(dtlStartRowNum + i, 12); //备注
+                        oCell.WrapText = true;
+                        if (ClientUtil.ToString(detail.HandlePersonName) != "")
+                        {
+                            oCell.Text = "[工长:" + detail.HandlePersonName + "]" + detail.Remarks + ";" +
+                                         detail.UseDescript;
+                        }
+                        else
+                        {
+                            oCell.Text = detail.Remarks + " " + detail.UseDescript;
+                        }
+                        fGridDetail.Row(dtlStartRowNum + i).AutoFit();
+                        sumAcctTotalPrice += detail.BalanceTotalPrice;
+                        i++;
+                        iTemp++;
+                        lstTemp.Add(detail);
+                        subBill.Details.Remove(detail);
+                    }
+                }
+            }
+            //this.fGridDetail.Cell(dtlStartRowNum + i + 2, 6).Text = subBill.CreatePersonName;
+            foreach (string sName in arrCostType)
+            {
+                var dTemp = from d in subBill.Details.OfType<SubContractBalanceDetail>()
+                            where d.BalanceTaskDtlName == sName
+                            select d;
+                if (dTemp != null && dTemp.Count() > 0)
+                {
+                    fGridDetail.InsertRow(dtlStartRowNum + i, 1);//插入合计行
+                    fGridDetail.Cell(dtlStartRowNum + i, 3).Text = sName;
+                    fGridDetail.Cell(dtlStartRowNum + i, 11).Text = dTemp.ElementAt<SubContractBalanceDetail>(0).BalanceTotalPrice.ToString() ;
+                    sumAcctTotalPrice += dTemp.ElementAt<SubContractBalanceDetail>(0).BalanceTotalPrice;
+                    i++;
+                }
+            }
+            foreach (SubContractBalanceDetail oDetail in lstTemp)
+            {
+                subBill.Details.Add(oDetail);
+            }
+            fGridDetail.InsertRow(dtlStartRowNum + i, 1);//插入合计行
+            //加入合计
+            fGridDetail.Cell(dtlStartRowNum + i, 3).Text = "合计金额: ";
+            fGridDetail.Cell(dtlStartRowNum + i, 11).Text = sumAcctTotalPrice + "";
+            oRange = fGridDetail.Range(dtlStartRowNum, 1, dtlStartRowNum + i, fGridDetail.Cols - 1);
+            oRange.set_Borders(FlexCell.EdgeEnum.Inside, FlexCell.LineStyleEnum.Thin);
+            oRange.set_Borders(FlexCell.EdgeEnum.Outside, FlexCell.LineStyleEnum.Thin);
+            int maxRow = dtlStartRowNum + i - 1 + 3;
+            string signStr = CommonUtil.SetFlexAuditPrint(fGridDetail, subBill.Id, maxRow);
+           // string signStr = "";//临时
+            if (signStr != "")
+            {
+                MessageBox.Show("该单据相关审核人" + signStr + "尚未设置电子签名图片，不能打印！请联系相关人员进入系统后，在系统状态栏双击并上传！", "警告");
+                ifSign = false;
+                return;
+            }
+            FlexCell.PageSetup pageSetup = fGridDetail.PageSetup;
+            pageSetup.RightFooter = "打印顺序号:[" + CommonUtil.GetPrintTimesStr(printTimes + 1) + "],打印时间:[" + CommonMethod.GetServerDateTime() + " ],打印人:[" + ConstObject.LoginPersonInfo.Name + "]   第&P页/共&N页   ";
+            if (projectInfo.ProjectInfoState == EnumProjectInfoState.老项目)
+            {
+                fGridDetail.Column(6).Width = 170;
+                fGridDetail.Column(9).Width = 80;
+            }
+            this.fGridMain.BackColorBkg = System.Drawing.SystemColors.ButtonFace;
+            fGridDetail.BackColorBkg = System.Drawing.SystemColors.ButtonFace;
+            fGridMain.Locked = true;
+            fGridDetail.Locked = true;
+        }
+
+        private void SetFlexGridDetailFormat(FlexCell.Range range)
+        {
+            range.Alignment = FlexCell.AlignmentEnum.CenterCenter;
+            range.set_Borders(FlexCell.EdgeEnum.Inside, FlexCell.LineStyleEnum.Thin);
+            range.set_Borders(FlexCell.EdgeEnum.Outside, FlexCell.LineStyleEnum.Thin);
+            range.FontBold = false;
+        }
+
+        private void LoadTempleteFile(string modelName)
+        {
+            ExploreFile eFile = new ExploreFile();
+            string path = eFile.Path;
+            if (eFile.IfExistFileInServer(modelName))
+            {
+                eFile.CreateTempleteFileFromServer(modelName);
+                //载入格式
+                if (modelName == (mainStr + ".flx"))
+                {
+                    this.fGridMain.OpenFile(path + "\\" + modelName);//载入格式
+                }
+                else if (modelName == (detailStr + ".flx"))
+                {
+                    this.fGridDetail.OpenFile(path + "\\" + modelName);//载入格式
+                }
+            }
+            else
+            {
+                MessageBox.Show("未找到模板格式文件" + modelName);
+                return;
+            }
+        }
+    }
+}

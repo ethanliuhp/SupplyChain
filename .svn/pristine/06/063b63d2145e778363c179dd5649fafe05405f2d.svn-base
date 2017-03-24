@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.Indicator.IndicatorUse.Domain.ViewWriteInfo,SupplyChain" table="THD_ViewWriteInfo" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="TimeDimId" column="TimeDimId"/>
+    <property name="YwzzDimId" column="YwzzDimId"/>
+    <property name="CreateDate" column="CreateDate" type="Date"/>
+    <property name="State" column="State" length="10"/>
+    <property name="Remark" column="Remark" length="200"/>
+    <property name="Standby1" column="STANDBY1" length="100"/>
+    <property name="Standby2" column="STANDBY2" length="100"/>
+    <property name="Standby3" column="STANDBY3" length="100"/>
+    <property name="Standby4" column="STANDBY4" length="100"/>
+    <property name="Standby5" column="STANDBY5" length="100"/>
+    <many-to-one name="Author" column="PerId" />
+    <many-to-one name="TheOpeOrg" column="OpeId" />
+    <many-to-one name="TheJob" column="JobId" />
+    <many-to-one name="Main" column="ViewMainId" />
+  </class>
+</hibernate-mapping>

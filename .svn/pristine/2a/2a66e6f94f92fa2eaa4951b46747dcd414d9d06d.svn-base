@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSDetailCostSubject,SupplyChain" lazy="true" table="THD_GWBSDetailCostSubject" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="Name" />
+    <property name="ContractProjectAmount" />
+    <property name="ContractPrice" />
+    <property name="ContractQuotaQuantity" />
+    <property name="ContractTotalPrice" />
+
+    <property name="ResponsibilitilyWorkAmount" />
+    <property name="ResponsibilitilyPrice" />
+    <property name="ResponsibilitilyTotalPrice" />
+
+    <property name="PlanWorkAmount" />
+    <property name="PlanPrice" />
+    <property name="PlanTotalPrice" />
+
+    <!--<property name="AddupAccountProjectAmount" length="3"/>
+    <property name="AddupAccountCost" length="3"/>
+    <property name="AddupAccountCostEndTime" type="DateTime"/>
+
+    <property name="CurrentPeriodAccountProjectAmount" column="CurrPeriodAcctProjectAmount" length="3"/>
+    <property name="CurrentPeriodAccountCost" length="3"/>
+    <property name="CurrentPeriodAccountCostEndTime" column="CurrPeriodAcctCostEndTime" type="DateTime"/>
+
+    <property name="ProjectAmountWasta" length="3"/>
+    <property name="AddupBalanceProjectAmount" length="3"/>
+    <property name="CurrentPeriodBalanceProjectAmount" column="CurrPeriodBalProjectAmount" length="3"/>
+
+    <property name="CurrentPeriodBalanceTotalPrice" column="CurrPeriodBalTotalPrice" length="3"/>
+    <property name="AddupBalanceTotalPrice" length="3"/>
+    -->
+
+    <many-to-one name="PriceUnitGUID" column="PriceUnitGUID"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="PriceUnitName" />
+
+
+    <many-to-one name="ProjectAmountUnitGUID" column="ProjectAmountUnitGUID"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="ProjectAmountUnitName" />
+
+
+
+    <property name="AssessmentRate"/>
+    <property name="ResourceTypeGUID" length="64"/>
+    <property name="ResourceTypeCode"/>
+    <property name="ResourceTypeName"/>
+    <property name="ResourceTypeSpec"/>
+    <property name="ResourceTypeQuality"/>
+    <property name="ResourceCateSyscode"/>
+
+    <many-to-one name="CostAccountSubjectGUID" column="CostAccountSubjectGUID" class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostAccountSubject,SupplyChain"/>
+    <property name="CostAccountSubjectName"/>
+    <property name="CostAccountSubjectSyscode"/>
+
+    <property name="State"/>
+    <property name="CreateTime"/>
+    <property name="UpdateTime"/>
+    <property name="TheProjectGUID" length="64"/>
+    <property name="TheProjectName"/>
+    <many-to-one name="TheGWBSDetail" column="GWBSDetailId" not-null="true" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSDetail,SupplyChain"></many-to-one>
+
+    <property name="MainResTypeFlag"/>
+
+    <property name="ResponsibleQuotaNum" />
+    <property name="ResponsibleWorkPrice" />
+    <property name="PlanQuotaNum" />
+    <property name="PlanWorkPrice" />
+    <property name="IsCategoryResource" />
+    <property name="ContractQuantityPrice" />
+
+    <many-to-one name="ResourceUsageQuota" column="CostItemQuotaId" class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.SubjectCostQuota,SupplyChain"></many-to-one>
+    <property name="DiagramNumber"/>
+
+    <many-to-one name="TheGWBSTree" column="TheGWBSTree" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain"></many-to-one>
+    <property name="TheGWBSTreeName"/>
+    <property name="TheGWBSTreeSyscode"/>
+
+    <property name="TechnicalParam" />
+
+    <property name="ContractBasePrice"/>
+    <property name="ResponsibleBasePrice"/>
+    <property name="PlanBasePrice"/>
+    
+    <property name="ContractPricePercent"/>
+    <property name="ResponsiblePricePercent"/>
+    <property name="PlanPricePercent"/>
+    <property name="ForwardCostSubjectId"/>
+
+    <property name="LaborMachineBasePrice"/>
+    <property name="MaterialBasePrice"/>
+    <property name="ProfessionalType"/>
+    <set name="ListGWBSDtlCostSubRate" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSDtlCostSubRate,SupplyChain"/>
+    </set>
+  </class>
+</hibernate-mapping>

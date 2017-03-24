@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.StockManage.Base.Domain.BaseStockInOut, SupplyChain" table="THD_StkStockInManner" lazy="true" select-before-update="true" discriminator-value="-1">
+
+    <id name="Id" column="Id" unsaved-value="-1">
+      <generator class="identity" />
+    </id>
+    <discriminator column="InOutKind" type="long" />
+    <version name="Version" column="Version" type="long" unsaved-value="-1"/>
+    <property name="Code" />
+    <property name="Name" />
+    <property name="Descript" />
+    <property name="State" />
+  </class>
+</hibernate-mapping>

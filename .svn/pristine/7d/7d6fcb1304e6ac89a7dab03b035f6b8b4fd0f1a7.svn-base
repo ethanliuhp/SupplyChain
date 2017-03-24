@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.CostMonthAccountBill,SupplyChain" table="thd_costmonthaccount" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="ProjectId" column="TheProjectGUID"/>
+    <property name="ProjectName" column="TheProjectName"/>
+    <property name="DocState" column="State" />
+    <property name="Kjn"/>
+    <property name="Kjy"/>
+	  <property name="CreateDate" column="CreateTime"/>
+    <many-to-one name="AccountPersonGUID" column="AccountPersonGUID" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+	 <property name="AccountPersonName" />
+    <property name="AccountPersonOrgSysCode" length="1000"/>
+    <property name="TheOrgName" />
+    <many-to-one name="AccountRange" column="AccountRange"  class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain"></many-to-one>
+    <property name="AccountTaskName"/>
+    <property name="AccountTaskSysCode" length="1000"/>
+    <property name="BeginTime"/>
+    <property name="EndTime" />
+    <property name="ExchangeRate" length="3"/>
+    <property name="AccountOrgGUID"/>
+    <property name="AccountOrgName"/>
+    <property name="Remark"/>
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.CostMonthAccountDtl,SupplyChain"/>
+    </set>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.Indicator.IndicatorUse.Domain.DimensionCategory,SupplyChain" table="THD_DimensionCategory" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <property name="CategoryNodeType" column="NODETYPE"/>
+    <property name="Name" column="CatName" not-null="true" />
+    <property name="DimUnit" column="DIMUNIT" />
+    <property name="DimUnitName" column="DIMUNITNAME" />
+    <property name="IfEconomy" column="IFECONOMY" />
+    <many-to-one name="ParentNode" column="PARENTID" class="Application.Business.Erp.SupplyChain.Indicator.IndicatorUse.Domain.DimensionCategory,SupplyChain" />
+    <bag name="ChildNodes" cascade="delete-orphan" inverse="true" lazy="true">
+      <key column="PARENTID" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.Indicator.IndicatorUse.Domain.DimensionCategory,SupplyChain" />
+    </bag>
+    <property name="SysCode" column="SYSCODE" />
+    <property name="OrderNo"/>
+    <property name="State" column="CATSTATE" />
+    <property name="Level" column="CATLEVEL" />
+    <property name="Code" column="CODE"  not-null="true"/>
+    <property name="Describe" column="DESCRIBE" />
+    <property name="CreateDate" column="CreateDate" type="Date"/>
+    <many-to-one name="TheTree" column="TREEID" class="VirtualMachine.Patterns.CategoryTreePattern.Domain.CategoryTree,VirtualMachine" />
+
+    <property name="DimRegId" column="DimRegId" />
+    <property name="ResourceId" column="ResourceId"/>
+
+    <property name="Factor" column="Factor"/>
+    <property name="CalExpression" column="CalExpression" />
+    <property name ="CalTypeCode" column="CalTypeCode" />
+    <property name ="CalTypeName" column="CalTypeName" />
+    <!--子类本身的属性-->
+    <bag name="DimensionScope" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="DIMENSIONID" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.Indicator.IndicatorUse.Domain.DimensionScope,SupplyChain"/>
+    </bag>
+    
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.SupplyManage.DailyPlanManage.Domain.DailyPlanDetail,SupplyChain" table="THD_DailyPlanDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+
+    <!--工程项目任务-->
+    <many-to-one name="ProjectTask" column="ProjectTask" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain"></many-to-one>
+    <property name="ProjectTaskName"/>
+    <property name="ProjectTaskSysCode" length="4000"/>
+
+    <!--物资类型-->
+    <many-to-one name="MaterialCategory" column="MaterialCategory" class="Application.Resource.MaterialResource.Domain.MaterialCategory,ResourceManager"/>
+    <property name="MaterialCategoryName" column="MaterialCategoryName"/>
+
+    <!--物资-->
+    <many-to-one name="MaterialResource" column="Material"  class="Application.Resource.MaterialResource.Domain.Material,ResourceManager"/>
+    <property name="MaterialCode"/>
+    <property name="MaterialName"/>
+    <property name="MaterialSpec"/>
+    <property name="MaterialStuff"/>
+    <property name="DiagramNumber" />
+    <!--计量单位-->
+    <many-to-one name="MatStandardUnit" column="MatStandardUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="MatStandardUnitName"/>
+    <!--浇筑部位-->
+    <many-to-one name="UsedPart" column="UsedPart" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree, SupplyChain"/>
+    <property name="UsedPartName" />
+    <!--使用队伍-->
+    <many-to-one name="UsedRank" column="UsedRank" class="Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass.SupplierRelationInfo,ResourceManager"/>
+    <property name="UsedRankName" column="UsedRankName"/>
+
+    <property name="Manufacturer"/>
+    <property name="ApproachDate" type="DateTime"/>
+
+    <property name="Quantity" length="4" />
+    <property name="LeftQuantity" length="4" />
+    <property name="RefQuantity" length="4" />
+    <property name="SendBackQuantity"/>
+    <property name="Price" length="8" />
+    <property name="Money" length="4" />
+    <property name="ForwardDetailId"/>
+    <property name="Descript"/>
+    <property name="QualityStandard"/>
+    <property name="SpecialType"/>
+
+    <property name="SupplyQuantity"/>
+
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.SupplyManage.DailyPlanManage.Domain.DailyPlanMaster,SupplyChain"></many-to-one>
+
+  </class>
+</hibernate-mapping>
+
+

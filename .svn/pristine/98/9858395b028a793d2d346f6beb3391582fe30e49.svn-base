@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.PMCAndWarning.Domain.StateCheckAction,SupplyChain" table="THD_StateCheckAction" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="ActionName" />
+    <property name="ActionDesc" length="2000"/>
+    <property name="TriggerMode" />
+    <property name="TriggerTerm1" length="5"/>
+    <property name="TriggerTerm2" />
+    <property name="TriggerTerm3" />
+    <property name="StartMethod" />
+    <set name="ListTargets" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.PMCAndWarning.Domain.WarningTarget,SupplyChain"/>
+    </set>
+  </class>
+</hibernate-mapping>

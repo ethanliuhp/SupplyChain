@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MaterialHireMng.MaterialHireReturn.Domain.MatHireReturnDetailSeq, SupplyChain" table="THD_MatHireReturnDetailSeq" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="MatCollDtlId"/>
+    <!--退料明细GUID(退料负数产生的收料)-->
+    <property name="MatReturnDtlId"/>
+    <property name="MatLedgerId"/>
+    <property name="ReturnQuantity"/>
+    <property name="ReturnDate"/>
+    <!--时序类型(退料产生、收料负数产生)-->
+    <property name="SeqType"/>
+
+    <many-to-one name="MatReturnDtlMaster" column="MatReturnDtlMaster" not-null="false" class="Application.Business.Erp.SupplyChain.MaterialHireMng.MaterialHireReturn.Domain.MatHireReturnDetail,SupplyChain"></many-to-one>
+
+    <many-to-one name="MatCollDtlMaster" column="MatCollDtlMaster" not-null="false" class="Application.Business.Erp.SupplyChain.MaterialHireMng.MaterialHireCollection.Domain.MatHireCollectionDetail,SupplyChain"></many-to-one>
+
+    <property name="MatCollCode"/>
+    <property name="MatCollDtlQty" length="4" />
+    <property name="MatReturnCode"/>
+    <property name="MatReturnDtlQty" length="4" />
+    <property name="MatHireType"/>
+    <property name="MaterialLength"/>
+    <property name="MaterialType"/>
+  </class>
+</hibernate-mapping>

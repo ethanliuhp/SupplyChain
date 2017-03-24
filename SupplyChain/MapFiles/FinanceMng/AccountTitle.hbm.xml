@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.Financial.BasicAccount.InitialSetting.Domain.AccountTitle, SupplyChain" table="THD_FIACCTITLE" lazy="true" select-before-update="true">
+    <id name="Id" column="ACCTITLEID" unsaved-value="null">
+      <generator class="identity" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1" />
+    <property name="CategoryNodeType" column="ACCNODETYPE" />
+    <many-to-one name="Author" column="PERID" not-null="true" class="VirtualMachine.Patterns.BusinessEssence.Domain.BusinessOperators, VirtualMachine" />
+    <property name="CreateDate" column="ACCCREATEDATE" type="Date" />
+    <property name="Describe" column="ACCDESCRIBE"/>
+    <property name="Level" column="ACCNODELEVEL" />
+    <property name="Name" column="ACCNAME" />
+    <property name="Code" column="CODE" />
+    <property name="OrderNo" />
+    <many-to-one name="ParentNode" column="PARENTNODEID" class="Application.Business.Erp.Financial.BasicAccount.InitialSetting.Domain.AccountTitle, SupplyChain"/>
+    <property name="State" column="ACCSTATE" />
+    <property name="SysCode" column="ACCSYSCODE" />
+    <many-to-one name="TheTree" column="CATTREEID" class="VirtualMachine.Patterns.CategoryTreePattern.Domain.CategoryTree,VirtualMachine" />    
+    <bag name="ChildNodes" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="PARENTNODEID" />
+      <one-to-many class="Application.Business.Erp.Financial.BasicAccount.InitialSetting.Domain.AccountTitle, SupplyChain" />
+    </bag>
+    <property name="FiscalYear" column="ACCFIYEAR"  />
+    <property name="AccountCode" column="ACCCODE"/>
+    <property name="AccLevelName" column="ACCLEVELNAME"/>
+    <property name="AssisCode" column="ASSISTCODE"/>
+    <property name="AccType" column="ACCTYPE" />
+    <property name="BalanceDire" column="ACCBALANCEDIRE" />
+    <property name="ShowStyle" column="ACCSHOWSTYLE" />
+    <property name="AboutCash" column="ACCABOUTCASH" />
+    <property name="ForeignAccount" column="FOREIGNACC" type="Boolean" />
+    <property name="QuantityAccount" column="QUANTITYACC" type="Boolean" />
+    <property name="QuantityUnit" column="QUANTITYUNIT"/>
+    <property name="QuantityDesc" column="QUANTITYDESC"/>
+    <property name="DailyAccBook" column="DAILYACCBOOK" type="Boolean" />
+    <property name="BankAccBook" column="BANKACCBOOK" type="Boolean" />
+    <property name="DepartmentAccount" column="DEPARTMENTACC" type="Boolean" />
+    <property name="PersonAccount" column="PERSONACC" type="Boolean" />
+    <property name="PartnerAccount" column="PARTNERACC" type="Boolean" />
+    <property name="ClientAccount" column="CLIENTACC" type="Boolean" />
+    <property name="SupplierAccount" column="SUPPLIERACC" type="Boolean" />
+    <property name="ProjectAccount" column="PROJECTACC" type="Boolean" />
+    <property name="AccountCurrent" column="ACCCURRENT" type="Boolean" />
+    <property name="EndorsementManage" column="ENDORSEMANAGE" type="Boolean" />
+    <property name="BudgetManage" column="BUDGERMANAGE" type="Boolean" />
+    <property name="FreezeAccount" column="FREEZEACC" type="Boolean" />    
+    <many-to-one name="DeskAcc" column="DESKACCID" class="Application.Business.Erp.Financial.BasicAccount.AssisAccount.Domain.DeskAccount, SupplyChain"/>
+    <many-to-one name="ForeignCurrency" column="CURRID" class="Application.Resource.FinancialResource.RelateClass.CurrencyInfo, ResourceManager"/>
+    <property name="BelongCode" column="BELONGCODE"/>
+    <!--<many-to-one name="OldTitle" column="OLDTITLEID" class="Application.Business.Erp.Financial.BasicAccount.InitialSetting.Domain.AccountTitle, SupplyChain"/>-->
+  </class>
+</hibernate-mapping>

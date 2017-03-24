@@ -1,0 +1,22 @@
+<ion-view view-title="{{title}}" hide-tabs="true">
+  <ion-content overflow-scroll='false' has-bouncing='true'>
+    <ion-list>
+  	  <ion-item class="item-remove-animate item-avatar item-icon-right home-item list-title-style alert-info" type="item-text-wrap">
+    		<div class="row">
+    			<div class="col-40"><p class="center">项目名称</p></div>
+    			<div class="col-30"><p class="center">预警级别</p></div>
+    			<div class="col-30"><p class="center">占用金额</p></div>
+    		</div>
+  	  </ion-item>
+      <ion-item class="item-remove-animate item-avatar item-icon-right home-item list-title-style" ng-class="{'item-back-odd':($index%2 == 0)}" ng-repeat="item in list | orderBy:'Warning'">
+  	    <div class="row">
+    			<div class="col-40"><p class="center" style="white-space:pre-wrap;">{{item.Name}}</p></div>
+    			<div class="col-30"><p class="center">{{item.Warning | WarningConversion}}</p></div>
+    			<div class="col-30"><p class="center">{{item.Number | MillionConversion}}万</p></div>
+  	  	</div>
+      </ion-item>
+    </ion-list>
+    <p>&nbsp;</p>
+  </ion-content>
+</ion-view>
+      

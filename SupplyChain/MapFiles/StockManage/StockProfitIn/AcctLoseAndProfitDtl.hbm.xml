@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.StockManage.StockProfitIn.Domain.AcctLoseAndProfitDtl,SupplyChain"  table="THD_AccLoseAndProfitDtl" lazy="true" discriminator-value="-1">
+
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+
+    <many-to-one name="MaterialResource" column="Material" not-null="true" class="Application.Resource.MaterialResource.Domain.Material, ResourceManager"/>
+    <many-to-one name="MatStandardUnit" column="MaterialUnit" not-null="true" class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"/>
+    <property name="Quantity" length="4"/>
+    <property name="Price" length="4"/>
+    <property name="Money" length="2"/>
+    <property name="Descript"/>
+
+    <many-to-one name="Master" column="PARENTID" not-null="true" class="Application.Business.Erp.SupplyChain.StockManage.StockProfitIn.Domain.AcctLoseAndProfit,SupplyChain"></many-to-one>
+    <property name="State" column="STATE" />
+  </class>
+</hibernate-mapping>
+
+

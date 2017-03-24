@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.StockManage.StockOutManage.Domain.StockOutRedRlt, SupplyChain" table="THD_StkStockOutRlt" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="-1">
+      <generator class="identity" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="CreateDate" column="CREATEDATE" type="Date" />
+    <many-to-one name="NowLinkRule" column="LINKRULEID" not-null="true" />
+    <property name="ForwardBusEntityId" column="ForwardID" type="long" />
+    <many-to-one name="BackwardBusEntity" column="BackwardID" class="Application.Business.Erp.SupplyChain.StockManage.StockOutManage.Domain.StockOutRed, SupplyChain" not-null="true" />
+    <property name="ForwardClsName" column="FORWARDCLSNAME" length="200" />
+    <property name="BackwardClsName" column="BACKWARDCLSNAME" length="200" />
+    <property name="ForwardBusEntityCode" column="ForwardBusEntityCode" length="200" not-null="true"/>
+  </class>
+</hibernate-mapping>

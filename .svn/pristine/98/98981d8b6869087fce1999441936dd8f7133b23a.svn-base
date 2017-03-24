@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.EngineerChangeMng.Domain.EngineerChangeDetail,SupplyChain" table="THD_EngineerChangeDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <!--更改说明-->
+    <property name="ChangeDescript"/>
+    <!--更改完成时间-->
+    <property name="ComplateDate" column="ComplateDate"/>
+    <!--更改负责人组织层次码-->
+    <property name ="LevelOrgCode"/>
+    <!--工程更改环节-->
+    <property name ="EngineerChangeLink"/>
+    <!--更改负责人-->
+    <many-to-one name="ChangeHandlePerson" column="ChangeHandlePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <!--<property name ="ChangeHandlePerson"/>-->
+    <!--责任人名称-->
+    <property name ="ChangeHandlePersonName"/>
+    <!--备注-->
+    <property name="Descript" column="Descript"/>
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.CostManagement.EngineerChangeMng.Domain.EngineerChangeMaster,SupplyChain"></many-to-one>
+
+  </class>
+</hibernate-mapping>
+
+

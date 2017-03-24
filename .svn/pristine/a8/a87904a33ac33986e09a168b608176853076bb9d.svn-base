@@ -1,0 +1,858 @@
+﻿/*
+瀛椾綋榛樿
+*/
+* {
+  font-style: normal;
+  font-family: 新宋体, 'Arial Narrow', arial, serif;
+}
+div {
+	font-size: 12px;
+}
+
+input {
+	-webkit-appearance: none;
+}
+
+input[type~=checkbox] {
+	-webkit-appearance: checkbox;
+}
+
+input[type~=radio] {
+	-webkit-appearance: radio;
+}
+
+iframe{
+	margin-bottom: -3px;
+}
+
+/* REPEAT */
+.xforms-repeat-item-selected {
+	background-color	: #e2eadf;
+}
+     
+ul.xforms-repeat li {
+	list-style-type		: none;
+}
+
+/* Control */
+table.xforms-control td {
+	vertical-align		: middle;
+}
+
+table.xforms-control tr {
+	width : 100%;
+}
+
+table.xforms-control td.xxf-value td.xxf-alert{
+	vertical-align		: middle;
+}
+
+td.xxf-value {
+	width : 100%;
+	height : 100%;
+}
+
+td.xxf-alert {
+	width : 20px;
+	display : none;
+}
+
+/*
+*褰卞搷table鐨勫唴閮ㄧ粍浠惰绠�
+table.xforms-control.xforms-appearance-minimal {
+	display				: inline;
+}
+*/
+
+/* Opera */
+/*
+@media all and (min-width: 0px) {
+	table.xforms-control.xforms-appearance-minimal {
+		display				: inline-block;
+	}
+}
+*/
+
+td.focus {
+	width				: 10px;
+}
+
+table.xforms-focus td.focus {
+	background			: transparent url(focus.gif) no-repeat left 8px;
+}
+
+.xforms-gridselect,
+.xforms-gridselect1,
+.xforms-treeselect,
+.xforms-treeselect1{
+	table-layout:fixed;
+}
+
+
+.xforms-disabled, table.xforms-control.xforms-appearance-minimal.xforms-disabled {
+	display				: none;
+}
+
+/* ICONS */
+
+span.xforms-required-icon, span.xforms-alert, span.xforms-help, span.xforms-hint {
+	vertical-align		: top;
+}
+
+.xforms-required-icon {
+    display				: none;
+    color				: red;
+}
+
+.xforms-required .xforms-required-icon {
+    display				: inline;
+    margin-left			: 3px;
+}
+
+div.xforms-help-value, div.xforms-alert-value, div.xforms-hint-value { 
+	display				: none;
+	background-color	: #ffffee;
+	position			: absolute;
+	border				: black 1px solid; 
+	width				: 200px;
+	margin-top			: 16px;
+	margin-left			: -16px;
+	padding				: 5px;
+	-moz-box-sizing		: border-box;
+	box-sizing			: border-box;
+}
+
+span.xforms-alert {
+	display				: none;
+}
+
+/**
+xyh 淇敼 鎶ラ敊鏍峰紡
+**/
+.xforms-invalid span.xforms-alert {
+}
+
+.xforms-invalid  input.xforms-value,
+.xforms-invalid  textarea.xforms-value,
+.xforms-invalid  .xforms-ext-select-input,
+.xforms-invalid  .xforms-item
+{ 
+	background-image: url(invalid_line.gif);
+	background-repeat: repeat-x;
+	background-position: bottom;
+}
+/*
+table.xforms-trigger{
+	background-color:transparent;
+}
+*/
+table.xforms-select,
+table.xforms-select1{
+	border: none;
+	background-color:transparent;
+}
+
+input[type="button"], 
+input[type="submit"], 
+input[type="reset"], 
+button{
+	cursor				: pointer;
+}
+input[type="file"]::-webkit-file-upload-button{
+	cursor				: pointer;
+} 
+
+.xforms-trigger-label{
+	white-space : nowrap;
+}
+
+input.xforms-value{
+	padding-left: 3px;
+	padding-right: 3px;
+	color: #444;
+}
+
+input.xforms-value,
+textarea.xforms-value,
+div.xforms-value,
+.xforms-ext-select-input,
+.xforms-no-border{
+	border: 0px;
+	width: 100%;
+	background-color:transparent;
+	resize: none;outline: none;
+	vertical-align: middle;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 0 3px;
+	
+}
+
+input.xforms-number{
+	text-align:right;
+}
+
+textarea.xforms-value{
+	border: none;
+	width: 100%;height: 100%;
+	background-color:transparent;
+	resize: none;outline: none;
+	vertical-align: middle;
+	padding:0;
+}
+
+div.xforms-alert-value {
+	background-color	: #ffeeee;
+}
+
+span.xforms-alert-icon, span.xforms-help-icon, span.xforms-hint-icon {
+	cursor				: help;
+	padding-left		: 16px;
+	width				: 16px;
+	-moz-box-sizing		: border-box;
+	box-sizing			: border-box;
+	/**
+		xyh
+	**/
+	display				: none;
+}
+
+span.xforms-valid-info{
+  position:absolute;
+  background-color: #fbffd4;
+  border:1px solid #fcc90d;
+  padding:2,10,2,4;
+  z-index:1000;
+  font-size: 13px;
+}
+span.xforms-hint-info{
+  position:absolute;
+  background-color: #fbffd4;
+  border:1px solid #fcc90d;
+  padding:2,10,2,4;
+  z-index:1000;
+}
+
+
+span.xforms-alert-icon {
+	background-image	: url(icon_error.gif); 
+	background-repeat : no-repeat;
+}
+
+span.xforms-help-icon {
+	background-image	: url(icon_help.gif); 
+	background-repeat : no-repeat;
+}
+
+span.xforms-hint-icon {
+	background-image	: url(icon_hint.gif); 
+	background-repeat : no-repeat;
+}
+
+/* TABS */
+
+dix.ajx-tabs {
+	margin-top			: 5px;
+}
+
+ul.ajx-tabs-list {
+	margin				: 5px 0px 0px 0px;
+	padding				: 0px;
+	height				: 22px;
+}
+
+ul.ajx-tabs-list li {
+	list-style-type		: none;
+	float				: left;
+	font-weight			: bold;
+}
+
+ul.ajx-tabs-list li a {
+	margin-left			: 0px;
+	margin-right		: 3px;
+	border-top			: 1px solid #87b5f2; 
+	border-left			: 1px solid #87b5f2; 
+	border-right		: 1px solid #87b5f2;
+	/*background-image	: url(tab.png);*/
+	display				: block;
+	text-decoration		: none;
+	color				: black;
+	padding				: 3px 10px 3px 10px;
+	color				: #333333;
+}
+
+ul.ajx-tabs-list li a:hover {
+	background-position	: 0px -23px;
+	color 				: black;
+}
+
+ul.ajx-tabs-list li.ajx-tab-selected a {
+	/*background-color	: #9999bb;*/
+	background-color	: #ffffff;
+	background-position	: 0px -46px;
+}
+
+ul.ajx-tabs-list li.ajx-tab-selected a:hover {
+	background-position	: 0px -69px;
+}
+
+div.ajx-tab {
+	clear				: both;
+	border				: 1px solid #87b5f2; 
+	padding				: 10px;
+	margin-top			: 0px;
+	background-color	: #f8f8f8;
+}
+
+/* TREE */
+
+div.xforms-tree {
+	overflow			: auto;
+	padding				: 10px;
+	background-color	: white;
+	border				: 1px solid black;
+}
+
+
+div.xforms-tree ul {
+	margin				: 0px;
+	padding				: 0px;
+}
+
+div.xforms-tree ul ul {
+	padding-left		: 25px;
+}
+
+li.xforms-tree-item {
+	list-style-type		: none;
+}
+a.xforms-label.xforms-tree-item-label {
+	font-weight			: normal;
+}
+
+a.xforms-tree-item-label, a.xforms-tree-item-label:visited {
+	cursor				: pointer;
+	padding				: 0px 3px 0px 3px;
+	color				: black;
+	text-decoration		: none;
+}
+
+a.xforms-tree-item-label:hover {
+	color				: white;
+	background-color	: #777777;
+}
+
+a.xforms-tree-item-label.xforms-tree-item-label-selected, a.xforms-tree-item-label.xforms-tree-item-label-selected:visited {
+	background-color	: blue;
+	color				: white;
+}
+
+.xforms-tree-item-button {
+	padding-left		: 18px;
+	width				: 18px;
+	height				: 15px;
+	-moz-box-sizing		: border-box;
+	box-sizing			: border-box;
+}
+
+.xforms-tree-item-fork {
+	background-image	: url(icon_folder.gif);
+	background-repeat	: no-repeat;
+	cursor				: pointer;
+}
+
+.xforms-tree-item-leaf {
+	background-image	: url(icon_file.gif);
+	background-repeat	: no-repeat;
+}
+
+.xforms-tree-label {
+	padding-bottom		: 10px;
+}
+
+span.xforms-message {
+	display				: none;
+}
+
+div.ajx-dialog {
+	display				: none;
+	position			: absolute;
+	width				: 400px;
+	height				: 300px;
+	background-color	: white;
+	border-top			: 1px solid black;
+	border-left			: 1px solid black;
+	border-bottom		: 3px solid black;
+	border-right		: 3px solid black;
+	padding				: 10px;
+	z-index				: 10;
+	-moz-box-sizing		: border-box;
+	box-sizing			: border-box;
+}
+
+.aid-button {
+	padding				: 0;
+}
+
+#console {
+	font-size			: 10px;
+	color				: #888888;
+	border-top			: thin solid #888888;
+	display: block;
+}
+
+div#statusPanel {
+	display				: none;
+	position			: absolute;
+	padding-top			: 40px;
+	text-align			: center;
+	z-index				: 11;
+}      
+
+/*
+.xforms-trigger-appearance-minimal img { margin-right: 0.5em; vertical-align: middle }
+
+.xforms-trigger a{text-decoration: none;}
+.xforms-trigger a img{border:none;}
+
+.xforms-trigger button,button.xforms-trigger{  
+	text-decoration: none;
+	border: 0px solid #baceeb;
+	background: url(../../ops/images/xforms/button.gif) repeat-x;
+	padding-left: 3px;
+	padding-right: 3px;
+	vertical-align:middle;
+}
+
+.xforms-triger-button{
+	white-space:nowrap;
+	overflow:hidden;
+}
+
+button.xforms-trigger-over {
+	border: 0px solid #99bbe8;
+	background: url(../../ops/images/xforms/button_h.gif) repeat-x;
+}
+*/
+.xforms-select span.xforms-value{
+	display:table;	
+}
+
+div.xforms-item-radio{
+	display:table-cell;
+	_display:inline;/*ie6*/
+	*+display:inline;/*ie7*/
+	/*font-size: 9.7pt;*/
+}
+
+div.xforms-item-radio input{
+	height: 16px;
+}
+
+div.xforms-item-radio input,div.xforms-item-radio span{
+	vertical-align: middle;	
+	cursor: pointer;	
+}
+
+.vertical div.xforms-item-radio{
+	display:table-row;
+	_display:block;/*ie6*/
+	*+display:block;/*ie7*/
+	/*font-size: 9.7pt;*/
+}
+
+div.xforms-item-checkbox{
+	display:table-cell;
+	_display:inline;/*ie6*/
+	*+display:inline;/*ie7*/
+	/*font-size: 9.7pt;*/
+}
+
+div.xforms-item-checkbox input,div.xforms-item-checkbox span{
+	vertical-align: middle;	
+	cursor: pointer;	
+}
+
+.vertical div.xforms-item-checkbox{
+	display:table-row;
+	_display:block;/*ie6*/
+	*+display:block;/*ie7*/
+	/*font-size: 9.7pt;*/
+}
+
+/*鎵╁睍閮ㄥ垎*/
+/** select**/
+div.xforms-ext-select td{
+	border:none;
+}
+div.xforms-ext-select-input {
+	border: none;
+}
+
+div.xforms-ext-select img {
+	cursor: pointer;
+}
+
+/** textarea-editor **/
+.xforms-textarea div.xforms-editor{
+	border: 1px solid #CCC;
+}
+
+/* xui 鎵╁睍*/
+.xui-default-border{
+	border: 1px solid #CCC;
+}
+
+.xui-input{
+	border: 1px solid #CCC;
+	width:155px;
+	height:21px;
+}
+
+.xui-select{
+	border: 1px solid #CCC;
+	width:155px;
+	height:20px;
+}
+
+.xui-textarea{
+	border: 1px solid #CCC;
+	width:480px;
+	height:180px;
+	resize: none;
+}
+
+.xui-container{
+	border: 0px;
+	width:360px;
+	height:180px;
+}
+
+.xui-no-border {
+	border: 0px !important;
+	background-color: transparent;
+	margin: 0px;
+	padding:0px;
+}
+
+.xui-label {
+	white-space:nowrap;
+	color: #444;
+}
+
+.xui-autofill{
+	table-layout:fixed;
+	border: 0px;
+	padding:0px;
+	margin:0px;
+	width: 100%;
+	height: 100%;
+	background-color:transparent;
+}
+
+.xforms-readonly{
+	background-color	: #f8f8f8 !important;
+	color				: #6D6D6D !important;
+}
+.xforms-readonly .xxf-value input, 
+.xforms-readonly .xxf-value textarea, 
+.xforms-readonly .xxf-value span{
+	color				: #6D6D6D !important; 
+}
+
+.xforms-readonly-trigger{
+	color				: #DDD !important; 
+}
+
+.grid-invalid{
+	background-image: url(invalid_line.gif);
+	background-repeat: repeat-x;
+	background-position: bottom;
+}
+
+.xui-ie-input-bug{
+	width : 3px;
+	display	: none;
+}
+
+.xforms-trigger {
+	width: 65px;
+	height: 24px;
+}
+
+input.xui-button{
+	display: inline-block;
+}
+.xui-button {
+	display: inline-table;
+	*display: inline;
+	*zoom: 1;
+	vertical-align: top;
+	text-align: center;
+	font-size: 13px;
+	height: 22px;
+}
+
+button.xui-button{
+	display: inline-block;
+	*display: inline;
+}
+
+.xui-button button {
+	width:100%;
+	height:100%;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	
+	cursor: pointer;
+	
+	white-space: nowrap;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	overflow: hidden;
+	box-shadow: 0 1px 0 rgba(0, 0, 0, .3);
+	
+	background-color: #F0F0F0;
+	color: #333;
+}
+.xui-button button:hover {
+	background-color: #DFDFDF;
+}
+
+.xui-button .xui-button-label span{
+	font-family: "Microsoft Yahei";
+	vertical-align: middle;
+}
+
+.xui-button button span{
+	font-weight	: 700;
+	vertical-align: middle;
+}
+/*
+.xui-button.button-blue button{
+	color: white;
+	background:  #54B3F3;
+	border-bottom: 1px solid #6BA7CF;
+	*border-bottom: none;
+}
+
+.xui-button.button-blue button:hover {
+	background: #6ABCF4;
+}
+
+.xui-button.button-purple button{
+	color: white;
+	background:  #9303A7;
+	border-bottom: 1px solid #72217D;
+	*border-bottom: none;
+}
+
+.xui-button.button-purple button:hover {
+	background: #C038D3;
+}
+
+
+.xui-button.button-hotpink button{
+	color: white;
+	background:  #DC0055;
+	border-bottom: 1px solid #A52959;
+	*border-bottom: none;
+}
+
+.xui-button.button-hotpink button:hover {
+	background: #EE3B80;
+}
+
+.xui-button.button-darkcyan button{
+	color: white;
+	background:  #01939A;
+	border-bottom: 1px solid #1D7074;
+	*border-bottom: none;
+}
+
+.xui-button.button-darkcyan button:hover {
+	background: #34C6CD;
+}
+
+.xui-button.button-yellow button{
+	color: white;
+	background:  #FFCE40;
+	border-bottom: 1px solid #FFBE00;
+	*border-bottom: none;
+}
+
+.xui-button.button-yellow button:hover {
+	background: #FFDB73;
+}
+
+.xui-button.button-green button{
+    color: white;
+	background:  #6CC03F;
+	border-bottom: 1px solid #5AB42A;
+	*border-bottom: none;
+}
+
+.xui-button.button-green button:hover {
+	background: #7DD74D;
+}
+
+.xui-button.button-orange button{
+	color: white;
+	background:  #D94E1B;
+	border-bottom: 1px solid #CE3C06;
+	*border-bottom: none;
+}
+.xui-button.button-orange button .icon{
+	color: white;
+}	
+
+.xui-button.button-orange button:hover {
+	background: #F95F27;
+}
+*/
+
+.xui-button button[disabled],
+.xui-button button[disabled]:hover {
+	color: #DDD!important;
+	background: #F8F8F8;
+	border-bottom: 1px solid #EDEDED;
+	*border-bottom: none;
+	cursor: default;
+	border-top: 1px solid transparent;
+}
+.xui-button button[disabled] span{
+	font-weight: normal;
+}
+
+.xui-button button[disabled] .icon {
+	color: #DDD!important;
+}
+
+.xui-button a {
+	color: #535353;
+	text-decoration: none;
+}
+
+.xui-button a:hover {
+	cursor: pointer;
+}
+
+.xui-button a[disabled],
+.xui-button a[disabled]:hover,
+.xui-button a[disabled] .icon,
+.xui-button a[disabled] .icon:before {
+	color: #DDD!important;
+	cursor: default;
+	text-decoration: none;
+}
+
+.xui-button .xforms-trigger-image span{
+	display: inline-block;
+	/*padding: 0 0 0 20px;*/
+	/*background: url(../images/default.png) left center no-repeat;*/
+}
+
+.xui-button i+span {
+	*margin-left: 5px;
+}
+
+.xui-button .image{
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+}
+
+.xui-button img{
+	border: none;
+	vertical-align: middle;
+}
+
+.xui-button .icon{
+	vertical-align: middle;
+	font-size: 1em;
+}
+
+/* gridSelect涓嬫媺琛ㄦ牸鏍峰紡  */
+.grid-select {
+
+}
+
+div.grid-select table.obj tr td {
+	border: none;
+	padding: 0 3px!important;
+}
+
+div.grid-select table.obj tr{
+	height: 26px;
+}
+div.grid-select table.obj tr.odd_justep {
+	background-color: #f7faff;
+}
+
+div.grid-select table.obj tr:hover {
+	background-color: #FFC;
+}
+
+div.grid-select table.hdr td{
+	background: none!important;
+	border: none!important;
+	padding: 5px!important;
+	background-color: #f7faff!important;
+}
+div.grid-select table.hdr input{
+	border: 1px solid #CCC;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+div.grid-select table.obj td>span{
+	vertical-align: middle;
+}
+
+div.grid-select img {
+	margin-right: 4px;
+}
+
+/*鍏煎鍘熸湁鏍峰紡*/
+.toolbar-manager .xui-button {
+	height: 24px;
+	background-color: transparent; 
+	font-size: 12px;
+	width: auto;
+}
+
+.toolbar-manager .xui-button button {
+	box-shadow: none;
+	background-color: transparent;
+	width: auto;
+	padding-right: 4px;
+}
+
+.toolbar-manager .xui-button button[disabled], 
+.toolbar-manager .xui-button button[disabled]:hover {
+	border: none;
+}
+
+.toolbar-manager .xui-button .xui-button-label span{
+	font-weight	: normal;
+	font-style: normal;
+  	font-family: 瀹嬩綋, 'Arial Narrow', arial, serif;
+}
+
+button.xui-button {
+	text-decoration: none;
+	border: 1px solid #baceeb;
+	background: url(../../ops/images/xforms/button.gif) repeat-x;
+	padding-left: 3px;
+	padding-right: 3px;
+	vertical-align:middle;
+	height: 22px;
+}
+/* 涓轰簡鍏煎鑰佺増鏈�, 鍥剧墖鎸夐挳鑷€傚簲澶у皬鐨勬儏鍐�, 杩欓噷涔熷彧鏄兘鍏煎鍦╟elllayout鐨勬儏鍐�*/
+.xui-autofill.xforms-trigger {
+	width: 100%;
+}

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.ProduceSelfValueDetail,SupplyChain" table="THD_ProduceSelfValueDetail" lazy="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.ProduceSelfValueMaster, SupplyChain"/>
+    <property name="PlanValue" />
+    <property name="RealValue" />
+    <property name="PlanProgress" length="3"/>
+    <many-to-one name="GWBSTree" column="GWBSTree" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree, SupplyChain"/>
+    <property name="GWBSTreeName" />
+    <property name="GWBSTreeSysCode"/>
+
+    <property name="RealProgress" length="3"/>
+  </class>
+</hibernate-mapping>

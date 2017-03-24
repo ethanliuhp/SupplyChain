@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ShellIntegrationSerializer version="1.0">
+    <Controls Name="AllControls">
+        <Control Name="TDPLM" Type="None">
+            <Label Type="Name">
+                <LocalizedLabel LanguageRef="en">TD PLM</LocalizedLabel>
+                <LocalizedLabel LanguageRef="it">TD PLM</LocalizedLabel>
+                <LocalizedLabel LanguageRef="fr">TD PLM</LocalizedLabel>
+                <LocalizedLabel LanguageRef="de">TD PLM</LocalizedLabel>
+                <LocalizedLabel LanguageRef="ja">TD PLM</LocalizedLabel>
+                <LocalizedLabel LanguageRef="zhs">TD PLM</LocalizedLabel>
+            </Label>
+        </Control>
+        <Control Name="PLMAllExtensions" Type="Check" BeginGroup="false" FileName="TDPLMShellPropertyHandler.dll;TDPLMShellColumnHandler.dll;TDPLMShellContextHandler.dll">
+            <Label Type="Name">
+                <LocalizedLabel LanguageRef="en">All Shell Extensions</LocalizedLabel>
+                <LocalizedLabel LanguageRef="it">Tutte le estensioni shell</LocalizedLabel>
+                <LocalizedLabel LanguageRef="de">de_All Shell Extensions</LocalizedLabel>
+                <LocalizedLabel LanguageRef="zhs">所有的外壳扩展</LocalizedLabel>
+            </Label>
+            <RegKey Group="HKCR">*\shellex\PropertySheetHandlers\TDPLMShellPropertyHandler</RegKey>
+            <RegKey Group="HKCR">*\shellex\ContextMenuHandlers\TDPLMShellContextHandler</RegKey>
+            <RegKey Group="HKCR">Folder\shellex\ColumnHandlers\{E7679D07-C6BE-4E9A-9453-0908709A9F42}</RegKey>            
+        </Control>
+        <Control Name="PLMShellContext" Type="Check" BeginGroup="true" FileName="TDPLMShellContextHandler.dll">
+            <Label Type="Name">
+                <LocalizedLabel LanguageRef="en">Context Handler</LocalizedLabel>
+                <LocalizedLabel LanguageRef="it">Menu contestuale</LocalizedLabel>
+                <LocalizedLabel LanguageRef="de">de_Context Menu</LocalizedLabel>
+                <LocalizedLabel LanguageRef="zhs">上下文句柄</LocalizedLabel>
+            </Label>
+            <RegKey Group="HKCR">*\shellex\ContextMenuHandlers\TDPLMShellContextHandler</RegKey>
+        </Control>
+        <Control Name="PLMShellProperty" Type="Check" BeginGroup="false" FileName="TDPLMShellPropertyHandler.dll">
+            <Label Type="Name">
+                <LocalizedLabel LanguageRef="en">Property Handler</LocalizedLabel>
+                <LocalizedLabel LanguageRef="it">Gestione proprietà</LocalizedLabel>
+                <LocalizedLabel LanguageRef="de">de_Property Management</LocalizedLabel>
+                <LocalizedLabel LanguageRef="zhs">属性句柄</LocalizedLabel>
+            </Label>            
+            <RegKey Group="HKCR">*\shellex\PropertySheetHandlers\TDPLMShellPropertyHandler</RegKey>
+        </Control>        
+        <Control Name="PLMShellColumn" Type="Check" BeginGroup="false" FileName="TDPLMShellColumnHandler.dll">
+            <Label Type="Name">
+                <LocalizedLabel LanguageRef="en">Column Handler</LocalizedLabel>
+                <LocalizedLabel LanguageRef="it">Gestione colonne</LocalizedLabel>
+                <LocalizedLabel LanguageRef="de">de_Column Management</LocalizedLabel>
+                <LocalizedLabel LanguageRef="zhs">列句柄</LocalizedLabel>
+            </Label>
+            <RegKey Group="HKCR">Folder\shellex\ColumnHandlers\{E7679D07-C6BE-4E9A-9453-0908709A9F42}</RegKey>
+        </Control>
+        <!--<Control Name="PLMShellTooltip" Type="Check" BeginGroup="false" FileName="TDPLMShellTooltipHandler.dll">
+            <Label Type="Name">
+                <LocalizedLabel LanguageRef="en">Tooltip Handler</LocalizedLabel>
+                <LocalizedLabel LanguageRef="it">it_Tooltip Handler</LocalizedLabel>
+                <LocalizedLabel LanguageRef="zhs">zhs_Tooltip Handler</LocalizedLabel>
+            </Label>
+            <RegKey Group="HKCR">.txt\shellex\{00021500-0000-0000-C000-000000000046}</RegKey>
+        </Control>-->
+        <Control Name="PLMClose" Type="Button" BeginGroup="true">
+            <Label Type="Name">
+                <LocalizedLabel LanguageRef="en">Close</LocalizedLabel>
+                <LocalizedLabel LanguageRef="it">Chiudi</LocalizedLabel>
+                <LocalizedLabel LanguageRef="fr">Fermer</LocalizedLabel>
+                <LocalizedLabel LanguageRef="de">Schließen</LocalizedLabel>
+                <LocalizedLabel LanguageRef="zhs">关闭</LocalizedLabel>
+            </Label>
+        </Control>
+    </Controls>
+    <Context Name="Context" Label="TDPLM">
+        <Control Name="PLMAllExtensions"/>
+        <Control Name="PLMShellContext"/>
+        <Control Name="PLMShellProperty"/>
+        <Control Name="PLMShellColumn"/>
+        <!--<Control Name="PLMShellTooltip"/>-->
+        <Control Name="PLMClose"/>
+    </Context>
+</ShellIntegrationSerializer>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProjectDocumentManage.Domain.ObjTypeDefaultCateConfig,SupplyChain" lazy="true" table="THD_ObjTypeDefaultCateConfig" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="ObjTypeName" />
+    <property name="ObjTypeDesc" />
+    <property name="ObjTypeAttributeName" />
+    <property name="ObjTypeAttributeDesc" />
+    <property name="ObjTypeAttributeValue" />
+    <property name="DocCateGUID" />
+    <property name="DocCateCode" />
+    <property name="DocCateName" />
+  </class>
+</hibernate-mapping>

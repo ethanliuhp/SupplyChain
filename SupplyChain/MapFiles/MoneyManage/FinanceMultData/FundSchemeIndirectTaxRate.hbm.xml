@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.FundSchemeIndirectTaxRate,SupplyChain" table="THD_FundSchemeIndirectTaxRate" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    
+    <many-to-one name="Master" column="FundSchemeId"  class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.FundPlanningMaster,SupplyChain"></many-to-one>
+    <property name="RowIndex" />
+    <property name="SerialNumber" />
+    <property name="FirstSubjectCode" />
+    <property name="FirstSubjectName" />
+    <property name="SecondSubjectCode" />
+    <property name="SecondSubjectName" />
+    <property name="ThirdSubjectCode" />
+    <property name="ThirdSubjectName" />
+    <property name="AppropriationBudget" />
+    <property name="InputTax" />
+    <property name="DeductibleInput" />
+    <property name="CompilationBasis" />
+  </class>
+</hibernate-mapping>

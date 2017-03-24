@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostWorkForce,SupplyChain" lazy="true" table="Thd_CostWorkForce" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="Code" />
+    <property name="Name" />
+    <property name="ResourceTypeGUID" length="64"/>
+    <property name="ResourceTypeCode"/>
+    <property name="ResourceTypeName"/>
+    <property name="ResourceTypeStuff"/>
+    <property name="ResourceTypeSpec"/>
+    <property name="MaxQutity" />
+    <property name="MinQutity" />
+    <property name="MaxWorkdays" />
+    <property name="MinWorkdays" />
+    <!--<many-to-one name="CostAccountSubjectGuid" column="CostAccountSubjectGuid" class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostAccountSubject,SupplyChain"/>
+    <property name="CostAccountSubjectCode"/>
+    <property name="CostAccountSubjectName"/>-->
+    <many-to-one name="TheCostItem" column="CostItemId" not-null="true" class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostItem,SupplyChain"></many-to-one>
+    <property name="State"/>
+    <property name="CreateTime"/>
+    
+  </class>
+</hibernate-mapping>

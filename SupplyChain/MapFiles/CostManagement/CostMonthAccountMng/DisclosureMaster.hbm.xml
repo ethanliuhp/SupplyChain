@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.DisclosureMaster,SupplyChain" table="thd_disclosuremaster" lazy="true" discriminator-value="-1">
+   
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="Code" />
+    <property name="Descript" />
+    <property name="CreateDate" />
+    <many-to-one name="CreatePerson" column="CreatePerson"  class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"></many-to-one>
+    <property name="CreatePersonName" />
+	  <property name="DocState" column="State" />
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"></many-to-one>
+    <property name="OperOrgInfoName" column="OperationOrgName"/>
+    <property name="OpgSysCode" column="opgSysCode"/>
+    <property name="RealOperationDate" />
+    
+
+    <property name="ProjectId" />
+    <property name="ProjectName" />
+    <property name="ContractName" />
+    <many-to-one name="BearerOrg" column="BearerOrgGUID" class="Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass.SupplierRelationInfo,ResourceManager"/>
+    <property name="BearerOrgName"/>
+    
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.DisclosureDetail, SupplyChain"/>
+    </set>
+  </class>
+</hibernate-mapping>

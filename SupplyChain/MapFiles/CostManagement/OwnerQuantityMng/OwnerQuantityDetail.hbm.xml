@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.OwnerQuantityMng.Domain.OwnerQuantityDetail,SupplyChain" table="THD_OwnerQuantityDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+  <!--报送金额-->
+    <property name="SubmitQuantity" column="SubmitQuantity"/>
+<!--状态-->
+    <property name="State" column="State"/>
+<!--收款金额-->
+    <property name="CollectionMoney" column="CollectionMoney"/>
+    <!--应付金额-->
+    <property name="PayforMoney" column="PayforMoney"/>
+<!--确认金额-->
+    <property name="ConfirmMoney" column="ConfirmMoney"/>
+<!--清单WBS-->
+    <many-to-one name="QWBS" column="QWBS"  class="Application.Business.Erp.SupplyChain.CostManagement.QWBS.Domain.QWBSManage,SupplyChain"></many-to-one>
+    <!--<property name="QWBS" column="QWBS"/>-->
+<!--清单WBS名称-->
+    <property name="QWBSName" column="QWBSName"/>
+<!--清单WBS层次码-->
+    <property name="QWBSCode" column="QWBSCode"/>
+<!--价格计量单位名称-->
+    <property name="PriceUnitName" column="PriceUnitName"/>
+    
+<!--价格计量单位-->
+    <many-to-one name="PriceUnit" column="PriceUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.CostManagement.OwnerQuantityMng.Domain.OwnerQuantityMaster, SupplyChain"></many-to-one>
+    <property name="RealProduct" column="RealProduct"/>
+    <property name="Realpay" column="Realpay"/>
+    <property name="RightRate" column="RightRate"/>
+	<property name="QuantityDate"/>
+	<property name="ConfirmDate"/>
+	<property name="ConfirmStartDate"/>
+	<property name="ConfirmEndDate"/>
+	<property name="GatheringRate"/>
+	<property name="AcctGatheringMoney"/>
+	<property name="Descript"/>
+  </class>
+</hibernate-mapping>
+
+

@@ -1,0 +1,171 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors Your Name (you@example.org)
+ * @date    2016-02-17 11:54:39
+ * @version $Id$
+ */
+ body{
+ 	overflow-x: hidden;  
+ 	overflow-y: hidden;  
+ 	background-color: #EDF0F1;
+ }
+
+ /*
+	面板样式
+ */
+ a{
+ 	text-decoration: none
+ }
+ input[readonly]{
+	background-color: #ccc;
+ } 
+ textarea[readonly]{
+	background-color: #ccc;
+ }
+ .panel{
+
+ }
+ .panel .panel-title{
+ 	margin-top:10px;
+ 	text-align: left;
+ 	padding-left:20px;
+ 	letter-spacing: 3px;
+ 	text-shadow:5px 2px 6px #000;
+ }
+ .panel-input{
+ 	padding:5px;
+ 	border-radius: 5px;
+ }
+ .panel .panel-tool .panel-title{
+ 	float:left;
+ 	width:10%;
+ } 
+ .panel .panel-tool ul{
+	clear: both;
+ 	margin-left:20px;
+ }
+ .panel .panel-tool li{
+ 	list-style-type: none;
+ 	padding:5px;
+ 	float:left;
+ 	margin-bottom: 10px;
+ 	border:1px solid black;
+ 	border-radius: 5px;
+	font-size:12px;
+	box-shadow: 1px 1px 5px 0px #222;
+	color:#000;
+ 	margin-left:10px;
+ }
+ .panel .panel-tool li:hover{
+	background-color: #000;
+	color: #fff;
+	cursor:pointer;
+ }
+ .panel .panel-master li{
+ 	float:left;
+	list-style-type: none;
+	margin:10px;
+	margin-left: 30px;
+ }
+ .panel .panel-search{
+ 	text-align: left;
+ 	padding:10px;
+ }
+ .panel .panel-button{
+ 	padding:3px;
+ 	border-radius: 5px;
+ }
+ .panel .panel-button:hover{
+	font-weight: bold;
+	cursor: pointer;	
+ }
+/*
+	表格样式
+*/
+.table{
+	margin:0 auto;
+	width:100%;
+	height:auto;
+	border:1px solid black;
+}
+.table th{
+	background-color:#F2F4F6;
+	padding:8px;
+	height:15px;
+}
+.table td{
+	text-align:center;
+	padding:5px;
+	height:13px;
+}
+.Wdate{
+	padding:5px !important;
+	border-radius:5px;
+}
+
+.table tr{
+	transition:all 0.3s;
+}
+
+.table tr:hover{
+	background-color:rgb(206,249,123) !important;
+	color:#000 !important;
+	cursor:pointer;
+}
+.table .selector{
+	background-color: #7D3838 !important;
+	color:#fff !important;
+}
+
+/* 
+	分页控件样式 
+*/
+.pager{
+	padding:5px;
+	margin-top:10px;
+	text-align:right;
+}
+.pager a{
+	border:1px solid #777;
+	font-size:12px;
+	padding:5px;
+	text-decoration:none;
+}
+.pager a:hover{
+	text-decoration:underline;
+}
+.pager span{
+	font-size:12px !important;
+	padding:5px;
+	margin:3px !important;
+}
+/*
+	编辑、新增框
+*/
+.dialog{
+	top:100px;
+	left:200px;
+	position: absolute;
+	padding:20px;
+	display: none;
+	width:400px;
+	z-index: 1001;
+	background-color: #fff;
+	height:auto;
+	border:1px solid #777;
+	border-radius: 5px;
+	box-shadow: 1px 1px 10px 0px #000
+}
+.dialog table{
+}
+.page-shadow{
+	top:0;
+	left:0;
+	position: absolute;
+	width:100%;
+	background-color:#000;
+	opacity: 0.3;
+	filter:alpha(opacity=30);
+	z-index: 1000;
+}

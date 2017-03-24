@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.SupplyManage.SupplyOrderManage.Domain.SupplyOrderProjectDetail,SupplyChain" table="THD_SupplyOrderProject" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+
+    <property name="ProjectName"/>
+    <many-to-one name="ProjectId"/>
+
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.SupplyManage.SupplyOrderManage.Domain.SupplyOrderMaster, SupplyChain"></many-to-one>
+
+  </class>
+</hibernate-mapping>
+
+

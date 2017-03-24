@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.ProjectBalanceOfPayment,SupplyChain" table="THD_ProjectBalanceOfPayment" lazy="true" select-before-update="true">
+
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="CreateYear" column="CreateYear"/>
+    <property name="CreateMonth" column="CreateMonth"/>
+    <many-to-one name="CreatePerson" column="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="CreatePersonName"/>
+    <many-to-one name="HandlePerson" column="HandlePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="HandlePersonName"/>
+    <property name="CreateDate" column="CreateDate"/>
+    <property name="RealOperationDate" column="RealOperationDate"/>
+    <property name="DocState" column="State" />
+    <property name="OpgSysCode" column="OpgSysCode"/>
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperOrgInfoName" column="OperationOrgName"/>
+    <property name="ProjectId"></property>
+    <property name="ProjectName"/>
+
+   <!--自己属性-->
+    <property name="SubCompanyName"></property>
+    <property name="ContractTotal"></property>
+    <property name="ContractContent"></property>
+    <property name="ProjectType"></property>
+    <property name="OwnerType"></property>
+    <property name="ProjectState"></property>
+    <property name="FinanBalanceTotal"></property>
+    <property name="FinanBalanceCurrent"></property>
+    <property name="OwnerSure"></property>
+    <property name="OwnerSureTJ"></property>
+    <property name="OwnerSureLastTime"></property>
+    <property name="OwnerSureYearMonth"></property>
+    <property name="CBCostPaymentTotal"></property>
+    <property name="TJCostPaymentTotal"></property>
+    
+    <property name="ContractGatheringRate"></property>
+    <property name="ContractGathering"></property>
+    <property name="MustNotGathering"></property>
+    <property name="DelayTime"></property>
+    <property name="MainBusinessTotal"></property>
+    <property name="MainBusinessCurrYear"></property>
+    <property name="MainBusinessCurrMonth"></property>
+  
+    <!--<property name="GatheringMoneyTotalRate"></property>
+    <property name="GatheringMoneyCurrYearRate"></property>-->
+    <property name="CBProjectGatheringTotal"></property>
+    <property name="CBProjectGatheringCurrYear"></property>
+    <property name="CBProjectGatheringCurrMonth"></property>
+    <property name="CBProjectPaymentTotal"></property>
+    <property name="CBProjectPaymentCurrYear"></property>
+    <property name="CBProjectPaymentCurrMonth"></property>
+    <property name="TJProjectGatheringTotal"></property>
+    <property name="TJProjectGatheringCurrYear"></property>
+    <property name="TJProjectGatheringCurrMonth"></property>
+    <property name="TJProjectPaymentTotal"></property>
+    <property name="TJProjectPaymentCurrYear"></property>
+    <property name="TJProjectPaymentCurrMonth"></property>
+    <property name="CBMoneyRemainTotal"></property>
+    <property name="CBMoneyRemainCurrYear"></property>
+    <property name="CBMoneyRemainCurrMonth"></property>
+    <property name="TJMoneyRemainTotal"></property>
+    <property name="TJMoneyRemainCurrYear"></property>
+    <property name="TJMoneyRemainCurrMonth"></property>
+    <property name="WarnCause"></property>
+    <property name="WarnMoneyRemain"></property>
+    <property name="WarnMoneyFlow"></property>
+    <property name="WarnMustNotGathering"></property>
+    <property name="FinanYearEndMustGathering"></property>
+    <property name="FinanYearEndNotSureMoney"></property>
+    <property name="FinanYearEndTotal"></property>
+    <property name="FinanYearBeginMustGathering"></property>
+    <property name="FinanYearBeginNotSureMoney"></property>
+    <property name="FinanYearBeginTotal"></property>
+    <property name="FinanIncreaseMustGathering"></property>
+    <property name="FinanIncreaseNotSureMoney"></property>
+    <property name="FinanIncreaseTotal"></property>
+    <property name="MustPayment"></property>
+    <property name="OtherMustPayment"></property>
+    <property name="CBHandUpRate"></property>
+  </class>
+</hibernate-mapping>

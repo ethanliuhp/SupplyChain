@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.FundSchemeCashCostRate,SupplyChain" table="THD_FundSchemeCashCostRate" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <property name="FisrtCategory" />
+    <property name="SecondCategory" />
+    <property name="CostMoney" />
+    <property name="CostProportion" />
+    <property name="CashRateUnCompleted" />
+    <property name="CashRateCompleted" />
+    <property name="CostRateUnCompleted" />
+    <property name="CostRateCompleted" />
+    <property name="RowIndex" />
+    <property name="DataType" />
+    <many-to-one name="Master" column="FundSchemeId"  class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.FundPlanningMaster,SupplyChain"></many-to-one>
+  </class>
+</hibernate-mapping>

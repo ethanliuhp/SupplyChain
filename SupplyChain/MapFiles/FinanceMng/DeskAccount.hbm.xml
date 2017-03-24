@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="Application.Business.Erp.Financial.BasicAccount.AssisAccount.Domain.DeskAccount, SupplyChain" table="RESFIDESKACCOUNT" lazy="true" select-before-update="true">
+    <cache usage="nonstrict-read-write" />
+    <id name="Id" column="DESCACCID" unsaved-value="null">
+      <generator class="identity" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1" />
+    <property name="Code" column="DESKACCCODE" />
+    <property name="Name" column="DESKACCNAME" />
+    <property name="BelongCode" column="BELONGCODE" />
+    <!--<bag name="Details" inverse="true" cascade="all-delete-orphan" lazy="true" >
+      <key column="DESCACCID" />
+      <one-to-many class="Application.Business.Erp.Financial.BasicAccount.AssisAccount.Domain.DeskAccDetails, SupplyChain" />
+    </bag>-->
+    <property name="State" column="STATES"  />
+  </class>
+</hibernate-mapping>

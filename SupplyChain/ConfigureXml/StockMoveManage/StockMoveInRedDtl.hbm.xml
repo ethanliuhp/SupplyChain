@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <subclass name="Application.Business.Erp.SupplyChain.StockManage.StockMoveManage.Domain.StockMoveInRedDtl, SupplyChain" lazy="true" extends="Application.Business.Erp.SupplyChain.StockManage.StockInManage.BasicDomain.BasicStockInDtl,SupplyChain" select-before-update="true" discriminator-value="4">
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.StockManage.StockMoveManage.Domain.StockMoveInRed, SupplyChain"/>
+    <property name="NewPrice"/>
+  </subclass>
+</hibernate-mapping>
+
+
+

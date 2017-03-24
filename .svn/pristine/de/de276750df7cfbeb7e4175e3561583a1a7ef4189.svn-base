@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <subclass name="Application.Business.Erp.SupplyChain.StockManage.StockBalManage.Domain.StockInBalDetail,SupplyChain" extends="Application.Business.Erp.SupplyChain.StockManage.StockBalManage.Domain.BaseStockInBalDetail,SupplyChain" lazy="true" select-before-update="true" discriminator-value="0">
+
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.StockManage.StockBalManage.Domain.StockInBalMaster, SupplyChain"></many-to-one>
+    <set name="ForwardDetails" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="StockInBalDetail" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.StockManage.StockBalManage.Domain.StockInBalDetail_ForwardDetail, SupplyChain"/>
+    </set>
+
+  </subclass>
+</hibernate-mapping>

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.SubjectCostQuota,SupplyChain" lazy="true" table="THD_SubjectCostQuota" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="Code" />
+    <property name="Name" />
+    <property name="QuotaProjectAmount" />
+
+    <property name="QuotaPrice" />
+    <property name="QuotaMoney" />
+    <property name="Wastage" />
+    <many-to-one name="ProjectAmountUnitGUID" column="ProjectAmountUnitGUID"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="ProjectAmountUnitName" />
+
+    <many-to-one name="PriceUnitGUID" column="PriceUnitGUID"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="PriceUnitName" />
+    <property name="QuantityResponsibleOrgGUID" length="64"/>
+    <property name="QuantityResponsibleOrgName"/>
+    <property name="PriceResponsibleOrgGUID" length="64"/>
+
+    <property name="PriceResponsibleOrgName"/>
+    <property name="AssessmentRate"/>
+    <property name="ResourceTypeGUID" length="64"/>
+    <property name="ResourceTypeName"/>
+    <many-to-one name="CostAccountSubjectGUID" column="CostAccountSubjectGUID" class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostAccountSubject,SupplyChain"/>
+    
+    <property name="CostAccountSubjectName"/>
+    <property name="State"/>
+    <property name="CreateTime"/>
+    <property name="TheProjectGUID" length="64"/>
+    <property name="TheProjectName"/>
+    <many-to-one name="TheCostItem" column="CostItemId" not-null="true" class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostItem,SupplyChain"></many-to-one> 
+    
+    <!--<property name="WorkAmountPrice" length="3"/>-->
+    <property name="MainResourceFlag"/>
+    <set name="ListResources" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="CostQuotaId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.ResourceGroup,SupplyChain"/>
+    </set>
+  </class>
+</hibernate-mapping>

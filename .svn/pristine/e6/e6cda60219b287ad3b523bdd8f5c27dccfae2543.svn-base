@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.DatePeriodDefine,SupplyChain" table="THD_DatePeriodDefine" lazy="true" discriminator-value="-1">
+
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    
+	  <property name="PeriodCode"/>
+	  <property name="PeriodName"/>
+	  <property name="BeginDate" />
+    <property name="EndDate"></property>
+    <property name="PeriodType"/>
+    <many-to-one name="ParentPeriod" class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.DatePeriodDefine,SupplyChain" />
+    
+    <many-to-one name="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="CreatePersonName"/>
+    <property name="CreateDate"/>
+    <property name="OpgSysCode"/>
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperOrgInfoName" column="OperationOrgName"/>   
+  </class>
+</hibernate-mapping>

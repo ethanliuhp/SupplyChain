@@ -1,0 +1,747 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using NHibernate.Criterion;
+using Application.Business.Erp.SupplyChain.Client.Basic.Template;
+using VirtualMachine.Component.WinMVC.generic;
+using Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain;
+using Application.Business.Erp.SupplyChain.Client.Basic.CommonClass;
+using Application.Business.Erp.SupplyChain.Basic.Domain;
+using VirtualMachine.Component.Util;
+using Application.Resource.PersonAndOrganization.HumanResource.RelateClass;
+using VirtualMachine.Patterns.BusinessEssence.Domain;
+using Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass;
+using VirtualMachine.Component.WinControls.Controls;
+using VirtualMachine.Core;
+using System.Collections;
+using Application.Business.Erp.SupplyChain.FinanceMng.Domain;
+using Application.Business.Erp.Financial.Client.FinanceUI.InitialSetting.AccountTitleUI;
+using Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass;
+
+namespace Application.Business.Erp.SupplyChain.Client.MoneyManage.FinanceMultData
+{
+    public partial class VPaymentInvoice : TMasterDetailView
+    {
+        private MFinanceMultData model = new MFinanceMultData();
+        private IList acctTitleList = new ArrayList();
+        private MAccountTitle titleModel = new MAccountTitle();
+        private PaymentInvoice curBillMaster;
+        private CurrentProjectInfo projectInfo;
+        Control[] arrControl;
+
+        public VPaymentInvoice()
+        {
+            InitializeComponent();
+            arrControl = new Control[]  {
+                this.txtInvoiceCode, this.txtInvoiceNo,this.txtInvoiceMoney,this.cmbIfDeduction};
+            InitData();
+            InitEvent();
+        }
+
+        public void InitData()
+        {
+            projectInfo = StaticMethod.GetProjectInfo();
+            //获取付款类别的会计科目
+            ObjectQuery oq = new ObjectQuery();
+            //oq.AddCriterion(Expression.Eq("BusinessFlag", "02"));
+            acctTitleList = titleModel.AccountTitleTreeSvr.GetAccountTitleTreeByQuery(oq);
+            IList paymentList = new ArrayList();
+            AccountTitleTree titleTree = new AccountTitleTree();
+            foreach (AccountTitleTree title in acctTitleList)
+            {
+                if (title.Code == "220202" || title.Code == "220203" || title.Code == "220204" || title.Code == "220205" || title.Code == "220299"
+                    || title.Code == "22020801" || title.Code == "22020802" || title.Code == "22020803" || title.Code == "22020804"
+                    || title.Code == "54010105" || title.Code == "6602" || title.Code == "54010106")
+                {
+                    paymentList.Add(title);
+                }
+            }
+            paymentList.Insert(0, titleTree);
+            this.cmbPaymentType.DataSource = paymentList;
+            cmbPaymentType.DisplayMember = "Name";
+            cmbPaymentType.ValueMember = "Id";
+
+            this.cmbPaymentType.DropDownHeight = 200;
+
+            this.transferType.Items.AddRange(new object[] { "简易计税项目", "非应税项目或免税项目", "集体福利或个人消费", "其他" });
+        }
+
+        void InitEvent()
+        {
+            if (arrControl != null && arrControl.Length > 0)
+            {
+                this.KeyPreview = true;
+            }
+            foreach (Control oControl in arrControl)
+            {
+                if (oControl is CustomEdit)
+                {
+                    (oControl as CustomEdit).EnterToTab = true;
+                }
+            }
+            dgSettlements.AutoGenerateColumns = false;
+            txtInvoiceMoney.tbTextChanged += new EventHandler(txtInvoiceMoney_tbTextChanged);
+            txtTaxRate.tbTextChanged += new EventHandler(txtTaxRate_tbTextChanged);
+
+            btnAdd.Click += new EventHandler(btnAdd_Click);
+            btnDelete.Click += new EventHandler(btnDelete_Click);
+        }
+
+        /// <summary>
+        /// 刷新控件(窗体中的控件)
+        /// </summary>
+        /// <param name="state"></param>
+        public override void RefreshControls(MainViewState state)
+        {
+            base.RefreshControls(state);
+
+            //控制自身控件
+            if (ViewState == MainViewState.AddNew || ViewState == MainViewState.Modify)
+            {
+                ObjectLock.Unlock(pnlFloor, true);
+            }
+            else
+            {
+                ObjectLock.Lock(pnlFloor, true);
+            }
+            //永久锁定
+            object[] os = new object[] {txtCode, txtCreatePerson, txtSurplus};
+            ObjectLock.Lock(os);
+        }
+
+        private void ModelToView()
+        {
+            try
+            {
+                txtCode.Text = curBillMaster.Code;
+                this.txtCreateDate.Text = curBillMaster.RealOperationDate.ToShortDateString();
+                if (curBillMaster.CreateDate > ClientUtil.ToDateTime("2000-01-01"))
+                {
+                    dtpInvoiceDate.Value = curBillMaster.CreateDate;
+                }
+                txtDescript.Text = curBillMaster.Descript;
+                txtCreatePerson.Tag = curBillMaster.CreatePerson;
+                txtCreatePerson.Text = curBillMaster.CreatePersonName;
+                txtInvoiceCode.Text = curBillMaster.InvoiceCode;
+                txtInvoiceNo.Text = curBillMaster.InvoiceNo;
+                this.txtInvoiceMoney.Text = curBillMaster.SumMoney.ToString("N4");
+                cmbIfDeduction.SelectedText = curBillMaster.IfDeduction;
+                cmbIfDeduction.SelectedItem = curBillMaster.IfDeduction;
+                if (curBillMaster.AccountTitleID != null)
+                {
+                    this.cmbPaymentType.SelectedValue = curBillMaster.AccountTitleID;
+                }
+                else
+                {
+                    this.cmbPaymentType.SelectedValue = "";
+                }
+                if (curBillMaster.TheSupplierRelationInfo != null)
+                {
+                    this.txtSupply.Result.Clear();
+                    txtSupply.Tag = curBillMaster.TheSupplierName;
+                    txtSupply.Result.Add(curBillMaster.TheSupplierRelationInfo);
+                    txtSupply.Value = curBillMaster.TheSupplierName;
+                }
+
+                cmbInvoiceType.Text = curBillMaster.InvoiceType;
+                cmbSupplierScale.Text = curBillMaster.SupplierScale;
+                txtTaxRate.Text = curBillMaster.TaxRate.ToString();
+                txtTaxMoney.Text = curBillMaster.TaxMoney.ToString();
+
+                if (!ClientUtil.isEmpty(curBillMaster.TransferType))
+                {
+                    this.transferType.SelectedValue = curBillMaster.TransferType;
+                }
+                else
+                {
+                    this.transferType.SelectedValue = "";
+                }
+                txtTransferTax.Text = curBillMaster.TransferTax.ToString("N4");
+
+                cmbSettlementType.Text = curBillMaster.SettlementType;
+                if (curBillMaster.SurplusMoney == 0 && curBillMaster.Settlements.Count == 0)
+                {
+                    curBillMaster.SurplusMoney = curBillMaster.SumMoney - curBillMaster.Settlements.Sum(a => a.InvoiceMoney);
+                }
+                txtSurplus.Text = curBillMaster.SurplusMoney.ToString("N2");
+                dgSettlements.DataSource = curBillMaster.Settlements.ToArray();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        private bool ViewToModel()
+        {
+            if (!ValidView()) return false;
+            try
+            {
+                curBillMaster.Descript = ClientUtil.ToString(this.txtDescript.Text);
+                if (this.txtSupply.Result.Count > 0)
+                {
+                    curBillMaster.TheSupplierRelationInfo = this.txtSupply.Result[0] as SupplierRelationInfo;
+                    curBillMaster.TheSupplierName = txtSupply.Text;
+                }
+
+                AccountTitleTree currAccountTitle = this.cmbPaymentType.SelectedItem as AccountTitleTree;
+                curBillMaster.AccountTitleID = currAccountTitle.Id;
+                curBillMaster.AccountTitleName = currAccountTitle.Name;
+                curBillMaster.AccountTitleCode = currAccountTitle.Code;
+                curBillMaster.AccountTitleSyscode = currAccountTitle.SysCode;
+
+                curBillMaster.InvoiceCode = ClientUtil.ToString(this.txtInvoiceCode.Text);
+                curBillMaster.InvoiceNo = ClientUtil.ToString(this.txtInvoiceNo.Text);
+                curBillMaster.CreateDate = ClientUtil.ToDateTime(this.dtpInvoiceDate.Value.ToShortDateString());
+                curBillMaster.SumMoney = ClientUtil.ToDecimal(this.txtInvoiceMoney.Text);
+                curBillMaster.IfDeduction = ClientUtil.ToString(this.cmbIfDeduction.Text);
+
+                curBillMaster.SupplierScale = cmbSupplierScale.Text;
+                curBillMaster.InvoiceType = cmbInvoiceType.Text;
+                curBillMaster.TaxRate = ClientUtil.ToDecimal(txtTaxRate.Text);
+                curBillMaster.TaxMoney = ClientUtil.ToDecimal(txtTaxMoney.Text);
+                curBillMaster.TransferType = ClientUtil.ToString(this.transferType.Text);
+                curBillMaster.TransferTax = ClientUtil.ToDecimal(this.txtTransferTax.Text);
+
+                curBillMaster.SettlementType = cmbSettlementType.Text;
+                curBillMaster.SurplusMoney = ClientUtil.ToDecimal(txtSurplus.Text);
+                curBillMaster.Settlements.Clear();
+                for (int i = 0; i < dgSettlements.Rows.Count; i++)
+                {
+                    curBillMaster.Settlements.Add(dgSettlements.Rows[i].DataBoundItem as InvoiceSettlementRelation);
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("数据错误：" + ExceptionUtil.ExceptionMessage(e));
+                return false;
+            }
+        }
+
+        public bool ValidView()
+        {
+            if (ClientUtil.ToString(this.cmbSupplierScale.Text) == "")
+            {
+                MessageBox.Show("请选择纳税人规模！");
+                cmbSupplierScale.Focus();
+                return false;
+            }
+
+            if (ClientUtil.ToString(this.cmbPaymentType.Text) == "")
+            {
+                MessageBox.Show("请选择款项类别！");
+                cmbPaymentType.Focus();
+                return false;
+            }
+            if (string.IsNullOrEmpty(cmbInvoiceType.Text))
+            {
+                MessageBox.Show("请选择发票类别！");
+                cmbInvoiceType.Focus();
+                return false;
+            }
+            if (ClientUtil.ToString(this.txtInvoiceCode.Text) == "")
+            {
+                MessageBox.Show("请输入发票代码！");
+                txtInvoiceCode.Focus();
+                return false;
+            }
+            if (ClientUtil.ToString(this.txtInvoiceNo.Text) == "")
+            {
+                MessageBox.Show("请输入发票号码！");
+                txtInvoiceNo.Focus();
+                return false;
+            }
+            var id = curBillMaster == null ? null : curBillMaster.Id;
+            if (model.FinanceMultDataSrv.IsPaymentInvoiceNoUsed(txtInvoiceNo.Text.Trim(), id))
+            {
+                string mes = "发票号【" + txtInvoiceNo.Text.Trim() + "】已经被使用，请重新输入";
+                errorProvider1.SetError(txtInvoiceNo, mes);
+                txtInvoiceNo.Focus();
+                MessageBox.Show(mes);
+                return false;
+            }
+            if (ClientUtil.ToDecimal(this.txtInvoiceMoney.Text) == 0)
+            {
+                MessageBox.Show("请输入发票金额！");
+                txtInvoiceMoney.Focus();
+                return false;
+            }
+            var taxRate = ClientUtil.ToDecimal(txtTaxRate.Text);
+            if (taxRate < 0 || taxRate > 100)
+            {
+                MessageBox.Show("请输入0-100之间的税率！");
+                txtTaxRate.Focus();
+                return false;
+            }
+            if (ClientUtil.ToDecimal(txtTaxMoney.Text) == 0)
+            {
+                MessageBox.Show("请输入税金！");
+                txtTaxMoney.Focus();
+                return false;
+            }
+            if (ClientUtil.ToDecimal(txtSurplus.Text) < 0)
+            {
+                MessageBox.Show("该发票关联结算单过多，请删除部分结算单");
+                return false;
+            }
+
+            errorProvider1.Clear();
+            return true;
+        }
+
+        #region 固定代码
+        /// <summary>
+        /// 启动本窗体,(设置状态或重新加载已有的数据)
+        /// </summary>
+        /// <param name="code">窗体Caption</param>
+        public void Start(string Id)
+        {
+            try
+            {
+                if (Id == "空")
+                    RefreshState(MainViewState.Initialize);
+                else
+                {
+                    curBillMaster = model.FinanceMultDataSrv.GetPaymentInvoiceById(Id);
+                    ModelToView();
+                    RefreshState(MainViewState.Browser);
+
+                    //判断是否为制单人
+                    PersonInfo pi = this.txtCreatePerson.Tag as PersonInfo;
+                    string perid = ConstObject.LoginPersonInfo.Id;
+                    if (pi != null && !pi.Id.Equals(perid))
+                    {
+                        RefreshStateByQuery();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("视图启动出错：" + ExceptionUtil.ExceptionMessage(e));
+            }
+        }
+
+        /// <summary>
+        /// 刷新状态(按钮状态)
+        /// </summary>
+        /// <param name="state"></param>
+        public override void RefreshState(MainViewState state)
+        {
+            base.RefreshState(state);
+            //控制表格
+            switch (state)
+            {
+                case MainViewState.AddNew:
+                case MainViewState.Modify:
+                    txtInvoiceCode.Enabled = true;
+                    txtInvoiceNo.Enabled = true;
+                    txtInvoiceMoney.Enabled = true;
+                    txtDescript.Enabled = true;
+                    break;
+                case MainViewState.Initialize:
+                case MainViewState.Browser:
+                    txtInvoiceCode.Enabled = false;
+                    txtInvoiceNo.Enabled = false;
+                    txtInvoiceMoney.Enabled = false;
+                    txtDescript.Enabled = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+        #endregion
+
+        #region 增删改查
+        /// <summary>
+        /// 新建
+        /// </summary>
+        /// <returns></returns>
+        public override bool NewView()
+        {
+            try
+            {
+                base.NewView();
+                ClearView();
+
+                this.curBillMaster = new PaymentInvoice();
+                curBillMaster.CreatePerson = ConstObject.LoginPersonInfo;
+                curBillMaster.CreatePersonName = ConstObject.LoginPersonInfo.Name;
+                curBillMaster.CreateYear = ConstObject.LoginDate.Year;
+                curBillMaster.CreateMonth = ConstObject.LoginDate.Month;
+                curBillMaster.OperOrgInfoName = ConstObject.TheLogin.TheOperationOrgInfo.Name;//登录人姓名
+                curBillMaster.OperOrgInfo = ConstObject.TheLogin.TheOperationOrgInfo;
+                curBillMaster.OpgSysCode = ConstObject.TheLogin.TheOperationOrgInfo.SysCode;
+                curBillMaster.HandlePerson = ConstObject.LoginPersonInfo;
+                curBillMaster.HandlePersonName = ConstObject.LoginPersonInfo.Name;
+                curBillMaster.DocState = DocumentState.Edit;
+                //制单人
+                txtCreatePerson.Tag = ConstObject.LoginPersonInfo;
+                txtCreatePerson.Text = ConstObject.LoginPersonInfo.Name;
+                //责任人
+                if (projectInfo != null && projectInfo.Code != CommonUtil.CompanyProjectCode)
+                {
+                    curBillMaster.ProjectId = projectInfo.Id;
+                    curBillMaster.ProjectName = projectInfo.Name;
+                }
+                this.ModelToView();
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ExceptionUtil.ExceptionMessage(ee), "提示", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <returns></returns>
+        public override bool ModifyView()
+        {
+            if (curBillMaster.DocState == DocumentState.Edit || curBillMaster.DocState == DocumentState.Valid)
+            {
+                base.ModifyView();
+                curBillMaster = model.FinanceMultDataSrv.GetPaymentInvoiceById(curBillMaster.Id);
+                ModelToView();
+                return true;
+            }
+            string message = "此单状态为【{0}】，不能修改！";
+            message = string.Format(message, ClientUtil.GetDocStateName(curBillMaster.DocState));
+            MessageBox.Show(message);
+            return false;
+        }
+
+        /// <summary>
+        /// 提交
+        /// </summary>
+        /// <returns></returns>
+        public override bool SubmitView()
+        {
+            try
+            {
+                this.txtCode.Focus();
+                if (!ViewToModel()) return false;
+
+                if (MessageBox.Show("提交后不可编辑数据，您确认要提交？", "提交确认", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return false;
+                }
+
+                curBillMaster.DocState = DocumentState.InExecute;
+                curBillMaster = model.FinanceMultDataSrv.SavePaymentInvoice(curBillMaster) as PaymentInvoice;
+
+                txtCode.Text = curBillMaster.Code;
+                //更新Caption
+                this.ViewCaption = ViewName + "-" + txtCode.Text;
+
+                WriteLog(string.IsNullOrEmpty(curBillMaster.Id));
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("数据保存错误：" + ExceptionUtil.ExceptionMessage(e));
+                curBillMaster.DocState = DocumentState.Edit;
+
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 保存
+        /// </summary>
+        /// <returns></returns>
+        public override bool SaveView()
+        {
+            try
+            {
+                if (!ViewToModel()) return false;
+                bool flag = false;
+                curBillMaster.DocState = DocumentState.Edit;
+                curBillMaster = model.FinanceMultDataSrv.SavePaymentInvoice(curBillMaster) as PaymentInvoice;
+                txtCode.Text = curBillMaster.Code;
+                //更新Caption
+                WriteLog(flag);
+
+                this.ViewCaption = ViewName + "-" + txtCode.Text;
+                MessageBox.Show("保存成功！");
+                ModelToView();
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("数据保存错误：" + ExceptionUtil.ExceptionMessage(e));
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <returns></returns>
+        public override bool DeleteView()
+        {
+            try
+            {
+                curBillMaster = model.FinanceMultDataSrv.GetPaymentInvoiceById(curBillMaster.Id);
+                if (curBillMaster.DocState == DocumentState.Valid || curBillMaster.DocState == DocumentState.Edit)
+                {
+                    if (!model.FinanceMultDataSrv.DeletePaymentInvoice(curBillMaster)) return false;
+                    LogData log = new LogData();
+                    log.BillId = curBillMaster.Id;
+                    log.BillType = "付款发票维护";
+                    log.Code = curBillMaster.Code;
+                    log.OperType = "删除";
+                    log.Descript = "";
+                    log.OperPerson = ConstObject.LoginPersonInfo.Name;
+                    log.ProjectName = curBillMaster.ProjectName;
+                    StaticMethod.InsertLogData(log);
+                    ClearView();
+                    MessageBox.Show("删除成功！");
+                    return true;
+                }
+                MessageBox.Show("此单状态为【" + ClientUtil.GetDocStateName(curBillMaster.DocState) + "】，不能删除！");
+                return false;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("数据删除错误：" + ExceptionUtil.ExceptionMessage(e));
+                return false;
+            }
+        }
+
+        //清空数据
+        private void ClearView()
+        {
+            ClearControl(pnlHeader);
+            ClearControl(pnlBody);
+        }
+
+        private void ClearControl(Control c)
+        {
+            foreach (Control cd in c.Controls)
+            {
+                ClearControl(cd);
+            }
+            //自定义控件清空
+            if (c is CustomEdit || c is TextBox)
+            {
+                c.Tag = null;
+                c.Text = "";
+            }           
+        }
+
+        /// <summary>
+        /// 撤销
+        /// </summary>
+        /// <returns></returns>
+        public override bool CancelView()
+        {
+            try
+            {
+                switch (ViewState)
+                {
+                    case MainViewState.Modify:
+                        //重新查询数据
+                        curBillMaster = model.FinanceMultDataSrv.GetPaymentInvoiceById(curBillMaster.Id);
+                        ModelToView();
+                        break;
+                    default:
+                        ClearView();
+                        break;
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("数据撤销错误：" + ExceptionUtil.ExceptionMessage(e));
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 刷新
+        /// </summary>
+        public override void RefreshView()
+        {
+            try
+            {
+                //重新获得当前对象的值
+                curBillMaster = model.FinanceMultDataSrv.GetPaymentInvoiceById(curBillMaster.Id);
+                //给界面赋值
+                ModelToView();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("数据刷新错误：" + ExceptionUtil.ExceptionMessage(e));
+            }
+        }
+
+        private void WriteLog(bool IsNew)
+        {
+            LogData log = new LogData();
+            log.BillId = curBillMaster.Id;
+            log.BillType = "付款发票维护";
+            log.Code = curBillMaster.Code;
+            log.Descript = "";
+            log.OperPerson = ConstObject.LoginPersonInfo.Name;
+            log.ProjectName = curBillMaster.ProjectName;
+            if (IsNew)
+            {
+                log.OperType = "新增";
+            }
+            else
+            {
+                if (curBillMaster.DocState == DocumentState.InExecute)
+                {
+                    log.OperType = "提交"; 
+                    
+                }
+                else
+                {
+                    log.OperType = "修改"; 
+                }
+            }
+            StaticMethod.InsertLogData(log);
+        }
+        #endregion
+
+        private void ComputeSurplus()
+        {
+            var invMoney = ClientUtil.ToDecimal(txtInvoiceMoney.Text);
+            var setMoney = 0m;
+            for (int i = 0; i < dgSettlements.Rows.Count; i++)
+            {
+                var item = dgSettlements.Rows[i].DataBoundItem as InvoiceSettlementRelation;
+                if (item != null)
+                {
+                    setMoney += item.InvoiceMoney;
+                }
+            }
+
+            txtSurplus.Text = (invMoney - setMoney).ToString("N2");
+            if (setMoney > 0)
+            {
+                cmbIfDeduction.Text = "是";
+            }
+            else
+            {
+                cmbIfDeduction.Text = string.Empty;
+            }
+        }
+
+        private void ComputeTax()
+        {
+            var rate = ClientUtil.ToDecimal(txtTaxRate.Text)/100;
+            if (rate > 1)
+            {
+                txtTaxRate.Text = "100";
+            }
+            else
+            {
+                txtTaxMoney.Text = (ClientUtil.ToDecimal(txtInvoiceMoney.Text)*rate/(1 + rate)).ToString("N2");
+            }
+        }
+
+        private void txtTaxRate_tbTextChanged(object sender, EventArgs e)
+        {
+            ComputeTax();
+        }
+
+        private void txtInvoiceMoney_tbTextChanged(object sender, EventArgs e)
+        {
+            ComputeTax();
+
+            ComputeSurplus();           
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (dgSettlements.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("请选择要删除的记录行");
+                return;
+            }
+
+            foreach (DataGridViewRow row in dgSettlements.SelectedRows)
+            {
+                var item = row.DataBoundItem as InvoiceSettlementRelation;
+                if (item != null)
+                {
+                    curBillMaster.Settlements.Remove(item);
+                }
+            }
+            dgSettlements.DataSource = curBillMaster.Settlements.ToArray();
+
+            ComputeSurplus();
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (txtSupply.Result == null || txtSupply.Result.Count == 0)
+            {
+                MessageBox.Show("请先选择单位");
+                return;
+            }
+
+            var sup = txtSupply.Result[0] as SupplierRelationInfo;
+            if (sup == null)
+            {
+                MessageBox.Show("请先选择单位");
+                return;
+            }
+
+            var surplus = ClientUtil.ToDecimal(txtSurplus.Text.Trim());
+            if (surplus <= 0)
+            {
+                MessageBox.Show("该发票金额已全部对应到结算单，不能再添加结算单");
+                return;
+            }
+
+            if(string.IsNullOrEmpty(cmbSettlementType.Text))
+            {
+                MessageBox.Show("请选择关联结算单类型");
+                return;
+            }
+
+            var dlg = new VSettlementSelector(cmbSettlementType.Text, projectInfo.Id, model, sup, surplus);
+            dlg.Owner = this;
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                var list = dlg.SelectedBills.OrderBy(a => a.RelationIndex);
+                foreach (var bill in list)
+                {
+                    var item = new InvoiceSettlementRelation();
+                    item.Invoice = curBillMaster;
+
+                    var stMoney = bill.TotalSettlementMoney - bill.SettlementMoney;
+                    item.InvoiceMoney = surplus <= stMoney ? surplus : stMoney;
+                    item.Settlement = bill.Settlement;
+                    item.SettlementCode = bill.SettlementCode;
+                    item.SettlementMoney = item.InvoiceMoney;
+                    item.TotalSettlementMoney = bill.TotalSettlementMoney;
+
+                    curBillMaster.Settlements.Add(item);
+
+                    surplus -= item.InvoiceMoney;
+                    if (surplus == 0)
+                    {
+                        break;
+                    }
+                }
+
+                dgSettlements.DataSource = curBillMaster.Settlements.ToArray();
+
+                ComputeSurplus();
+            }
+        }
+    }
+}

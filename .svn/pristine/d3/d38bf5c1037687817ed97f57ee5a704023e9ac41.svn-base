@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.StockManage.Stock.Domain.StockSequence, SupplyChain" table="THD_StkStockSequence" lazy="true" select-before-update="true">
+
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="Version" type="long" unsaved-value="-1"/>
+    <property name="FiscalYear" />
+    <property name="FiscalMonth" />
+
+    <many-to-one name="TheStationCategory" class="Application.Business.Erp.SupplyChain.StockManage.Base.Domain.StationCategory, SupplyChain"></many-to-one>
+    <many-to-one name="TheStockRelation" column="TheStockRelation" class="Application.Business.Erp.SupplyChain.StockManage.Stock.Domain.StockRelation,SupplyChain"></many-to-one>
+    <property name="Quantity" />    
+    <many-to-one name="TheStandardUnit" column="TheStandardUnit" class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="PieceQuantity" />
+    <many-to-one name="ThePieceUnit" column="ThePieceUnit" class="Application.Resource.MaterialResource.Domain.PieceUnitMaterial,ResourceManager"></many-to-one>
+    <property name="CreateDate" type="Date" column="CreateDate"/>
+    <!--料单主表-->
+    <any name="Bill" meta-type="string" id-type="long">
+      <meta-value value="StockIn" class="Application.Business.Erp.SupplyChain.StockManage.StockInManage.Domain.StockIn,SupplyChain"/>
+      <meta-value value="StockInRed" class="Application.Business.Erp.SupplyChain.StockManage.StockInManage.Domain.StockInRed,SupplyChain"/>
+      <column name="BillType" />
+      <column name="Bill"/>
+    </any>
+    <!--料单从表-->
+    <any name="BillDtl" meta-type="string" id-type="long">
+      <meta-value value="StockInDtl" class="Application.Business.Erp.SupplyChain.StockManage.StockInManage.Domain.StockInDtl,SupplyChain"/>
+      <meta-value value="StockInRedDtl" class="Application.Business.Erp.SupplyChain.StockManage.StockInManage.Domain.StockInRedDtl,SupplyChain"/>
+      <column name="BillDtlType" />
+      <column name="BillDtl"/>
+    </any>    
+  </class>
+</hibernate-mapping>

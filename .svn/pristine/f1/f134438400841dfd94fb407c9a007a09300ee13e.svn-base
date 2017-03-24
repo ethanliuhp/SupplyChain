@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.Approval.AppTableSetMng.Domain.AppTableSet, SupplyChain" table="THD_AppTableSet" lazy="true" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1" />
+
+    <property name="TableName"  length="50"/>
+    <property name="ClassName" length="50" />
+    <property name="DetailClassName" length="50" />
+    <property name="DetailPhysicsName" length="50" />
+    <property name="PhysicsName"  length="50"/>
+    <property name="StatusName" length="10" />
+    <property name="StatusValueAgr"  length="10"/>
+    <property name="StatusValueDis"  length="10"/>
+    <property name="ExecCode" length="200" />
+    <property name="QueryCode" length="200" />
+    <property name="MasterNameSpace" length="300" />
+    <property name="DetailNameSpace" length="300" />
+    <property name="Remark"  length="100"/>
+    <property name="Status"  />
+    <property name="ProjectId"/>
+    <property name="ProjectName"/>
+  </class>
+</hibernate-mapping>

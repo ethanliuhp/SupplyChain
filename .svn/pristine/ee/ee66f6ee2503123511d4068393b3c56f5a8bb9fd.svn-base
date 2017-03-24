@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.StockManage.StockOutManage.BasicDomain.BasicStockOutDtl, SupplyChain" table="THD_StkStockOutDtl" lazy="true"  select-before-update="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <discriminator column="TheStockInOutKind" type="long" />
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+
+    <many-to-one name="MaterialResource" column="Material"  class="Application.Resource.MaterialResource.Domain.Material,ResourceManager"/>
+    <many-to-one name="MatStandardUnit" column="MatStandardUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="MaterialCode"/>
+    <property name="MaterialName"/>
+    <property name="MaterialSpec"/>
+    <property name="MaterialStuff"/>
+    <property name="MatStandardUnitName"/>
+    <property name="Quantity" length="4" />
+    <property name="DiagramNumber" />
+    <property name="Descript"/>
+
+    <property name="ForwardDetailId" column="ForwardDetailId"/>
+    <property name="RefQuantity" column="RefQuantity"/>
+    <property name="ProfessionalCategory"/>
+    <property name="MaterialGrade"/>
+
+    <property name="Price" length="8" />
+    <property name="Money" length="2" />
+    <property name="ConfirmPrice" length="8" />
+    <property name="ConfirmMoney" length="2" />
+    <many-to-one name="UsedPart"/>
+    <property name="UsedPartName"></property>
+    <property name="UsedPartSysCode"></property>
+
+    <!--结算科目-->
+    <many-to-one name="SubjectGUID" column="SubjectGUID"  class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostAccountSubject,ResourceManager"></many-to-one>
+    <property name="SubjectName"/>
+    <property name="SubjectSysCode"/>
+
+  </class>
+</hibernate-mapping>
+
+
+

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" auto-import="false">
+  <class name="Application.Business.Erp.SupplyChain.StockManage.Base.Domain.StationCategory, SupplyChain" table="THD_StkStationCategory" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <!--基类的属性-->
+    <!--<version name="Version" column="Version" type="long" unsaved-value="-1" />-->
+    <property name="CategoryNodeType" column="NODETYPE"/>
+    <property name="Name" column="Name" />
+    <property name="Code" column="Code" />
+    <property name="CreateDate" column="CreateDate" type="Date"/>
+    <property name="UpdateDate" column="UpdateDate" type="Date"/>
+    <property name="SysCode" column="SysCode" />
+    <property name="State" column="State" />
+    <property name="BusinessType"/>
+    <property name="Level" column="numLevel" />
+    <property name="Describe" column="Describe"/>
+    <property name="OrderNo" column="OrderNo"/>
+    <many-to-one name="ParentNode" column="ParentNode" class="Application.Business.Erp.SupplyChain.StockManage.Base.Domain.StationCategory, SupplyChain" />
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <many-to-one name="TheTree" column="TheTree" class="VirtualMachine.Patterns.CategoryTreePattern.Domain.CategoryTree,VirtualMachine" />
+    <bag name="ChildNodes" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentNode" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.StockManage.Base.Domain.StationCategory, SupplyChain" />
+    </bag>
+    <!--结束基类属性-->
+    <property name="StationKind" column="StationKind" />
+    <property name="Address" column="Address"/>
+    <property name="Capability" column="Capability" />
+    <property name="UsableCapability" column="UsableCapability" />
+    <property name="UsedPrice" column="UsedPrice"/>
+
+    <many-to-one name="ModifyPerson" column="ModifyPerson"/>
+    <property name="OpgSysCode" column="OpgSysCode"/>
+    <!--<property name="NodeType"/>-->
+
+    <property name="ProjectName"/>
+    <many-to-one name="ProjectId"/>
+  </class>
+</hibernate-mapping>

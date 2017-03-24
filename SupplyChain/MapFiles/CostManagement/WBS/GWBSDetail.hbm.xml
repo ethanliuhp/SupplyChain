@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSDetail,SupplyChain" table="THD_GWBSDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="Code"  />
+    <property name="Name"  />
+    <many-to-one name="TheCostItem" column="CostItemGUID" class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostItem,SupplyChain"/>
+    <!--<property name="CostItemName"/>-->
+    <property name="TheCostItemCateSyscode" />
+    <property name="Summary" />
+    <property name="ContentDesc"  />
+    <property name="ProjectTaskTypeCode" />
+    <!--<property name="BearOrgGUID" length="64"/>-->
+    <many-to-one name="BearOrgGUID" column="BearOrgGUID" class="Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass.SupplierRelationInfo,ResourceManager"/>
+    <property name="BearOrgName"/>
+    <property name="ResponsibilitilyWorkAmount" />
+    <property name="PlanWorkAmount" />
+    <property name="FinishedWorkAmount" />
+    <property name="TaskFinishedPercent" />
+    <!--<property name="AccountWorkAmount" length="3"/>
+    <property name="SubcontractBalanceWorkAmount" length="3"/>
+    <property name="CompletionBalanceWorkAmount" length="3"/>-->
+    <!--<property name="WorkAmountUnitGUID" length="64"/>-->
+    <many-to-one name="WorkAmountUnitGUID" column="WorkAmountUnitGUID"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="WorkAmountUnitName"/>
+
+    <property name="ResponsibilitilyPrice" />
+    <property name="ResponsibilitilyTotalPrice" />
+    <property name="PlanPrice" />
+    <property name="PlanTotalPrice" />
+
+    <!--<property name="AccountPrice" length="3"/>
+    <property name="AccountTotalPrice" length="3"/>
+    <property name="SubcontractBalancePrice" length="3"/>
+    <property name="SubcontractBalanceTotalPrice" length="3"/>
+    <property name="CompletionBalancePrice" length="3"/>
+    <property name="CompletionBalanceTotalPrice" length="3"/>-->
+
+    <!--<property name="PriceUnitGUID" length="64"/>-->
+    <many-to-one name="PriceUnitGUID" column="PriceUnitGUID"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="PriceUnitName"/>
+
+    <property name="ContractProjectQuantity" />
+    <property name="ContractPrice" />
+    <property name="ContractTotalPrice" />
+
+    <property name="DetailExecuteDesc" />
+
+    <property name="State" />
+    <property name="CurrentStateTime" type="DateTime"/>
+
+    <property name="ContractGroupGUID" length="64"/>
+    <property name="ContractGroupName"/>
+    <property name="ContractGroupCode"/>
+    <property name="ContractGroupType"/>
+    <property name="WorkPart"/>
+    <property name="WorkUseMaterial"/>
+    <property name="WorkMethod"/>
+
+    <property name="TheProjectGUID" />
+    <property name="TheProjectName"/>
+
+    <property name="CreateTime"/>
+    <property name="UpdatedDate"/>
+
+    <many-to-one name="TheGWBS" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain" lazy="false"></many-to-one>
+
+    <set name="ListCostSubjectDetails" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="GWBSDetailId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSDetailCostSubject,SupplyChain"/>
+    </set>
+    <property name="ResponseFlag"/>
+    <property name="ProduceConfirmFlag"/>
+    <property name="CostingFlag"/>
+    <property name="QuantityConfirmed"/>
+    <property name="ProgressConfirmed"/>
+
+
+    <property name="NGUID"/>
+    <property name="AddupAccQuantity" />
+    <property name="AddupAccFigureProgress" />
+    <property name="SubContractStepRate" />
+    <property name="SubContractFeeFlag"/>
+    <property name="TheGWBSSysCode" />
+
+    <property name="MainResourceTypeId"/>
+    <property name="MainResourceTypeName"/>
+    <property name="MainResourceTypeSpec"/>
+    <property name="MainResourceTypeQuality"/>
+
+    <property name="OrderNo"/>
+    <property name="DiagramNumber"/>
+    <property name="TheGWBSFullPath"/>
+    <property name="ChangeParentID"></property>
+    <many-to-one name="ContractProject" class="Application.Business.Erp.SupplyChain.CostManagement.ContractExcuteMng.Domain.SubContractProject,SupplyChain" lazy="false"></many-to-one>
+    <property name="ContractProjectName"></property>
+  </class>
+</hibernate-mapping>
+
+

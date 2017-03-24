@@ -1,0 +1,219 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Application.Business.Erp.SupplyChain.Client.MoneyManage.FinanceMultData;
+using Application.Business.Erp.SupplyChain.Client.Util;
+using Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain;
+using FlexCell;
+using Iesi.Collections.Generic;
+using VirtualMachine.Component.WinControls.CommonForm.FlashScreenMng;
+using VirtualMachine.Component.WinControls.Controls;
+
+namespace Application.Business.Erp.SupplyChain.Client.MoneyManage
+{
+    public partial class UcFundSchemeDetail : UserControl
+    {
+        private List<BackgroundWorker> workers;
+        private FundSchemeOperate fundSchemeOperate;
+        private MFinanceMultData mOperate;
+
+        public UcFundSchemeDetail()
+        {
+            InitializeComponent();
+
+            InitEvents();
+
+            mOperate = new MFinanceMultData();
+        }
+
+        public FundPlanningMaster SelectFundScheme { get; set; }
+
+        public void LoadFundScheme()
+        {
+            if (SelectFundScheme == null)
+            {
+                MessageBox.Show("资金策划表为空");
+                return;
+            }
+
+            FlashScreen.Show("数据加载中，请稍候...");
+
+            var proj = mOperate.CurrentProjectSrv.GetProjectById(SelectFundScheme.ProjectId);
+            fundSchemeOperate = new FundSchemeOperate(proj.TaxType);
+            if (proj.TaxType == 0)
+            {
+                lbInfo.Tag = lbInfo.Text = "计税类型：简易征收（进项税人工、分包3%，其他为0；销项税3%）";
+            }
+            else
+            {
+                lbInfo.Tag = lbInfo.Text = "计税类型：一般征收（进项税分包、安装11%，人工、混凝土、材料其他、水电、其他直接费3%，钢材、设备租赁、其他机械费17%，间接费用进项税率取测算值；销项税11%）";
+            }
+
+            InitReport();
+
+            foreach (var worker in workers)
+            {
+                if (!worker.IsBusy)
+                {
+                    worker.RunWorkerAsync();
+                }
+            }
+
+            FlashScreen.Close();
+        }
+
+        public void LoadFundScheme(FundPlanningMaster fundScheme)
+        {
+            SelectFundScheme = fundScheme;
+
+            LoadFundScheme();
+        }
+
+        public void InitReport()
+        {
+            foreach (TabPage tp in tbContent.TabPages)
+            {
+                var grid = FindFlexGrid(tp);
+                if (grid != null)
+                {
+                    grid.Tag = null;
+                    grid.EnterKeyMoveTo = MoveToEnum.NextRow;
+
+                    LoadTempleteFile(grid, tp.Tag + ".flx");
+                }
+            }
+        }
+
+        private void InitEvents()
+        {
+            workers = new List<BackgroundWorker>();
+            var dw1 = new BackgroundWorker();
+            dw1.DoWork += new DoWorkEventHandler(dw1_DoWork);
+            dw1.RunWorkerCompleted += new RunWorkerCompletedEventHandler(dw1_RunWorkerCompleted);
+            workers.Add(dw1);
+
+            var dw2 = new BackgroundWorker();
+            dw2.DoWork += new DoWorkEventHandler(dw2_DoWork);
+            dw2.RunWorkerCompleted += new RunWorkerCompletedEventHandler(dw2_RunWorkerCompleted);
+            workers.Add(dw2);
+
+            var dw3 = new BackgroundWorker();
+            dw3.DoWork += new DoWorkEventHandler(dw3_DoWork);
+            dw3.RunWorkerCompleted += new RunWorkerCompletedEventHandler(dw3_RunWorkerCompleted);
+            workers.Add(dw3);
+
+            var dw4 = new BackgroundWorker();
+            dw4.DoWork += new DoWorkEventHandler(dw4_DoWork);
+            dw4.RunWorkerCompleted += new RunWorkerCompletedEventHandler(dw4_RunWorkerCompleted);
+            workers.Add(dw4);
+        }
+
+        private CustomFlexGrid FindFlexGrid(TabPage tp)
+        {
+            foreach (var ct in tp.Controls)
+            {
+                if (ct is CustomFlexGrid)
+                {
+                    return ct as CustomFlexGrid;
+                }
+            }
+
+            return null;
+        }
+
+        private void LoadTempleteFile(CustomFlexGrid grid, string sReportPath)
+        {
+            ExploreFile eFile = new ExploreFile();
+            string path = eFile.Path;
+            if (eFile.IfExistFileInServer(sReportPath))
+            {
+                eFile.CreateTempleteFileFromServer(sReportPath);
+                //载入格式和数据
+                grid.OpenFile(path + "\\" + sReportPath); //载入格式
+                grid.SelectionStart = 0;
+            }
+            else
+            {
+                MessageBox.Show("未找到模板格式文件【" + sReportPath + "】");
+            }
+        }
+
+        void dw1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            fundSchemeOperate.LoadFundSchemeMaster(rptGridMaster, SelectFundScheme);
+            fundSchemeOperate.LoadReportAmount(rptGridAmount, SelectFundScheme);
+            fundSchemeOperate.LoadCostTax(rptGridTax, SelectFundScheme);
+        }
+
+        void dw1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var rptAmountList =
+                mOperate.FinanceMultDataSrv.GetFundSchemeDetail(SelectFundScheme, typeof(FundSchemeReportAmount)).
+                    OfType<FundSchemeReportAmount>().ToList();
+
+            SelectFundScheme.CostCalculationDtl = new HashedSet<FundSchemeReportAmount>();
+            SelectFundScheme.CostCalculationDtl.AddAll(rptAmountList);
+        }
+
+        void dw4_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            fundSchemeOperate.LoadPayment(rptGridPayment, SelectFundScheme);
+            fundSchemeOperate.LoadGether(rptGridGether, SelectFundScheme);
+            fundSchemeOperate.LoadFinanceFee(rptGridFee, SelectFundScheme);
+        }
+
+        void dw4_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var payList = mOperate.FinanceMultDataSrv.GetFundSchemeDetail(SelectFundScheme, typeof(FundSchemePayment)).OfType<FundSchemePayment>().ToList();
+            SelectFundScheme.PaymentCalculationDtl = new HashedSet<FundSchemePayment>();
+            SelectFundScheme.PaymentCalculationDtl.AddAll(payList);
+
+            var getList = mOperate.FinanceMultDataSrv.GetFundSchemeDetail(SelectFundScheme, typeof(FundSchemeGathering)).OfType<FundSchemeGathering>().ToList();
+            SelectFundScheme.GatheringCalculationDtl = new HashedSet<FundSchemeGathering>();
+            SelectFundScheme.GatheringCalculationDtl.AddAll(getList);
+
+            var feeList = mOperate.FinanceMultDataSrv.GetFundSchemeDetail(SelectFundScheme, typeof(FundSchemeFinanceFee)).OfType<FundSchemeFinanceFee>().ToList();
+            SelectFundScheme.FinanceFeeCalculate = new HashedSet<FundSchemeFinanceFee>();
+            SelectFundScheme.FinanceFeeCalculate.AddAll(feeList);
+        }
+
+        void dw3_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            fundSchemeOperate.LoadFundCashCostRate(rptGridBalance, SelectFundScheme);
+            fundSchemeOperate.LoadIndirectTaxRate(rptGridIndRate, SelectFundScheme);
+        }
+
+        void dw3_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var cashList = mOperate.FinanceMultDataSrv.GetFundSchemeDetail(SelectFundScheme, typeof(FundSchemeCashCostRate)).OfType<FundSchemeCashCostRate>().ToList();
+            SelectFundScheme.CashCostRateCalculationDtl = new HashedSet<FundSchemeCashCostRate>();
+            SelectFundScheme.CashCostRateCalculationDtl.AddAll(cashList);
+
+            var rateList = mOperate.FinanceMultDataSrv.GetFundSchemeDetail(SelectFundScheme, typeof(FundSchemeIndirectTaxRate)).OfType<FundSchemeIndirectTaxRate>().ToList();
+            SelectFundScheme.IndirectInputCalculate = new HashedSet<FundSchemeIndirectTaxRate>();
+            SelectFundScheme.IndirectInputCalculate.AddAll(rateList);
+        }
+
+        void dw2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            fundSchemeOperate.LoadFundSummary(rptGridSummary, SelectFundScheme);
+            fundSchemeOperate.LoadFundContrast(rptGridContrast, SelectFundScheme);
+        }
+
+        void dw2_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var sumList = mOperate.FinanceMultDataSrv.GetFundSchemeDetail(SelectFundScheme, typeof(FundSchemeSummary)).OfType<FundSchemeSummary>().ToList();
+            SelectFundScheme.FundSummaryDtl = new HashedSet<FundSchemeSummary>();
+            SelectFundScheme.FundSummaryDtl.AddAll(sumList);
+
+            var contList = mOperate.FinanceMultDataSrv.GetFundSchemeDetail(SelectFundScheme, typeof(FundSchemeContrast)).OfType<FundSchemeContrast>().ToList();
+            SelectFundScheme.FundCalculateContrastDtl = new HashedSet<FundSchemeContrast>();
+            SelectFundScheme.FundCalculateContrastDtl.AddAll(contList);
+        }
+    }
+}

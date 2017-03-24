@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.FinanceMultDataDetail,SupplyChain" table="THD_FinanceMultDataDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.FinanceMultDataMaster,SupplyChain"></many-to-one>
+    <property name="Money"></property>
+
+    <property name="SubProjectPayout"></property>
+    <property name="PersonCost"></property>
+    <property name="MaterialCost"></property>
+    <property name="MechanicalCost"></property>
+    <property name="OtherDirectCost"></property>
+    <property name="IndirectCost"></property>
+    <property name="ContractGrossProfit"></property>
+    <property name="MaterialRemain"></property>
+    <property name="TempDeviceRemain"></property>
+    <property name="LowValueConsumableRemain"></property>
+    <property name="ExchangeMaterialRemain"></property>
+    <property name="FinancelCost"></property>
+    <property name="SubBorrow"></property>
+    <property name="OtherGatherMoney"></property>
+    <property name="Profit"></property>
+    <property name="HandInMoney"></property>
+    <property name="CivilProjectBalance"></property>
+    <property name="SetUpProjectBuild"></property>
+    <property name="CivilAndSetUpBalance"></property>
+    <property name="CivilAndSetUpPayout"></property>
+    <property name="SetUpPayout"></property>
+    <property name="MainBusinessTax"></property>
+    <property name="BusCostSure"></property>
+  </class>
+</hibernate-mapping>
+
+

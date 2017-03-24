@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XML Spy v4.4 U (http://www.xmlspy.com) by dc (xyc) -->
+<EditorConfigurationSerializer version="1.0">
+	<Initializations Name="AllInitializations">
+		<!--<Initialization Name="BaseUrl" Value="http://xtj1026/RIWebsite/">-->
+		<!--<Initialization Name="BaseUrl" Value="http://192.168.1.203/IRP_TestGUID/"/>-->
+    		<!--<Initialization Name="BaseUrl" Value="http://192.168.1.253/IRP4/"/>-->
+		<Initialization Name="BaseUrl" Value="http://192.168.1.203:80/IRP4/"/>
+		<Initialization Name="PartLibraryPaths" Value="C:\Program Files\;D:\Program Files">
+			<ContextType EnvironmentRef="ACAD"/>
+			<ContextType EnvironmentRef="CATIA"/>
+			<ContextType EnvironmentRef="EXCEL"/>
+			<ContextType EnvironmentRef="GBGDM"/>
+			<ContextType EnvironmentRef="INTEGRATED"/>
+			<ContextType EnvironmentRef="INV" Value="C:\Program Files\Autodesk;D:\Program Files\Autodesk"/>
+			<ContextType EnvironmentRef="OUTLOOK"/>
+			<ContextType EnvironmentRef="PRESENTATION"/>
+			<ContextType EnvironmentRef="PROE"/>
+			<ContextType EnvironmentRef="PROJECT"/>
+			<ContextType EnvironmentRef="SW"/>
+			<ContextType EnvironmentRef="TD"/>
+			<ContextType EnvironmentRef="WINDOWS"/>
+			<ContextType EnvironmentRef="WORD"/>
+		</Initialization>
+		<Initialization Name="ServerPingTime" Value="20000">
+			<ContextType EnvironmentRef="ACAD"/>
+			<ContextType EnvironmentRef="CATIA"/>
+			<ContextType EnvironmentRef="EXCEL"/>
+			<ContextType EnvironmentRef="GBGDM"/>
+			<ContextType EnvironmentRef="INTEGRATED"/>
+			<ContextType EnvironmentRef="INV"/>
+			<ContextType EnvironmentRef="OUTLOOK"/>
+			<ContextType EnvironmentRef="PRESENTATION"/>
+			<ContextType EnvironmentRef="PROE"/>
+			<ContextType EnvironmentRef="PROJECT"/>
+			<ContextType EnvironmentRef="SW"/>
+			<ContextType EnvironmentRef="TD"/>
+			<ContextType EnvironmentRef="WINDOWS" Value="2000"/>
+			<ContextType EnvironmentRef="WORD"/>
+		</Initialization>
+		<Initialization Name="EnableConfigurationCache" Value="false">
+			<ContextType EnvironmentRef="ACAD"/>
+			<ContextType EnvironmentRef="CATIA"/>
+			<ContextType EnvironmentRef="EXCEL"/>
+			<ContextType EnvironmentRef="GBGDM"/>
+			<ContextType EnvironmentRef="INTEGRATED"/>
+			<ContextType EnvironmentRef="INV"/>
+			<ContextType EnvironmentRef="OUTLOOK"/>
+			<ContextType EnvironmentRef="PRESENTATION"/>
+			<ContextType EnvironmentRef="PROE"/>
+			<ContextType EnvironmentRef="PROJECT"/>
+			<ContextType EnvironmentRef="SW"/>
+			<ContextType EnvironmentRef="TD"/>
+			<ContextType EnvironmentRef="WINDOWS" Value="true"/>
+			<ContextType EnvironmentRef="WORD"/>
+		</Initialization>
+		<Initialization Name="UserPrivateWorkspace" Value="C:\temp\PWS">
+			<ContextType EnvironmentRef="WINDOWS"/>
+		</Initialization>
+	</Initializations>
+</EditorConfigurationSerializer>

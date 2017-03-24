@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LoginCheck>
+  <User>
+    <Name>linyq</Name>
+    <Password>a</Password>
+  </User>
+  <User>
+    <Name>huey</Name>
+    <Password>a</Password>
+  </User>
+  <User>
+    <Name>chenglx</Name>
+    <Password>a</Password>
+  </User>
+  <User>
+    <Name>admin</Name>
+    <Password>a</Password>
+  </User>
+</LoginCheck>

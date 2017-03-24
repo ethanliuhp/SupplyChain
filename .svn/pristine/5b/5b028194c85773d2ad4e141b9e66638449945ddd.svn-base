@@ -1,0 +1,430 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Application.Business.Erp.SupplyChain.Client.Basic.Template;
+//测试
+using Application.Business.Erp.SupplyChain.Basic.Domain;
+using System.Collections;
+using Application.Business.Erp.SupplyChain.ProjectDocumentManage.Domain;
+using System.IO;
+using Application.Business.Erp.SupplyChain.Client.Basic.CommonClass;
+using Application.Business.Erp.SupplyChain.Client.ProjectDocumentMng;
+using IRPServiceModel.Domain.Document;
+using Application.Resource.PersonAndOrganization.HumanResource.RelateClass;
+using VirtualMachine.Patterns.BusinessEssence.Domain;
+using VirtualMachine.Component.Util;
+using ImportIntegration;
+using VirtualMachine.Core;
+using NHibernate.Criterion;
+
+namespace Application.Business.Erp.SupplyChain.Client.EngineerManage.ProjectDocumentsMng
+{
+    public partial class VDocumentPublicModify : TBasicDataView
+    {
+
+        public MDocumentCategory model = new MDocumentCategory();
+
+        //所属项目
+        public CurrentProjectInfo projectInfo = null;
+        public PersonInfo person = null;
+        private DocumentMaster docMaster = null;
+        private IList docDetailList = null;
+        private string objectID = string.Empty;//对象id
+        private DocumentMaster result;
+
+        public DocumentMaster Result
+        {
+            get { return result; }
+            set { result = value; }
+        }
+        public VDocumentPublicModify()
+        {
+            InitializeComponent();
+        }
+
+        public VDocumentPublicModify(DocumentMaster mas, IList dtlList)
+        {
+            InitializeComponent();
+            docMaster = mas;
+            docDetailList = dtlList;
+            InitEvent();
+            InitcomboBoxData();
+            InitData();
+        }
+        void InitcomboBoxData()
+        {
+            //文档信息类型
+            foreach (string infoType in Enum.GetNames(typeof(DocumentInfoTypeEnum)))
+            {
+                cmbDocumentInforType.Items.Add(infoType);
+            }
+            //文档状态
+            foreach (DocumentState state in Enum.GetValues(typeof(DocumentState)))
+            {
+                cmbDocumentStatus.Items.Add(ClientUtil.GetDocStateName(state));
+            }
+            //文档密级
+            foreach (string securityLevel in Enum.GetNames(typeof(DocumentSecurityLevelEnum)))
+            {
+                cmbSecurityLevel.Items.Add(securityLevel);
+            }
+            //文档检出状态
+            //foreach (string checkoutState in Enum.GetNames(typeof(DocumentCheckOutStateEnum)))
+            //{
+            //    cmbCheckoutState.Items.Add(checkoutState);
+            //}
+
+            this.cmbDocumentInforType.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.cmbDocumentStatus.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.cmbSecurityLevel.DropDownStyle = ComboBoxStyle.DropDownList;
+            //this.cmbCheckoutState.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbDocumentInforType.SelectedIndex = 0;
+            cmbDocumentStatus.SelectedIndex = 0;
+            cmbSecurityLevel.SelectedIndex = 0;
+            //cmbCheckoutState.SelectedIndex = 0;
+        }
+
+        void InitData()
+        {
+            object[] os = new object[] { txtResideProject, txtDocumentCate };
+            ObjectLock.Lock(os);
+
+            //归属项目
+            projectInfo = Application.Business.Erp.SupplyChain.Client.Basic.CommonClass.StaticMethod.GetProjectInfo();
+            if (projectInfo != null)
+            {
+                txtResideProject.Tag = projectInfo;
+                txtResideProject.Text = projectInfo.Name;
+            }
+            person = Application.Business.Erp.SupplyChain.Client.Basic.CommonClass.ConstObject.LoginPersonInfo;
+            InitDocumentMasterInfo();
+            InitDocumentDetail();
+        }
+        void InitDocumentMasterInfo()
+        {
+            txtDocumentName.Text = docMaster.Name;
+            txtDocumentAuthor.Text = docMaster.Author;
+            txtDocumentCode.Text = docMaster.Code;
+            txtDocumentKeywords.Text = docMaster.KeyWords;
+            txtDocumentExplain.Text = docMaster.Description;
+            txtDocumentTitle.Text = docMaster.Title;
+            txtDocumentCate.Text = docMaster.CategoryName;
+            cmbDocumentInforType.Text = docMaster.DocType.ToString();
+            cmbDocumentStatus.Text = ClientUtil.GetDocStateName(docMaster.State);
+            cmbSecurityLevel.Text = docMaster.SecurityLevel.ToString();
+            //cmbCheckoutState.Text = docMaster.CheckoutState.ToString();
+            //if (docMaster.IsInspectionLot)
+            //{
+            //    cbIsOrTemp.Checked = true;
+            //}
+        }
+        void InitDocumentDetail()
+        {
+            if (docDetailList != null && docDetailList.Count > 0)
+            {
+                foreach (DocumentDetail dtl in docDetailList)
+                {
+                    int index = gridFiles.Rows.Add();
+                    gridFiles[FileName.Name, index].Value = dtl.FileName;
+                    gridFiles.Rows[index].Tag = dtl;
+                }
+            }
+        }
+        void InitEvent()
+        {
+            btnSave.Click += new EventHandler(btnSave_Click);
+            btnQuit.Click += new EventHandler(btnQuit_Click);
+            #region 文件
+            btnSelectFile.Click += new EventHandler(btnSelectFile_Click);
+            btnClearSelected.Click += new EventHandler(btnClearSelected_Click);
+            btnClearAll.Click += new EventHandler(btnClearAll_Click);
+            btnAddFile.Click += new EventHandler(btnAddFile_Click);
+            #endregion
+        }
+
+        //保存
+        void btnSave_Click(object sender, EventArgs e)
+        {
+            if (!Verify()) return;
+            DocumentInfoTypeEnum docInfoType = 0;
+            foreach (DocumentInfoTypeEnum type in Enum.GetValues(typeof(DocumentInfoTypeEnum)))
+            {
+                if (type.ToString() == cmbDocumentInforType.Text.Trim())
+                {
+                    docInfoType = type;
+                    break;
+                }
+            }
+            DocumentState docState = 0;
+            foreach (DocumentState state in Enum.GetValues(typeof(DocumentState)))
+            {
+                if (ClientUtil.GetDocStateName(state) == cmbDocumentStatus.Text.Trim())
+                {
+                    docState = state;
+                    break;
+                }
+            }
+
+            DocumentSecurityLevelEnum securityLevel = 0;
+            foreach (DocumentSecurityLevelEnum level in Enum.GetValues(typeof(DocumentSecurityLevelEnum)))
+            {
+                if (level.ToString() == cmbSecurityLevel.Text.Trim())
+                {
+                    securityLevel = level;
+                    break;
+                }
+            }
+            //DocumentCheckOutStateEnum checkOutState = 0;
+            //foreach (DocumentCheckOutStateEnum check in Enum.GetValues(typeof(DocumentCheckOutStateEnum)))
+            //{
+            //    if (check.ToString() == cmbCheckoutState.Text.Trim())
+            //    {
+            //        checkOutState = check;
+            //        break;
+            //    }
+            //}
+
+            try
+            {
+                #region 文档（主表）
+                docMaster.Name = txtDocumentName.Text;
+                docMaster.Code = txtDocumentCode.Text;
+                docMaster.KeyWords = txtDocumentKeywords.Text;
+                docMaster.Author = txtDocumentAuthor.Text;
+                docMaster.Description = txtDocumentExplain.Text;
+                docMaster.Title = txtDocumentTitle.Text;
+
+                docMaster.DocType = docInfoType;
+                //docMaster.CheckoutState = checkOutState;
+                docMaster.SecurityLevel = securityLevel;
+                docMaster.State = docState;
+
+                //if (cbIsOrTemp.Checked)
+                //{
+                //    docMaster.IsInspectionLot = true;
+                //}
+                //else
+                //{
+                //    docMaster.IsInspectionLot = false;
+                //}
+
+                docMaster.UpdateTime = DateTime.Now;
+                #endregion
+
+                #region 文件（明细）
+
+                FileCabinet appFileCabinet = null;
+                appFileCabinet = StaticMethod.GetDefaultFileCabinet();
+
+                IList docFileList = new ArrayList();
+                foreach (DataGridViewRow row in gridFiles.Rows)
+                {
+                    if (row.Cells[FilePath.Name].Value != null)
+                    {
+                        DocumentDetail dtl = new DocumentDetail();
+                        if (row.Tag != null)
+                        {
+                            DocumentDetail d = row.Tag as DocumentDetail;
+                            foreach (DocumentDetail detail in docMaster.ListFiles)
+                            {
+                                if (detail.Id == d.Id)
+                                {
+                                    dtl = detail;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            docMaster.ListFiles.Add(dtl);
+                        }
+                        dtl.Master = docMaster;
+
+                        string filePath = row.Cells[FilePath.Name].Value.ToString();
+                        FileInfo file = new FileInfo(filePath);
+                        if (file.Exists)
+                        {
+                            FileStream fileStream = file.OpenRead();
+                            int FileLen = (int)file.Length;
+                            Byte[] FileData = new Byte[FileLen];
+                            //将文件数据放到FileData数组对象实例中，0代表数组指针的起始位置,FileLen代表指针的结束位置
+                            fileStream.Read(FileData, 0, FileLen);
+
+                            dtl.FileDataByte = FileData;
+                        }
+
+                        dtl.ExtendName = Path.GetExtension(filePath);
+                        dtl.FileName = Path.GetFileName(filePath);
+                        dtl.TheFileCabinet = appFileCabinet;
+                        docFileList.Add(dtl);
+                    }
+                }
+                #endregion
+
+                result = model.SaveDocumentAndFile(docMaster, docFileList);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            this.Close();
+        }
+
+        //保存前验证
+        bool Verify()
+        {
+            if (txtDocumentName.Text.Trim() == "")
+            {
+                MessageBox.Show("文档名称不能为空！");
+                return false;
+            }
+            if (txtDocumentCode.Text.Trim() == "")
+            {
+                MessageBox.Show("文档代码不能为空！");
+                return false;
+            }
+            return true;
+        }
+
+        // 放弃
+        void btnQuit_Click(object sender, EventArgs e)
+        {
+            result = null;
+            this.Close();
+        }
+
+        #region 文件
+        //替换
+        private void btnSelectFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "所有文件(*.*)|*.*";
+            openFileDialog1.Multiselect = false;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string[] strFiles = openFileDialog1.FileNames;
+                //int iCount = strFiles.Length;
+                //for (int i = 0; i < iCount; i++)
+                //{
+                //    InsertToGrid(strFiles[i],);
+                //}
+                InsertToGrid(strFiles[0], gridFiles.SelectedRows[0].Index);
+                gridFiles.AutoResizeColumns();
+            }
+        }
+
+        //新增
+        void btnAddFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "所有文件(*.*)|*.*";
+            openFileDialog1.Multiselect = true;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string[] strFiles = openFileDialog1.FileNames;
+                int iCount = strFiles.Length;
+                for (int i = 0; i < iCount; i++)
+                {
+                    InsertToGrid(strFiles[i]);
+                }
+
+                gridFiles.AutoResizeColumns();
+            }
+        }
+
+        private const double KBCount = 1024;
+        private const double MBCount = KBCount * 1024;
+        private const double GBCount = MBCount * 1024;
+        private const double TBCount = GBCount * 1024;
+
+        /// <summary>
+        /// 得到适应的大小
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns>string</returns>
+        public static string GetAutoSizeString(double size, int roundCount)
+        {
+            if (KBCount > size)
+            {
+                return Math.Round(size, roundCount) + "B";
+            }
+            else if (MBCount > size)
+            {
+                return Math.Round(size / KBCount, roundCount) + "KB";
+            }
+            else if (GBCount > size)
+            {
+                return Math.Round(size / MBCount, roundCount) + "MB";
+            }
+            else if (TBCount > size)
+            {
+                return Math.Round(size / GBCount, roundCount) + "GB";
+            }
+            else
+            {
+                return Math.Round(size / TBCount, roundCount) + "TB";
+            }
+        }
+
+        private void InsertToGrid(string filePath)
+        {
+            int index = gridFiles.Rows.Add();
+            DataGridViewRow row = gridFiles.Rows[index];
+            row.Cells[FileName.Name].Value = Path.GetFileName(filePath);
+            row.Cells[FilePath.Name].Value = filePath;
+
+            FileInfo fileInfo = new FileInfo(filePath);
+            row.Cells[FileSize.Name].Value = GetAutoSizeString(fileInfo.Length, 3);
+        }
+
+        private void InsertToGrid(string filePath, int rowIndex)
+        {
+            int index = rowIndex;
+            DataGridViewRow row = gridFiles.Rows[index];
+            row.Cells[FileName.Name].Value = Path.GetFileName(filePath);
+            row.Cells[FilePath.Name].Value = filePath;
+
+            FileInfo fileInfo = new FileInfo(filePath);
+            row.Cells[FileSize.Name].Value = GetAutoSizeString(fileInfo.Length, 3);
+        }
+
+        #region 变量
+
+        private DataTable sourceDataTable = new DataTable();
+        private IntergrationFrameWork cFuntions = null;
+        private string language = "zhs";
+
+        #endregion
+
+        private void btnClearSelected_Click(object sender, EventArgs e)
+        {
+            List<int> listRowIndex = new List<int>();
+            foreach (DataGridViewRow row in gridFiles.SelectedRows)
+            {
+                listRowIndex.Add(row.Index);
+            }
+            listRowIndex.Sort();
+            for (int i = listRowIndex.Count - 1; i > -1; i--)
+            {
+                gridFiles.Rows.RemoveAt(listRowIndex[i]);
+            }
+        }
+
+        private void btnClearAll_Click(object sender, EventArgs e)
+        {
+            for (int i = gridFiles.Rows.Count - 1; i > -1; i--)
+            {
+                gridFiles.Rows.RemoveAt(i);
+            }
+        }
+        #endregion
+
+    }
+}

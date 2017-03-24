@@ -1,0 +1,779 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Application.Business.Erp.SupplyChain.Client.Basic.Template;
+using Application.Business.Erp.SupplyChain.Client.Basic.CommonClass;
+using Application.Business.Erp.SupplyChain.MaterialManage.MaterialCollectionMng.Domain;
+using Application.Business.Erp.SupplyChain.MaterialManage.MaterialReturnMng.Domain;
+using Application.Business.Erp.SupplyChain.MaterialManage.MaterialBalanceMng.Domain;
+using System.Collections;
+using VirtualMachine.Core;
+using NHibernate.Criterion;
+using Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass;
+using VirtualMachine.Patterns.BusinessEssence.Domain;
+using Application.Business.Erp.SupplyChain.Basic.Domain;
+using Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain;
+using Application.Business.Erp.SupplyChain.Client.CostManagement.WBS.GWBS;
+using Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain;
+using VirtualMachine.Component.WinControls.CommonForm.FlashScreenMng;
+using VirtualMachine.Component.Util;
+using Application.Business.Erp.SupplyChain.CostManagement.OBS.Domain;
+using Application.Business.Erp.SupplyChain.Client.StockMng;
+using IRPServiceModel.Domain.Document;
+using Application.Business.Erp.SupplyChain.Client.EngineerManage.ProjectDocumentsMng;
+using Application.Business.Erp.SupplyChain.Client.ProjectDocumentMng;
+using Application.Business.Erp.SupplyChain.ProjectDocumentManage.Domain;
+using Application.Business.Erp.SupplyChain.Client.FileUpload;
+using System.IO;
+using IRPServiceModel.Basic;
+using Application.Business.Erp.SupplyChain.Client.CostManagement.SubContractBalanceMng;
+
+namespace Application.Business.Erp.SupplyChain.Client.CostManagement.CostMonthAccount
+{
+    public partial class VCostMonthAccount : TBasicDataView
+    {
+        MCostMonthAccount model = new MCostMonthAccount();
+        public MSubContractBalance subContractOperate = new MSubContractBalance();
+        MStockMng stockModel = new MStockMng();
+        private CurrentProjectInfo ProjectInfo;
+        private CostMonthAccountBill currentBill = new CostMonthAccountBill();
+        int accountType = 0;//0为土建 1为安装
+
+        public VCostMonthAccount(int aType)
+        {
+            InitializeComponent();
+            accountType = aType;
+            InitData();
+            InitEvent();
+        }
+
+        private void InitData()
+        {
+            dtpEndDate.Value = ConstObject.TheLogin.TheComponentPeriod.EndDate;
+            IList list = stockModel.StockInSrv.GetFiscalYear();
+            this.cmbYear.Items.Clear();
+            foreach (int iYear in list)
+            {
+                this.cmbYear.Items.Insert(this.cmbYear.Items.Count, iYear);
+                if (iYear == ConstObject.TheLogin.TheComponentPeriod.NowYear)
+                {
+                    this.cmbYear.SelectedItem = this.cmbYear.Items[this.cmbYear.Items.Count - 1];
+                }
+            }
+            
+            for (int i = 1; i < 13; i++)
+            {
+                this.cboFiscalMonth.Items.Add(i);
+            }
+            this.cboFiscalMonth.Text = ConstObject.TheLogin.TheComponentPeriod.NowMonth.ToString();
+            ProjectInfo = StaticMethod.GetProjectInfo();
+            GetWbsRootNode();
+            //永久锁定
+            object[] os = new object[] { dtpEndDate };
+            //ObjectLock.Lock(os);
+            this.RefreshAccountList();
+        }
+
+        private void InitEvent()
+        {
+            this.btnReckoning.Click += new EventHandler(btnReckoning_Click);
+            btnUnReckoning.Click += new EventHandler(btnUnReckoning_Click);
+            this.btnSelectGWBS.Click += new EventHandler(btSelectGWBS_Click);
+            this.cboFiscalMonth.SelectedIndexChanged += new System.EventHandler(this.cboFiscalMonth_SelectedIndexChanged);
+            this.cmbYear.SelectedIndexChanged += new System.EventHandler(this.cmbYear_SelectedIndexChanged);
+
+            dgMaster.CellClick += new DataGridViewCellEventHandler(dgMaster_CellClick);
+
+            //文档
+            btnDownLoadDocument.Click += new EventHandler(btnDownLoadDocument_Click);
+            btnOpenDocument.Click += new EventHandler(btnOpenDocument_Click);
+            btnUpdateDocument.Click += new EventHandler(btnUpdateDocument_Click);
+            btnDeleteDocumentFile.Click += new EventHandler(btnDeleteDocumentFile_Click);
+            btnUpFile.Click += new EventHandler(btnUpFile_Click);
+            dgDocumentMast.CellClick += new DataGridViewCellEventHandler(dgDocumentMast_CellClick);
+            btnDeleteDocumentMaster.Click += new EventHandler(btnDeleteDocumentMaster_Click);
+            btnDocumentFileAdd.Click += new EventHandler(btnDocumentFileAdd_Click);
+            btnDocumentFileUpdate.Click += new EventHandler(btnDocumentFileUpdate_Click);
+            lnkCheckAll.Click += new EventHandler(lnkCheckAll_Click);
+            lnkCheckAllNot.Click += new EventHandler(lnkCheckAllNot_Click);
+            //tab页切换数据处理
+            tabControl1.SelectedIndexChanged += new EventHandler(tabControl1_SelectedIndexChanged);
+        }
+        void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab.Name == tabPage1.Name)//成本核算反结账
+            {
+
+            }
+            else if (tabControl1.SelectedTab.Name == tabPage2.Name)//相关文档
+            {
+                if (currentBill != null && !string.IsNullOrEmpty(currentBill.Id))
+                {
+                    FillDoc();
+                }
+            }
+        }
+
+        private void cboFiscalMonth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.RefreshAccountList();
+        }
+        private void cmbYear_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.RefreshAccountList();
+        }
+        void btSelectGWBS_Click(object sender, EventArgs e)
+        {
+            VSelectGWBSTree_OnlyOne frm = new VSelectGWBSTree_OnlyOne(new MGWBSTree());
+            if (txtAccountRootNode.Tag != null)
+            {
+                frm.DefaultSelectedGWBS = txtAccountRootNode.Tag as GWBSTree;
+            }
+            frm.IsTreeSelect = true;
+            frm.ShowDialog();
+            if (frm.SelectResult.Count > 0)
+            {
+                TreeNode root = frm.SelectResult[0];
+
+                GWBSTree task = root.Tag as GWBSTree;
+                if (task != null)
+                {
+                    txtAccountRootNode.Text = task.Name;
+                    txtAccountRootNode.Tag = task;
+                }
+            }
+        }
+
+        private void GetWbsRootNode()
+        {
+            if (ProjectInfo == null)
+            {
+                return;
+            }
+
+            ObjectQuery objectQuery = new ObjectQuery();
+            objectQuery.AddCriterion(Expression.Eq("TheProjectGUID", ProjectInfo.Id));
+            objectQuery.AddCriterion(Expression.IsNull("ParentNode"));
+
+            var list = subContractOperate.ObjectQuery(typeof(GWBSTree), objectQuery).OfType<GWBSTree>().ToList();
+            if (list == null || list.Count == 0)
+            {
+                txtAccountRootNode.Text = "";
+                txtAccountRootNode.Tag = null;
+            }
+            else
+            {
+                txtAccountRootNode.Text = list[0].Name;
+                txtAccountRootNode.Tag = list[0];
+            }
+        }
+
+        private void RefreshAccountList()
+        {
+            //获取当前会计期的最后一天
+            string endDate = stockModel.StockInOutSrv.GetEndDateByFiscalPeriod(ClientUtil.ToInt(this.cmbYear.Text), ClientUtil.ToInt(this.cboFiscalMonth.Text));
+            this.dtpEndDate.Value = ClientUtil.ToDateTime(endDate);
+
+            int fiscalYear = ClientUtil.ToInt(cmbYear.Text);
+            int fiscalMonth = ClientUtil.ToInt(this.cboFiscalMonth.Text);
+            string condition = " and t1.kjn=" + fiscalYear + " and t1.kjy=" + fiscalMonth + " and t1.theprojectguid = '" + ProjectInfo.Id + "'";
+            DataSet dataSet = model.CostMonthAccSrv.QueryCostMonthAcctBill(condition);
+            this.dgMaster.Rows.Clear();
+
+            DataTable dataTable = dataSet.Tables[0];
+            foreach (DataRow dataRow in dataTable.Rows)
+            {
+                int rowIndex = this.dgMaster.Rows.Add();
+                CostMonthAccountBill bill = new CostMonthAccountBill();
+                bill.Id = ClientUtil.ToString(dataRow["id"]);
+                bill.AccountTaskSysCode = ClientUtil.ToString(dataRow["accounttasksyscode"]);
+                dgMaster.Rows[rowIndex].Tag = bill;
+                dgMaster[this.colTaskNode.Name, rowIndex].Value = ClientUtil.ToString(dataRow["accounttaskname"]);
+                dgMaster[this.colTaskNode.Name, rowIndex].Tag = ClientUtil.ToString(dataRow["accountrange"]);
+                dgMaster[this.colAccountOrg.Name, rowIndex].Value = ClientUtil.ToString(dataRow["accountorgname"]);
+                dgMaster[this.colEndDate.Name, rowIndex].Value = ClientUtil.ToDateTime(dataRow["endtime"]).ToShortDateString();
+                dgMaster[this.colPerson.Name, rowIndex].Value = ClientUtil.ToString(dataRow["accountpersonname"]);
+                dgMaster[this.colOperDate.Name, rowIndex].Value = ClientUtil.ToDateTime(dataRow["createtime"]).ToShortDateString();
+            }
+            if (dgMaster.Rows.Count > 0)
+            {
+                dgMaster_CellClick(dgMaster, new DataGridViewCellEventArgs(1, 0));
+            }
+            else
+            {
+                dgDocumentMast.Rows.Clear();
+                dgDocumentDetail.Rows.Clear();
+            }
+        }
+
+        //成本核算月结
+        void btnReckoning_Click(object sender, EventArgs e)
+        {
+            GWBSTree acctNode = txtAccountRootNode.Tag as GWBSTree;
+            if (acctNode == null)
+            {
+                MessageBox.Show("请选择核算范围节点！");
+                return;
+            }
+            //OBSManage mOBS = model.CostMonthAccSrv.GetOBSManageByTaskNode(acctNode.SysCode, ProjectInfo.Id);//2016-11-1
+            //if (ClientUtil.ToString(mOBS.OrgJobName) == "")
+            //{
+            //    MessageBox.Show("核算范围节点[" + acctNode.Name+ "]没有配置[管理OBS]！");
+            //    return;
+            //}
+            //this.btnReckoning.Enabled = false;
+            int fiscalYear = ClientUtil.ToInt(cmbYear.Text);
+            int fiscalMonth = ClientUtil.ToInt(this.cboFiscalMonth.Text);
+            //构造月度核算单主表信息
+            CostMonthAccountBill bill = new CostMonthAccountBill();
+            bill.DocState = DocumentState.InExecute;
+            bill.CreateDate = ConstObject.LoginDate;
+            bill.Kjn = fiscalYear;
+            bill.Kjy = fiscalMonth;
+            bill.EndTime = ClientUtil.ToDateTime(this.dtpEndDate.Text);
+            //bill.AccountOrgGUID = mOBS.OrpJob.Id;
+            //bill.AccountOrgName = mOBS.OrgJobName;
+            bill.AccountOrgGUID = ProjectInfo.OwnerOrg.Id;
+            bill.AccountOrgName = ProjectInfo.OwnerOrgName;
+            bill.AccountPersonGUID = ConstObject.LoginPersonInfo;
+            bill.AccountPersonName = ConstObject.LoginPersonInfo.Name;
+            bill.TheOrgName =  ConstObject.TheLogin.TheOperationOrgInfo.Name;
+            bill.AccountPersonOrgSysCode = ConstObject.TheLogin.TheOperationOrgInfo.SysCode;
+            bill.AccountRange = acctNode;
+            bill.AccountTaskName = acctNode.Name;
+            bill.AccountTaskSysCode = acctNode.SysCode;
+            bill.Temp5 = accountType + "";//存储核算类型(区分土建和安装)
+            
+            if (ProjectInfo != null)
+            {
+                bill.ProjectId = ProjectInfo.Id;
+                bill.ProjectName = ProjectInfo.Name;
+            }
+            
+            //判断是否可以月结
+            int flag = model.CostMonthAccSrv.IfHaveAccount(fiscalYear, fiscalMonth, ProjectInfo.Id, acctNode.Id, acctNode.SysCode);    
+            if (flag == 3)
+            {
+                MessageBox.Show("本月此核算范围的成本核算已结！");
+                return;
+            }
+            else if (flag == 2)
+            {
+                MessageBox.Show("下月此核算范围的成本核算已结,请先反结下月核算！");
+                return;
+            }
+            else if (flag == 1)
+            {
+                MessageBox.Show("上月此核算范围的成本核算未结,请先核算上月！");
+                return;
+            }
+            else if (flag == 4)
+            {
+                MessageBox.Show("本月核算范围[" + acctNode.Name + "]必须大于等于上月核算范围！");
+                return;
+            }
+            this.btnReckoning.Enabled = false;
+            FlashScreen.Show("正在进行月度成本核算...");
+            try
+            {
+                string msgStr = model.CostMonthAccSrv.CostMonthAccountCal(bill, ProjectInfo);
+                if (msgStr != "")
+                {
+                    MessageBox.Show(msgStr);
+                    return;
+                }
+            }
+            catch (Exception e1)
+            {
+                throw new Exception("月度成本核算异常[" +ExceptionUtil.ExceptionMessage( e1) + "]");
+            }
+            finally {
+                FlashScreen.Close();
+            }
+            this.btnReckoning.Enabled = true;
+            LogData log = new LogData();
+            log.BillId = bill.Id;
+            log.BillType = "月度成本核算";
+            log.Code = "";
+            log.OperType = "月结";
+            log.Descript = "[会计年:" + fiscalYear + "][会计月:" + fiscalMonth + "]";
+            log.OperPerson = ConstObject.LoginPersonInfo.Name;
+            log.ProjectName = ProjectInfo.Name;
+            StaticMethod.InsertLogData(log);
+            this.RefreshAccountList();
+            MessageBox.Show("月度成本核算结账完成！");
+
+        }
+        //反结账
+        void btnUnReckoning_Click(object sender, EventArgs e)
+        {
+            if (dgMaster.CurrentRow == null) return;
+            CostMonthAccountBill bill = dgMaster.CurrentRow.Tag as CostMonthAccountBill;
+            if (bill == null || bill.Id == null || bill.Id == "")
+            {
+                MessageBox.Show("请选择要反结的月度核算信息！");
+                return;
+            }
+
+            DialogResult dr = MessageBox.Show("是否反结本月核算信息？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+            if (dr == DialogResult.No) return;
+            //this.btnUnReckoning.Enabled = false;
+            int fiscalYear = Convert.ToInt32(cmbYear.Text);
+            int fiscalMonth = Convert.ToInt32(this.cboFiscalMonth.Text);
+            //判断是否可以反月结
+            string taskGUID = dgMaster.CurrentRow.Cells["colTaskNode"].Tag as string;
+            int flag = model.CostMonthAccSrv.IfHaveUnAccount(fiscalYear, fiscalMonth, ProjectInfo.Id, taskGUID, bill.AccountTaskSysCode);
+            if (flag == 1)
+            {
+                MessageBox.Show("下月此核算范围的成本核算已结！");
+                return;
+            }
+            else if (flag == 2)
+            {
+                MessageBox.Show("本月此核算范围的成本核算未结！");
+                return;
+            }
+            this.btnUnReckoning.Enabled = false;
+            FlashScreen.Show("正在进行月度成本反结账...");
+            try
+            {
+                model.CostMonthAccSrv.UnCostMonthAccountCal(bill.Id);
+            }
+            catch (Exception e1)
+            {
+                throw new Exception("月度成本反结账异常！" + e1.ToString());
+            }
+            finally
+            {
+                FlashScreen.Close();
+            }
+            this.btnUnReckoning.Enabled = true;
+            LogData log = new LogData();
+            log.BillId = "";
+            log.BillType = "月度成本核算";
+            log.Code = "";
+            log.OperType = "反结";
+            log.Descript = "[会计年:" + fiscalYear + "][会计月:" + fiscalMonth + "]";
+            log.OperPerson = ConstObject.LoginPersonInfo.Name;
+            log.ProjectName = ProjectInfo.Name;
+            StaticMethod.InsertLogData(log);
+            this.RefreshAccountList();
+            MessageBox.Show("月度成本核算反结完成！");
+
+        }
+
+        void dgMaster_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            currentBill = dgMaster.Rows[e.RowIndex].Tag as CostMonthAccountBill;
+            FillDoc();
+        }
+
+        #region 文档操作
+        MDocumentCategory msrv = new MDocumentCategory();
+        //文档按钮状态
+        private void btnStates(int i)
+        {
+            if (i == 0)
+            {
+                //btnDownLoadDocument.Enabled = false;
+                //btnOpenDocument.Enabled = false;
+                btnUpdateDocument.Enabled = false;
+                btnDeleteDocumentFile.Enabled = false;
+                btnUpFile.Enabled = false;
+                btnDeleteDocumentMaster.Enabled = false;
+                btnDocumentFileAdd.Enabled = false;
+                btnDocumentFileUpdate.Enabled = false;
+                lnkCheckAll.Enabled = false;
+                lnkCheckAllNot.Enabled = false;
+            }
+            if (i == 1)
+            {
+                //btnDownLoadDocument.Enabled = true;
+                //btnOpenDocument.Enabled = true;
+                btnUpdateDocument.Enabled = true;
+                btnDeleteDocumentFile.Enabled = true;
+                btnUpFile.Enabled = true;
+                btnDeleteDocumentMaster.Enabled = true;
+                btnDocumentFileAdd.Enabled = true;
+                btnDocumentFileUpdate.Enabled = true;
+                lnkCheckAll.Enabled = true;
+                lnkCheckAllNot.Enabled = true;
+            }
+        }
+        //加载文档数据
+        void FillDoc()
+        {
+            dgDocumentMast.Rows.Clear();
+            dgDocumentDetail.Rows.Clear();
+            ObjectQuery oq = new ObjectQuery();
+            oq.AddCriterion(NHibernate.Criterion.Expression.Eq("ProObjectGUID", currentBill.Id));
+            IList listObj = msrv.ObjectQuery(typeof(ProObjectRelaDocument), oq);
+            if (listObj != null && listObj.Count > 0)
+            {
+                oq.Criterions.Clear();
+                Disjunction dis = new Disjunction();
+                foreach (ProObjectRelaDocument obj in listObj)
+                {
+                    dis.Add(Expression.Eq("Id", obj.DocumentGUID));
+                }
+                oq.AddCriterion(dis);
+                oq.AddFetchMode("ListFiles", NHibernate.FetchMode.Eager);
+                IList docList = msrv.ObjectQuery(typeof(DocumentMaster), oq);
+                if (docList != null && docList.Count > 0)
+                {
+                    foreach (DocumentMaster m in docList)
+                    {
+                        AddDgDocumentMastInfo(m);
+                    }
+                    dgDocumentMast.CurrentCell = dgDocumentMast[2, 0];
+                    dgDocumentMast_CellClick(dgDocumentMast, new DataGridViewCellEventArgs(2, 0));
+                }
+            }
+        }
+        //添加文件
+        void btnDocumentFileAdd_Click(object sender, EventArgs e)
+        {
+            if (dgDocumentMast.SelectedRows.Count == 0) return;
+            DocumentMaster docMaster = dgDocumentMast.SelectedRows[0].Tag as DocumentMaster;
+            VDocumentFileUpload frm = new VDocumentFileUpload(docMaster, "add");
+            frm.ShowDialog();
+            IList resultList = frm.ResultList;
+            if (resultList != null && resultList.Count > 0)
+            {
+                foreach (DocumentDetail dtl in resultList)
+                {
+                    AddDgDocumentDetailInfo(dtl);
+                    docMaster.ListFiles.Add(dtl);
+                }
+            }
+        }
+        //修改文件
+        void btnDocumentFileUpdate_Click(object sender, EventArgs e)
+        {
+            if (dgDocumentMast.SelectedRows.Count == 0 || dgDocumentDetail.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("请选择要修改的文档件！");
+                return;
+            }
+            DocumentMaster docMaster = dgDocumentMast.SelectedRows[0].Tag as DocumentMaster;
+            VDocumentFileModify frm = new VDocumentFileModify(docMaster);
+            frm.ShowDialog();
+            IList resultList = frm.ResultList;
+            if (resultList != null && resultList.Count > 0)
+            {
+                DocumentDetail dtl = resultList[0] as DocumentDetail;
+                AddDgDocumentDetailInfo(dtl, dgDocumentDetail.SelectedRows[0].Index);
+                for (int i = 0; i < docMaster.ListFiles.Count; i++)
+                {
+                    DocumentDetail detail = docMaster.ListFiles.ElementAt(i);
+                    if (detail.Id == dtl.Id)
+                    {
+                        detail = dtl;
+                    }
+                }
+            }
+        }
+        //下载
+        void btnDownLoadDocument_Click(object sender, EventArgs e)
+        {
+            IList downList = new ArrayList();
+            foreach (DataGridViewRow row in dgDocumentDetail.Rows)
+            {
+                if ((bool)row.Cells[FileSelect.Name].EditedFormattedValue)
+                {
+                    DocumentDetail dtl = row.Tag as DocumentDetail;
+                    downList.Add(dtl);
+                }
+            }
+            if (downList != null && downList.Count > 0)
+            {
+                VDocumentPublicDownload frm = new VDocumentPublicDownload(downList);
+                frm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("请勾选要下载的文件！");
+            }
+        }
+        //预览
+        void btnOpenDocument_Click(object sender, EventArgs e)
+        {
+            IList list = new ArrayList();
+            foreach (DataGridViewRow row in dgDocumentDetail.Rows)
+            {
+                if ((bool)row.Cells[FileSelect.Name].EditedFormattedValue)
+                {
+                    DocumentDetail dtl = row.Tag as DocumentDetail;
+                    list.Add(dtl);
+                }
+            }
+
+            if (list.Count == 0)
+            {
+                MessageBox.Show("勾选文件才能预览，请选择要预览的文件！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+
+                List<string> listFileFullPaths = new List<string>();
+                string fileFullPath1 = AppDomain.CurrentDomain.BaseDirectory + "TempFilePreview\\" + Guid.NewGuid().ToString().Replace("-", "");
+                foreach (DocumentDetail docFile in list)
+                {
+                    //DocumentDetail docFile = dgDocumentDetail.SelectedRows[0].Tag as DocumentDetail;
+                    if (!Directory.Exists(fileFullPath1))
+                        Directory.CreateDirectory(fileFullPath1);
+
+                    string tempFileFullPath = fileFullPath1 + @"\\" + docFile.FileName;
+
+                    //string address = "http://10.70.18.203//TestFile//Files//0001//0001//0001.0001.000027V_特效.jpg";
+                    string baseAddress = @docFile.TheFileCabinet.TransportProtocal.ToString().ToLower() + "://" + docFile.TheFileCabinet.ServerName + "/" + docFile.TheFileCabinet.Path + "/";
+
+                    string address = baseAddress + docFile.FilePartPath;
+                    UtilityClass.WebClientObj.DownloadFile(address, tempFileFullPath);
+                    listFileFullPaths.Add(tempFileFullPath);
+                }
+                foreach (string fileFullPath in listFileFullPaths)
+                {
+                    FileInfo file = new FileInfo(fileFullPath);
+
+                    //定义一个ProcessStartInfo实例
+                    System.Diagnostics.ProcessStartInfo info = new System.Diagnostics.ProcessStartInfo();
+                    //设置启动进程的初始目录
+                    info.WorkingDirectory = file.DirectoryName;//Application.StartupPath; 
+                    //设置启动进程的应用程序或文档名
+                    info.FileName = file.Name;
+                    //设置启动进程的参数
+                    info.Arguments = "";
+                    //启动由包含进程启动信息的进程资源
+                    try
+                    {
+                        System.Diagnostics.Process.Start(info);
+                    }
+                    catch (System.ComponentModel.Win32Exception we)
+                    {
+                        MessageBox.Show(this, we.Message);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.IndexOf("未将对象引用设置到对象的实例") > -1)
+                {
+                    MessageBox.Show("操作失败，不存在的文档对象！", "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                    MessageBox.Show("操作失败，异常信息：" + ExceptionUtil.ExceptionMessage(ex), "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+        //删除文件
+        void btnDeleteDocumentFile_Click(object sender, EventArgs e)
+        {
+            List<DataGridViewRow> rowList = new List<DataGridViewRow>();
+            IList deleteFileList = new ArrayList();
+            foreach (DataGridViewRow row in dgDocumentDetail.Rows)
+            {
+                if ((bool)row.Cells[FileSelect.Name].EditedFormattedValue)
+                {
+                    DocumentDetail dtl = row.Tag as DocumentDetail; ;
+                    rowList.Add(row);
+                    deleteFileList.Add(dtl);
+                }
+            }
+            if (deleteFileList.Count == 0)
+            {
+                MessageBox.Show("请勾选要删除的数据！");
+                return;
+            }
+            if (MessageBox.Show("要删除当前勾选文件吗！", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                if (msrv.Delete(deleteFileList))
+                {
+                    MessageBox.Show("删除成功！");
+                    DocumentMaster master = dgDocumentMast.SelectedRows[0].Tag as DocumentMaster;
+                    foreach (DocumentDetail dtl in deleteFileList)
+                    {
+                        master.ListFiles.Remove(dtl);
+                    }
+                    dgDocumentMast.SelectedRows[0].Tag = master;
+                }
+                else
+                {
+                    MessageBox.Show("删除失败！");
+                    return;
+                }
+                if (rowList != null && rowList.Count > 0)
+                {
+                    foreach (DataGridViewRow row in rowList)
+                    {
+                        dgDocumentDetail.Rows.Remove(row);
+                    }
+                }
+            }
+        }
+        //添加文档（加文件）
+        void btnUpFile_Click(object sender, EventArgs e)
+        {
+            //if (cmeeting.Id == null)
+            //{
+            //    if (MessageBox.Show("当前业务对象还没保存，是否保存！", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+            //    {
+            //        if (!ValidView()) return;
+            //        try
+            //        {
+            //            if (!ViewToModel()) return;
+            //            cmeeting = model.saveImp(cmeeting);
+            //            this.ViewCaption = ViewName;
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            MessageBox.Show("数据保存错误：" + ExceptionUtil.ExceptionMessage(ex));
+            //        }
+            //    }
+            //}
+            if (currentBill.Id != null)
+            {
+                VDocumentPublicUpload frm = new VDocumentPublicUpload(currentBill.Id);
+                frm.ShowDialog();
+                DocumentMaster resultDoc = frm.Result;
+                if (resultDoc == null) return;
+                AddDgDocumentMastInfo(resultDoc);
+                dgDocumentMast.CurrentCell = dgDocumentMast[2, dgDocumentMast.Rows.Count - 1];
+                dgDocumentDetail.Rows.Clear();
+                if (resultDoc.ListFiles != null && resultDoc.ListFiles.Count > 0)
+                {
+                    foreach (DocumentDetail dtl in resultDoc.ListFiles)
+                    {
+                        AddDgDocumentDetailInfo(dtl);
+                    }
+                }
+            }
+        }
+        //修改文档（加文件）
+        void btnUpdateDocument_Click(object sender, EventArgs e)
+        {
+            if (dgDocumentMast.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("请选择要修改的文档！");
+                return;
+            }
+            DocumentMaster master = dgDocumentMast.SelectedRows[0].Tag as DocumentMaster;
+            IList docFileList = new ArrayList();
+            foreach (DataGridViewRow row in dgDocumentDetail.Rows)
+            {
+                DocumentDetail dtl = row.Tag as DocumentDetail;
+                docFileList.Add(dtl);
+            }
+            VDocumentPublicModify frm = new VDocumentPublicModify(master, docFileList);
+            frm.ShowDialog();
+            DocumentMaster resultMaster = frm.Result;
+            if (resultMaster == null) return;
+            AddDgDocumentMastInfo(resultMaster, dgDocumentMast.SelectedRows[0].Index);
+            dgDocumentMast_CellClick(dgDocumentMast, new DataGridViewCellEventArgs(2, dgDocumentMast.SelectedRows[0].Index));
+        }
+        //删除文档
+        void btnDeleteDocumentMaster_Click(object sender, EventArgs e)
+        {
+            if (dgDocumentMast.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("请选择要删除的文档！");
+                return;
+            }
+            if (MessageBox.Show("要删除当前文档吗？该操作将连它的所有文件一同删除！", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                DocumentMaster mas = dgDocumentMast.SelectedRows[0].Tag as DocumentMaster;
+                IList list = new ArrayList();
+                list.Add(mas);
+
+                if (msrv.Delete(list))
+                {
+                    MessageBox.Show("删除成功！");
+                    dgDocumentMast.Rows.Remove(dgDocumentMast.SelectedRows[0]);
+                    if (dgDocumentMast.Rows.Count > 0)
+                        dgDocumentMast_CellClick(dgDocumentMast, new DataGridViewCellEventArgs(2, dgDocumentMast.SelectedRows[0].Index));
+                    else
+                        dgDocumentDetail.Rows.Clear();
+                }
+                else
+                {
+                    MessageBox.Show("删除失败！");
+                }
+            }
+        }
+        void dgDocumentMast_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            dgDocumentDetail.Rows.Clear();
+            DocumentMaster docMaster = dgDocumentMast.Rows[e.RowIndex].Tag as DocumentMaster;
+            ObjectQuery oq = new ObjectQuery();
+            oq.AddCriterion(Expression.Eq("Master.Id", docMaster.Id));
+            oq.AddFetchMode("TheFileCabinet", NHibernate.FetchMode.Eager);
+            IList list = msrv.ObjectQuery(typeof(DocumentDetail), oq);
+            if (list != null && list.Count > 0)
+            {
+                foreach (DocumentDetail docDetail in list)
+                {
+                    AddDgDocumentDetailInfo(docDetail);
+                }
+            }
+        }
+
+        #region 列表里添加数据
+        void AddDgDocumentMastInfo(DocumentMaster m)
+        {
+            int rowIndex = dgDocumentMast.Rows.Add();
+            AddDgDocumentMastInfo(m, rowIndex);
+        }
+        void AddDgDocumentMastInfo(DocumentMaster m, int rowIndex)
+        {
+            dgDocumentMast[colDocumentName.Name, rowIndex].Value = m.Name;
+            dgDocumentMast[colCreateTime.Name, rowIndex].Value = m.CreateTime;
+            dgDocumentMast[colDocumentCode.Name, rowIndex].Value = m.Code;
+            dgDocumentMast[colDocumentInforType.Name, rowIndex].Value = m.DocType.ToString();
+            dgDocumentMast[colDocumentState.Name, rowIndex].Value = ClientUtil.GetDocStateName(m.State);
+            dgDocumentMast[colOwnerName.Name, rowIndex].Value = m.OwnerName;
+            dgDocumentMast.Rows[rowIndex].Tag = m;
+        }
+
+        void AddDgDocumentDetailInfo(DocumentDetail d)
+        {
+            int rowIndex = dgDocumentDetail.Rows.Add();
+            AddDgDocumentDetailInfo(d, rowIndex);
+        }
+        void AddDgDocumentDetailInfo(DocumentDetail d, int rowIndex)
+        {
+            dgDocumentDetail[FileName.Name, rowIndex].Value = d.FileName;
+            //dgDocumentDetail[FileExtension.Name, rowIndex].Value = d.ExtendName;
+            //dgDocumentDetail[FilePath.Name, rowIndex].Value = d.FilePartPath;
+            dgDocumentDetail.Rows[rowIndex].Tag = d;
+        }
+        #endregion
+
+        //反选
+        void lnkCheckAllNot_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dgDocumentDetail.Rows)
+            {
+                row.Cells[FileSelect.Name].Value = false;
+            }
+        }
+        //全选
+        void lnkCheckAll_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dgDocumentDetail.Rows)
+            {
+                row.Cells[FileSelect.Name].Value = true;
+            }
+        }
+        #endregion
+
+    }
+}
+

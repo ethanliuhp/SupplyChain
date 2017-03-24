@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+   <class name="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.FundSchemeSummary,SupplyChain" table="THD_FundSchemeSummary" lazy="true" discriminator-value="-1">
+        <id name="Id" column="Id" unsaved-value="null">
+           <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+        </id>
+      <property name="Year" />
+      <property name="Month" />
+      <property name="JobNameLink" />
+      <property name="CurrentVoluntarilyGether" />
+      <property name="CurrentInnerSetUpGether" />
+      <property name="CurrentSubContractGether" />
+      <property name="TotalVoluntarilyGether" />
+      <property name="TotalInnerSetUpGether" />
+      <property name="TotalSubContractGether" />
+      <property name="CurrentVoluntarilyPay" />
+      <property name="CurrentInnerSetupPay" />
+      <property name="CurrentSubcontractorPay" />
+      <property name="TotalVoluntarilyPay" />
+      <property name="TotalInnerSetupPay" />
+      <property name="TotalSubcontractorPay" />
+      <property name="CurrentOutputTax" />
+      <property name="CurrentInputTax" />
+      <property name="CurrentUnPayVAT" />
+      <property name="CurrentPayedVAT" />
+      <property name="CurrentSurchargePay" />
+      <property name="CurrentOtherPay" />
+      <property name="CurrentBalance" />
+      <property name="TotalBalance" />
+      <property name="BalanceRate" />
+      <property name="RowIndex" />
+      <property name="CurrencyHandin" />
+      <property name="TargetStock" />
+      <many-to-one name="Master" column="FundSchemeId"  class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.FundPlanningMaster,SupplyChain"></many-to-one>
+   </class>
+</hibernate-mapping>

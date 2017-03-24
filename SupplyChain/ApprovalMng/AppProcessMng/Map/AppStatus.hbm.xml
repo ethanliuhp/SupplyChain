@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.Approval.AppProcessMng.Domain.AppStatus, SupplyChain" table="THD_AppStatus" lazy="true" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1" />
+
+    <many-to-one name="AppTableSet"/>
+    <many-to-one name="AppSolutionSet"/>
+    <property name="BillId"/>
+    <property name="BillCode" length="20" />
+    <property name="ClassName" length="100" />
+    <many-to-one name="SupplierRelationInfo"/>
+    <many-to-one name="CustomerRelationInfo"/>
+    
+    <property name="CreateDate" type="DateTime"/>
+
+    <many-to-one name="CreatePerson"/>
+    <property name="Quantity" length="4"/>
+    <property name="Money" length="2"/>
+
+    <property name="Remarks" length="100" />
+    <property name="AppOverDate" type="Date"/>
+    
+    <property name="AppResults" length="100" />
+    <property name="Status" />
+    <set name="AppStepsInfos" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write" />
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.Approval.AppProcessMng.Domain.AppStepsInfo, SupplyChain" />
+    </set>
+  </class>
+</hibernate-mapping>

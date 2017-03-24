@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="IRPServiceModel.Domain.Document.DocumentMaster,IRPServiceModel" table="irp_documentMaster" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="NGUID" />
+    <property name="ProjectId" />
+    <property name="ProjectCode" />
+    <property name="ProjectName" />
+    <many-to-one name="Category"  class="IRPServiceModel.Domain.Document.DocumentCategory,IRPServiceModel" />
+    <property name="CategoryCode" />
+    <property name="CategoryName" />
+    <property name="CategorySysCode" />
+    <property name="DocType" />
+    <property name="Code" />
+    <property name="Name" />
+    <!--<property name="FileName" />
+    <property name="ExtendName" />-->
+    <property name="Title" />
+    <property name="Author" />
+    <property name="KeyWords" />
+    <property name="Description" />
+    <property name="VersionMajor" />
+    <property name="Revision" />
+    <property name="State" />
+    <many-to-one name="OwnerID"  class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager" />
+    <property name="OwnerName" />
+    <property name="OwnerOrgSysCode" />
+    <property name="CreateTime" />
+    <property name="UpdateTime" />
+    <property name="IsInspectionLot" />
+    <property name="SecurityLevel" />
+    <property name="CheckoutState" />
+    <set name="ListFiles" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="master" />
+      <one-to-many class="IRPServiceModel.Domain.Document.DocumentDetail,IRPServiceModel"/>
+    </set>    
+    <property name="EditOwner" />
+    <property name="ConsultStandardName" />
+    <property name="ConsultStandardCode" />
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="SendICUMsg">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sender_UserName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="HoldDay" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="MsgContent" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ASoft" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Reciver" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ErrorMsg" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CheckIsOnline" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="IsSendSMS" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendICUMsgResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendICUMsgResult" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ErrorMsg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ThinkSoftSoapHeader" type="tns:ThinkSoftSoapHeader" />
+      <s:complexType name="ThinkSoftSoapHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PassWord" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SendSMSMsgNotInSystem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sender_UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MsgContent" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Reciver_Mobile" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendSMSMsgNotInSystemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendSMSMsgNotInSystemResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendSMSMsgInSystem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sender_UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MsgContent" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Reciver_UserName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendSMSMsgInSystemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendSMSMsgInSystemResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="int" type="s:int" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SendICUMsgSoapIn">
+    <wsdl:part name="parameters" element="tns:SendICUMsg" />
+  </wsdl:message>
+  <wsdl:message name="SendICUMsgSoapOut">
+    <wsdl:part name="parameters" element="tns:SendICUMsgResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendICUMsgThinkSoftSoapHeader">
+    <wsdl:part name="ThinkSoftSoapHeader" element="tns:ThinkSoftSoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSMsgNotInSystemSoapIn">
+    <wsdl:part name="parameters" element="tns:SendSMSMsgNotInSystem" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSMsgNotInSystemSoapOut">
+    <wsdl:part name="parameters" element="tns:SendSMSMsgNotInSystemResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSMsgNotInSystemThinkSoftSoapHeader">
+    <wsdl:part name="ThinkSoftSoapHeader" element="tns:ThinkSoftSoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSMsgInSystemSoapIn">
+    <wsdl:part name="parameters" element="tns:SendSMSMsgInSystem" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSMsgInSystemSoapOut">
+    <wsdl:part name="parameters" element="tns:SendSMSMsgInSystemResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSMsgInSystemThinkSoftSoapHeader">
+    <wsdl:part name="ThinkSoftSoapHeader" element="tns:ThinkSoftSoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSMsgNotInSystemHttpGetIn">
+    <wsdl:part name="Sender_UserName" type="s:string" />
+    <wsdl:part name="MsgContent" type="s:string" />
+    <wsdl:part name="Reciver_Mobile" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSMsgNotInSystemHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSMsgInSystemHttpGetIn">
+    <wsdl:part name="Sender_UserName" type="s:string" />
+    <wsdl:part name="MsgContent" type="s:string" />
+    <wsdl:part name="Reciver_UserName" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSMsgInSystemHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSMsgNotInSystemHttpPostIn">
+    <wsdl:part name="Sender_UserName" type="s:string" />
+    <wsdl:part name="MsgContent" type="s:string" />
+    <wsdl:part name="Reciver_Mobile" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSMsgNotInSystemHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSMsgInSystemHttpPostIn">
+    <wsdl:part name="Sender_UserName" type="s:string" />
+    <wsdl:part name="MsgContent" type="s:string" />
+    <wsdl:part name="Reciver_UserName" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSMsgInSystemHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:portType name="MainServiceSoap">
+    <wsdl:operation name="SendICUMsg">
+      <wsdl:input message="tns:SendICUMsgSoapIn" />
+      <wsdl:output message="tns:SendICUMsgSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSMsgNotInSystem">
+      <wsdl:input message="tns:SendSMSMsgNotInSystemSoapIn" />
+      <wsdl:output message="tns:SendSMSMsgNotInSystemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSMsgInSystem">
+      <wsdl:input message="tns:SendSMSMsgInSystemSoapIn" />
+      <wsdl:output message="tns:SendSMSMsgInSystemSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="MainServiceHttpGet">
+    <wsdl:operation name="SendSMSMsgNotInSystem">
+      <wsdl:input message="tns:SendSMSMsgNotInSystemHttpGetIn" />
+      <wsdl:output message="tns:SendSMSMsgNotInSystemHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSMsgInSystem">
+      <wsdl:input message="tns:SendSMSMsgInSystemHttpGetIn" />
+      <wsdl:output message="tns:SendSMSMsgInSystemHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="MainServiceHttpPost">
+    <wsdl:operation name="SendSMSMsgNotInSystem">
+      <wsdl:input message="tns:SendSMSMsgNotInSystemHttpPostIn" />
+      <wsdl:output message="tns:SendSMSMsgNotInSystemHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSMsgInSystem">
+      <wsdl:input message="tns:SendSMSMsgInSystemHttpPostIn" />
+      <wsdl:output message="tns:SendSMSMsgInSystemHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MainServiceSoap" type="tns:MainServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendICUMsg">
+      <soap:operation soapAction="http://tempuri.org/SendICUMsg" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SendICUMsgThinkSoftSoapHeader" part="ThinkSoftSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSMsgNotInSystem">
+      <soap:operation soapAction="http://tempuri.org/SendSMSMsgNotInSystem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SendSMSMsgNotInSystemThinkSoftSoapHeader" part="ThinkSoftSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSMsgInSystem">
+      <soap:operation soapAction="http://tempuri.org/SendSMSMsgInSystem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SendSMSMsgInSystemThinkSoftSoapHeader" part="ThinkSoftSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MainServiceHttpGet" type="tns:MainServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="SendSMSMsgNotInSystem">
+      <http:operation location="/SendSMSMsgNotInSystem" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSMsgInSystem">
+      <http:operation location="/SendSMSMsgInSystem" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MainServiceHttpPost" type="tns:MainServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="SendSMSMsgNotInSystem">
+      <http:operation location="/SendSMSMsgNotInSystem" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSMsgInSystem">
+      <http:operation location="/SendSMSMsgInSystem" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MainService">
+    <wsdl:port name="MainServiceSoap" binding="tns:MainServiceSoap">
+      <soap:address location="http://www.cscec3b.com:800/MsgSender/MainService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MainServiceHttpGet" binding="tns:MainServiceHttpGet">
+      <http:address location="http://www.cscec3b.com:800/MsgSender/MainService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MainServiceHttpPost" binding="tns:MainServiceHttpPost">
+      <http:address location="http://www.cscec3b.com:800/MsgSender/MainService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

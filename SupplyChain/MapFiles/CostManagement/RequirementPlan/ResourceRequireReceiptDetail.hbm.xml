@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.RequirementPlan.Domain.ResourceRequireReceiptDetail,SupplyChain" table="THD_ResourceReceiptDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="State"/>
+    
+    <property name="FirstOfferRequireQuantity" length="3"/>
+    <property name="ResponsibilityCostQuantity" length="3" />
+    <property name="PlannedCostQuantity" length="3"/>
+    <property name="PlanInRequireQuantity" length="3"/>
+    <property name="PlanOutRequireQuantity" length="3"/>
+    <property name="DailyPlanPublishQuantity" length="3"/>
+    <property name="PeriodQuantity" length="3"/>
+    <property name="CostQuantity" length="3"/>
+    <property name="SupplyPlanPublishQuantity"/>
+
+    <many-to-one name="QuantityUnitGUID" class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="QuantityUnitName"/>
+    <property name="ApproachRequestDesc" />
+
+    <many-to-one name="TheGWBSTaskGUID" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain"/>
+    <property name="TheGWBSTaskName"/>
+    <property name="TheGWBSSysCode" length="4000"/>
+
+    <many-to-one name="MaterialResource" column="MaterialGUID" class="Application.Resource.MaterialResource.Domain.Material,ResourceManager"/>
+
+    <property name="MaterialCode"/>
+    <property name="MaterialName"/>
+    <property name="MaterialStuff" column="MaterialQuality"/>
+    <property name="MaterialSpec"/>
+    <property name="DiagramNumber" />
+    <property name="TechnicalParameters"/>
+    <many-to-one name="MaterialCategory" class="Application.Resource.MaterialResource.Domain.MaterialCategory,ResourceManager"/>
+    <property name="MaterialCategoryName"/>
+	<property name="Price"/>
+	<property name="RequireType"/>
+	<property name="ApproachDate"/>
+	  <!--使用队伍-->
+	  <many-to-one name="UsedRank" column="UsedRank" class="Application.Business.Erp.SupplyChain.CostManagement.ContractExcuteMng.Domain.SubContractProject,SupplyChain"/>
+	  <property name="UsedRankName" column="UsedRankName"/>  
+	<property name="QualityStandards"/>
+	<many-to-one name="TheResReceipt" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.CostManagement.RequirementPlan.Domain.ResourceRequireReceipt,SupplyChain"></many-to-one>
+
+  </class>
+</hibernate-mapping>
+
+

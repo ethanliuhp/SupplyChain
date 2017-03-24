@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.ProjectTaskAccountMng.Domain.ProjectTaskAccountBill,SupplyChain" table="THD_ProjectTaskAccountBill" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <!--基类字段-->
+    <property name="Code" column="Code"  />
+
+    <!--审核人-->
+    <many-to-one name="AuditPerson" column="AuditPerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="AuditPersonName"/>
+    <property name="AuditDate" column="AuditDate"/>
+
+    <!--业务组织-->
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperOrgInfoName" column="OperOrgName"/>
+    <property name="OpgSysCode" column="OpgSysCode"/>
+
+    <property name="ExchangeRate" />
+
+    <property name="CreateDate"  />
+    <property name="CreateYear"  />
+    <property name="CreateMonth"  />
+    <property name="RealOperationDate"  />
+    <property name="SubmitDate"  />
+
+    <!--自身属性-->
+    <many-to-one name="AccountPersonGUID" column="AccountPersonGUID" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="AccountPersonName" />
+
+    <many-to-one name="AccountRange" column="AccountRange"  class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain"></many-to-one>
+    <property name="AccountTaskName"/>
+    <property name="AccountTaskSyscode"/>
+
+    <property name="BeginTime"/>
+    <property name="EndTime" />
+    <property name="DocState" column="State"/>
+    <property name="Remark"/>
+
+    <property name="ProjectId" column="TheProjectGUID"/>
+    <property name="ProjectName" column="TheProjectName"/>
+
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.ProjectTaskAccountMng.Domain.ProjectTaskDetailAccount,SupplyChain"/>
+    </set>
+
+    <set name="ListSummary" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.ProjectTaskAccountMng.Domain.ProjectTaskDetailAccountSummary,SupplyChain"/>
+    </set>
+
+    <property name="MonthAccountFlag" />
+    <property name="MonthAccountBill"/> 
+    <property name="FrontConfirmBillType"/>
+    <property name="CreateBatchNo"/>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <subclass name="Application.Business.Erp.SupplyChain.ConcreteManage.ConcreteBalanceMng.Domain.ConcreteBalanceRedMaster,SupplyChain" extends="Application.Business.Erp.SupplyChain.ConcreteManage.ConcreteBalanceMng.Domain.BaseConcreteBalanceMaster,SupplyChain" lazy="true" select-before-update="true" discriminator-value="1">
+
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.ConcreteManage.ConcreteBalanceMng.Domain.ConcreteBalanceRedDetail,SupplyChain"/>
+    </set>
+
+  </subclass>
+</hibernate-mapping>

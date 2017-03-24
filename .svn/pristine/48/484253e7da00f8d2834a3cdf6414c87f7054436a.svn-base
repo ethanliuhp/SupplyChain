@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.GatheringDetail,SupplyChain" table="THD_GatheringDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.GatheringMaster,SupplyChain"></many-to-one>
+	<property name="Money" length="2"/>
+	<property name="Descript"/>
+	  
+	<many-to-one name="AcceptBillID" column="AcceptBillID" class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.AcceptanceBill,SupplyChain"/>
+	<property name="GatheringMoney" length="2"/>
+	<property name="WaterElecMoney" length="2"/>
+	<property name="PenaltyMoney" length="2"/>
+	<property name="WorkerMoney" length="2"/>
+	<property name="ConcreteMoney" length="2"/>
+	<property name="AgreementMoney" length="2"/>
+	<property name="OtherMoney" length="2"/>
+	<property name="OtherItemMoney" length="2"/>
+  </class>
+</hibernate-mapping>

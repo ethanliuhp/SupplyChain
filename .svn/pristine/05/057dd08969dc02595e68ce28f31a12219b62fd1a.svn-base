@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.SettlementManagement.ExpensesSettleMng.Domain.ExpensesSettleDetail,SupplyChain" table="THD_ExpensesSettleDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <!--工程任务-->
+    <many-to-one name="ProjectTask" column="ProjectTask"/>
+    <!--工程任务名称-->
+    <property name="ProjectTaskName" column="ProjectTaskName"/>
+    <!--工程任务层次码-->
+    <property name="ProjectTaskSysCode" column="ProjectTaskSysCode"/>
+    <!--核算科目-->
+    <many-to-one name="AccountCostSubject" column="AccountCostSubject"/>
+    <!--核算科目名称-->
+    <property name="AccountCostName" column="AccountCostName"/>
+    <!--数量-->
+    <property name="Price" column="Price"/>
+    <!--价格计量单位-->
+    <many-to-one name="PriceUnit" column="PriceUnit"/>
+    <!--价格单位名称-->
+    <property name="PriceUnitName" column="PriceUnitName"/>
+    <!--费用金额-->
+    <property name="Money" column="Money"/>
+    <!--费用名称-->
+    <property name="CostName" column="CostName"/>
+    <!--数量-->
+    <property name="Quantity" column="Quantity"/>
+    <!--数量计量单位-->
+    <many-to-one name="QuantityUnit" column="QuantityUnit"/>
+    <!--数量单位名称-->
+    <property name="QuantityUnitName" column="QuantityUnitName"/>
+    <!--月度核算单GUID-->
+    <property name="MonthlySettlment" column="MonthlySettlment"/>
+    <!--月度核算成功标志-->
+    <property name="MonthlyCostSuccess" column="MonthlyCostSuccess"/>
+
+    <!--材料类别和名称-->
+    <many-to-one name="MaterialCategory" column="MaterialCategory" class="Application.Resource.MaterialResource.Domain.MaterialCategory,ResourceManager"/>
+    <property name="MaterialCategoryName" column="MaterialCategoryName"/>
+
+
+    <many-to-one name="MaterialResource" column="MaterialResource"  class="Application.Resource.MaterialResource.Domain.Material,ResourceManager"/>
+    <property name="MaterialCode"/>
+    <property name="MaterialName"/>
+    <property name="MaterialSpec"/>
+    <property name="MaterialStuff"/>
+    <!--用工科目层次码-->
+    <property name="AccountCostSysCode"/>
+    <!--物资层次码-->
+    <property name="MaterialSysCode" column="MaterialSysCode"/>
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.SettlementManagement.ExpensesSettleMng.Domain.ExpensesSettleMaster, SupplyChain"></many-to-one>
+
+  </class>
+</hibernate-mapping>
+
+

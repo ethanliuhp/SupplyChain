@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.Indicator.IndicatorUse.Domain.ViewDetail,SupplyChain" table="THD_ViewDetail" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="HtDimMx" column="DimDisplay"/>
+    <many-to-one name="Author" column="PerId" />
+    <many-to-one name="TheJob" column="JobId" />
+    <many-to-one name="Main" column="ViewMainId" not-null="true" />
+  </class>
+</hibernate-mapping>

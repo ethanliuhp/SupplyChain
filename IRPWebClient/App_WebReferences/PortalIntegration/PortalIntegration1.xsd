@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://192.168.1.108:8002/PortalIntegration?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" />
+  <xs:element name="AddOrg">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="parentOrgCode" nillable="true" type="xs:string" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="opeOrg" nillable="true" type="q1:OpeOrg" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddOrgResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="AddOrgResult" nillable="true" type="q2:RetOb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateOrg">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="opeOrg" nillable="true" type="q3:OpeOrg" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateOrgResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="UpdateOrgResult" nillable="true" type="q4:RetOb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteOrg">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="opeOrg" nillable="true" type="q5:OpeOrg" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteOrgResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="DeleteOrgResult" nillable="true" type="q6:RetOb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOrgByCode">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="orgCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOrgByCodeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="GetOrgByCodeResult" nillable="true" type="q7:OpeOrg" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetOrgInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="orgCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="flag" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetOrgInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="SetOrgInfoResult" nillable="true" type="q8:RetOb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddPost">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="orgCode" nillable="true" type="xs:string" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="post" nillable="true" type="q9:Post" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddPostResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="AddPostResult" nillable="true" type="q10:RetOb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdatePost">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="post" nillable="true" type="q11:Post" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdatePostResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="UpdatePostResult" nillable="true" type="q12:RetOb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeletePost">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="post" nillable="true" type="q13:Post" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeletePostResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="DeletePostResult" nillable="true" type="q14:RetOb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPostByCode">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="postCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPostByCodeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="GetPostByCodeResult" nillable="true" type="q15:Post" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateEmpRole">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="emps" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="posiCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateEmpRoleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdateEmpRoleResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="user" nillable="true" type="q16:User" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="AddUserResult" nillable="true" type="q17:RetOb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="user" nillable="true" type="q18:User" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="UpdateUserResult" nillable="true" type="q19:RetOb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="userCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="DeleteUserResult" nillable="true" type="q20:RetOb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserByCode">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="userCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserByCodeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="GetUserByCodeResult" nillable="true" type="q21:User" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateEmpPost">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="emps" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="userCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateEmpPostResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdateEmpPostResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddRole">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="role" nillable="true" type="q22:Role" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddRoleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="AddRoleResult" nillable="true" type="q23:RetOb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteRole">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="role" nillable="true" type="q24:Role" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteRoleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="DeleteRoleResult" nillable="true" type="q25:RetOb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRoleByCode">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="roleCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRoleByCodeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="GetRoleByCodeResult" nillable="true" type="q26:Role" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddProjectInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="model" nillable="true" type="q27:ProjectInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddProjectInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="AddProjectInfoResult" nillable="true" type="q28:RetOb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateProjectInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="model" nillable="true" type="q29:ProjectInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateProjectInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="UpdateProjectInfoResult" nillable="true" type="q30:RetOb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteProjectInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="model" nillable="true" type="q31:ProjectInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteProjectInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="DeleteProjectInfoResult" nillable="true" type="q32:RetOb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProjectInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProjectInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" minOccurs="0" name="GetProjectInfoResult" nillable="true" type="q33:ArrayOfProjectInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SyncXMLData">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SyncXMLDataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SyncXMLDataResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetIsAutoSyncXMLData">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetIsAutoSyncXMLDataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetIsAutoSyncXMLDataResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetAutoSyncXMLDataFlag">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="IsAutoSyncFlag" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetAutoSyncXMLDataFlagResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SetAutoSyncXMLDataFlagResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CallAppPlat">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="stepGUID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="auditPersonName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="auditOpinion" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="auditDate" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CallAppPlatResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

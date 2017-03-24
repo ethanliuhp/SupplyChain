@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.LaborSporadicManagement.Domain.LaborSporadicMaster,SupplyChain" table="THD_LaborSporadicMaster" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <!--编号-->
+    <property name="Code" column="Code"  />
+    <!--状态-->
+    <property name="DocState" column="State" />
+    <!--描述-->
+    <property name="Descript" column="Descript"/>
+    <!--代工扣款单-->
+    <property name="DeductionLabor" column="DeductionLabor"/>
+
+    <!--承担队伍-->
+    <many-to-one name="BearTeam" column="BearTeam" class="Application.Business.Erp.SupplyChain.CostManagement.ContractExcuteMng.Domain.SubContractProject,SupplyChain"/>
+    <!--承担队伍名称-->
+    <property name="BearTeamName" column="BearTeamName"/>
+
+    <!--制单年-->
+    <property name="CreateYear" column="CreateYear"/>
+    <!--制单月-->
+    <property name="CreateMonth" column="CreateMonth"/>
+    <!--业务日期-->
+    <property name="CreateDate" column="CreateDate"/>
+    <!--提交时间-->
+    <property name="SubmitDate" column="SubmitDate"/>
+    <!--制单日期-->
+    <property name="RealOperationDate" column="RealOperationDate"/>
+    <!--是否复核-->
+    <property name="IsCreate"/>
+    <!--归属项目-->
+    <property name="ProjectId"/>
+    <property name="ProjectName"/>
+    <!--负责人-->
+    <many-to-one name="HandlePerson" column="HandlePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="HandlePersonName"/>
+    <!--核算人-->
+    <many-to-one name="AccountPerson" column="AccountPerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="AccountPersonName"/>
+    <!--业务组织-->
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperOrgInfoName" column="OperOrgName"/>
+    <property name="OpgSysCode" column="OpgSysCode"/>
+    <property name="HandOrgLevel" column="HandOrgLevel"/>
+    <many-to-one name="CreatePerson" column="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="CreatePersonName"/>
+    <!--用工类型-->
+    <property name="LaborState"/>
+    <!--计划工程总量-->
+    <property name="SumPredictProjectNum"/>
+    <!--实际工程总量-->
+    <property name="SumRealProjectNum"/>
+    <property name="IsPlan" column="IsPlan"/>
+    
+    <property name="AuditYear" column="AuditYear"/>
+    <property name="AuditMonth" column="AuditMonth"/>
+    <property name="AuditDate" column="AuditDate"/>
+    <!--审核人-->
+    <many-to-one name="AuditPerson" column="AuditPerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="AuditPersonName"/>
+
+    <!--罚款单GUID-->
+    <property name="PenaltyDeductionMaster" column="PenaltyDeductionMaster"/>
+    
+    <property name="PrintTimes"/>
+    <property name ="MonthlySettlment"></property>
+    <property name="ForwardBillCode"/>
+    <property name ="ForwardBillId"></property>
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.ProductionManagement.LaborSporadicManagement.Domain.LaborSporadicDetail,SupplyChain"/>
+    </set>
+
+  </class>
+</hibernate-mapping>
+
+

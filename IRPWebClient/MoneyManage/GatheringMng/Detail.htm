@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+     <title>详细信息</title>
+ 
+  
+    <link href="../../jquery/themes/bootstrap/easyui.css" rel="stylesheet" type="text/css" />       <!-- 整体样式包 -->
+    <link href="../../jquery/themes/color.css" rel="stylesheet" type="text/css" />                  <!-- 字体样式包 -->
+    <link href="../../jquery/themes/icon.css" rel="stylesheet" type="text/css" />                   <!-- 图标样式 -->
+    <script src="../../jquery/jquery.min.js" type="text/javascript"></script>                       <!-- jquery-1.11.1版本 -->
+    <script src="../../jquery/jquery.easyui.min.js" type="text/javascript"></script>                <!-- jquery-easyui-1.4.2版本 -->
+    <script src="../../jquery/jquery.plugin.js" type="text/javascript"></script>                    <!-- jquery其他方法扩展 -->
+    <script src="../../jquery/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>         <!-- 本地语言包 -->
+     <script src="../../JavaScript/Util.js" type="text/javascript"></script>
+    <script src="../../JavaScript/DataGrid.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../../JavaScript/My97DatePicker/WdatePicker.js"></script>
+   <style type="text/css">
+       
+        .MasterTableTr{width:100%;  height:30px;   text-align:center; border:solid 0px blue;}
+        .MasterTableTdLabel{width:13%;  height:100% ;  text-align:right;border:solid 0px blue;}
+        .MasterTableTdText{width:20%;  height:100% ;  text-align:left; padding:auto 5px auto auto; padding-left:5px;border:solid 0px blue;}
+   </style>
+ 
+</head>
+<body id="wrap"  style="padding:0;margin:0;"   >
+     <div  id="divMaster"   style="height:50px; width:100%;">
+        <table cellpadding="0" cellspacing="0" style=" width:99.5%; height:100%; margin-top:0px;  ">
+             <tr class="MasterTableTr">
+            <td nowrap="nowrap" class="MasterTableTdLabel" > 
+                <label for="txtCode"  >单据编号：</label>
+            </td>
+            <td nowrap="nowrap" class=" MasterTableTdText">
+                 <input type="text" id="txtCode"    style=" width:99%"/>
+            </td>
+             <td nowrap="nowrap" class="MasterTableTdLabel">
+                <label for="txtTheCustomerName"  >单位：</label>
+             </td>
+            <td nowrap="nowrap" class="MasterTableTdText">
+                 <input type="text" id="txtTheCustomerName"    style=" width:75%;"/>
+                 <input type="hidden" id="hdTheCustomerID"   />
+                 <input type="button" value="选择"    onclick="selectCustom({'hdTheCustomerID':'cusrelid','txtTheCustomerName':'name'})" />
+            </td>
+            <td nowrap="nowrap" class="MasterTableTdLabel">
+                 <label for="txtCreateDate"   style=" width:99%">收款日期:</label>
+            </td>
+            <td nowrap="nowrap" class="MasterTableTdText">
+                 <input type="text" id="txtCreateDate" class="  Wdate" style=" width:99%"  onfocus="new WdatePicker(this,'%Y-%M-%D',true)" />
+            </td>
+        </tr>
+        </table>
+     </div>
+     <div id="divDetail" style="width:800px;height:600px;"  >
+         <table id="tableDetail" style="width:100%; height:600px; "></table>
+     </div>
+      <ul style="display:none;">
+        <li id="back">返回</li>
+        <li id="add">新增</li>
+        <li id="save"><!--<asp:LinkButton ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click"></asp:LinkButton>--></li>
+        <li id="edit"></li>
+        <li id="delete"></li>
+    </ul>
+</body>
+ <script type="text/javascript">
+        // 初始化页面信息
+        var pageInfo={                                                                  // 保存页面信息
+            masterId:undefined,                                                         // 主表id
+            tableDetail:{},                                                             // 数据表格
+            editIndex:undefined,                                                        // 编辑的行号
+            state:0,                                                                    // 主表记录的状态
+            saveUrl:undefined,                                                          // 保存信息时提交的url
+            isEdit:false,                                                               // 表格是否可以编辑
+            isInitComplete:false,                                                       // 是否初始化完成
+            InitDatagrid:function(){
+                var tag = this;
+                if(this.isInitComplete)return;
+                this.isInitComplete = true;
+                this.tableDetail.datagrid({
+                    toolbar:[
+                        '-',{id:'toolbar_add',iconCls:'icon-add',text:'',handler:function(){        // 新增
+                            if(tag.endEditing()){
+                                var newRow = {index:0,row:{}};
+                                $.extend(newRow.row,newInitValue);
+                                newRow.index = tag.tableDetail.datagrid("getData").total;          // 得到总记录数
+                                tag.tableDetail.datagrid("insertRow",newRow);                      // 添加行到最后
+                                tag.beginEditing(newRow.index);                                    // 设置可编辑
+                            }
+                        }},
+                        '-',{id:'toolbar_save',iconCls:'icon-save',text:'',handler:function(){
+                            tag.saveAllData();                                                     // 保存所有数据
+                        }},
+                        '-',{id:'toolbar_delete',iconCls:'icon-remove',text:'',handler:function(){
+                            tag.deleteData();
+                        }}
+                    ],
+                    onClickRow:function(rowIndex,rowData){                              // 单击行事件
+                        tag.endEditing();
+                    },
+                    onDblClickRow:function(rowIndex,rowData){                           // 行双击事件
+                        tag.beginEditing(rowIndex,rowData);
+                    }
+                });
+            },
+            beginEditing:function(rowIndex,field,value){                                // 开始编辑数据行
+                if (this.endEditing()) {
+                    this.tableDetail
+                        .datagrid('selectRow',rowIndex)                                 // 选择当前该序号行
+                        .datagrid("beginEdit",rowIndex);                                // 开始编辑                  
+                        // .datagrid('editCell', { index: rowIndex, field: field });
+                    this.editIndex = rowIndex;
+                }
+            },
+            endEditing:function(){                                                      // 行修改完成后执行的函数
+                if (this.editIndex == undefined) { return true }
+                if (this.tableDetail.datagrid('validateRow', this.editIndex)) {
+                    this.tableDetail.datagrid('endEdit', this.editIndex);
+                    this.editIndex = undefined;
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+            deleteData:function(){                                                      // 删除行
+                var tag = this;
+                $.messager.confirm('确认','确认删除吗？',function(result){
+                    if(result){
+                        var rows = tag.tableDetail.datagrid("getSelections");           // 得到行数据
+                        if(rows.length == 0)return;
+                        var arr = [];
+                        $.each(rows,function(index,row){
+                            var indexRow = tag.tableDetail.datagrid("getRowIndex",row); // 得到该行的序号
+                            arr.push(indexRow);
+                        });
+                        $.each(arr,function(index,value){
+                            tag.tableDetail.datagrid("deleteRow",value);
+                        })
+                    }
+                });
+            },
+            saveAllData:function(){                                                     // 保存表格数据
+                var tag = this;
+                $.messager.confirm('确认',"确定保存所有修改吗？",function(result){
+                    if(result){
+                        if (tag.endEditing()) {
+                            if (tag.tableDetail.datagrid("getChanges").length > 0) {           // 表格的更改不为0
+                                var insertedRow = tag.tableDetail.datagrid("getChanges","inserted");   // 新增加的行
+                                var deletedRow = tag.tableDetail.datagrid("getChanges","deleted");     // 删除的行
+                                var updatedRow = tag.tableDetail.datagrid("getChanges","updated");     // 修改过的行
+                                var insertedStr = $.parseString(insertedRow);
+                                // var deletedStr = $.parseString(deletedRow);
+                                var deletedStr = "";
+                                $.each(deletedRow,function(index,row){
+                                    deletedStr += row.Id;
+                                    if(index < deletedRow.length){
+                                        deletedStr += "|";
+                                    }
+                                });
+                                var updatedStr = $.parseString(updatedRow);
+                                var params = {key:"SaveEdit",id:tag.masterId,insertedRow:insertedStr,deletedRow:deletedStr,updatedRow:updatedStr};
+                                $.post(tag.saveUrl,params,function(data){
+                                    tag.tableDetail.datagrid("reload");
+                                });
+                            }
+                        }
+                    }
+                });
+            }
+        };
+
+        // 获取当前日期
+        var t = new Date();
+        var currentDate = t.getFullYear() + "-" + ((t.getMonth() + 1).toString().length == 1 ? "0"+(t.getMonth()+1) : t.getMonth() + 1) + "-" + (t.getDate().toString().length == 1 ? "0"+t.getDate() : t.getDate())
+        // 新增项目初始化
+        var newInitValue = {Balance:0,Rate:0,TotalDay:0,AmountPayable:0,StartDate:currentDate,EndDate:currentDate,StartChargingDate:currentDate,EndChargingDate:currentDate};
+
+        // 加载完成后
+        $(function(){
+            pageInfo.masterId = $.getUrlParam("ID");                            // 获取主表id
+            if(!pageInfo.masterId)pageInfo.masterId="2OwDTHgtP3Khi7s9mTOXVO";
+            pageInfo.saveUrl = "GatheringData.ashx";
+            pageInfo.state = $.getUrlParam("PageState");                        // 记录状态
+            if(pageInfo.state == "0")pageInfo.isEdit = true;                    // 是否可以编辑
+            // 初始化表格
+            pageInfo.tableDetail = $("#tableDetail").datagrid({                 // 将table格式化为datagrid
+                url:pageInfo.saveUrl,                                           // 请求数据的url
+                title:'',                                                       // 标题
+                method:'get',                                                   // 请求的方式
+                collapsible:false,                                              // 是否显示折叠按钮
+                idField:'Id',                                                   // 设置主键列
+                fit:true,                                                       // 自动填充
+                singleSelect:true,                                              // 设置多行选择
+                striped:false,                                                  // 斑马线
+                nowrap:false,                                                   // 不换行
+                queryParams:{id:pageInfo.masterId,key:"GetBill"},         // 请求参数
+                rownumbers:true,                                                // 序号
+                columns:[                                                       // 定义数据行
+                    [   //
+////                        {field:"Id",width:150,align:'left',title:"操作", 
+////                        formatter:function(value,row){
+////                            var arrHTML=[];
+////                            arrHTML.push('<img title="添加" src="../../images/grid/Add1.png" onclick="alert('+value+');"/>');
+////                            arrHTML.push('<img title="修改" src="../../images/grid/Add1.png" onclick="alert('+value+');"/>');
+////                            arrHTML.push('<img title="删除" src="../../images/grid/Add1.png" onclick="alert('+value+');"/>');
+////                            return arrHTML.join("");}
+////                         },
+                        {field:"Money",width:150,align:'left',title:"金额（元）",editor:"numberbox"},
+                        {field:"Descript",width:300,align:'center',title:"描述",editor:"text"},
+                        
+                    ]
+                ],
+                onLoadSuccess:function(data){   
+                 
+                if(data){                                                 // 数据请求成功后执行
+                    //txtCode txtTheCustomerName  hdTheCustomerID txtCreateDate
+                    $("#txtCode").val(data.code);                                    // 设置主表信息
+                    $("#txtTheCustomerName").val( data.theCustomerName);
+                     $("#txtTheCustomerName").val(data.theCustomerID);
+                    $("#txtCreateDate").val( data.createDate);
+                     }
+                    $("#txtCode").attr("readonly",true);                                         // 设置系统字段只读
+                    $("#txtTheCustomerName").attr('readonly',true);
+                 
+                    if (!pageInfo.isEdit) {
+                        $("#txtCreateDate").attr('readonly',true);
+                       
+                    }
+                    if(pageInfo.isEdit){
+                        pageInfo.InitDatagrid();                                                    // 给表格加入功能
+                    }
+                }
+            });
+            
+            // 返回主表
+            $("#back").click(function(){
+                if (pageInfo.isEdit) {
+                    if(!confirm("返回后编辑的内容将会丢失，确定吗？"))return false;
+                }
+                window.parent.winVisible(true);
+            });
+            
+        });
+</script>
+</html>

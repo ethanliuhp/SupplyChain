@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.StockManage.StockProfitIn.Domain.ProfitIn,SupplyChain" table="THD_StkProfitIn" lazy="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="Code" column="Code"  />
+    <property name="DocState" column="State" />
+    <property name="Descript" column="Descript"/>
+    <property name="CreateYear" column="CreateYear"/>
+    <property name="CreateMonth" column="CreateMonth"/>
+
+    <property name="CreateDate" column="CreateDate"/>
+    <property name="RealOperationDate" column="RealOperationDate"/>
+    <property name="SubmitDate" column="SubmitDate"/>
+
+    <many-to-one name="CreatePerson" column="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="CreatePersonName"/>
+
+    <!--责任人-->
+    <many-to-one name="HandlePerson" column="HandlePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="HandlePersonName"/>
+    <!--业务组织-->
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperOrgInfoName" column="OperOrgName"/>
+    <property name="OpgSysCode" column="OpgSysCode"/>
+
+    <many-to-one name="AuditPerson" />
+    <property name="AuditPersonName"/>
+    <property name="AuditYear"/>
+    <property name="AuditMonth"/>
+    <property name="AuditDate"/>
+    <property name="IsTally"/>
+
+    <!--供应商-->
+    <many-to-one name="TheSupplierRelationInfo" column="SupplierRelation" class="Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass.SupplierRelationInfo,ResourceManager"/>
+    <property name="TheSupplierName" column="SupplierName"/>
+
+    <property name="ProjectId"/>
+    <property name="ProjectName"/>
+    <property name="SumQuantity"/>
+    <property name="SumMoney"/>
+    <property name="Special"/>
+    
+    <!--仓库-->
+    <!--<property name="TheStationCategory"/>-->
+    <many-to-one name="TheStationCategory" column="TheStationCategory" class="Application.Business.Erp.SupplyChain.StockManage.Base.Domain.StationCategory,SupplyChain"/>
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.StockManage.StockProfitIn.Domain.ProfitInDtl,SupplyChain"/>
+    </set>
+
+  </class>
+</hibernate-mapping>
+
+

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.CostMonthAccountDtl,SupplyChain" table="thd_costmonthaccountdtl" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <many-to-one name="AccountTaskNodeGUID" column="AccountTaskNodeGUID"  class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain"></many-to-one>
+    <property name="AccountTaskNodeName"  />
+    <property name="AccountTaskNodeSyscode" length="1000"/>
+    <many-to-one name="ProjectTaskDtlGUID" column="ProjectTaskDtlGUID"  class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSDetail,SupplyChain"></many-to-one>
+    <property name="ProjectTaskDtlName"/>
+    <many-to-one name="TheCostItem" column="TheCostItem" class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostItem,SupplyChain"/>
+    <property name="CostItemName"/>
+    <many-to-one name="QuantityUnitGUID" column="QuantityUnitGUID"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="QuantityUnitName"/>
+    <many-to-one name="PriceUnitGUID" column="PriceUnitGUID"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="PriceUnitName"/>
+    <property name="Remark"/>
+    <property name="IfTaskAcctMx"/>
+
+    <property name="CurrRealQuantity"/>
+    <property name="CurrRealPrice"/>
+    <property name="CurrRealTotalPrice"/>
+    <property name="CurrIncomeQuantity"/>
+    <property name="CurrIncomeTotalPrice"/>
+    <property name="CurrResponsiQuantity"/>
+    <property name="CurrResponsiTotalPrice"/>
+    <property name="CurrEarnValue"/>
+    <property name="CurrCompletedPercent"/>
+    <property name="SumRealQuantity"/>
+    <property name="SumRealTotalPrice"/>
+    <property name="SumIncomeQuantity"/>
+    <property name="SumIncomeTotalPrice"/>
+    <property name="SumResponsiQuantity"/>
+    <property name="SumResponsiTotalPrice"/>
+    <property name="SumEarnValue"/>
+    <property name="SumCompletedPercent"/>
+
+    
+    <property name="DudgetContractQuantity"/>
+    <property name="DudgetContractTotalPrice"/>
+    <property name="DudgetRespQuantity"/>
+    <property name="DudgetRespTotalPrice"/>
+    <property name="DudgetPlanQuantity"/>
+    <property name="DudgetPlanTotalPrice"/>
+    <many-to-one name="TheAccountBill" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.CostMonthAccountBill,SupplyChain"></many-to-one>
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.CostMonthAccDtlConsume,SupplyChain"/>
+    </set>
+  </class>
+</hibernate-mapping>
+
+

@@ -1,0 +1,1022 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Application.Business.Erp.SupplyChain.Approval.AppProcessMng.Domain;
+using Application.Business.Erp.SupplyChain.ApprovalMng.AppSolutionMng.Service;
+using Application.Business.Erp.SupplyChain.Client.AppMng.AppPlatformUI;
+using Application.Business.Erp.SupplyChain.Client.Basic.CommonClass;
+using Application.Business.Erp.SupplyChain.Client.Basic.Template;
+using Application.Business.Erp.SupplyChain.Client.MoneyManage.FinanceMultData;
+using Application.Business.Erp.SupplyChain.Client.Util;
+using Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain;
+using FlexCell;
+using NHibernate.Criterion;
+using VirtualMachine.Component.Util;
+using VirtualMachine.Component.WinControls.CommonForm.FlashScreenMng;
+using VirtualMachine.Component.WinControls.Controls;
+using VirtualMachine.Core;
+
+namespace Application.Business.Erp.SupplyChain.Client.MoneyManage
+{
+    public partial class VFundShcemeApprove : TBasicDataView
+    {
+        private MFinanceMultData mOperate;
+        private FundPlanningMaster selectFundScheme;
+        private ApproveBill selectAppBill;
+        private MAppPlatform appPlatform = new MAppPlatform();
+
+        public VFundShcemeApprove()
+        {
+            InitializeComponent();
+
+            InitEvents();
+
+            LoadApproveTask();
+        }
+
+        private void InitEvents()
+        {
+            dgBillList.AutoGenerateColumns = false;
+            dgBillList.CellDoubleClick += new DataGridViewCellEventHandler(dgBillList_CellDoubleClick);
+
+            btnAgree.Click += new EventHandler(btnAgree_Click);
+            btnReject.Click += new EventHandler(btnReject_Click);
+        }
+
+        private void LoadApproveTask()
+        {
+            var proj = StaticMethod.GetProjectInfo();
+
+            var tbBills = appPlatform.Service.GetApprovingBills(ConstObject.TheLogin.TheSysRole.Id,
+                                                                ConstObject.TheLogin.ThePerson.Id,
+                                                                proj == null ||
+                                                                proj.Code == CommonUtil.CompanyProjectCode
+                                                                    ? string.Empty
+                                                                    : proj.Id);
+
+            if (tbBills != null)
+            {
+                dgBillList.DataSource = tbBills.OfType<ApproveBill>().ToList()
+                    .FindAll(a => a.BillCode.StartsWith("资金策划"));
+            }
+            else
+            {
+                dgBillList.DataSource = null;
+            }
+
+            ClearInfo();
+        }
+
+        private void LoadApproveStep()
+        {
+            if (selectFundScheme == null)
+            {
+                return;
+            }
+
+            ObjectQuery oq = new ObjectQuery();
+            oq.AddCriterion(Expression.Eq("BillId", selectFundScheme.Id));
+            oq.AddCriterion(Expression.Eq("AppStatus", ClientUtil.ToLong(2)));
+            oq.AddCriterion(Expression.Eq("State", 1));
+            oq.AddFetchMode("AuditPerson", NHibernate.FetchMode.Eager);
+            oq.AddFetchMode("AppRole", NHibernate.FetchMode.Eager);
+
+            var steps = appPlatform.Service.GetAppStepsInfo(oq);
+            foreach (AppStepsInfo master in steps)
+            {
+                int index = dgvAppSteps.Rows.Add();
+
+                dgvAppSteps[StepOrder.Name, index].Value = ClientUtil.ToLong(master.StepOrder);
+                dgvAppSteps[StepName.Name, index].Value = ClientUtil.ToString(master.StepsName);
+                if (master.AppRelations == 0)
+                {
+                    dgvAppSteps[AppRelations.Name, index].Value = "或";
+                }
+                else
+                {
+                    dgvAppSteps[AppRelations.Name, index].Value = "与";
+                }
+                dgvAppSteps[AppRole.Name, index].Value = master.AppRole.RoleName;
+                dgvAppSteps[AppRole.Name, index].Tag = master.AppRole;
+
+                dgvAppSteps[AppComments.Name, index].Value = master.AppComments;
+                dgvAppSteps[AppDateTime.Name, index].Value = master.AppDate;
+                dgvAppSteps[AppPerson.Name, index].Value = master.AuditPerson.Name;
+
+                dgvAppSteps.Rows[index].Tag = master;
+                switch (master.AppStatus)
+                {
+                    case -1:
+                        dgvAppSteps[AppStatus.Name, index].Value = "已撤单";
+                        break;
+                    case 0:
+                        dgvAppSteps[AppStatus.Name, index].Value = "审批中";
+                        break;
+                    case 1:
+                        dgvAppSteps[AppStatus.Name, index].Value = "未通过";
+                        break;
+                    case 2:
+                        dgvAppSteps[AppStatus.Name, index].Value = "已通过";
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private AppStepsInfo BuildStepsInfo(ApproveBill bill)
+        {
+            if (bill == null)
+            {
+                return null;
+            }
+
+            var stepInfo = new AppStepsInfo();
+            stepInfo.AppDate = DateTime.Now;
+            stepInfo.AppTableSet = bill.AppTableDefine;
+            stepInfo.AuditPerson = ConstObject.TheLogin.ThePerson;
+            stepInfo.BillId = bill.BillId;
+            stepInfo.StepOrder = bill.NextStep;
+
+            return stepInfo;
+        }
+
+        private void ClearInfo()
+        {
+            selectAppBill = null;
+            selectFundScheme = null;
+
+            dgvAppSteps.Rows.Clear();
+
+            foreach (TabPage tabPage in tbContent.TabPages)
+            {
+                foreach (var ctrl in tabPage.Controls)
+                {
+                    if(ctrl is CustomFlexGrid)
+                    {
+                        LoadTempleteFile(ctrl as CustomFlexGrid, tabPage.Tag + ".flx");
+                    }
+                }
+            }
+        }
+
+        #region 加载策划表数据
+
+        private string FormarteCellValue(decimal val)
+        {
+            if (val == 0)
+            {
+                return "-";
+            }
+            else
+            {
+                return val.ToString("N2");
+            }
+        }
+
+        private void LoadTempleteFile(CustomFlexGrid grid, string sReportPath)
+        {
+            ExploreFile eFile = new ExploreFile();
+            string path = eFile.Path;
+            if (eFile.IfExistFileInServer(sReportPath))
+            {
+                eFile.CreateTempleteFileFromServer(sReportPath);
+                //载入格式和数据
+                grid.OpenFile(path + "\\" + sReportPath); //载入格式
+                grid.SelectionStart = 0;
+            }
+            else
+            {
+                MessageBox.Show("未找到模板格式文件【" + sReportPath + "】");
+            }
+        }
+
+        private void SetReportProjectNameAndUnit(CustomFlexGrid grid, int row)
+        {
+            if (selectFundScheme == null || grid == null)
+            {
+                return;
+            }
+
+            for (int i = 1; i < grid.Cols; i++)
+            {
+                var txt = grid.Cell(row, i).Text.Trim();
+                if (txt.Contains("单位"))
+                {
+                    grid.Cell(row, i).Text = string.Format("单位：{0}", selectFundScheme.Unit);
+                }
+                else if (txt.Contains("项目名称"))
+                {
+                    grid.Cell(row, i).Text = string.Format("项目名称：{0}", selectFundScheme.ProjectName);
+                }
+            }
+        }
+
+        private void LoadFundScheme()
+        {
+            FlashScreen.Show("数据加载中，请稍候...");
+
+            LoadFundSchemeMaster();
+
+            var rptAmountList = mOperate.FinanceMultDataSrv.GetFundSchemeDetail(selectFundScheme, typeof(FundSchemeReportAmount)).OfType<FundSchemeReportAmount>().OrderBy(a => a.RowIndex).ToList();
+
+            var getList = mOperate.FinanceMultDataSrv.GetFundSchemeDetail(selectFundScheme, typeof(FundSchemeGathering)).OfType<FundSchemeGathering>().OrderBy(a => a.RowIndex).ToList();
+
+            var taxList = mOperate.FinanceMultDataSrv.GetFundSchemeDetail(selectFundScheme, typeof(FundSchemeIndirectTaxRate)).OfType<FundSchemeIndirectTaxRate>().OrderBy(a => a.RowIndex).ToList();
+
+            var payList = mOperate.FinanceMultDataSrv.GetFundSchemeDetail(selectFundScheme, typeof(FundSchemePayment)).OfType<FundSchemePayment>().OrderBy(a => a.RowIndex).ToList();
+
+            var feeList = mOperate.FinanceMultDataSrv.GetFundSchemeDetail(selectFundScheme, typeof(FundSchemeFinanceFee)).OfType<FundSchemeFinanceFee>().OrderBy(a => a.RowIndex).ToList();
+
+            var smyList = mOperate.FinanceMultDataSrv.GetFundSchemeDetail(selectFundScheme, typeof(FundSchemeSummary)).OfType<FundSchemeSummary>().OrderBy(a => a.RowIndex).ToList();
+
+            var contrastList = mOperate.FinanceMultDataSrv.GetFundSchemeDetail(selectFundScheme, typeof(FundSchemeContrast)).OfType<FundSchemeContrast>().OrderBy(a => a.RowIndex).ToList();
+
+            var cashCostList = mOperate.FinanceMultDataSrv.GetFundSchemeDetail(selectFundScheme, typeof(FundSchemeCashCostRate)).OfType<FundSchemeCashCostRate>().OrderBy(a => a.RowIndex).ToList();
+
+            LoadReportAmount(rptAmountList);
+            LoadCostTax(rptAmountList);
+            LoadFundSchemeGether(getList);
+            LoadIndirectTaxRate(taxList);
+            LoadPayment(payList);
+            LoadFinanceFee(feeList);
+            LoadFundSummary(smyList);
+            LoadFundContrast(contrastList);
+            LoadFundCashCostRate(cashCostList);
+
+            FlashScreen.Close();
+        }
+
+        private void LoadFundSchemeMaster()
+        {
+            if (selectFundScheme == null)
+            {
+                return;
+            }
+
+            LoadTempleteFile(rptGridMaster, tPageMaster.Tag + ".flx");
+
+            rptGridMaster.Cell(2, 1).Text = "项目名称：" + selectFundScheme.ProjectName;
+            rptGridMaster.Cell(3, 2).Text = selectFundScheme.ProjectCost.ToString("N2") + selectFundScheme.Unit;
+            rptGridMaster.Cell(3, 4).Text = selectFundScheme.ContractDuration;
+            rptGridMaster.Cell(4, 2).Text = selectFundScheme.GatheringCondition;
+            rptGridMaster.Cell(4, 4).Text = selectFundScheme.CreateDate.ToString("yyyy年M月d日");
+            rptGridMaster.Cell(5, 2).Text = selectFundScheme.SpecialDescript;
+            rptGridMaster.Cell(5, 4).Text = selectFundScheme.SchemeTime;
+            rptGridMaster.Cell(6, 2).Text = string.Format("{0}%", selectFundScheme.CalculateProfitRate);
+            rptGridMaster.Cell(6, 4).Text = string.Format("{0}%", selectFundScheme.TargetHandin);
+            rptGridMaster.Cell(7, 2).Text = string.Format("{0}%", selectFundScheme.CostCashRate);
+            rptGridMaster.Cell(7, 4).Text = string.Format("{0}%", selectFundScheme.BreakevenPoint);
+            rptGridMaster.Cell(8, 2).Text = selectFundScheme.CalculateSituation;
+            rptGridMaster.Cell(9, 2).Text = selectFundScheme.PlanningTarget;
+        }
+
+        private void LoadReportAmount(List<FundSchemeReportAmount> list)
+        {
+            if (selectFundScheme == null || list == null)
+            {
+                return;
+            }
+
+            LoadTempleteFile(rptGridAmount, tPageAmount.Tag + ".flx");
+            SetReportProjectNameAndUnit(rptGridAmount, 2);
+
+            var startRowIndex = 6;
+            rptGridAmount.InsertRow(startRowIndex, list.Count);
+            rptGridAmount.Tag = list;
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                DisplayReportAmount(list[i], i + startRowIndex);
+            }
+
+            SetReadOnlyAreaStyle(rptGridAmount, 3, rptGridAmount.Cols, startRowIndex);
+            SetColumnStyle(rptGridAmount);
+        }
+
+        private void LoadCostTax(List<FundSchemeReportAmount> list)
+        {
+            if (selectFundScheme == null || list == null)
+            {
+                return;
+            }
+
+            LoadTempleteFile(rptGridTax, tPageCostTax.Tag + ".flx");
+            SetReportProjectNameAndUnit(rptGridTax, 2);
+
+            var startRowIndex = 6;
+            rptGridTax.InsertRow(startRowIndex, list.Count);
+            rptGridTax.Tag = list;
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                DisplayCostTax(list[i], startRowIndex + i);
+            }
+
+            SetReadOnlyAreaStyle(rptGridTax, 3, rptGridTax.Cols, startRowIndex);
+            SetColumnStyle(rptGridTax);
+        }
+
+        private void LoadFundSchemeGether(List<FundSchemeGathering> list)
+        {
+            if (selectFundScheme == null || list == null)
+            {
+                return;
+            }
+            list = list.OrderBy(c => c.RowIndex).ToList();
+
+            LoadTempleteFile(rptGridGether, tPageGether.Tag + ".flx");
+            SetReportProjectNameAndUnit(rptGridGether, 2);
+
+            list = list.OrderBy(i => i.RowIndex).ToList();
+            var startRowIndex = 6;
+            rptGridGether.InsertRow(startRowIndex, list.Count);
+            rptGridGether.Tag = list;
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                DisplayGether(list[i], startRowIndex + i);
+            }
+
+            SetReadOnlyAreaStyle(rptGridGether, 4, 5, startRowIndex);
+            SetReadOnlyAreaStyle(rptGridGether, 6, 18, startRowIndex);
+            SetReadOnlyAreaStyle(rptGridGether, 21, 28, startRowIndex);
+            SetColumnStyle(rptGridGether);
+        }
+
+        private void LoadIndirectTaxRate(List<FundSchemeIndirectTaxRate> list)
+        {
+            if (selectFundScheme == null || list == null)
+            {
+                return;
+            }
+            list = list.OrderBy(c => c.RowIndex).ToList();
+
+            LoadTempleteFile(rptGridIndRate, tPageTaxRate.Tag + ".flx");
+            rptGridIndRate.Cell(2, 5).Text = string.Format("工期：{0}", selectFundScheme.ContractDuration);
+            SetReportProjectNameAndUnit(rptGridIndRate, 2);
+
+            var startRowIndex = 4;
+            rptGridIndRate.Tag = list;
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                DisplayIndirectTaxRate(list[i], startRowIndex + i);
+            }
+
+
+            SetReadOnlyAreaStyle(rptGridIndRate, 7, 8, startRowIndex);
+            SetColumnStyle(rptGridIndRate);
+        }
+
+        private void LoadPayment(List<FundSchemePayment> list)
+        {
+            if (selectFundScheme == null || list == null)
+            {
+                return;
+            }
+            list = list.OrderBy(c => c.RowIndex).ToList();
+
+            LoadTempleteFile(rptGridPayment, tPagePayment.Tag + ".flx");
+            SetReportProjectNameAndUnit(rptGridPayment, 2);
+
+            var startRowIndex = 6;
+            rptGridPayment.InsertRow(startRowIndex, list.Count);
+            rptGridPayment.Tag = list;
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                DisplayPayment(list[i], startRowIndex + i);
+            }
+
+            SetReadOnlyAreaStyle(rptGridPayment, 2, 19, startRowIndex);
+            SetReadOnlyAreaStyle(rptGridPayment, 32, 41, startRowIndex);
+            SetReadOnlyAreaStyle(rptGridPayment, 42, rptGridPayment.Cols, startRowIndex);
+            SetColumnStyle(rptGridPayment);
+        }
+
+        private void LoadFinanceFee(List<FundSchemeFinanceFee> list)
+        {
+            if (selectFundScheme == null || list == null)
+            {
+                return;
+            }
+            list = list.OrderBy(c => c.RowIndex).ToList();
+
+            LoadTempleteFile(rptGridFee, tPageFee.Tag + ".flx");
+            SetReportProjectNameAndUnit(rptGridFee, 2);
+
+            var startRowIndex = 4;
+            rptGridFee.InsertRow(startRowIndex, list.Count);
+            rptGridFee.Tag = list;
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                DisplayFinanceFee(list[i], startRowIndex + i);
+            }
+
+            SetReadOnlyAreaStyle(rptGridFee, 2, rptGridFee.Cols, startRowIndex);
+            SetColumnStyle(rptGridFee);
+        }
+
+        private void LoadFundSummary(List<FundSchemeSummary> list)
+        {
+            if (selectFundScheme == null || list == null)
+            {
+                return;
+            }
+            list = list.OrderBy(c => c.RowIndex).ToList();
+
+            LoadTempleteFile(rptGridSummary, tPageSummary.Tag + ".flx");
+            SetReportProjectNameAndUnit(rptGridSummary, 2);
+
+            var startRowIndex = 6;
+            rptGridSummary.InsertRow(startRowIndex, list.Count);
+            rptGridSummary.Tag = list;
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                DisplayFundSummary(list[i], startRowIndex + i);
+            }
+
+            SetReadOnlyAreaStyle(rptGridSummary, 3, rptGridSummary.Cols, startRowIndex);
+            SetColumnStyle(rptGridSummary);
+        }
+
+        private void LoadFundContrast(List<FundSchemeContrast> list)
+        {
+            if (selectFundScheme == null || list == null)
+            {
+                return;
+            }
+            list = list.OrderBy(c => c.RowIndex).ToList();
+
+            LoadTempleteFile(rptGridContrast, tPageContrast.Tag + ".flx");
+            SetReportProjectNameAndUnit(rptGridContrast, 2);
+
+            var startRowIndex = 6;
+            rptGridContrast.InsertRow(startRowIndex, list.Count);
+            rptGridContrast.Tag = list;
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                DisplayFundContrast(list[i], startRowIndex + i);
+            }
+
+            SetReadOnlyAreaStyle(rptGridContrast, 3, 4, startRowIndex);
+            SetReadOnlyAreaStyle(rptGridContrast, 5, rptGridContrast.Cols, startRowIndex);
+            SetColumnStyle(rptGridContrast);
+        }
+
+        private void LoadFundCashCostRate(List<FundSchemeCashCostRate> list)
+        {
+            if (selectFundScheme == null || list == null)
+            {
+                return;
+            }
+            var grid = rptGridBalance;
+            list = list.OrderBy(c => c.RowIndex).ToList();
+            grid.Tag = list;
+
+            LoadTempleteFile(grid, tPageBalance.Tag + ".flx");
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                var item = list[i];
+                if (item.DataType == 1)
+                {
+                    DisplayIncomCostCalculate(item);
+                }
+                else
+                {
+                    DisplayCashCostRate(item);
+                }
+            }
+
+            SetColumnStyle(grid);
+        }
+
+        private void SetReadOnlyAreaStyle(CustomFlexGrid grid, int startCol, int endCol, int startRow)
+        {
+            for (var i = startRow; i < grid.Rows; i++)
+            {
+                grid.Row(i).Height = 23;
+                for (var j = startCol; j < endCol; j++)
+                {
+                    grid.Cell(i, j).BackColor = Color.LightGray;
+                }
+            }
+        }
+
+        private void SetColumnStyle(CustomFlexGrid grid)
+        {
+            for (int i = 3; i < grid.Cols; i++)
+            {
+                grid.Column(i).AutoFit();
+                grid.Column(i).Alignment = AlignmentEnum.RightCenter;
+            }
+        }
+
+        private void DisplayReportAmount(FundSchemeReportAmount item, int rowIndex)
+        {
+            if (item == null)
+            {
+                return;
+            }
+
+            var colIndex = 1;
+            if (item.Year > 0 && item.Month > 0)
+            {
+                rptGridAmount.Cell(rowIndex, colIndex++).Text = string.Format("{0}年{1}月", item.Year, item.Month);
+            }
+            else
+            {
+                colIndex++;
+            }
+            rptGridAmount.Cell(rowIndex, 1).Tag = item.ItemGuid;
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = item.JobNameLink;
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentEngineeringFee);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentMeasureFee);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentInnerSetup);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentSubcontractor);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentNoTaxCost);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentOutputTax);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentSubTotal);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalEngineeringFee);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalMeasureFee);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalInnerSetup);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalSubcontractor);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalNoTaxCost);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalOutputTax);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalSubTotal);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentCommonSpecialCost);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentNodePaySpecialCost);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentInnerSetupCost);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentSubcontractorCost);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentLaborCost);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentSteelCost);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentConcreteCost);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentOtherMaterialCost);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentLeasingCost);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentUtilitiesCost);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentOtherEquipmentCost);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentGovernmentFee);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentOtherDirectCost);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentIndirectCost);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentCostSubtotal);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentTaxTotal);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.RemainderOfVAT);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentPayVAT);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.AccruedTax);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentFinanceFee);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentProfit);
+            rptGridAmount.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentCumulativeProfit);
+            rptGridAmount.Cell(rowIndex, colIndex).Text = string.Format("{0:0.00%}", item.CurrentCumulativeRate);
+        }
+
+        private void DisplayCostTax(FundSchemeReportAmount item, int rowIndex)
+        {
+            if (item == null)
+            {
+                return;
+            }
+
+            var colIndex = 1;
+            if (item.Year > 0 && item.Month > 0)
+            {
+                rptGridTax.Cell(rowIndex, colIndex++).Text = string.Format("{0}年{1}月", item.Year, item.Month);
+            }
+            else
+            {
+                colIndex++;
+            }
+            rptGridTax.Cell(rowIndex, 1).Tag = item.ItemGuid;
+            rptGridTax.Cell(rowIndex, colIndex++).Text = item.JobNameLink;
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentCommonSpecialCost);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentCommonSpecialCostTax);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentNodePaySpecialCost);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentNodePaySpecialCostTax);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentInnerSetupCost);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentInnerSetupCostTax);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentSubcontractorCost);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentSubcontractorCostTax);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentLaborCost);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentLaborCostTax);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentSteelCost);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentSteelCostTax);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentConcreteCost);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentConcreteCostTax);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentOtherMaterialCost);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentOtherMaterialCostTax);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentLeasingCost);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentLeasingCostTax);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentUtilitiesCost);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentUtilitiesCostTax);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentOtherEquipmentCost);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentOtherEquipmentCostTax);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentGovernmentFee);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentOtherDirectCost);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentOtherDirectCostTax);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentIndirectCost);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentIndirectCostTax);
+            rptGridTax.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentCostSubtotal);
+            rptGridTax.Cell(rowIndex, colIndex).Text = FormarteCellValue(item.CurrentTaxTotal);
+        }
+
+        private void DisplayGether(FundSchemeGathering item, int rowIndex)
+        {
+            if (item == null)
+            {
+                return;
+            }
+
+            var colIndex = 1;
+            if (item.Year > 0 && item.Month > 0)
+            {
+                rptGridGether.Cell(rowIndex, colIndex++).Text = string.Format("{0}年{1}月", item.Year, item.Month);
+            }
+            else
+            {
+                colIndex++;
+            }
+            rptGridGether.Cell(rowIndex, 1).Tag = item.ItemGuid;
+            rptGridGether.Cell(rowIndex, colIndex++).Text = item.JobNameLink;
+            rptGridGether.Cell(rowIndex, colIndex++).Text = string.Format("{0:0.00%}", item.ContractGetherRate);
+            rptGridGether.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentVoluntarilyAmount);
+            rptGridGether.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentOptimizeAmount);
+            rptGridGether.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentInnerSetUp);
+            rptGridGether.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentSubContract);
+            rptGridGether.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentNoTaxAmount);
+            rptGridGether.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentOutputTax);
+            rptGridGether.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentSubtotalAmount);
+            rptGridGether.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalVoluntarilyAmount);
+            rptGridGether.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalOptimizeAmount);
+            rptGridGether.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalInnerSetUp);
+            rptGridGether.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalSubContract);
+            rptGridGether.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalNoTaxAmount);
+            rptGridGether.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalOutputTax);
+            rptGridGether.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalSubtotalAmount);
+            rptGridGether.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentVoluntarilyGether);
+            rptGridGether.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentInnerSetUpGether);
+            rptGridGether.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentSubContractGether);
+            rptGridGether.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentOutputTaxGether);
+            rptGridGether.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentGetherTotal);
+            rptGridGether.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalVoluntarilyGether);
+            rptGridGether.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalInnerSetUpGether);
+            rptGridGether.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalSubContractGether);
+            rptGridGether.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalOutputTaxGether);
+            rptGridGether.Cell(rowIndex, colIndex).Text = FormarteCellValue(item.TotalGetherWithTax);
+        }
+
+        private void DisplayIndirectTaxRate(FundSchemeIndirectTaxRate item, int rowIndex)
+        {
+            if (item == null)
+            {
+                return;
+            }
+
+            var colIndex = 1;
+            rptGridIndRate.Cell(rowIndex, 7).Tag = item.ItemGuid;
+            rptGridIndRate.Cell(rowIndex, colIndex++).Text = item.SerialNumber.ToString();
+            rptGridIndRate.Cell(rowIndex, colIndex).Tag = item.FirstSubjectCode;
+            rptGridIndRate.Cell(rowIndex, colIndex++).Text = item.FirstSubjectName;
+            rptGridIndRate.Cell(rowIndex, colIndex).Tag = item.SecondSubjectCode;
+            rptGridIndRate.Cell(rowIndex, colIndex++).Text = item.SecondSubjectName;
+            rptGridIndRate.Cell(rowIndex, colIndex).Tag = item.ThirdSubjectCode;
+            rptGridIndRate.Cell(rowIndex, colIndex++).Text = item.ThirdSubjectName;
+            rptGridIndRate.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.AppropriationBudget);
+            rptGridIndRate.Cell(rowIndex, colIndex++).Text = string.Format("{0}%", item.InputTax);
+            if (rowIndex == rptGridIndRate.Rows - 1)
+            {
+                rptGridIndRate.Cell(rowIndex, colIndex++).Text = item.DeductibleInput == 0
+                                                                     ? "-"
+                                                                     : string.Format("{0}%",
+                                                                                     FormarteCellValue(
+                                                                                         item.DeductibleInput));
+            }
+            else
+            {
+                rptGridIndRate.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.DeductibleInput);
+            }
+            rptGridIndRate.Cell(rowIndex, colIndex).Text = item.CompilationBasis;
+
+            if (rowIndex >= rptGridIndRate.Rows - 2)
+            {
+                rptGridIndRate.Cell(rowIndex, 1).Text = item.FirstSubjectName;
+            }
+        }
+
+        private void DisplayPayment(FundSchemePayment item, int rowIndex)
+        {
+            if (item == null)
+            {
+                return;
+            }
+
+            var colIndex = 1;
+            rptGridPayment.Cell(rowIndex, colIndex).Tag = item.ItemGuid;
+            if (item.Year > 0 && item.Month > 0)
+            {
+                rptGridPayment.Cell(rowIndex, colIndex++).Text = string.Format("{0}年{1}月", item.Year, item.Month);
+            }
+            else
+            {
+                rptGridPayment.Cell(rowIndex, colIndex++).Text = item.JobNameLink;
+            }
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentCommonSpecialCost);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentNodePaySpecialCost);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentInnerSetupCost);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentSubcontractorCost);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentLaborCost);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentSteelCost);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentConcreteCost);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentOtherMaterialCost);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentLeasingCost);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentUtilitiesCost);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentOtherEquipmentCost);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentGovernmentFee);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentOtherDirectCost);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentIndirectCost);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentCostSubtotal);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentFinanceFee);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text =
+                FormarteCellValue(item.CurrentCostSubtotal + item.CurrentFinanceFee);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentCommonSpecialPay);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentNodePaySpecialPay);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentInnerSetupPay);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentSubcontractorPay);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentLaborPay);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentSteelPay);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentConcretePay);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentOtherMaterialPay);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentLeasingPay);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentUtilitiesPay);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentOtherEquipmentPay);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentGovernmentFeePay);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentOtherDirectPay);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentIndirectPay);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentTaxPaySubtotal);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentFinanceFeePay);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentPaySubtotal);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentOutputTaxGether);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentInputTaxTotal);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentUnPayVAT);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentPayedVAT);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentSurchargePay);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentOtherPay);
+            rptGridPayment.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentPayTotal);
+            rptGridPayment.Cell(rowIndex, colIndex).Text = FormarteCellValue(item.TotalPay);
+        }
+
+        private void DisplayFinanceFee(FundSchemeFinanceFee item, int rowIndex)
+        {
+            if (item == null)
+            {
+                return;
+            }
+
+            var colIndex = 1;
+            var grid = rptGridFee;
+            grid.Cell(rowIndex, colIndex).Tag = item.ItemGuid;
+            if (item.Year > 0 && item.Month > 0)
+            {
+                grid.Cell(rowIndex, colIndex++).Text = string.Format("{0}年{1}月", item.Year, item.Month);
+            }
+            else
+            {
+                grid.Cell(rowIndex, colIndex++).Text = item.JobNameLink;
+            }
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalGethering);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentPayment);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalPayment);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrencyHandIn);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalCurrencyHandIn);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalBalance);
+            grid.Cell(rowIndex, colIndex).Text = FormarteCellValue(item.CurrentFinanceFee);
+        }
+
+        private void DisplayFundSummary(FundSchemeSummary item, int rowIndex)
+        {
+            if (item == null)
+            {
+                return;
+            }
+
+            var colIndex = 1;
+            var grid = rptGridSummary;
+            grid.Cell(rowIndex, colIndex).Tag = item.ItemGuid;
+            if (item.Year > 0 && item.Month > 0)
+            {
+                grid.Cell(rowIndex, colIndex++).Text = string.Format("{0}年{1}月", item.Year, item.Month);
+            }
+            else
+            {
+                grid.Cell(rowIndex, colIndex++).Text = string.Empty;
+            }
+            grid.Cell(rowIndex, colIndex++).Text = item.JobNameLink;
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentVoluntarilyGether);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentInnerSetUpGether);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentSubContractGether);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalVoluntarilyGether);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalInnerSetUpGether);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalSubContractGether);
+
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentVoluntarilyPay);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentInnerSetupPay);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentSubcontractorPay);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalVoluntarilyPay);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalInnerSetupPay);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalSubcontractorPay);
+
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentOutputTax);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentInputTax);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentUnPayVAT);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentPayedVAT);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentSurchargePay);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentOtherPay);
+
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentBalance);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalBalance);
+            grid.Cell(rowIndex, colIndex++).Text = string.Format("{0:0.00%}", item.BalanceRate);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrencyHandin);
+            grid.Cell(rowIndex, colIndex).Text = FormarteCellValue(item.TargetStock);
+        }
+
+        private void DisplayFundContrast(FundSchemeContrast item, int rowIndex)
+        {
+            if (item == null)
+            {
+                return;
+            }
+
+            var colIndex = 1;
+            var grid = rptGridContrast;
+            grid.Cell(rowIndex, colIndex).Tag = item.ItemGuid;
+            if (item.Year > 0 && item.Month > 0)
+            {
+                grid.Cell(rowIndex, colIndex++).Text = string.Format("{0}年{1}月", item.Year, item.Month);
+            }
+            else
+            {
+                grid.Cell(rowIndex, colIndex++).Text = item.JobNameLink;
+            }
+
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentGethering);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalGethering);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentPayment);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalPayment);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.CurrentBalance);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.TotalBalance);
+
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.SchemeCurrentGethering);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.SchemeTotalGethering);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.SchemeCurrentPayment);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.SchemeTotalPayment);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.SchemeCurrentBalance);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.SchemeTotalBalance);
+
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.SchemeYearGethering);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.SchemeYearPayment);
+            grid.Cell(rowIndex, colIndex++).Text = FormarteCellValue(item.SchemeYearFlow);
+            grid.Cell(rowIndex, colIndex).Text = FormarteCellValue(item.ContrastEffect);
+        }
+
+        private void DisplayIncomCostCalculate(FundSchemeCashCostRate item)
+        {
+            if (item == null)
+            {
+                return;
+            }
+
+            rptGridBalance.Cell(item.RowIndex, 2).Tag = item.ItemGuid;
+            rptGridBalance.Cell(item.RowIndex, 2).Text = item.SecondCategory;
+            if (item.SecondCategory.Contains("率"))
+            {
+                rptGridBalance.Cell(item.RowIndex, 3).Text = string.Format("{0:0.00%}", item.CostMoney > 1 ? item.CostMoney / 100 : item.CostMoney);
+            }
+            else
+            {
+                rptGridBalance.Cell(item.RowIndex, 3).Text = FormarteCellValue(item.CostMoney);
+            }
+        }
+
+        private void DisplayCashCostRate(FundSchemeCashCostRate item)
+        {
+            if (item == null)
+            {
+                return;
+            }
+
+            var colIndex = 1;
+            rptGridBalance.Cell(item.RowIndex, 2).Tag = item.ItemGuid;
+            if (!string.IsNullOrEmpty(item.FisrtCategory))
+            {
+                rptGridBalance.Cell(item.RowIndex, colIndex++).Text = item.FisrtCategory;
+            }
+            rptGridBalance.Cell(item.RowIndex, colIndex++).Text = item.SecondCategory;
+            if (item.DataType == 2)
+            {
+                rptGridBalance.Cell(item.RowIndex, colIndex++).Text = FormarteCellValue(item.CostMoney);
+            }
+            else
+            {
+                rptGridBalance.Cell(item.RowIndex, colIndex++).Text = string.Format("{0:0.00%}", item.CostMoney);
+            }
+            rptGridBalance.Cell(item.RowIndex, colIndex++).Text = string.Format("{0:0.00%}", item.CostProportion);
+            rptGridBalance.Cell(item.RowIndex, colIndex++).Text = string.Format("{0:0.00%}", item.CashRateUnCompleted);
+            rptGridBalance.Cell(item.RowIndex, colIndex++).Text = string.Format("{0:0.00%}", item.CashRateCompleted);
+            rptGridBalance.Cell(item.RowIndex, colIndex++).Text = string.Format("{0:0.00%}", item.CostRateUnCompleted);
+            rptGridBalance.Cell(item.RowIndex, colIndex).Text = string.Format("{0:0.00%}", item.CostRateCompleted);
+        }
+        #endregion
+
+        private void dgBillList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex < 0 || e.RowIndex < 0)
+            {
+                return;
+            }
+
+            if (mOperate == null)
+            {
+                mOperate = new MFinanceMultData();
+            }
+
+            selectAppBill = dgBillList.CurrentRow.DataBoundItem as ApproveBill;
+            selectAppBill.ApproveJob = ConstObject.TheSysRole.Id;
+
+            selectFundScheme =
+                mOperate.FinanceMultDataSrv.GetFundSchemeById(
+                    dgBillList.Rows[e.RowIndex].Cells[colBillId.Name].Value.ToString());
+            
+            LoadApproveStep();
+
+            LoadFundScheme();
+        }
+
+        private void btnReject_Click(object sender, EventArgs e)
+        {
+            if (selectFundScheme == null)
+            {
+                MessageBox.Show("请选择待审批的记录");
+                return;
+            }
+
+            if(string.IsNullOrEmpty(txtRemark.Text.Trim()))
+            {
+                MessageBox.Show("审批[不通过]必须填写审批意见！");
+                txtRemark.Focus();
+                return;
+            }
+
+            if (MessageBox.Show("确认要审批不通过吗？", "询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                return;
+
+            var stepInfo = BuildStepsInfo(selectAppBill);
+            stepInfo.AppStatus = 1;
+            stepInfo.AppComments = txtRemark.Text.Trim();
+
+            if (!appPlatform.Service.SubmitApprove(stepInfo, selectAppBill))
+            {
+                MessageBox.Show("审批失败");
+            }
+            else
+            {
+                MessageBox.Show("审批成功");
+
+                LoadApproveTask();
+            }
+        }
+
+        private void btnAgree_Click(object sender, EventArgs e)
+        {
+            if (selectFundScheme == null)
+            {
+                MessageBox.Show("请选择待审批的记录");
+                return;
+            }
+
+            if (MessageBox.Show("确认要审批通过吗？", "询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                return;
+
+            var stepInfo = BuildStepsInfo(selectAppBill);
+            stepInfo.AppStatus = 2;
+            stepInfo.AppComments = txtRemark.Text.Trim();
+            if (!appPlatform.Service.SubmitApprove(stepInfo, selectAppBill))
+            {
+                MessageBox.Show("审批失败");
+            }
+            else
+            {
+                MessageBox.Show("审批成功");
+
+                LoadApproveTask();
+            }
+        }
+    }
+}

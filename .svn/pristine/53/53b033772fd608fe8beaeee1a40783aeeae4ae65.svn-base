@@ -1,0 +1,3412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://think3.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://think3.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://think3.com/">
+      <s:element name="IsValidSession">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsValidSessionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsValidSessionResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Logout">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogoutResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="LoginByUserInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userpwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginByUserInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginByUserInfoResult" type="tns:ErrorStack" />
+            <s:element minOccurs="0" maxOccurs="1" name="sessionid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="localpws" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ErrorStack">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StackDump" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Details" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Suggestions" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SeeAlso" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InnerErrorStack" type="tns:ErrorStack" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetFilesToDownload">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="listId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFilesToDownloadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFilesToDownloadResult" type="tns:FilesToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FilesToTransfer">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorStack" type="tns:ErrorStack" />
+          <s:element minOccurs="0" maxOccurs="1" name="ListId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Files" type="tns:ArrayOfFileToTransfer" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfFileToTransfer">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FileToTransfer" nillable="true" type="tns:FileToTransfer" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FileToTransfer">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IsSaved" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="NameID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ObjectID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Version" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="PrivateWorkspaceFile" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PrivateVOBFile" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PartialUri" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BaseUri" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="User" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Domain" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorStack" type="tns:ErrorStack" />
+          <s:element minOccurs="1" maxOccurs="1" name="CanUpload" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="HaveToDownload" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Auxiliary" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cancelled" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Length" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="ElapsedTime" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CommitDownload">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="listId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CommitDownloadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CommitDownloadResult" type="tns:ErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadProgress">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="listId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="file" type="tns:FileToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadProgressResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="StartDownload">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="listId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StartDownloadResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CompletedDownload">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="listId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CompletedDownloadResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetFilesToUpload">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="files" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetFilesToUploadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFilesToUploadResult" type="tns:FilesToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FilesToUpload">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="tns:DataToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DataToTransfer">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="XmlContents" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UniqueId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorStack" type="tns:ErrorStack" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FilesToUploadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FilesToUploadResult" type="tns:FilesToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CommitUpload">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="listId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CommitUploadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CommitUploadResult" type="tns:ErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadProgress">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="listId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="file" type="tns:FileToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadProgressResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="StartUpload">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="listId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StartUploadResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CompletedUpload">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="listId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CompletedUploadResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CheckSaveData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="tns:DataToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckSaveDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckSaveDataResult" type="tns:DataToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CommitSave">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="saveId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CommitSaveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CommitSaveResult" type="tns:ErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RollbackSave">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="saveId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RollbackSaveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RollbackSaveResult" type="tns:ErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuildFileName">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="tns:DataToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuildFileNameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuildFileNameResult" type="tns:ErrorStack" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MarkAsHaveToSave">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="path" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="haveToSave" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MarkAsHaveToSaveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MarkAsHaveToSaveResult" type="tns:ErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MultipleMarkAsHaveToSave">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="paths" type="tns:ArrayOfString" />
+            <s:element minOccurs="1" maxOccurs="1" name="haveToSave" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MultipleMarkAsHaveToSaveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MultipleMarkAsHaveToSaveResult" type="tns:ErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FileNewMajor">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="path" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FileNewMajorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FileNewMajorResult" type="tns:ErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FileNewMinor">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="path" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FileNewMinorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FileNewMinorResult" type="tns:ErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UndoCheckOut">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="paths" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UndoCheckOutResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UndoCheckOutResult" type="tns:ErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckOut">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="paths" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="notes" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckOutResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckOutResult" type="tns:ErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckIn">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="paths" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="notes" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckInResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckInResult" type="tns:ErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CanCheckOut">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="paths" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CanCheckOutResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CanCheckOutResult" type="tns:ErrorStack" />
+            <s:element minOccurs="0" maxOccurs="1" name="results" type="tns:ArrayOfBoolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="errors" type="tns:ArrayOfErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBoolean">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="boolean" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfErrorStack">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ErrorStack" nillable="true" type="tns:ErrorStack" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="IsCheckOutByMe">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="paths" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsCheckOutByMeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IsCheckOutByMeResult" type="tns:ErrorStack" />
+            <s:element minOccurs="0" maxOccurs="1" name="results" type="tns:ArrayOfBoolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="errors" type="tns:ArrayOfErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsFileInVault">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="paths" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsFileInVaultResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IsFileInVaultResult" type="tns:ErrorStack" />
+            <s:element minOccurs="0" maxOccurs="1" name="results" type="tns:ArrayOfBoolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UndoCheckOutByData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="tns:DataToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UndoCheckOutByDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UndoCheckOutByDataResult" type="tns:ErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckOutByData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="tns:DataToTransfer" />
+            <s:element minOccurs="0" maxOccurs="1" name="note" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckOutByDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckOutByDataResult" type="tns:ErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckInByData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="tns:DataToTransfer" />
+            <s:element minOccurs="0" maxOccurs="1" name="note" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckInByDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckInByDataResult" type="tns:ErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CanCheckOutByData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="tns:DataToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CanCheckOutByDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CanCheckOutByDataResult" type="tns:ErrorStack" />
+            <s:element minOccurs="0" maxOccurs="1" name="results" type="tns:ArrayOfBoolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="errors" type="tns:ArrayOfErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsCheckOutByMeByData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="tns:DataToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsCheckOutByMeByDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IsCheckOutByMeByDataResult" type="tns:ErrorStack" />
+            <s:element minOccurs="0" maxOccurs="1" name="results" type="tns:ArrayOfBoolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="errors" type="tns:ArrayOfErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEntitiesByFilter">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="objectType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="filter" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="environment" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEntitiesByFilterResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEntitiesByFilterResult" type="tns:DataToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetChildsByParent">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parentid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="linktype" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="environment" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetChildsByParentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetChildsByParentResult" type="tns:DataToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateDownloadSession">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="stroids" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateDownloadSessionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateDownloadSessionResult" type="tns:DataToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetObjectInfosByObjectID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="objectid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="infonames" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetObjectInfosByObjectIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetObjectInfosByObjectIDResult" type="tns:DataToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuildEntityName">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="entityType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuildEntityNameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuildEntityNameResult" type="tns:ErrorStack" />
+            <s:element minOccurs="0" maxOccurs="1" name="entityName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewMajor">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="tns:DataToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewMajorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NewMajorResult" type="tns:DataToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewMinor">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="tns:DataToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewMinorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NewMinorResult" type="tns:DataToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Clone">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="tns:DataToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CloneResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CloneResult" type="tns:DataToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOwnership">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="tns:DataToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOwnershipResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOwnershipResult" type="tns:ErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReleaseOwnership">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="tns:DataToTransfer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReleaseOwnershipResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReleaseOwnershipResult" type="tns:ErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Exists">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="entityId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExistsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ExistsResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPropertiesPageClassName">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="objectType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPropertiesPageClassNameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPropertiesPageClassNameResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetQueryPageClassName">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="objectType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetQueryPageClassNameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetQueryPageClassNameResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTreeViewQueryPageClassName">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="objectType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTreeViewQueryPageClassNameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTreeViewQueryPageClassNameResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsActionNotAllowed">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="entityId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="action" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsActionNotAllowedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsActionNotAllowedResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEntities">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="entityName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEntitiesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEntitiesResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLinkTypeEntities">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="entityName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLinkTypeEntitiesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLinkTypeEntitiesResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCaption">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="language" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCaptionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCaptionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteEntities">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="entityTypeName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="listId" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteEntitiesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteEntitiesResult" type="tns:ErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AutoLoginByUserInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jobId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AutoLoginByUserInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AutoLoginByUserInfoResult" type="tns:ErrorStack" />
+            <s:element minOccurs="0" maxOccurs="1" name="sessionid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="localpws" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddDocumentByCustom">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="listFileBytes" type="tns:ArrayOfAnyType" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileNames" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="documentObjectType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="saveMode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dicKeyValue" type="tns:ArrayOfDictionaryObjectInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="sessionid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jobId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="localVault" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAnyType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="anyType" nillable="true" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDictionaryObjectInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DictionaryObjectInfo" nillable="true" type="tns:DictionaryObjectInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DictionaryObjectInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="InfoNames" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="InfoValues" type="tns:ArrayOfAnyType" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddDocumentByCustomResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddDocumentByCustomResult" type="tns:ErrorStack" />
+            <s:element minOccurs="0" maxOccurs="1" name="listFileIds" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateDocumentByCustom">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="listFileIds" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="documentObjectType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="listFileBytes" type="tns:ArrayOfAnyType" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileNames" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="updateMode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dicKeyValue" type="tns:ArrayOfDictionaryObjectInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="sessionid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jobId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="localVault" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateDocumentByCustomResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateDocumentByCustomResult" type="tns:ErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownLoadDocumentByCustom">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="listFileIds" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="sessionid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jobId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="localVault" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownLoadDocumentByCustomResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownLoadDocumentByCustomResult" type="tns:ErrorStack" />
+            <s:element minOccurs="0" maxOccurs="1" name="listFileBytes" type="tns:ArrayOfAnyType" />
+            <s:element minOccurs="0" maxOccurs="1" name="listFileNames" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteDocumentByCustom">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="listFileIds" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="deleteMode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sessionid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jobId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="localVault" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteDocumentByCustomResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteDocumentByCustomResult" type="tns:ErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddDocumentByCustomExtend">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="listDocument" type="tns:ArrayOfProjectDocument" />
+            <s:element minOccurs="1" maxOccurs="1" name="saveMode" type="tns:DocumentSaveMode" />
+            <s:element minOccurs="0" maxOccurs="1" name="sessionid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jobId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="localVault" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfProjectDocument">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ProjectDocument" nillable="true" type="tns:ProjectDocument" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProjectDocument">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EntityID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FileDataByte" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProjectName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProjectCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ObjectTypeName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CategoryRelaDocType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Category" type="tns:CategoryNode" />
+          <s:element minOccurs="1" maxOccurs="1" name="DocType" type="tns:DocumentInfoType" />
+          <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ExtendName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Author" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KeyWords" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Version" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Revision" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="State" type="tns:DocumentState" />
+          <s:element minOccurs="0" maxOccurs="1" name="OwnerID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OwnerName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OwnerOrgSysCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CreateTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="UpdateTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsInspectionLot" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ExtendInfoNames" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="ExtendInfoValues" type="tns:ArrayOfAnyType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CategoryNode">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EntityID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CategoryCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CategoryName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CategoryDesc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CategorySysCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CategoryIDSysCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CategoryLevel" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderNo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="OwnerID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OwnerName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OwnerOrgSysCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ParentNode" type="tns:CategoryNode" />
+          <s:element minOccurs="1" maxOccurs="1" name="CreateTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="UpdateTime" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="DocumentInfoType">
+        <s:restriction base="s:string">
+          <s:enumeration value="文本" />
+          <s:enumeration value="图片" />
+          <s:enumeration value="音频" />
+          <s:enumeration value="视频" />
+          <s:enumeration value="信息模型" />
+          <s:enumeration value="程序" />
+          <s:enumeration value="普通文档" />
+          <s:enumeration value="合同" />
+          <s:enumeration value="技术文档" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="DocumentState">
+        <s:restriction base="s:string">
+          <s:enumeration value="编制" />
+          <s:enumeration value="提交" />
+          <s:enumeration value="发布" />
+          <s:enumeration value="作废" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="DocumentSaveMode">
+        <s:restriction base="s:string">
+          <s:enumeration value="一个文件生成一个文档对象" />
+          <s:enumeration value="所有文件生成一个文档对象" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="AddDocumentByCustomExtendResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddDocumentByCustomExtendResult" type="tns:ErrorStack" />
+            <s:element minOccurs="0" maxOccurs="1" name="listResult" type="tns:ArrayOfProjectDocument" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownLoadDocumentByCustomExtend">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="listDocument" type="tns:ArrayOfProjectDocument" />
+            <s:element minOccurs="0" maxOccurs="1" name="sessionid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jobId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="localVault" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownLoadDocumentByCustomExtendResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownLoadDocumentByCustomExtendResult" type="tns:ErrorStack" />
+            <s:element minOccurs="0" maxOccurs="1" name="listResult" type="tns:ArrayOfProjectDocument" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProjectDocumentByCustomExtend">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="projectCodeQuery" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="projectNameQuery" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="docCodeQuery" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="docNameQuery" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="docExtendNameQuery" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="docInfoTypeQuery" nillable="true" type="tns:DocumentInfoType" />
+            <s:element minOccurs="1" maxOccurs="1" name="queryMode" type="tns:DocumentQueryVersion" />
+            <s:element minOccurs="0" maxOccurs="1" name="docVersionQuery" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="docRevisionQuery" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="docCreateBeginTimeQuery" nillable="true" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="docCreateEndTimeQuery" nillable="true" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="docOwnerQuery" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="docStateQuery" nillable="true" type="tns:DocumentState" />
+            <s:element minOccurs="0" maxOccurs="1" name="docKeyWordQuery" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sessionid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jobId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="localVault" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="DocumentQueryVersion">
+        <s:restriction base="s:string">
+          <s:enumeration value="最新版本" />
+          <s:enumeration value="所有版本" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetProjectDocumentByCustomExtendResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProjectDocumentByCustomExtendResult" type="tns:ErrorStack" />
+            <s:element minOccurs="0" maxOccurs="1" name="listResult" type="tns:ArrayOfProjectDocument" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProjectDocumentByDocumentId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fileIds" type="tns:ArrayOfString" />
+            <s:element minOccurs="1" maxOccurs="1" name="queryMode" type="tns:DocumentQueryVersion" />
+            <s:element minOccurs="0" maxOccurs="1" name="sessionid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jobId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="localVault" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProjectDocumentByDocumentIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProjectDocumentByDocumentIdResult" type="tns:ErrorStack" />
+            <s:element minOccurs="0" maxOccurs="1" name="listResult" type="tns:ArrayOfProjectDocument" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateDocumentByCustomExtend">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="listDocument" type="tns:ArrayOfProjectDocument" />
+            <s:element minOccurs="1" maxOccurs="1" name="updateMode" type="tns:DocumentUpdateMode" />
+            <s:element minOccurs="0" maxOccurs="1" name="sessionid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jobId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="localVault" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="DocumentUpdateMode">
+        <s:restriction base="s:string">
+          <s:enumeration value="添加一个新版次文件" />
+          <s:enumeration value="覆盖原有最新版次文件" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="UpdateDocumentByCustomExtendResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateDocumentByCustomExtendResult" type="tns:ErrorStack" />
+            <s:element minOccurs="0" maxOccurs="1" name="listResult" type="tns:ArrayOfProjectDocument" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteDocumentByCustomExtend">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="listDocument" type="tns:ArrayOfProjectDocument" />
+            <s:element minOccurs="1" maxOccurs="1" name="deleteMode" type="tns:DocumentDeleteMode" />
+            <s:element minOccurs="0" maxOccurs="1" name="sessionid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jobId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="localVault" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="DocumentDeleteMode">
+        <s:restriction base="s:string">
+          <s:enumeration value="删除最新版本" />
+          <s:enumeration value="删除所有版本" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="DeleteDocumentByCustomExtendResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteDocumentByCustomExtendResult" type="tns:ErrorStack" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCategoryByCustomExtend">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CategoryTypeName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="queryMode" type="tns:CategoryQueryModeEnum" />
+            <s:element minOccurs="0" maxOccurs="1" name="queryKeyWords" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sessionid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jobId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="localVault" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="CategoryQueryModeEnum">
+        <s:restriction base="s:string">
+          <s:enumeration value="树方式" />
+          <s:enumeration value="表方式" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfCategoryNode">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CategoryNode" nillable="true" type="tns:CategoryNode" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCategoryByCustomExtendResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCategoryByCustomExtendResult" type="tns:ErrorStack" />
+            <s:element minOccurs="0" maxOccurs="1" name="listResult" type="tns:ArrayOfCategoryNode" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomNameSerializableInfos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="type" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="environment" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomNameSerializableInfosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCustomNameSerializableInfosResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetObjectTypeSerializableInfos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="type" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="environment" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetObjectTypeSerializableInfosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetObjectTypeSerializableInfosResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSerializableInfos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="type" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="environment" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSerializableInfosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSerializableInfosResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckObjectType">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="rootTypeName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="typeName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckObjectTypeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckObjectTypeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReloadUserXML">
+        <s:complexType />
+      </s:element>
+      <s:element name="ReloadUserXMLResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CreateTxtFile">
+        <s:complexType />
+      </s:element>
+      <s:element name="CreateTxtFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateTxtFileResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteFileName">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteFileNameResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="ReadFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReadFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReadFileResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WriteFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WriteFileResponse">
+        <s:complexType />
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="IsValidSessionSoapIn">
+    <wsdl:part name="parameters" element="tns:IsValidSession" />
+  </wsdl:message>
+  <wsdl:message name="IsValidSessionSoapOut">
+    <wsdl:part name="parameters" element="tns:IsValidSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="LogoutSoapIn">
+    <wsdl:part name="parameters" element="tns:Logout" />
+  </wsdl:message>
+  <wsdl:message name="LogoutSoapOut">
+    <wsdl:part name="parameters" element="tns:LogoutResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginByUserInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:LoginByUserInfo" />
+  </wsdl:message>
+  <wsdl:message name="LoginByUserInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginByUserInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFilesToDownloadSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFilesToDownload" />
+  </wsdl:message>
+  <wsdl:message name="GetFilesToDownloadSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFilesToDownloadResponse" />
+  </wsdl:message>
+  <wsdl:message name="CommitDownloadSoapIn">
+    <wsdl:part name="parameters" element="tns:CommitDownload" />
+  </wsdl:message>
+  <wsdl:message name="CommitDownloadSoapOut">
+    <wsdl:part name="parameters" element="tns:CommitDownloadResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadProgressSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadProgress" />
+  </wsdl:message>
+  <wsdl:message name="DownloadProgressSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadProgressResponse" />
+  </wsdl:message>
+  <wsdl:message name="StartDownloadSoapIn">
+    <wsdl:part name="parameters" element="tns:StartDownload" />
+  </wsdl:message>
+  <wsdl:message name="StartDownloadSoapOut">
+    <wsdl:part name="parameters" element="tns:StartDownloadResponse" />
+  </wsdl:message>
+  <wsdl:message name="CompletedDownloadSoapIn">
+    <wsdl:part name="parameters" element="tns:CompletedDownload" />
+  </wsdl:message>
+  <wsdl:message name="CompletedDownloadSoapOut">
+    <wsdl:part name="parameters" element="tns:CompletedDownloadResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFilesToUploadSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFilesToUpload" />
+  </wsdl:message>
+  <wsdl:message name="GetFilesToUploadSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFilesToUploadResponse" />
+  </wsdl:message>
+  <wsdl:message name="FilesToUploadSoapIn">
+    <wsdl:part name="parameters" element="tns:FilesToUpload" />
+  </wsdl:message>
+  <wsdl:message name="FilesToUploadSoapOut">
+    <wsdl:part name="parameters" element="tns:FilesToUploadResponse" />
+  </wsdl:message>
+  <wsdl:message name="CommitUploadSoapIn">
+    <wsdl:part name="parameters" element="tns:CommitUpload" />
+  </wsdl:message>
+  <wsdl:message name="CommitUploadSoapOut">
+    <wsdl:part name="parameters" element="tns:CommitUploadResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadProgressSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadProgress" />
+  </wsdl:message>
+  <wsdl:message name="UploadProgressSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadProgressResponse" />
+  </wsdl:message>
+  <wsdl:message name="StartUploadSoapIn">
+    <wsdl:part name="parameters" element="tns:StartUpload" />
+  </wsdl:message>
+  <wsdl:message name="StartUploadSoapOut">
+    <wsdl:part name="parameters" element="tns:StartUploadResponse" />
+  </wsdl:message>
+  <wsdl:message name="CompletedUploadSoapIn">
+    <wsdl:part name="parameters" element="tns:CompletedUpload" />
+  </wsdl:message>
+  <wsdl:message name="CompletedUploadSoapOut">
+    <wsdl:part name="parameters" element="tns:CompletedUploadResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckSaveDataSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckSaveData" />
+  </wsdl:message>
+  <wsdl:message name="CheckSaveDataSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckSaveDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="CommitSaveSoapIn">
+    <wsdl:part name="parameters" element="tns:CommitSave" />
+  </wsdl:message>
+  <wsdl:message name="CommitSaveSoapOut">
+    <wsdl:part name="parameters" element="tns:CommitSaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="RollbackSaveSoapIn">
+    <wsdl:part name="parameters" element="tns:RollbackSave" />
+  </wsdl:message>
+  <wsdl:message name="RollbackSaveSoapOut">
+    <wsdl:part name="parameters" element="tns:RollbackSaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuildFileNameSoapIn">
+    <wsdl:part name="parameters" element="tns:BuildFileName" />
+  </wsdl:message>
+  <wsdl:message name="BuildFileNameSoapOut">
+    <wsdl:part name="parameters" element="tns:BuildFileNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="MarkAsHaveToSaveSoapIn">
+    <wsdl:part name="parameters" element="tns:MarkAsHaveToSave" />
+  </wsdl:message>
+  <wsdl:message name="MarkAsHaveToSaveSoapOut">
+    <wsdl:part name="parameters" element="tns:MarkAsHaveToSaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="MultipleMarkAsHaveToSaveSoapIn">
+    <wsdl:part name="parameters" element="tns:MultipleMarkAsHaveToSave" />
+  </wsdl:message>
+  <wsdl:message name="MultipleMarkAsHaveToSaveSoapOut">
+    <wsdl:part name="parameters" element="tns:MultipleMarkAsHaveToSaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="FileNewMajorSoapIn">
+    <wsdl:part name="parameters" element="tns:FileNewMajor" />
+  </wsdl:message>
+  <wsdl:message name="FileNewMajorSoapOut">
+    <wsdl:part name="parameters" element="tns:FileNewMajorResponse" />
+  </wsdl:message>
+  <wsdl:message name="FileNewMinorSoapIn">
+    <wsdl:part name="parameters" element="tns:FileNewMinor" />
+  </wsdl:message>
+  <wsdl:message name="FileNewMinorSoapOut">
+    <wsdl:part name="parameters" element="tns:FileNewMinorResponse" />
+  </wsdl:message>
+  <wsdl:message name="UndoCheckOutSoapIn">
+    <wsdl:part name="parameters" element="tns:UndoCheckOut" />
+  </wsdl:message>
+  <wsdl:message name="UndoCheckOutSoapOut">
+    <wsdl:part name="parameters" element="tns:UndoCheckOutResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckOutSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckOut" />
+  </wsdl:message>
+  <wsdl:message name="CheckOutSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckOutResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckInSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckIn" />
+  </wsdl:message>
+  <wsdl:message name="CheckInSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckInResponse" />
+  </wsdl:message>
+  <wsdl:message name="CanCheckOutSoapIn">
+    <wsdl:part name="parameters" element="tns:CanCheckOut" />
+  </wsdl:message>
+  <wsdl:message name="CanCheckOutSoapOut">
+    <wsdl:part name="parameters" element="tns:CanCheckOutResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsCheckOutByMeSoapIn">
+    <wsdl:part name="parameters" element="tns:IsCheckOutByMe" />
+  </wsdl:message>
+  <wsdl:message name="IsCheckOutByMeSoapOut">
+    <wsdl:part name="parameters" element="tns:IsCheckOutByMeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsFileInVaultSoapIn">
+    <wsdl:part name="parameters" element="tns:IsFileInVault" />
+  </wsdl:message>
+  <wsdl:message name="IsFileInVaultSoapOut">
+    <wsdl:part name="parameters" element="tns:IsFileInVaultResponse" />
+  </wsdl:message>
+  <wsdl:message name="UndoCheckOutByDataSoapIn">
+    <wsdl:part name="parameters" element="tns:UndoCheckOutByData" />
+  </wsdl:message>
+  <wsdl:message name="UndoCheckOutByDataSoapOut">
+    <wsdl:part name="parameters" element="tns:UndoCheckOutByDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckOutByDataSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckOutByData" />
+  </wsdl:message>
+  <wsdl:message name="CheckOutByDataSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckOutByDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckInByDataSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckInByData" />
+  </wsdl:message>
+  <wsdl:message name="CheckInByDataSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckInByDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="CanCheckOutByDataSoapIn">
+    <wsdl:part name="parameters" element="tns:CanCheckOutByData" />
+  </wsdl:message>
+  <wsdl:message name="CanCheckOutByDataSoapOut">
+    <wsdl:part name="parameters" element="tns:CanCheckOutByDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsCheckOutByMeByDataSoapIn">
+    <wsdl:part name="parameters" element="tns:IsCheckOutByMeByData" />
+  </wsdl:message>
+  <wsdl:message name="IsCheckOutByMeByDataSoapOut">
+    <wsdl:part name="parameters" element="tns:IsCheckOutByMeByDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEntitiesByFilterSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEntitiesByFilter" />
+  </wsdl:message>
+  <wsdl:message name="GetEntitiesByFilterSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEntitiesByFilterResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetChildsByParentSoapIn">
+    <wsdl:part name="parameters" element="tns:GetChildsByParent" />
+  </wsdl:message>
+  <wsdl:message name="GetChildsByParentSoapOut">
+    <wsdl:part name="parameters" element="tns:GetChildsByParentResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateDownloadSessionSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateDownloadSession" />
+  </wsdl:message>
+  <wsdl:message name="CreateDownloadSessionSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateDownloadSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetObjectInfosByObjectIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetObjectInfosByObjectID" />
+  </wsdl:message>
+  <wsdl:message name="GetObjectInfosByObjectIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetObjectInfosByObjectIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuildEntityNameSoapIn">
+    <wsdl:part name="parameters" element="tns:BuildEntityName" />
+  </wsdl:message>
+  <wsdl:message name="BuildEntityNameSoapOut">
+    <wsdl:part name="parameters" element="tns:BuildEntityNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="NewMajorSoapIn">
+    <wsdl:part name="parameters" element="tns:NewMajor" />
+  </wsdl:message>
+  <wsdl:message name="NewMajorSoapOut">
+    <wsdl:part name="parameters" element="tns:NewMajorResponse" />
+  </wsdl:message>
+  <wsdl:message name="NewMinorSoapIn">
+    <wsdl:part name="parameters" element="tns:NewMinor" />
+  </wsdl:message>
+  <wsdl:message name="NewMinorSoapOut">
+    <wsdl:part name="parameters" element="tns:NewMinorResponse" />
+  </wsdl:message>
+  <wsdl:message name="CloneSoapIn">
+    <wsdl:part name="parameters" element="tns:Clone" />
+  </wsdl:message>
+  <wsdl:message name="CloneSoapOut">
+    <wsdl:part name="parameters" element="tns:CloneResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOwnershipSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOwnership" />
+  </wsdl:message>
+  <wsdl:message name="GetOwnershipSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOwnershipResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReleaseOwnershipSoapIn">
+    <wsdl:part name="parameters" element="tns:ReleaseOwnership" />
+  </wsdl:message>
+  <wsdl:message name="ReleaseOwnershipSoapOut">
+    <wsdl:part name="parameters" element="tns:ReleaseOwnershipResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExistsSoapIn">
+    <wsdl:part name="parameters" element="tns:Exists" />
+  </wsdl:message>
+  <wsdl:message name="ExistsSoapOut">
+    <wsdl:part name="parameters" element="tns:ExistsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPropertiesPageClassNameSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPropertiesPageClassName" />
+  </wsdl:message>
+  <wsdl:message name="GetPropertiesPageClassNameSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPropertiesPageClassNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetQueryPageClassNameSoapIn">
+    <wsdl:part name="parameters" element="tns:GetQueryPageClassName" />
+  </wsdl:message>
+  <wsdl:message name="GetQueryPageClassNameSoapOut">
+    <wsdl:part name="parameters" element="tns:GetQueryPageClassNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTreeViewQueryPageClassNameSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTreeViewQueryPageClassName" />
+  </wsdl:message>
+  <wsdl:message name="GetTreeViewQueryPageClassNameSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTreeViewQueryPageClassNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsActionNotAllowedSoapIn">
+    <wsdl:part name="parameters" element="tns:IsActionNotAllowed" />
+  </wsdl:message>
+  <wsdl:message name="IsActionNotAllowedSoapOut">
+    <wsdl:part name="parameters" element="tns:IsActionNotAllowedResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEntitiesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEntities" />
+  </wsdl:message>
+  <wsdl:message name="GetEntitiesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEntitiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLinkTypeEntitiesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLinkTypeEntities" />
+  </wsdl:message>
+  <wsdl:message name="GetLinkTypeEntitiesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLinkTypeEntitiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCaptionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCaption" />
+  </wsdl:message>
+  <wsdl:message name="GetCaptionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCaptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteEntitiesSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteEntities" />
+  </wsdl:message>
+  <wsdl:message name="DeleteEntitiesSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteEntitiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="AutoLoginByUserInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:AutoLoginByUserInfo" />
+  </wsdl:message>
+  <wsdl:message name="AutoLoginByUserInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:AutoLoginByUserInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddDocumentByCustomSoapIn">
+    <wsdl:part name="parameters" element="tns:AddDocumentByCustom" />
+  </wsdl:message>
+  <wsdl:message name="AddDocumentByCustomSoapOut">
+    <wsdl:part name="parameters" element="tns:AddDocumentByCustomResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateDocumentByCustomSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateDocumentByCustom" />
+  </wsdl:message>
+  <wsdl:message name="UpdateDocumentByCustomSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateDocumentByCustomResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownLoadDocumentByCustomSoapIn">
+    <wsdl:part name="parameters" element="tns:DownLoadDocumentByCustom" />
+  </wsdl:message>
+  <wsdl:message name="DownLoadDocumentByCustomSoapOut">
+    <wsdl:part name="parameters" element="tns:DownLoadDocumentByCustomResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteDocumentByCustomSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteDocumentByCustom" />
+  </wsdl:message>
+  <wsdl:message name="DeleteDocumentByCustomSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteDocumentByCustomResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddDocumentByCustomExtendSoapIn">
+    <wsdl:part name="parameters" element="tns:AddDocumentByCustomExtend" />
+  </wsdl:message>
+  <wsdl:message name="AddDocumentByCustomExtendSoapOut">
+    <wsdl:part name="parameters" element="tns:AddDocumentByCustomExtendResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownLoadDocumentByCustomExtendSoapIn">
+    <wsdl:part name="parameters" element="tns:DownLoadDocumentByCustomExtend" />
+  </wsdl:message>
+  <wsdl:message name="DownLoadDocumentByCustomExtendSoapOut">
+    <wsdl:part name="parameters" element="tns:DownLoadDocumentByCustomExtendResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectDocumentByCustomExtendSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProjectDocumentByCustomExtend" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectDocumentByCustomExtendSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProjectDocumentByCustomExtendResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectDocumentByDocumentIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProjectDocumentByDocumentId" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectDocumentByDocumentIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProjectDocumentByDocumentIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateDocumentByCustomExtendSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateDocumentByCustomExtend" />
+  </wsdl:message>
+  <wsdl:message name="UpdateDocumentByCustomExtendSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateDocumentByCustomExtendResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteDocumentByCustomExtendSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteDocumentByCustomExtend" />
+  </wsdl:message>
+  <wsdl:message name="DeleteDocumentByCustomExtendSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteDocumentByCustomExtendResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCategoryByCustomExtendSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCategoryByCustomExtend" />
+  </wsdl:message>
+  <wsdl:message name="GetCategoryByCustomExtendSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCategoryByCustomExtendResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomNameSerializableInfosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCustomNameSerializableInfos" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomNameSerializableInfosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCustomNameSerializableInfosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetObjectTypeSerializableInfosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetObjectTypeSerializableInfos" />
+  </wsdl:message>
+  <wsdl:message name="GetObjectTypeSerializableInfosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetObjectTypeSerializableInfosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSerializableInfosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSerializableInfos" />
+  </wsdl:message>
+  <wsdl:message name="GetSerializableInfosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSerializableInfosResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckObjectTypeSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckObjectType" />
+  </wsdl:message>
+  <wsdl:message name="CheckObjectTypeSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckObjectTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReloadUserXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:ReloadUserXML" />
+  </wsdl:message>
+  <wsdl:message name="ReloadUserXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:ReloadUserXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateTxtFileSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateTxtFile" />
+  </wsdl:message>
+  <wsdl:message name="CreateTxtFileSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateTxtFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteFileNameSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteFileName" />
+  </wsdl:message>
+  <wsdl:message name="DeleteFileNameSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteFileNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReadFileSoapIn">
+    <wsdl:part name="parameters" element="tns:ReadFile" />
+  </wsdl:message>
+  <wsdl:message name="ReadFileSoapOut">
+    <wsdl:part name="parameters" element="tns:ReadFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="WriteFileSoapIn">
+    <wsdl:part name="parameters" element="tns:WriteFile" />
+  </wsdl:message>
+  <wsdl:message name="WriteFileSoapOut">
+    <wsdl:part name="parameters" element="tns:WriteFileResponse" />
+  </wsdl:message>
+  <wsdl:portType name="PLMWebServicesSoap">
+    <wsdl:operation name="IsValidSession">
+      <wsdl:input message="tns:IsValidSessionSoapIn" />
+      <wsdl:output message="tns:IsValidSessionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <wsdl:input message="tns:LogoutSoapIn" />
+      <wsdl:output message="tns:LogoutSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginByUserInfo">
+      <wsdl:input message="tns:LoginByUserInfoSoapIn" />
+      <wsdl:output message="tns:LoginByUserInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFilesToDownload">
+      <wsdl:input message="tns:GetFilesToDownloadSoapIn" />
+      <wsdl:output message="tns:GetFilesToDownloadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CommitDownload">
+      <wsdl:input message="tns:CommitDownloadSoapIn" />
+      <wsdl:output message="tns:CommitDownloadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadProgress">
+      <wsdl:input message="tns:DownloadProgressSoapIn" />
+      <wsdl:output message="tns:DownloadProgressSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StartDownload">
+      <wsdl:input message="tns:StartDownloadSoapIn" />
+      <wsdl:output message="tns:StartDownloadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CompletedDownload">
+      <wsdl:input message="tns:CompletedDownloadSoapIn" />
+      <wsdl:output message="tns:CompletedDownloadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFilesToUpload">
+      <wsdl:input message="tns:GetFilesToUploadSoapIn" />
+      <wsdl:output message="tns:GetFilesToUploadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FilesToUpload">
+      <wsdl:input message="tns:FilesToUploadSoapIn" />
+      <wsdl:output message="tns:FilesToUploadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CommitUpload">
+      <wsdl:input message="tns:CommitUploadSoapIn" />
+      <wsdl:output message="tns:CommitUploadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadProgress">
+      <wsdl:input message="tns:UploadProgressSoapIn" />
+      <wsdl:output message="tns:UploadProgressSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StartUpload">
+      <wsdl:input message="tns:StartUploadSoapIn" />
+      <wsdl:output message="tns:StartUploadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CompletedUpload">
+      <wsdl:input message="tns:CompletedUploadSoapIn" />
+      <wsdl:output message="tns:CompletedUploadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckSaveData">
+      <wsdl:input message="tns:CheckSaveDataSoapIn" />
+      <wsdl:output message="tns:CheckSaveDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CommitSave">
+      <wsdl:input message="tns:CommitSaveSoapIn" />
+      <wsdl:output message="tns:CommitSaveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RollbackSave">
+      <wsdl:input message="tns:RollbackSaveSoapIn" />
+      <wsdl:output message="tns:RollbackSaveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuildFileName">
+      <wsdl:input message="tns:BuildFileNameSoapIn" />
+      <wsdl:output message="tns:BuildFileNameSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MarkAsHaveToSave">
+      <wsdl:input message="tns:MarkAsHaveToSaveSoapIn" />
+      <wsdl:output message="tns:MarkAsHaveToSaveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MultipleMarkAsHaveToSave">
+      <wsdl:input message="tns:MultipleMarkAsHaveToSaveSoapIn" />
+      <wsdl:output message="tns:MultipleMarkAsHaveToSaveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FileNewMajor">
+      <wsdl:input message="tns:FileNewMajorSoapIn" />
+      <wsdl:output message="tns:FileNewMajorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FileNewMinor">
+      <wsdl:input message="tns:FileNewMinorSoapIn" />
+      <wsdl:output message="tns:FileNewMinorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UndoCheckOut">
+      <wsdl:input message="tns:UndoCheckOutSoapIn" />
+      <wsdl:output message="tns:UndoCheckOutSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckOut">
+      <wsdl:input message="tns:CheckOutSoapIn" />
+      <wsdl:output message="tns:CheckOutSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckIn">
+      <wsdl:input message="tns:CheckInSoapIn" />
+      <wsdl:output message="tns:CheckInSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CanCheckOut">
+      <wsdl:input message="tns:CanCheckOutSoapIn" />
+      <wsdl:output message="tns:CanCheckOutSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsCheckOutByMe">
+      <wsdl:input message="tns:IsCheckOutByMeSoapIn" />
+      <wsdl:output message="tns:IsCheckOutByMeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsFileInVault">
+      <wsdl:input message="tns:IsFileInVaultSoapIn" />
+      <wsdl:output message="tns:IsFileInVaultSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UndoCheckOutByData">
+      <wsdl:input message="tns:UndoCheckOutByDataSoapIn" />
+      <wsdl:output message="tns:UndoCheckOutByDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckOutByData">
+      <wsdl:input message="tns:CheckOutByDataSoapIn" />
+      <wsdl:output message="tns:CheckOutByDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckInByData">
+      <wsdl:input message="tns:CheckInByDataSoapIn" />
+      <wsdl:output message="tns:CheckInByDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CanCheckOutByData">
+      <wsdl:input message="tns:CanCheckOutByDataSoapIn" />
+      <wsdl:output message="tns:CanCheckOutByDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsCheckOutByMeByData">
+      <wsdl:input message="tns:IsCheckOutByMeByDataSoapIn" />
+      <wsdl:output message="tns:IsCheckOutByMeByDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEntitiesByFilter">
+      <wsdl:input message="tns:GetEntitiesByFilterSoapIn" />
+      <wsdl:output message="tns:GetEntitiesByFilterSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChildsByParent">
+      <wsdl:input message="tns:GetChildsByParentSoapIn" />
+      <wsdl:output message="tns:GetChildsByParentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateDownloadSession">
+      <wsdl:input message="tns:CreateDownloadSessionSoapIn" />
+      <wsdl:output message="tns:CreateDownloadSessionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetObjectInfosByObjectID">
+      <wsdl:input message="tns:GetObjectInfosByObjectIDSoapIn" />
+      <wsdl:output message="tns:GetObjectInfosByObjectIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuildEntityName">
+      <wsdl:input message="tns:BuildEntityNameSoapIn" />
+      <wsdl:output message="tns:BuildEntityNameSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NewMajor">
+      <wsdl:input message="tns:NewMajorSoapIn" />
+      <wsdl:output message="tns:NewMajorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NewMinor">
+      <wsdl:input message="tns:NewMinorSoapIn" />
+      <wsdl:output message="tns:NewMinorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Clone">
+      <wsdl:input message="tns:CloneSoapIn" />
+      <wsdl:output message="tns:CloneSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOwnership">
+      <wsdl:input message="tns:GetOwnershipSoapIn" />
+      <wsdl:output message="tns:GetOwnershipSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReleaseOwnership">
+      <wsdl:input message="tns:ReleaseOwnershipSoapIn" />
+      <wsdl:output message="tns:ReleaseOwnershipSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Exists">
+      <wsdl:input message="tns:ExistsSoapIn" />
+      <wsdl:output message="tns:ExistsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPropertiesPageClassName">
+      <wsdl:input message="tns:GetPropertiesPageClassNameSoapIn" />
+      <wsdl:output message="tns:GetPropertiesPageClassNameSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetQueryPageClassName">
+      <wsdl:input message="tns:GetQueryPageClassNameSoapIn" />
+      <wsdl:output message="tns:GetQueryPageClassNameSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTreeViewQueryPageClassName">
+      <wsdl:input message="tns:GetTreeViewQueryPageClassNameSoapIn" />
+      <wsdl:output message="tns:GetTreeViewQueryPageClassNameSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsActionNotAllowed">
+      <wsdl:input message="tns:IsActionNotAllowedSoapIn" />
+      <wsdl:output message="tns:IsActionNotAllowedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEntities">
+      <wsdl:input message="tns:GetEntitiesSoapIn" />
+      <wsdl:output message="tns:GetEntitiesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLinkTypeEntities">
+      <wsdl:input message="tns:GetLinkTypeEntitiesSoapIn" />
+      <wsdl:output message="tns:GetLinkTypeEntitiesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCaption">
+      <wsdl:input message="tns:GetCaptionSoapIn" />
+      <wsdl:output message="tns:GetCaptionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteEntities">
+      <wsdl:input message="tns:DeleteEntitiesSoapIn" />
+      <wsdl:output message="tns:DeleteEntitiesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AutoLoginByUserInfo">
+      <wsdl:input message="tns:AutoLoginByUserInfoSoapIn" />
+      <wsdl:output message="tns:AutoLoginByUserInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddDocumentByCustom">
+      <wsdl:input message="tns:AddDocumentByCustomSoapIn" />
+      <wsdl:output message="tns:AddDocumentByCustomSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDocumentByCustom">
+      <wsdl:input message="tns:UpdateDocumentByCustomSoapIn" />
+      <wsdl:output message="tns:UpdateDocumentByCustomSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownLoadDocumentByCustom">
+      <wsdl:input message="tns:DownLoadDocumentByCustomSoapIn" />
+      <wsdl:output message="tns:DownLoadDocumentByCustomSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDocumentByCustom">
+      <wsdl:input message="tns:DeleteDocumentByCustomSoapIn" />
+      <wsdl:output message="tns:DeleteDocumentByCustomSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddDocumentByCustomExtend">
+      <wsdl:input message="tns:AddDocumentByCustomExtendSoapIn" />
+      <wsdl:output message="tns:AddDocumentByCustomExtendSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownLoadDocumentByCustomExtend">
+      <wsdl:input message="tns:DownLoadDocumentByCustomExtendSoapIn" />
+      <wsdl:output message="tns:DownLoadDocumentByCustomExtendSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectDocumentByCustomExtend">
+      <wsdl:input message="tns:GetProjectDocumentByCustomExtendSoapIn" />
+      <wsdl:output message="tns:GetProjectDocumentByCustomExtendSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectDocumentByDocumentId">
+      <wsdl:input message="tns:GetProjectDocumentByDocumentIdSoapIn" />
+      <wsdl:output message="tns:GetProjectDocumentByDocumentIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDocumentByCustomExtend">
+      <wsdl:input message="tns:UpdateDocumentByCustomExtendSoapIn" />
+      <wsdl:output message="tns:UpdateDocumentByCustomExtendSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDocumentByCustomExtend">
+      <wsdl:input message="tns:DeleteDocumentByCustomExtendSoapIn" />
+      <wsdl:output message="tns:DeleteDocumentByCustomExtendSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCategoryByCustomExtend">
+      <wsdl:input message="tns:GetCategoryByCustomExtendSoapIn" />
+      <wsdl:output message="tns:GetCategoryByCustomExtendSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomNameSerializableInfos">
+      <wsdl:input message="tns:GetCustomNameSerializableInfosSoapIn" />
+      <wsdl:output message="tns:GetCustomNameSerializableInfosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetObjectTypeSerializableInfos">
+      <wsdl:input message="tns:GetObjectTypeSerializableInfosSoapIn" />
+      <wsdl:output message="tns:GetObjectTypeSerializableInfosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSerializableInfos">
+      <wsdl:input message="tns:GetSerializableInfosSoapIn" />
+      <wsdl:output message="tns:GetSerializableInfosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckObjectType">
+      <wsdl:input message="tns:CheckObjectTypeSoapIn" />
+      <wsdl:output message="tns:CheckObjectTypeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReloadUserXML">
+      <wsdl:input message="tns:ReloadUserXMLSoapIn" />
+      <wsdl:output message="tns:ReloadUserXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateTxtFile">
+      <wsdl:input message="tns:CreateTxtFileSoapIn" />
+      <wsdl:output message="tns:CreateTxtFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteFileName">
+      <wsdl:input message="tns:DeleteFileNameSoapIn" />
+      <wsdl:output message="tns:DeleteFileNameSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReadFile">
+      <wsdl:input message="tns:ReadFileSoapIn" />
+      <wsdl:output message="tns:ReadFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WriteFile">
+      <wsdl:input message="tns:WriteFileSoapIn" />
+      <wsdl:output message="tns:WriteFileSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PLMWebServicesSoap" type="tns:PLMWebServicesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IsValidSession">
+      <soap:operation soapAction="http://think3.com/IsValidSession" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <soap:operation soapAction="http://think3.com/Logout" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginByUserInfo">
+      <soap:operation soapAction="http://think3.com/LoginByUserInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFilesToDownload">
+      <soap:operation soapAction="http://think3.com/GetFilesToDownload" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CommitDownload">
+      <soap:operation soapAction="http://think3.com/CommitDownload" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadProgress">
+      <soap:operation soapAction="http://think3.com/DownloadProgress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartDownload">
+      <soap:operation soapAction="http://think3.com/StartDownload" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CompletedDownload">
+      <soap:operation soapAction="http://think3.com/CompletedDownload" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFilesToUpload">
+      <soap:operation soapAction="http://think3.com/GetFilesToUpload" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FilesToUpload">
+      <soap:operation soapAction="http://think3.com/FilesToUpload" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CommitUpload">
+      <soap:operation soapAction="http://think3.com/CommitUpload" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadProgress">
+      <soap:operation soapAction="http://think3.com/UploadProgress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartUpload">
+      <soap:operation soapAction="http://think3.com/StartUpload" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CompletedUpload">
+      <soap:operation soapAction="http://think3.com/CompletedUpload" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckSaveData">
+      <soap:operation soapAction="http://think3.com/CheckSaveData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CommitSave">
+      <soap:operation soapAction="http://think3.com/CommitSave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RollbackSave">
+      <soap:operation soapAction="http://think3.com/RollbackSave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuildFileName">
+      <soap:operation soapAction="http://think3.com/BuildFileName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MarkAsHaveToSave">
+      <soap:operation soapAction="http://think3.com/MarkAsHaveToSave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MultipleMarkAsHaveToSave">
+      <soap:operation soapAction="http://think3.com/MultipleMarkAsHaveToSave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FileNewMajor">
+      <soap:operation soapAction="http://think3.com/FileNewMajor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FileNewMinor">
+      <soap:operation soapAction="http://think3.com/FileNewMinor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UndoCheckOut">
+      <soap:operation soapAction="http://think3.com/UndoCheckOut" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckOut">
+      <soap:operation soapAction="http://think3.com/CheckOut" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckIn">
+      <soap:operation soapAction="http://think3.com/CheckIn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CanCheckOut">
+      <soap:operation soapAction="http://think3.com/CanCheckOut" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsCheckOutByMe">
+      <soap:operation soapAction="http://think3.com/IsCheckOutByMe" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsFileInVault">
+      <soap:operation soapAction="http://think3.com/IsFileInVault" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UndoCheckOutByData">
+      <soap:operation soapAction="http://think3.com/UndoCheckOutByData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckOutByData">
+      <soap:operation soapAction="http://think3.com/CheckOutByData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckInByData">
+      <soap:operation soapAction="http://think3.com/CheckInByData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CanCheckOutByData">
+      <soap:operation soapAction="http://think3.com/CanCheckOutByData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsCheckOutByMeByData">
+      <soap:operation soapAction="http://think3.com/IsCheckOutByMeByData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEntitiesByFilter">
+      <soap:operation soapAction="http://think3.com/GetEntitiesByFilter" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChildsByParent">
+      <soap:operation soapAction="http://think3.com/GetChildsByParent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateDownloadSession">
+      <soap:operation soapAction="http://think3.com/CreateDownloadSession" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetObjectInfosByObjectID">
+      <soap:operation soapAction="http://think3.com/GetObjectInfosByObjectID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuildEntityName">
+      <soap:operation soapAction="http://think3.com/BuildEntityName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewMajor">
+      <soap:operation soapAction="http://think3.com/NewMajor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewMinor">
+      <soap:operation soapAction="http://think3.com/NewMinor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Clone">
+      <soap:operation soapAction="http://think3.com/Clone" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOwnership">
+      <soap:operation soapAction="http://think3.com/GetOwnership" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReleaseOwnership">
+      <soap:operation soapAction="http://think3.com/ReleaseOwnership" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Exists">
+      <soap:operation soapAction="http://think3.com/Exists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPropertiesPageClassName">
+      <soap:operation soapAction="http://think3.com/GetPropertiesPageClassName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetQueryPageClassName">
+      <soap:operation soapAction="http://think3.com/GetQueryPageClassName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTreeViewQueryPageClassName">
+      <soap:operation soapAction="http://think3.com/GetTreeViewQueryPageClassName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsActionNotAllowed">
+      <soap:operation soapAction="http://think3.com/IsActionNotAllowed" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEntities">
+      <soap:operation soapAction="http://think3.com/GetEntities" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLinkTypeEntities">
+      <soap:operation soapAction="http://think3.com/GetLinkTypeEntities" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCaption">
+      <soap:operation soapAction="http://think3.com/GetCaption" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteEntities">
+      <soap:operation soapAction="http://think3.com/DeleteEntities" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AutoLoginByUserInfo">
+      <soap:operation soapAction="http://think3.com/AutoLoginByUserInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddDocumentByCustom">
+      <soap:operation soapAction="http://think3.com/AddDocumentByCustom" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDocumentByCustom">
+      <soap:operation soapAction="http://think3.com/UpdateDocumentByCustom" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownLoadDocumentByCustom">
+      <soap:operation soapAction="http://think3.com/DownLoadDocumentByCustom" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDocumentByCustom">
+      <soap:operation soapAction="http://think3.com/DeleteDocumentByCustom" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddDocumentByCustomExtend">
+      <soap:operation soapAction="http://think3.com/AddDocumentByCustomExtend" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownLoadDocumentByCustomExtend">
+      <soap:operation soapAction="http://think3.com/DownLoadDocumentByCustomExtend" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectDocumentByCustomExtend">
+      <soap:operation soapAction="http://think3.com/GetProjectDocumentByCustomExtend" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectDocumentByDocumentId">
+      <soap:operation soapAction="http://think3.com/GetProjectDocumentByDocumentId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDocumentByCustomExtend">
+      <soap:operation soapAction="http://think3.com/UpdateDocumentByCustomExtend" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDocumentByCustomExtend">
+      <soap:operation soapAction="http://think3.com/DeleteDocumentByCustomExtend" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCategoryByCustomExtend">
+      <soap:operation soapAction="http://think3.com/GetCategoryByCustomExtend" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomNameSerializableInfos">
+      <soap:operation soapAction="http://think3.com/GetCustomNameSerializableInfos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetObjectTypeSerializableInfos">
+      <soap:operation soapAction="http://think3.com/GetObjectTypeSerializableInfos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSerializableInfos">
+      <soap:operation soapAction="http://think3.com/GetSerializableInfos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckObjectType">
+      <soap:operation soapAction="http://think3.com/CheckObjectType" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReloadUserXML">
+      <soap:operation soapAction="http://think3.com/ReloadUserXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateTxtFile">
+      <soap:operation soapAction="http://think3.com/CreateTxtFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteFileName">
+      <soap:operation soapAction="http://think3.com/DeleteFileName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadFile">
+      <soap:operation soapAction="http://think3.com/ReadFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WriteFile">
+      <soap:operation soapAction="http://think3.com/WriteFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PLMWebServicesSoap12" type="tns:PLMWebServicesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IsValidSession">
+      <soap12:operation soapAction="http://think3.com/IsValidSession" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <soap12:operation soapAction="http://think3.com/Logout" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginByUserInfo">
+      <soap12:operation soapAction="http://think3.com/LoginByUserInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFilesToDownload">
+      <soap12:operation soapAction="http://think3.com/GetFilesToDownload" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CommitDownload">
+      <soap12:operation soapAction="http://think3.com/CommitDownload" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadProgress">
+      <soap12:operation soapAction="http://think3.com/DownloadProgress" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartDownload">
+      <soap12:operation soapAction="http://think3.com/StartDownload" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CompletedDownload">
+      <soap12:operation soapAction="http://think3.com/CompletedDownload" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFilesToUpload">
+      <soap12:operation soapAction="http://think3.com/GetFilesToUpload" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FilesToUpload">
+      <soap12:operation soapAction="http://think3.com/FilesToUpload" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CommitUpload">
+      <soap12:operation soapAction="http://think3.com/CommitUpload" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadProgress">
+      <soap12:operation soapAction="http://think3.com/UploadProgress" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartUpload">
+      <soap12:operation soapAction="http://think3.com/StartUpload" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CompletedUpload">
+      <soap12:operation soapAction="http://think3.com/CompletedUpload" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckSaveData">
+      <soap12:operation soapAction="http://think3.com/CheckSaveData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CommitSave">
+      <soap12:operation soapAction="http://think3.com/CommitSave" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RollbackSave">
+      <soap12:operation soapAction="http://think3.com/RollbackSave" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuildFileName">
+      <soap12:operation soapAction="http://think3.com/BuildFileName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MarkAsHaveToSave">
+      <soap12:operation soapAction="http://think3.com/MarkAsHaveToSave" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MultipleMarkAsHaveToSave">
+      <soap12:operation soapAction="http://think3.com/MultipleMarkAsHaveToSave" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FileNewMajor">
+      <soap12:operation soapAction="http://think3.com/FileNewMajor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FileNewMinor">
+      <soap12:operation soapAction="http://think3.com/FileNewMinor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UndoCheckOut">
+      <soap12:operation soapAction="http://think3.com/UndoCheckOut" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckOut">
+      <soap12:operation soapAction="http://think3.com/CheckOut" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckIn">
+      <soap12:operation soapAction="http://think3.com/CheckIn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CanCheckOut">
+      <soap12:operation soapAction="http://think3.com/CanCheckOut" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsCheckOutByMe">
+      <soap12:operation soapAction="http://think3.com/IsCheckOutByMe" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsFileInVault">
+      <soap12:operation soapAction="http://think3.com/IsFileInVault" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UndoCheckOutByData">
+      <soap12:operation soapAction="http://think3.com/UndoCheckOutByData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckOutByData">
+      <soap12:operation soapAction="http://think3.com/CheckOutByData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckInByData">
+      <soap12:operation soapAction="http://think3.com/CheckInByData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CanCheckOutByData">
+      <soap12:operation soapAction="http://think3.com/CanCheckOutByData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsCheckOutByMeByData">
+      <soap12:operation soapAction="http://think3.com/IsCheckOutByMeByData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEntitiesByFilter">
+      <soap12:operation soapAction="http://think3.com/GetEntitiesByFilter" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChildsByParent">
+      <soap12:operation soapAction="http://think3.com/GetChildsByParent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateDownloadSession">
+      <soap12:operation soapAction="http://think3.com/CreateDownloadSession" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetObjectInfosByObjectID">
+      <soap12:operation soapAction="http://think3.com/GetObjectInfosByObjectID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuildEntityName">
+      <soap12:operation soapAction="http://think3.com/BuildEntityName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewMajor">
+      <soap12:operation soapAction="http://think3.com/NewMajor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewMinor">
+      <soap12:operation soapAction="http://think3.com/NewMinor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Clone">
+      <soap12:operation soapAction="http://think3.com/Clone" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOwnership">
+      <soap12:operation soapAction="http://think3.com/GetOwnership" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReleaseOwnership">
+      <soap12:operation soapAction="http://think3.com/ReleaseOwnership" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Exists">
+      <soap12:operation soapAction="http://think3.com/Exists" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPropertiesPageClassName">
+      <soap12:operation soapAction="http://think3.com/GetPropertiesPageClassName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetQueryPageClassName">
+      <soap12:operation soapAction="http://think3.com/GetQueryPageClassName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTreeViewQueryPageClassName">
+      <soap12:operation soapAction="http://think3.com/GetTreeViewQueryPageClassName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsActionNotAllowed">
+      <soap12:operation soapAction="http://think3.com/IsActionNotAllowed" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEntities">
+      <soap12:operation soapAction="http://think3.com/GetEntities" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLinkTypeEntities">
+      <soap12:operation soapAction="http://think3.com/GetLinkTypeEntities" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCaption">
+      <soap12:operation soapAction="http://think3.com/GetCaption" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteEntities">
+      <soap12:operation soapAction="http://think3.com/DeleteEntities" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AutoLoginByUserInfo">
+      <soap12:operation soapAction="http://think3.com/AutoLoginByUserInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddDocumentByCustom">
+      <soap12:operation soapAction="http://think3.com/AddDocumentByCustom" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDocumentByCustom">
+      <soap12:operation soapAction="http://think3.com/UpdateDocumentByCustom" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownLoadDocumentByCustom">
+      <soap12:operation soapAction="http://think3.com/DownLoadDocumentByCustom" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDocumentByCustom">
+      <soap12:operation soapAction="http://think3.com/DeleteDocumentByCustom" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddDocumentByCustomExtend">
+      <soap12:operation soapAction="http://think3.com/AddDocumentByCustomExtend" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownLoadDocumentByCustomExtend">
+      <soap12:operation soapAction="http://think3.com/DownLoadDocumentByCustomExtend" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectDocumentByCustomExtend">
+      <soap12:operation soapAction="http://think3.com/GetProjectDocumentByCustomExtend" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectDocumentByDocumentId">
+      <soap12:operation soapAction="http://think3.com/GetProjectDocumentByDocumentId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDocumentByCustomExtend">
+      <soap12:operation soapAction="http://think3.com/UpdateDocumentByCustomExtend" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDocumentByCustomExtend">
+      <soap12:operation soapAction="http://think3.com/DeleteDocumentByCustomExtend" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCategoryByCustomExtend">
+      <soap12:operation soapAction="http://think3.com/GetCategoryByCustomExtend" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomNameSerializableInfos">
+      <soap12:operation soapAction="http://think3.com/GetCustomNameSerializableInfos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetObjectTypeSerializableInfos">
+      <soap12:operation soapAction="http://think3.com/GetObjectTypeSerializableInfos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSerializableInfos">
+      <soap12:operation soapAction="http://think3.com/GetSerializableInfos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckObjectType">
+      <soap12:operation soapAction="http://think3.com/CheckObjectType" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReloadUserXML">
+      <soap12:operation soapAction="http://think3.com/ReloadUserXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateTxtFile">
+      <soap12:operation soapAction="http://think3.com/CreateTxtFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteFileName">
+      <soap12:operation soapAction="http://think3.com/DeleteFileName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadFile">
+      <soap12:operation soapAction="http://think3.com/ReadFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WriteFile">
+      <soap12:operation soapAction="http://think3.com/WriteFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PLMWebServices">
+    <wsdl:port name="PLMWebServicesSoap" binding="tns:PLMWebServicesSoap">
+      <soap:address location="http://www.cscec3b.com:1234/IRP/PLMWebServices.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PLMWebServicesSoap12" binding="tns:PLMWebServicesSoap12">
+      <soap12:address location="http://www.cscec3b.com:1234/IRP/PLMWebServices.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

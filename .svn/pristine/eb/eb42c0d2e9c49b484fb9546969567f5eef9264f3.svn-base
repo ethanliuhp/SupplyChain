@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:tns="http://tempuri.org/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" name="PortalService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://192.168.1.104:8002/PortalIntegration?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://192.168.1.104:8002/PortalIntegration?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://192.168.1.104:8002/PortalIntegration?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IPortalService_AddOrg_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddOrg" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_AddOrg_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddOrgResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_UpdateOrg_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateOrg" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_UpdateOrg_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateOrgResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_DeleteOrg_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteOrg" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_DeleteOrg_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteOrgResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetOrgByCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOrgByCode" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetOrgByCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOrgByCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_SetOrgInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetOrgInfo" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_SetOrgInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetOrgInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_AddPost_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddPost" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_AddPost_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddPostResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_UpdatePost_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePost" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_UpdatePost_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePostResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_DeletePost_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePost" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_DeletePost_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePostResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetPostByCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPostByCode" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetPostByCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPostByCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_UpdateEmpRole_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateEmpRole" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_UpdateEmpRole_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateEmpRoleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_AddUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddUser" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_AddUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_UpdateUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUser" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_UpdateUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_DeleteUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteUser" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_DeleteUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetUserByCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserByCode" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetUserByCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserByCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_UpdateEmpPost_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateEmpPost" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_UpdateEmpPost_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateEmpPostResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_AddRole_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddRole" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_AddRole_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddRoleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_DeleteRole_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteRole" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_DeleteRole_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteRoleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetRoleByCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRoleByCode" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetRoleByCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRoleByCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_AddProjectInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddProjectInfo" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_AddProjectInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddProjectInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_UpdateProjectInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProjectInfo" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_UpdateProjectInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProjectInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_DeleteProjectInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteProjectInfo" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_DeleteProjectInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteProjectInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetProjectInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProjectInfo" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetProjectInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProjectInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetProjectInfoByName_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProjectInfoByName" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetProjectInfoByName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProjectInfoByNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetProjectInfoByCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProjectInfoByCode" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetProjectInfoByCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProjectInfoByCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_SyncXMLData_InputMessage">
+    <wsdl:part name="parameters" element="tns:SyncXMLData" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_SyncXMLData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SyncXMLDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetIsAutoSyncXMLData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetIsAutoSyncXMLData" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetIsAutoSyncXMLData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetIsAutoSyncXMLDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_SetAutoSyncXMLDataFlag_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetAutoSyncXMLDataFlag" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_SetAutoSyncXMLDataFlag_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetAutoSyncXMLDataFlagResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_CallAppPlat_InputMessage">
+    <wsdl:part name="parameters" element="tns:CallAppPlat" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_CallAppPlat_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CallAppPlatResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IPortalService">
+    <wsdl:operation name="AddOrg">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/AddOrg" message="tns:IPortalService_AddOrg_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/AddOrgResponse" message="tns:IPortalService_AddOrg_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrg">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/UpdateOrg" message="tns:IPortalService_UpdateOrg_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/UpdateOrgResponse" message="tns:IPortalService_UpdateOrg_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteOrg">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/DeleteOrg" message="tns:IPortalService_DeleteOrg_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/DeleteOrgResponse" message="tns:IPortalService_DeleteOrg_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrgByCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetOrgByCode" message="tns:IPortalService_GetOrgByCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetOrgByCodeResponse" message="tns:IPortalService_GetOrgByCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetOrgInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/SetOrgInfo" message="tns:IPortalService_SetOrgInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/SetOrgInfoResponse" message="tns:IPortalService_SetOrgInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddPost">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/AddPost" message="tns:IPortalService_AddPost_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/AddPostResponse" message="tns:IPortalService_AddPost_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePost">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/UpdatePost" message="tns:IPortalService_UpdatePost_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/UpdatePostResponse" message="tns:IPortalService_UpdatePost_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePost">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/DeletePost" message="tns:IPortalService_DeletePost_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/DeletePostResponse" message="tns:IPortalService_DeletePost_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPostByCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetPostByCode" message="tns:IPortalService_GetPostByCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetPostByCodeResponse" message="tns:IPortalService_GetPostByCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEmpRole">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/UpdateEmpRole" message="tns:IPortalService_UpdateEmpRole_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/UpdateEmpRoleResponse" message="tns:IPortalService_UpdateEmpRole_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/AddUser" message="tns:IPortalService_AddUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/AddUserResponse" message="tns:IPortalService_AddUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/UpdateUser" message="tns:IPortalService_UpdateUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/UpdateUserResponse" message="tns:IPortalService_UpdateUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/DeleteUser" message="tns:IPortalService_DeleteUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/DeleteUserResponse" message="tns:IPortalService_DeleteUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserByCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetUserByCode" message="tns:IPortalService_GetUserByCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetUserByCodeResponse" message="tns:IPortalService_GetUserByCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEmpPost">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/UpdateEmpPost" message="tns:IPortalService_UpdateEmpPost_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/UpdateEmpPostResponse" message="tns:IPortalService_UpdateEmpPost_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddRole">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/AddRole" message="tns:IPortalService_AddRole_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/AddRoleResponse" message="tns:IPortalService_AddRole_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteRole">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/DeleteRole" message="tns:IPortalService_DeleteRole_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/DeleteRoleResponse" message="tns:IPortalService_DeleteRole_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRoleByCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetRoleByCode" message="tns:IPortalService_GetRoleByCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetRoleByCodeResponse" message="tns:IPortalService_GetRoleByCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddProjectInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/AddProjectInfo" message="tns:IPortalService_AddProjectInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/AddProjectInfoResponse" message="tns:IPortalService_AddProjectInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProjectInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/UpdateProjectInfo" message="tns:IPortalService_UpdateProjectInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/UpdateProjectInfoResponse" message="tns:IPortalService_UpdateProjectInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProjectInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/DeleteProjectInfo" message="tns:IPortalService_DeleteProjectInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/DeleteProjectInfoResponse" message="tns:IPortalService_DeleteProjectInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetProjectInfo" message="tns:IPortalService_GetProjectInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetProjectInfoResponse" message="tns:IPortalService_GetProjectInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectInfoByName">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetProjectInfoByName" message="tns:IPortalService_GetProjectInfoByName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetProjectInfoByNameResponse" message="tns:IPortalService_GetProjectInfoByName_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectInfoByCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetProjectInfoByCode" message="tns:IPortalService_GetProjectInfoByCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetProjectInfoByCodeResponse" message="tns:IPortalService_GetProjectInfoByCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SyncXMLData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/SyncXMLData" message="tns:IPortalService_SyncXMLData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/SyncXMLDataResponse" message="tns:IPortalService_SyncXMLData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIsAutoSyncXMLData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetIsAutoSyncXMLData" message="tns:IPortalService_GetIsAutoSyncXMLData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetIsAutoSyncXMLDataResponse" message="tns:IPortalService_GetIsAutoSyncXMLData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetAutoSyncXMLDataFlag">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/SetAutoSyncXMLDataFlag" message="tns:IPortalService_SetAutoSyncXMLDataFlag_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/SetAutoSyncXMLDataFlagResponse" message="tns:IPortalService_SetAutoSyncXMLDataFlag_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CallAppPlat">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/CallAppPlat" message="tns:IPortalService_CallAppPlat_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/CallAppPlatResponse" message="tns:IPortalService_CallAppPlat_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IPortalService" type="tns:IPortalService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddOrg">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/AddOrg" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrg">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/UpdateOrg" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteOrg">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/DeleteOrg" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrgByCode">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/GetOrgByCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetOrgInfo">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/SetOrgInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddPost">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/AddPost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePost">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/UpdatePost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePost">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/DeletePost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostByCode">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/GetPostByCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEmpRole">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/UpdateEmpRole" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddUser">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/AddUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUser">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/UpdateUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUser">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/DeleteUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserByCode">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/GetUserByCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEmpPost">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/UpdateEmpPost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddRole">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/AddRole" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteRole">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/DeleteRole" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRoleByCode">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/GetRoleByCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddProjectInfo">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/AddProjectInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProjectInfo">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/UpdateProjectInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProjectInfo">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/DeleteProjectInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectInfo">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/GetProjectInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectInfoByName">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/GetProjectInfoByName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectInfoByCode">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/GetProjectInfoByCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SyncXMLData">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/SyncXMLData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIsAutoSyncXMLData">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/GetIsAutoSyncXMLData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetAutoSyncXMLDataFlag">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/SetAutoSyncXMLDataFlag" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CallAppPlat">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/CallAppPlat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PortalService">
+    <wsdl:port name="BasicHttpBinding_IPortalService" binding="tns:BasicHttpBinding_IPortalService">
+      <soap:address location="http://192.168.1.104:8002/PortalIntegration" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

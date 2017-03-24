@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <subclass name="Application.Business.Erp.SupplyChain.StockManage.Base.Domain.StockOutPurpose, SupplyChain" lazy="true" extends="Application.Business.Erp.SupplyChain.StockManage.Base.Domain.BaseStockInOut, SupplyChain" select-before-update="true" discriminator-value="1">
+  </subclass>    
+</hibernate-mapping>

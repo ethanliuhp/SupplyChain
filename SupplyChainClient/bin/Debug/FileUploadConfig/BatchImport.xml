@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ImportIntegration>
+  <PartLoader>
+    <ObjectType Name="PART" FileType="DOCUMENT" BomType="PARTEBOM" FileStrType="FILESTRUCTURE" PartToFileType="PARTTOFILELINK"
+                NumberID="CODE" NameID="NAME" 
+                StartPartEntity="PART" StartFileEntity="FILE"
+                NodeDisplayRule="COMPCODE+''+COMPNAME" 
+                BindRule="COMPCODE+''+COMPNAME">     
+
+      <BOMChildColumn>COMPCODE</BOMChildColumn>
+      <BOMParentColumn>Parent</BOMParentColumn>
+      
+      <FileColumn>FilePath</FileColumn>      
+      <FitChar>+</FitChar>
+      <ConditionColumn Name="" Value="ALL"></ConditionColumn>
+    </ObjectType>
+  </PartLoader>
+  <DocLoader>
+  </DocLoader>
+</ImportIntegration>

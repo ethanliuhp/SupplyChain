@@ -1,0 +1,437 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using Application.Business.Erp.SupplyChain.Client.Basic.Template;
+using Application.Business.Erp.SupplyChain.Client.Basic.CommonClass;
+using System.Collections;
+using VirtualMachine.Core;
+using Application.Business.Erp.SupplyChain.Base.Domain;
+using Application.Business.Erp.SupplyChain.StockManage.StockInManage.Domain;
+using NHibernate.Criterion;
+using Application.Business.Erp.SupplyChain.StockManage.Stock.Domain;
+using Application.Resource.MaterialResource.Domain;
+using Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass;
+using Application.Business.Erp.SupplyChain.Client.Util;
+using VirtualMachine.Component.Util;
+using Application.Business.Erp.SupplyChain.Client.StockMng;
+using Application.Business.Erp.SupplyChain.Basic.Domain;
+using Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain;
+using Application.Business.Erp.SupplyChain.Client.CostManagement.WBS.GWBS;
+using Application.Business.Erp.SupplyChain.Client.CostManagement.CostMonthAccount;
+using Application.Resource.PersonAndOrganization.HumanResource.RelateClass;
+using Application.Business.Erp.SupplyChain.CostManagement.OBS.Domain;
+using VirtualMachine.Component.WinControls.CommonForm.FlashScreenMng;
+
+namespace Application.Business.Erp.SupplyChain.Client.StockManage.Stock.StockInOutUI
+{
+    public partial class VStockInOut : TMasterDetailView
+    {
+        MStockMng model = new MStockMng();
+        private MStockMng modelStock = new MStockMng();
+        MCostMonthAccount modelCost = new MCostMonthAccount();
+        public VStockInOut()
+        {
+            InitializeComponent();
+            InitEvent();
+            InitData();
+            InitControl();
+        }
+        private void InitEvent()
+        {
+            this.btnReckoning.Click += new EventHandler(btnReckoning_Click);
+            this.btnUnReckoning.Click += new EventHandler(btnUnReckoning_Click);
+            this.cboFiscalMonth.SelectedIndexChanged += new System.EventHandler(this.cboFiscalMonth_SelectedIndexChanged);
+            this.btnSelectGWBS.Click += new EventHandler(btSelectGWBS_Click);
+            //this.txtYear .LostFocus +=new EventHandler(txtYear_LostFocus);
+            this.cboFiscalYear .SelectedIndexChanged +=new EventHandler(cboFiscalYear_SelectedIndexChanged);
+           
+        }
+        public void InitControl()
+        {
+            
+            if (this.dgMaster.Rows.Count > 0 && this.dgMaster.SelectedRows.Count > 0 && this.dgMaster.SelectedRows[0].Tag!=null)
+            {
+                this.btnUnReckoning.Enabled = true;
+            }
+            else
+            {
+                 this.btnUnReckoning.Enabled = false ;
+            }
+            if (txtAccountRootNode.Tag != null)
+            {
+                GWBSTree oGWBSTree = txtAccountRootNode.Tag as GWBSTree;
+                CurrentProjectInfo cpi = StaticMethod.GetProjectInfo();
+                int accountYear = ClientUtil.ToInt(this.cboFiscalYear.Text);
+                int accountMonth = ClientUtil.ToInt(this.cboFiscalMonth.Text);
+                if(model.StockInOutSrv .IsAccount (cpi.Id,oGWBSTree .SysCode ,accountYear,accountMonth))
+                {
+                    this.btnReckoning.Enabled = false;
+                }
+                else
+                {
+                     this.btnReckoning .Enabled =true   ;
+                }
+            }
+            else
+            {
+                this.btnReckoning .Enabled =false  ;
+            }
+        }
+        public void InitData()
+        {
+            //txtYear.Text = ConstObject.TheLogin.TheComponentPeriod.NowYear.ToString();
+            this.cboFiscalMonth.Text = ConstObject.TheLogin.TheComponentPeriod.NowMonth.ToString();
+            for (int i = 1; i < 13; i++)
+            {
+                this.cboFiscalMonth.Items.Add(i);
+            }
+            
+            IList list = modelStock.StockInSrv.GetFiscalYear();
+            this.cboFiscalYear.Items.Clear();
+     
+            foreach (int iYear in list)
+            {
+                this.cboFiscalYear.Items.Insert(this.cboFiscalYear.Items.Count, iYear);
+                if (iYear == ConstObject.TheLogin.TheComponentPeriod.NowYear)
+                {
+                    this.cboFiscalYear.SelectedItem = this.cboFiscalYear.Items[this.cboFiscalYear.Items.Count - 1];
+                }
+            }
+
+        }
+
+        #region 实物收发存
+        void btnUnReckoning_Click(object sender, EventArgs e)
+        {            
+            try
+            {
+                CurrentProjectInfo oProject = StaticMethod.GetProjectInfo();
+                if (dgMaster.SelectedRows.Count > 0)
+                {
+                    StockInOut oStockInOut = dgMaster.SelectedRows[0].Tag as StockInOut;
+                    //if (model.StockInOutSrv.UnReckoning(accountYear, accountMonth, StaticMethod.GetProjectInfo().Id))
+                    if (oStockInOut != null && !model.StockInOutSrv.IsAccounted(oStockInOut.Id))//判断该结算记录是否在商务那边核算了
+                    {
+                        if (model.StockInOutSrv.UnReckoning(oStockInOut))
+                        {
+                            LogData log = new LogData();
+                            log.BillId = "";
+                            log.BillType = "物资实际耗用反结";
+                            log.Code = "";
+                            log.OperType = "反结算";
+                            log.Descript = "[会计年:" + oStockInOut.FiscalYear + "][会计月:" + oStockInOut.FiscalMonth + "]";
+                            log.OperPerson = ConstObject.LoginPersonInfo.Name;
+                            log.ProjectName = oProject.Name;
+                            StaticMethod.InsertLogData(log);
+                            MessageBox.Show("反结算成功!");
+                            //this.btnReckoning.Enabled = true;
+                            cboFiscalMonth_SelectedIndexChanged(sender, e);
+                        }
+                    }
+                    else
+                    {
+                        string sMsg = string.Format("商务已经核算 [{0}] 结算记录,不能反结！", oStockInOut.AccountTaskName);
+                        MessageBox.Show(sMsg );
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("请选择反结算记录！");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("反结帐出错了。\n" + ex.Message);
+                this.btnUnReckoning.Enabled = true;
+            }
+            finally
+            {
+            }
+        }
+
+        private bool ValideUnReckoning()
+        {
+            int accountYear = ClientUtil.ToInt(this.cboFiscalYear.Text);
+            int accountMonth = ClientUtil.ToInt(this.cboFiscalMonth.Text);
+            DialogResult aa = MessageBox.Show("是否进行【" + this.cboFiscalYear.Text + "年" + this.cboFiscalMonth.Text + "月】实物反结帐？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
+            if (aa == DialogResult.No)
+            {
+                return false;
+            }
+            if (dgMaster.SelectedRows.Count > 0 && dgMaster.SelectedRows [0].Tag !=null)
+            {
+                StockInOut oStockInOut = dgMaster.SelectedRows[0].Tag as StockInOut;
+                if (model.StockInOutSrv.IsAccount(StaticMethod.GetProjectInfo().Id, oStockInOut.AccountTaskSysCode , accountYear, accountMonth))
+                {
+                    MessageBox.Show("【" + this.cboFiscalYear.Text + "年" + this.cboFiscalMonth.Text + "月】未结帐!");
+                    return false;
+                }
+                //if (!model.StockInOutSrv.CheckReckoning(accountYear, accountMonth,StaticMethod.GetProjectInfo().Id))
+                //{
+                //    MessageBox.Show("【" + this.txtYear.Text + "年" + this.cboFiscalMonth.Text + "月】未结帐!");
+                //    return false;
+                //}
+                //判断下个月是否结帐
+                if (model.StockInOutSrv.CheckReckoning(ConstObject.TheLogin.TheComponentPeriod.NextYear, ConstObject.TheLogin.TheComponentPeriod.NextMonth, StaticMethod.GetProjectInfo().Id))
+                {
+                    MessageBox.Show("【" + ConstObject.TheLogin.TheComponentPeriod.NextYear.ToString() + "年" + ConstObject.TheLogin.TheComponentPeriod.NextMonth.ToString() + "月】已经结帐,本月不能反结帐!");
+                    return false;
+                }
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("没有选中需要");
+                return false;
+            }
+
+        }
+
+        void btnReckoning_Click(object sender, EventArgs e)
+        {
+            if (!ValideReckoning()) return;
+            btnReckoning.Enabled = false;
+            int accountYear = ClientUtil.ToInt(this.cboFiscalYear.Text);
+            int accountMonth = ClientUtil.ToInt(this.cboFiscalMonth.Text);
+            
+            try
+            {
+                PersonInfo oPersonInfo = ConstObject.LoginPersonInfo;
+                if (this.txtAccountRootNode.Tag != null)
+                {
+                    GWBSTree oGWBSTree = this.txtAccountRootNode.Tag as GWBSTree;
+                    CurrentProjectInfo oProject = StaticMethod.GetProjectInfo();
+                    StockInOut oStockInOut = new StockInOut();
+                    OBSManage mOBS = modelCost.CostMonthAccSrv.GetOBSManageByTaskNode(oGWBSTree.SysCode, oProject.Id);
+                    if (mOBS.OrpJob != null)
+                    {
+                        oStockInOut.AccountOrgGuid = mOBS.OrpJob.Id;
+                        oStockInOut.AccountOrgName = mOBS.OrgJobName;
+                        oStockInOut.AccountOrgSyscode = mOBS.OpgSysCode;
+                        oStockInOut.AccountRange = oGWBSTree.Id;
+                        oStockInOut.AccountTaskName = oGWBSTree.Name;
+                        oStockInOut.AccountTaskSysCode = oGWBSTree.SysCode;
+                        oStockInOut.CreatePersonID = oPersonInfo.Id;
+                        oStockInOut.CreatePersonName = oPersonInfo.Name;
+                        oStockInOut.CreatePersonOrgSysCode = ConstObject.TheLogin.TheOperationOrgInfo.SysCode;
+                        oStockInOut.ProjectId = oProject.Id;
+                        oStockInOut.FiscalMonth = accountMonth;
+                        oStockInOut.FiscalYear = accountYear;
+                        oStockInOut.AcctType = 1;
+                        FlashScreen.Show("正在进行物资实际耗用结算...");
+                       // if (model.StockInOutSrv.Reckoning(accountYear, accountMonth, StaticMethod.GetProjectInfo(), oPersonInfo, oGWBSTree))
+                        if (model.StockInOutSrv.Reckoning(oStockInOut, oProject, oPersonInfo))
+                        {
+                            LogData log = new LogData();
+                            log.BillId = "";
+                            log.BillType = "物资实际耗用结算";
+                            log.Code = "";
+                            log.OperType = "月结";
+                            log.Descript = "[会计年:" + accountYear + "][会计月:" + accountMonth + "]";
+                            log.OperPerson = ConstObject.LoginPersonInfo.Name;
+                            log.ProjectName = oProject.Name;
+                            StaticMethod.InsertLogData(log);
+                            FlashScreen.Close();
+                            MessageBox.Show("实际耗用结算成功!");
+                            //this.btnUnReckoning.Enabled = true;
+                            cboFiscalMonth_SelectedIndexChanged(sender, e);
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("GWBS节点查询管理OBS对应的业务组织为空！");
+                    }
+                }
+                else
+                {
+                    throw new Exception("请选择结算节点");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("结帐出错了。\n" + ex.Message);
+                btnReckoning.Enabled = true;
+            }
+            finally
+            {
+                FlashScreen.Close();
+            }
+        }
+
+        /// <summary>
+        /// 判断是否可以结账
+        /// </summary>
+        /// <returns></returns>
+        private bool ValideReckoning()
+        {
+            if (txtAccountRootNode.Tag != null)
+            {
+                int accountYear = ClientUtil.ToInt(this.cboFiscalYear.Text);
+                int accountMonth = ClientUtil.ToInt(this.cboFiscalMonth.Text);
+                string projectId = StaticMethod.GetProjectInfo().Id;
+                GWBSTree oGWBSTree = txtAccountRootNode.Tag as GWBSTree;
+
+                DialogResult aa = MessageBox.Show("是否进行【" + accountYear + "年" + accountMonth + "月】仓库实物结帐？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
+                if (aa == DialogResult.No)
+                {
+                    return false;
+                }
+                string info = model.StockInOutSrv.CheckStockInOutIsTally(accountYear, accountMonth, projectId);//是否结帐
+                if (info != "")
+                {
+                    MessageBox.Show("存在【" + info + "】未记帐！");
+                    return false;
+                }
+                DataTable oDataTable = model.StockInOutSrv.GetMaxAccTimeBySysCode(projectId, oGWBSTree.SysCode);//获取本节点上的最近结算
+
+                if (oDataTable != null && oDataTable.Rows.Count > 0)//有
+                {
+                    return IsCurrFiscTime(oDataTable.Rows[0], oGWBSTree, accountYear, accountMonth);
+                }
+                else//该节点路径下没有
+                {
+                    //2013-10-28 oy注
+                    //oDataTable = model.StockInOutSrv.GetMinAccTimeByProjectID(projectId);
+                    //if (oDataTable == null || oDataTable.Rows.Count == 0)
+                    //{
+                    //    return true;
+                    //}
+                    //else
+                    //{
+                    //    return IsCurrFiscTime1(oDataTable.Rows[0], oGWBSTree, accountYear, accountMonth);
+                    //}
+                    return true;
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("请选择结算节点！");
+                return false;
+            }
+        }
+        public bool IsCurrFiscTime(DataRow oRow, GWBSTree oGWBSTree, int iAccountYear, int iAccountMonth)
+        {
+            if (oRow == null)
+            {
+                return true;
+            }
+            else
+            {
+                int iMaxKJN = Int32.Parse(oRow["fiscalyear"].ToString());
+                int iMaxKJY = Int32.Parse(oRow["fiscalmonth"].ToString());
+                if (iMaxKJY == 12)
+                {
+                    iMaxKJY = 1;
+                    iMaxKJN += 1;
+                }
+                else
+                {
+                    iMaxKJY += 1;
+                }
+                if (iMaxKJN == iAccountYear && iMaxKJY == iAccountMonth)//如果是当前的结算年月
+                {
+                    return true;
+                }
+                else
+                {
+                    string sMsg = string.Format("[{0}]结算节点结算的会计年月:[{1}-{2}]", oGWBSTree.Name, iMaxKJN, iMaxKJY);
+                    MessageBox.Show(sMsg);
+                    return false;
+                }
+            }
+        }
+        public bool IsCurrFiscTime1(DataRow oRow, GWBSTree oGWBSTree, int iAccountYear, int iAccountMonth)
+        {
+            if (oRow == null)
+            {
+                return true;
+            }
+            else
+            {
+                int iMaxKJN = Int32.Parse(oRow["fiscalyear"].ToString());
+                int iMaxKJY = Int32.Parse(oRow["fiscalmonth"].ToString());
+              
+                if (iMaxKJN == iAccountYear && iMaxKJY == iAccountMonth)//如果是当前的结算年月
+                {
+                    return true;
+                }
+                else
+                {
+                    string sMsg = string.Format("[{0}]结算节点结算的会计年月:[{1}-{2}]", oGWBSTree.Name, iMaxKJN, iMaxKJY);
+                    MessageBox.Show(sMsg);
+                    return false;
+                }
+            }
+        }
+        #endregion
+
+        /// <summary>
+        /// 启动本窗体,(设置状态或重新加载已有的数据)
+        /// </summary>
+        /// <param name="code">窗体Caption</param>
+        public void Start(string code)
+        {
+            try
+            {
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("视图启动出错：" + ExceptionUtil.ExceptionMessage(e));
+            }
+        }
+        public void cboFiscalMonth_SelectedIndexChanged(object sender,EventArgs  e)
+        {
+            ShowData();
+            InitControl();
+        }
+        public void ShowData()
+        {
+            int fiscalYear = ClientUtil.ToInt(this.cboFiscalYear.Text);
+            int fiscalMonth = ClientUtil.ToInt(this.cboFiscalMonth.Text);
+            IList list = model.StockInOutSrv.WZXH_Query(StaticMethod.GetProjectInfo().Id, fiscalYear, fiscalMonth);
+            this.dgMaster.Rows.Clear();
+
+            foreach (StockInOut oStockInOut in list)
+            {
+                int rowIndex = this.dgMaster.Rows.Add();
+                dgMaster.Rows[rowIndex].Tag = oStockInOut;
+                dgMaster[this.colTaskNode.Name, rowIndex].Value = oStockInOut.AccountTaskName;
+                dgMaster[this.colAccountOrg.Name, rowIndex].Value = oStockInOut.AccountOrgName;
+                dgMaster[this.colOperDate.Name, rowIndex].Value = oStockInOut.RealOperationDate.ToShortDateString ();
+                dgMaster[this.colPerson .Name , rowIndex].Value = oStockInOut.CreatePersonName ;
+            }
+        }
+        void btSelectGWBS_Click(object sender, EventArgs e)
+        {
+            VSelectGWBSTree_OnlyOne frm = new VSelectGWBSTree_OnlyOne(new MGWBSTree());
+            if (txtAccountRootNode.Tag != null)
+            {
+                frm.DefaultSelectedGWBS = txtAccountRootNode.Tag as GWBSTree;
+            }
+            frm.IsTreeSelect = true;
+            frm.ShowDialog();
+            if (frm.SelectResult.Count > 0)
+            {
+                TreeNode root = frm.SelectResult[0];
+
+                GWBSTree task = root.Tag as GWBSTree;
+                if (task != null)
+                {
+                    txtAccountRootNode.Text = task.Name;
+                    txtAccountRootNode.Tag = task;
+                }
+            }
+          cboFiscalMonth_SelectedIndexChanged(  sender,   e);
+            
+        }
+        public void cboFiscalYear_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cboFiscalMonth_SelectedIndexChanged(sender, e);
+        }
+    }
+}

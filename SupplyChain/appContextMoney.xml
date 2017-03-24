@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+
+
+  <!--项目财务账面维护-->
+  <object id="FinanceMultDataSrvTarget" type="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Service.FinanceMultDataSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="Dao" ref="dao"/>
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+    <property name="RefAppSrv" ref="RefAppSrv"/>
+  </object>
+  <object	id="FinanceMultDataSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="FinanceMultDataSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--间接费用管理-->
+  <object id="IndirectCostSvrTarget" type="Application.Business.Erp.SupplyChain.MoneyManage.IndirectCost.Service.IndirectCostSvr,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="Dao" ref="dao"/>
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="IndirectCostSvr" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="IndirectCostSvrTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+</objects>

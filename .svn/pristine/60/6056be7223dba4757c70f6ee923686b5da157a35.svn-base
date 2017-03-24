@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.ProductionScheduleMaster,SupplyChain" table="THD_ProductionScheduleMaster" lazy="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.ProductionScheduleDetail, SupplyChain"/>
+    </set>
+    <property name="GanttChartId"/>
+    <property name="NetworkChartId"/>
+    <property name="ScheduleVersion"/>
+    <many-to-one name="HandlePerson" column="HandlePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="HandlePersonName"/>
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperOrgInfoName" column="OperationOrgName"/>
+    <property name="OpgSysCode"/>
+    <property name="DocState" column="State"/>
+    <property name="CreateDate"/>
+    <property name="ScheduleRootNodeId"/>
+    <property name="ScheduleCaliber"/>
+    <property name="ScheduleType"/>
+    <property name="ScheduleTypeDetail"/>
+    <property name="ProjectId"/>
+    <property name="ProjectName"/>
+    <property name="ScheduleName"/>
+    <property name="Descript"/>
+
+    <property name="RealOperationDate"/>
+    <property name="SubmitDate"/>
+  </class>
+</hibernate-mapping>

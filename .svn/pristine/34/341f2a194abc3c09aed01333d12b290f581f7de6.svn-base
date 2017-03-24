@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="IRPServiceModel.Domain.PaymentOrder.PaymentOrderMaster,IRPServiceModel" table="IRP_PaymentOrderMaster" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="CreateDate" type="Date" ></property>
+    <property name="PaymentType"  ></property>
+    <property name="Money"></property>
+    <many-to-one name="Payee" column="PayeeID" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"></many-to-one>
+    <property name="PayeeName"></property>
+    <property name="TheBankCode"></property>
+    <property name="TheBankName"></property>
+    <property name="Describe"></property>
+    <property name="DocState"></property>
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write" />
+      <key column="parentID" />
+      <one-to-many class="IRPServiceModel.Domain.PaymentOrder.PaymentOrderDetial,IRPServiceModel" />
+    </set>
+    
+  </class>
+</hibernate-mapping>

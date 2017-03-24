@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+   <class name="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.WeekScheduleTask,SupplyChain" table="THD_WeekScheduleTask" lazy="true" discriminator-value="-1">
+        <id name="Id" column="Id" unsaved-value="null">
+           <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+        </id>
+      <property name="ProjectId" />
+      <property name="ProjectName" />
+      <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.WeekScheduleDetail, SupplyChain"/>
+      <many-to-one name="Task" column="TaskId" not-null="true" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSDetail,SupplyChain"></many-to-one>
+      <property name="TaskName" />
+      <property name="PlanBeginDate" />
+      <property name="PlanEndDate" />
+      <property name="PlanTime" />
+      <property name="RealBeginDate" />
+      <property name="RealEndDate" />
+      <many-to-one name="SubContractProject" class="Application.Business.Erp.SupplyChain.CostManagement.ContractExcuteMng.Domain.SubContractProject,SupplyChain" lazy="false"></many-to-one>
+      <property name="SubContractProjectName" />
+      <many-to-one name="GwbsTree" column="GwbsTreeId" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree, SupplyChain"/>
+      <property name="GwbsName" />
+      <property name="CreateTime" />
+    </class>
+</hibernate-mapping>

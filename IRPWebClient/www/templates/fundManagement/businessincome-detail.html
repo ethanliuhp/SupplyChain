@@ -1,0 +1,35 @@
+<ion-view view-title="{{title}}" hide-tabs="true">
+  <ion-content overflow-scroll='false' has-bouncing='true'>
+    <ion-list>
+  	  <ion-item class="item-remove-animate item-avatar item-icon-right home-item list-title-style alert-info" type="item-text-wrap">
+		<div class="row">
+			<div class="col-70"><p class="center">项目名称</p></div>
+			<div class="col-30"><p class="center">本年收入</p></div>
+		</div>
+  	  </ion-item>
+  	  <ion-item ng-show='backList != undefined' class="item-remove-animate item-avatar item-icon-right home-item list-title-style" type="item-text-wrap" style='background-color:#dda'>
+		<div class="row">
+			<div class="col-100"><p class='subtitle'>收入前五的项目</p></div>
+		</div>
+  	  </ion-item>
+      <ion-item class="item-remove-animate item-avatar item-icon-right home-item list-title-style" ng-class="{'item-back-odd':($index%2 == 0)}" ng-repeat="item in frontList">
+  	    <div class="row">
+			<div class="col-70"><p class="center" style="white-space:pre-wrap;">{{item.Name}}</p></div>
+			<div class="col-30"><p class="center">{{item.Number | MillionConversion}}万元</p></div>
+	  	</div>
+      </ion-item>
+  	  <ion-item ng-show='backList != undefined' class="item-remove-animate item-avatar item-icon-right home-item list-title-style" type="item-text-wrap" style='background-color:#dda'>
+		<div class="row">
+			<div class="col-100"><p class='subtitle'>收入后五的项目</p></div>
+		</div>
+  	  </ion-item>
+      <ion-item ng-show='backList != undefined' class="item-remove-animate item-avatar item-icon-right home-item list-title-style" ng-class="{'item-back-odd':($index%2 == 0)}" ng-repeat="item in backList">
+  	    <div class="row">
+			<div class="col-70"><p class="center" style="white-space:pre-wrap;">{{item.Name}}</p></div>
+			<div class="col-30"><p class="center">{{item.Number | MillionConversion}}万</p></div>
+	  	</div>
+      </ion-item>
+    </ion-list>
+    <p>&nbsp;</p>
+  </ion-content>
+</ion-view>

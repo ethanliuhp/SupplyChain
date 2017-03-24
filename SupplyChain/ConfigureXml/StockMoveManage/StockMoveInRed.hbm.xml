@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <subclass name="Application.Business.Erp.SupplyChain.StockManage.StockMoveManage.Domain.StockMoveInRed,SupplyChain" lazy="true" extends="Application.Business.Erp.SupplyChain.StockManage.StockInManage.BasicDomain.BasicStockIn,SupplyChain" select-before-update="true" discriminator-value="4">
+    <property name="MoveOutProjectId"/>
+    <property name="MoveOutProjectName"/>
+    <property name="MaterialProvider"/>
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.StockManage.StockMoveManage.Domain.StockMoveInRedDtl, SupplyChain"/>
+    </set>
+    <property name="ForRedType"/>
+  </subclass>
+</hibernate-mapping>

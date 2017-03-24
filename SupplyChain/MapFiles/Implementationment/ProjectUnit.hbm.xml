@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ImplementationPlan.Domain.ImplementProjectUnit,SupplyChain" table="thd_Relevanproject" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <property name="GuidName"/>
+    <property name="UnitStyle"/>
+    <property name="UnitName"/>
+    <property name="ImplementationBook"/>
+    <property name="EntityGuid"/>
+    <property name="SerialNO"/>
+
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.ImplementationPlan.Domain.ImplementationMaintain,SupplyChain"></many-to-one>
+
+  </class>
+</hibernate-mapping>

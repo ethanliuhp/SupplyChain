@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.HelpOnlineManage.Domain.HelpOnlineMng,SupplyChain" table="thd_helponlinemanage" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <!--<version name="Version" column="VERSION" type="long" unsaved-value="-1"/>-->
+    <property name="MenuId"/>
+    <property name="MenuName"/>
+    <property name="MenuDescript"/>
+    <property name="CreatePersonName" />
+    <many-to-one name="CreatePerson"/>
+    <property name="CreateDate"/>
+    <property name="LastUpdateDate"/>
+    <property name="DocState"/>
+
+  </class>
+</hibernate-mapping>

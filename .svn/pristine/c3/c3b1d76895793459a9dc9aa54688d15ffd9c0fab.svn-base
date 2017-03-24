@@ -1,0 +1,690 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Cscec.Web.ProjectRanking;
+using Application.Business.Erp.SupplyChain.Basic.Domain;
+using System.Data;
+using IRPServiceModel.Services.Common;
+using PortalIntegrationConsole.CommonClass;
+
+namespace PortalIntegrationConsole.Plugin
+{
+    /// <summary>
+    /// 扩展方法
+    /// </summary>
+    public static class ProjectRankingPlugin
+    {
+        //public static DateTime curMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+        //public static DateTime preMonth = new DateTime(curMonth.AddMonths(-1).Year, curMonth.AddMonths(-1).Month, 1);
+        //public static DateTime lastMonth = new DateTime(curMonth.AddMonths(-2).Year, curMonth.AddMonths(-2).Month, 1);
+        public static DateTime finialTime;
+        public static DateTime curMonth = DateTime.Now.AddMonths(-1);
+        public static DateTime preMonth = DateTime.Now.AddMonths(-2);
+        public static DateTime lastMonth = DateTime.Now.AddMonths(-3);
+        /// <summary>
+        /// 计算项目的工程信息得分，返回排名实体列表
+        /// </summary>
+        /// <param name="projectList"></param>
+        /// <param name="indexname">指标名称</param>
+        /// <returns></returns>
+        public static List<ProjectSysRankingModel> CalcFoundationScore(this List<CurrentProjectInfo> projectList, string indexname)
+        {
+            ICommonMethodSrv service = StaticMethod.GetService("IRPServiceModel", "CommonMethodSrv") as ICommonMethodSrv;
+            // 客户信息
+            var customInfo = service.GetData("select unittype,parentid,count(*) count from THD_ProRelationUnit group by unittype,parentid").Tables[0].Select().Select(a => new
+            {
+                ID = a["parentid"].ToString(),
+                Count = Convert.ToInt32(a["count"]),
+                Type = a["unittype"].ToString()
+            });
+            // 工期节点信息
+            var timeLimitInfo = service.GetData("select parentid,count(*) count from THD_PeroidNode group by parentid").Tables[0].Select().Select(a => new
+            {
+                ID = a["parentid"].ToString(),
+                Count = Convert.ToInt32(a["count"])
+            });
+
+            var foundationResult = projectList.Select(projectInfo =>
+            {
+                int record = 0;             // 总缺失记录
+                StringBuilder sb = new StringBuilder();
+                if (string.IsNullOrEmpty(projectInfo.Name)) { record++; sb.Append("项目名称、"); }
+                if (string.IsNullOrEmpty(projectInfo.HandlePersonName)) { record++; sb.Append("项目经理、"); }
+                if (string.IsNullOrEmpty(projectInfo.ProjectLocationProvince)) { record++; sb.Append("所在省、"); }
+                if (string.IsNullOrEmpty(projectInfo.ProjectLocationCity)) { record++; sb.Append("所在市、"); }
+                if (string.IsNullOrEmpty(projectInfo.ProjectLocationDescript)) { record++; sb.Append("所在地址、"); }
+                if (string.IsNullOrEmpty(projectInfo.MapPoint)) { record++; sb.Append("坐标、"); }
+                if (string.IsNullOrEmpty(projectInfo.ContractArea)) { record++; sb.Append("承包范围、"); }
+                if (projectInfo.ProjectCost == 0) { record++; sb.Append("工程造价、"); }
+                if (projectInfo.RealPerMoney == 0) { record++; sb.Append("实际预算总额、"); }
+                if (projectInfo.ContractIncome == 0) { record++; sb.Append("自营合同收入、"); }
+                if (projectInfo.BuildingHeight == 0) { record++; sb.Append("建筑高度、"); }
+                if (projectInfo.BuildingArea == 0) { record++; sb.Append("建筑面积、"); }
+                if (projectInfo.TheGroundArea == 0) { record++; sb.Append("地上面积、"); }
+                if (projectInfo.UnderGroundArea == 0) { record++; sb.Append("地下面积、"); }
+                if (projectInfo.CivilContractMoney == 0) { record++; sb.Append("土建合同金额、"); }
+                if (projectInfo.InstallOrderMoney == 0) { record++; sb.Append("安装合同金额、"); }
+                if (projectInfo.ContractCollectRatio == 0) { record++; sb.Append("合同收款比例、"); }
+                if (projectInfo.ResProportion == 0) { record++; sb.Append("责任上缴比例、"); }
+                if (string.IsNullOrEmpty(projectInfo.ConstractStage)) { record++; sb.Append("施工阶段、"); }
+                if (string.IsNullOrEmpty(projectInfo.SaftyTarget)) { record++; sb.Append("安全目标、"); }
+                if (string.IsNullOrEmpty(projectInfo.QuanlityTarget)) { record++; sb.Append("质量目标、"); }
+                if (string.IsNullOrEmpty(projectInfo.QualityReword)) { record++; sb.Append("质量奖罚、"); }
+                if (projectInfo.BeginDate == new DateTime(1900, 1, 1)) { record++; sb.Append("开工日期、"); }
+                if (projectInfo.EndDate == new DateTime(1900, 1, 1)) { record++; sb.Append("竣工日期"); }
+
+                // 项目客户信息
+                var custom = customInfo.Where(a => a.ID == projectInfo.Id);
+                bool supervisorDept = false, buildDept = false, designDept = false;
+                if (custom != null && custom.Count() > 0)
+                {
+                    supervisorDept = custom.FirstOrDefault(a => a.Type == "监理单位") != null;
+                    buildDept = custom.FirstOrDefault(a => a.Type == "建设单位") != null;
+                    designDept = custom.FirstOrDefault(a => a.Type == "设计单位") != null;
+                }
+
+                // 工期节点数
+                var timeLimit = timeLimitInfo.FirstOrDefault(a => a.ID == projectInfo.Id);
+                int timeLimitCount = timeLimit == null ? 0 : timeLimit.Count;
+
+                float score = 0;                        // 最终得分
+                string conclusion = string.Empty;       // 评价结论
+                string result = sb.ToString();          // 评价结果
+                if (result.EndsWith("、"))
+                {
+                    result = result.Remove(result.Length - 1);
+                }
+                result += "等" + record + "项信息不全;";
+                if (record == 0)
+                {
+                    result = "";
+                }
+
+                #region 得分计算
+                if (record == 0 && timeLimitCount >= 4 && supervisorDept && buildDept && designDept)
+                {
+                    result = "";
+                    score = 1;
+                    conclusion = "完整";
+                }
+                else if (record > 5 && timeLimitCount == 0 && !supervisorDept && !buildDept && !designDept)
+                {
+                    score = 0;
+                    conclusion = "不完整";
+                }
+                else if (record > 5 || !(supervisorDept || buildDept || designDept) || timeLimitCount == 0)
+                {
+                    score = 0.3f;
+                    conclusion = "不完整";
+                }
+                else
+                {
+                    score = 0.6f;
+                    conclusion = "不完整";
+                }
+                #endregion
+
+                #region 客户信息说明
+                var customDescription = new List<string>();
+                if (!supervisorDept)
+                {
+                    customDescription.Add("监理单位");
+                }
+                if (!buildDept)
+                {
+                    customDescription.Add("建设单位");
+                }
+                if (!designDept)
+                {
+                    customDescription.Add("设计单位");
+                }
+                if (customDescription.Count > 0)
+                {
+                    result += "客户信息" + string.Join("、", customDescription.ToArray()) + "未指定;";
+                }
+                #endregion
+
+                if (timeLimitCount < 4)
+                {
+                    result += "缺少工期节点信息;";
+                }
+
+                return new ProjectSysRankingModel(projectInfo, indexname, conclusion, result, score, ScopeType.Single, 5, score * 5);
+            }).ToList();
+            return foundationResult;
+        }
+        /// <summary>
+        /// 计算项目的岗位配置与电子签名得分
+        /// </summary>
+        /// <param name="projectList"></param>
+        /// <param name="relativeTable"></param>
+        /// <param name="indexname">指标名称</param>
+        /// <returns></returns>
+        public static List<ProjectSysRankingModel> CalcAutoGraphScore(this List<CurrentProjectInfo> projectList, DataTable relativeTable, string indexname)
+        {
+            var relativeList = relativeTable.Select().Select(a => new
+            {
+                ProjectId = a["projectid"].ToString(),
+                PostId = a["postid"].ToString(),
+                PostName = a["postname"].ToString(),
+                Name = a["username"].ToString(),
+                Photo = a["photo"] + ""
+            });
+            var resultList = projectList.Select(projectInfo =>
+            {
+                var curProRelative = relativeList.Where(b => b.ProjectId == projectInfo.Id);      // 获取当前项目的岗位、人员关系
+                var isProjectManager = curProRelative.FirstOrDefault(c => c.PostName.Trim() == "项目经理") != null;        // 是否存在项目经理
+                var isProductManager = curProRelative.FirstOrDefault(c => c.PostName.Trim() == "项目生产经理") != null;    // 是否存在项目生产经理
+                var isBussinessManager = curProRelative.FirstOrDefault(c => c.PostName.Trim() == "项目商务经理") != null;  // 是否存在项目商务经理
+                var isBudgetOfficer = curProRelative.FirstOrDefault(c => c.PostName.Trim() == "预算员") != null;           // 是否存在预算员
+                var isTechnician = curProRelative.FirstOrDefault(c => c.PostName.Trim() == "技术员") != null;              // 是否存在技术员
+                var isMaterialMember = curProRelative.FirstOrDefault(c => c.PostName.Trim() == "材料员") != null;          // 是否存在材料员
+                var isInspector = curProRelative.FirstOrDefault(c => c.PostName.Trim() == "质检员") != null;               // 是否存在质检员
+                var isSafe = curProRelative.FirstOrDefault(c => c.PostName.Trim() == "安全员") != null;                    // 是否存在安全员
+                var isCost = curProRelative.FirstOrDefault(c => c.PostName.Trim() == "安全员") != null;                    // 是否存在成本员
+                var isConstruction = curProRelative.FirstOrDefault(c => c.PostName.Trim() == "施工员") != null;            // 是否存在施工员
+                // 项目经理是否有电子签名
+                var isProjectManaPhoto = curProRelative.FirstOrDefault(c => c.PostName.Trim() == "项目经理" && !string.IsNullOrEmpty(c.Photo)) != null;
+                // 项目商务经理是否有电子签名
+                var isBussinessManaPhoto = curProRelative.FirstOrDefault(c => c.PostName.Trim() == "项目商务经理" && !string.IsNullOrEmpty(c.Photo)) != null;
+                List<string> notPost = new List<string>();                      // 未设置的岗位
+                List<string> notGraph = new List<string>();                    // 未设置签名 
+                int record = 0;                                                 // 设置权限数
+                if (isProjectManager) record++; else notPost.Add("项目经理");
+                if (isProductManager) record++; else notPost.Add("项目生产经理");
+                if (isBussinessManager) record++; else notPost.Add("项目商务经理");
+                if (isBudgetOfficer) record++; else notPost.Add("预算员");
+                if (isTechnician) record++; else notPost.Add("技术员");
+                if (isMaterialMember) record++; else notPost.Add("材料员");
+                if (isInspector) record++; else notPost.Add("质检员");
+                if (isSafe) record++; else notPost.Add("安全员");
+                if (isConstruction) record++; else notPost.Add("施工员");
+                if (isCost) record++; else notPost.Add("成本员");
+                if (!isProjectManaPhoto) notGraph.Add("项目经理");
+                if (!isBussinessManaPhoto) notGraph.Add("项目商务经理");
+
+                float score = 0;                        // 最终得分
+                string conclusion = "不完整";       // 评价结论
+                string result = string.Format("{0}{1}", notPost.Count == 0 ? "已配置;" : string.Join("、", notPost.ToArray()) + "岗位未配置;", notGraph.Count == 0 ? "" : string.Join("、", notGraph.ToArray()) + "无电子签名;"); // 评价结果
+                if (notPost.Count == 0 && notGraph.Count == 0) { score = 1; conclusion = "完整"; }
+                else if (notPost.Count > 3 && notGraph.Count > 1) score = 0;
+                else if (notPost.Count > 3 || notGraph.Count > 1) score = 0.6f;
+                else score = 0.3f;
+
+                return new ProjectSysRankingModel(projectInfo, indexname, conclusion, result, score, ScopeType.Single, 5, score * 5);
+            }).ToList();
+            return resultList;
+        }
+        /// <summary>
+        /// 计算施工部位划分得分
+        /// </summary>
+        /// <param name="projectList"></param>
+        /// <param name="table"></param>
+        /// <param name="indexname">指标名称</param>
+        /// <returns></returns>
+        public static List<ProjectSysRankingModel> CalcConstructionSiteScore(this List<CurrentProjectInfo> projectList, DataRow[] rows, string indexname)
+        {
+            return DataHandle(projectList, rows, indexname, (projectInfo, indexRows) =>
+            {
+                var count = indexRows.Where(a => a["projectid"].ToString() == projectInfo.Id).Sum(a => Convert.ToInt32(a["count"]));
+                float score = 0;
+                var result = "共" + count + "条记录";
+                var conclusion = string.Empty;
+                if (count >= 10)
+                {
+                    score = 1;
+                    conclusion = "有";
+                }
+                else if (count > 0)
+                {
+                    score = 0.5f;
+                    conclusion = "不完善";
+                }
+                else
+                {
+                    score = 0;
+                    conclusion = "无数据";
+                }
+                return new ProjectSysRankingModel(projectInfo, indexname, conclusion, result, score, ScopeType.Single, 2, score * 2);
+            }).ToList();
+        }
+        /// <summary>
+        /// 计算施工任务划分得分
+        /// </summary>
+        /// <param name="projectList"></param>
+        /// <param name="table"></param>
+        /// <param name="indexname">指标名称</param>
+        /// <returns></returns>
+        public static List<ProjectSysRankingModel> CalcConstructionTaskScore(this List<CurrentProjectInfo> projectList, DataRow[] rows, string indexname)
+        {
+            return DataHandle(projectList, rows, indexname, (projectInfo, indexRows) =>
+            {
+                var count = indexRows.Where(a => a["projectid"].ToString() == projectInfo.Id).Sum(a => Convert.ToInt32(a["count"]));
+                float score = 0;
+                var result = "共" + count + "条记录";
+                var conclusion = string.Empty;
+                if (count >= 10)
+                {
+                    score = 1;
+                    conclusion = "有";
+                }
+                else if (count > 0)
+                {
+                    score = 0.5f;
+                    conclusion = "不完善";
+                }
+                else
+                {
+                    score = 0;
+                    conclusion = "无数据";
+                }
+                return new ProjectSysRankingModel(projectInfo, indexname, conclusion, result, score, ScopeType.Single, 4, score * 4);
+            }).ToList();
+        }
+        /// <summary>
+        /// 计算成本信息得分
+        /// </summary>
+        /// <param name="projectList"></param>
+        /// <param name="table"></param>
+        /// <param name="indexname">指标名称</param>
+        /// <returns></returns>
+        public static List<ProjectSysRankingModel> CalcCostInfoScore(this List<CurrentProjectInfo> projectList, DataRow[] rows, string indexname)
+        {
+            return DataHandle(projectList, rows, indexname, (projectInfo, indexRows) =>
+            {
+                var count = indexRows.Where(a => a["projectid"].ToString() == projectInfo.Id).Sum(a => Convert.ToInt32(a["count"]));
+                float score = 0;
+                var result = "共" + count + "条记录";
+                var conclusion = string.Empty;
+                if (count > 0)
+                {
+                    score = 1;
+                    conclusion = "有";
+                }
+                else
+                {
+                    score = 0;
+                    conclusion = "无数据";
+                }
+                return new ProjectSysRankingModel(projectInfo, indexname, conclusion, result, score, ScopeType.Single, 4, score * 4);
+            }).ToList();
+        }
+        /// <summary>
+        /// 计算核算任务数得分
+        /// </summary>
+        /// <param name="projectList"></param>
+        /// <param name="table"></param>
+        /// <param name="indexname">指标名称</param>
+        /// <returns></returns>
+        public static List<ProjectSysRankingModel> CalcTaskTotalScore(this List<CurrentProjectInfo> projectList, DataRow[] rows, string indexname)
+        {
+            return DataHandle(projectList, rows, indexname, (projectInfo, indexRows) =>
+            {
+                return GetLatelyThressTotal(projectInfo, indexRows, indexname, 5);
+            }).ToList();
+        }
+        /// <summary>
+        /// 计算零星工单数得分
+        /// </summary>
+        /// <param name="projectList"></param>
+        /// <param name="table"></param>
+        /// <param name="indexname">指标名称</param>
+        /// <returns></returns>
+        public static List<ProjectSysRankingModel> CalcSporadicScore(this List<CurrentProjectInfo> projectList, DataRow[] rows, string indexname)
+        {
+            return DataHandle(projectList, rows, indexname, (projectInfo, indexRows) =>
+            {
+                return GetLatelyThressTotal(projectInfo, indexRows, indexname, 5);
+            }).ToList();
+        }
+        /// <summary>
+        /// 计算整改单数得分
+        /// </summary>
+        /// <param name="projectList"></param>
+        /// <param name="table"></param>
+        /// <param name="indexname">指标名称</param>
+        /// <returns></returns>
+        public static List<ProjectSysRankingModel> CalcRectificationScore(this List<CurrentProjectInfo> projectList, DataRow[] rows, string indexname)
+        {
+            return DataHandle(projectList, rows, indexname, (projectInfo, indexRows) =>
+            {
+                return GetLatelyThressTotal(projectInfo, indexRows, indexname, 5);
+            }).ToList();
+        }
+        /// <summary>
+        /// 计算罚款单数得分
+        /// </summary>
+        /// <param name="projectList"></param>
+        /// <param name="table"></param>
+        /// <param name="indexname">指标名称</param>
+        /// <returns></returns>
+        public static List<ProjectSysRankingModel> CalcFineScore(this List<CurrentProjectInfo> projectList, DataRow[] rows, string indexname)
+        {
+            return DataHandle(projectList, rows, indexname, (projectInfo, indexRows) =>
+            {
+                return GetLatelyThressTotal(projectInfo, indexRows, indexname, 5);
+            }).ToList();
+        }
+        /// <summary>
+        /// 计算验收结算得分
+        /// </summary>
+        /// <param name="projectList"></param>
+        /// <param name="table"></param>
+        /// <param name="indexname">指标名称</param>
+        /// <returns></returns>
+        public static List<ProjectSysRankingModel> CalcCheckScore(this List<CurrentProjectInfo> projectList, DataRow[] rows, string indexname)
+        {
+            return DataHandle(projectList, rows, indexname, (projectInfo, indexRows) =>
+            {
+                return GetLatelyThressTotal(projectInfo, indexRows, indexname, 6);
+            }).ToList();
+        }
+        /// <summary>
+        /// 计算料具收料得分
+        /// </summary>
+        /// <param name="projectList"></param>
+        /// <param name="table"></param>
+        /// <param name="indexname">指标名称</param>
+        /// <returns></returns>
+        public static List<ProjectSysRankingModel> CalcMaterialReceivingScore(this List<CurrentProjectInfo> projectList, DataRow[] rows, string indexname)
+        {
+            return DataHandle(projectList, rows, indexname, (projectInfo, indexRows) =>
+            {
+                return GetLatelyThressTotal(projectInfo, indexRows, indexname, 6);
+            }).ToList();
+        }
+        /// <summary>
+        /// 计算月度耗用报表得分
+        /// </summary>
+        /// <param name="projectList"></param>
+        /// <param name="table"></param>
+        /// <param name="indexname">指标名称</param>
+        /// <returns></returns>
+        public static List<ProjectSysRankingModel> CalcConsumeScore(this List<CurrentProjectInfo> projectList, DataRow[] rows, string indexname)
+        {
+            return DataHandle(projectList, rows, indexname, (projectInfo, indexRows) =>
+            {
+                return GetLatelyThressTotal(projectInfo, indexRows, indexname, 4);
+            }).ToList();
+        }
+
+        /// <summary>
+        /// 计算各单位的最终得分
+        /// </summary>
+        /// <param name="projectList"></param>
+        /// <param name="indexScore"></param>
+        /// <returns></returns>
+        public static List<ProjectSysRankingModel> CalcFinalScore(this List<CurrentProjectInfo> projectList, List<ProjectSysRankingModel> indexScore)
+        {
+            List<ProjectSysRankingModel> result = new List<ProjectSysRankingModel>();
+            foreach (var item in indexScore)
+            {
+                item.FinalScore = item.Score * item.Weight;
+            }
+            foreach (var item in projectList)
+            {
+                var finalScore = indexScore.Where(a => a.ProjectID == item.Id).Sum(a => a.FinalScore);
+                result.Add(new ProjectSysRankingModel(item, null, null, null, 0, ScopeType.Total, 100, finalScore));
+            }
+            return result;
+        }
+
+
+        /// <summary>
+        /// 计算项目指标得分
+        /// </summary>
+        /// <param name="projectList"></param>
+        /// <param name="rows"></param>
+        /// <param name="indexname"></param>
+        /// <param name="weight"></param>
+        /// <returns></returns>
+        public static List<ProjectSysRankingModel> CalcIndexScore(this List<CurrentProjectInfo> projectList, DataRow[] rows, string indexname, int weight)
+        {
+            return DataHandle(projectList, rows, indexname, (projectInfo, indexRows) =>
+            {
+                return GetLatelyThressTotal(projectInfo, indexRows, indexname, weight);
+            }).ToList();
+        }
+        /// <summary>
+        /// 获取最近三月项目的指标考核统计
+        /// </summary>
+        /// <param name="projectInfo">当前项目信息</param>
+        /// <param name="indexRows">所有的统计指标</param>
+        /// <param name="indexname">指标名称</param>
+        /// <param name="weight">权重</param>
+        /// <returns>排名记录</returns>
+        private static ProjectSysRankingModel GetLatelyThressTotal(CurrentProjectInfo projectInfo, DataRow[] indexRows, string indexname, int weight)
+        {
+            // 当月
+            var curMonthCount = indexRows.Where(a => a["projectid"].ToString() == projectInfo.Id && Convert.ToDateTime(a["createdate"]) >= curMonth && Convert.ToDateTime(a["createdate"]) < finialTime).Sum(a => Convert.ToInt32(a["count"]));
+            // 上月
+            var prevMonthCount = indexRows.Where(a => a["projectid"].ToString() == projectInfo.Id && Convert.ToDateTime(a["createdate"]) >= preMonth && Convert.ToDateTime(a["createdate"]) < curMonth).Sum(a => Convert.ToInt32(a["count"]));
+            // 上上月
+            var lastMonthCount = indexRows.Where(a => a["projectid"].ToString() == projectInfo.Id && Convert.ToDateTime(a["createdate"]) >= lastMonth && Convert.ToDateTime(a["createdate"]) < preMonth).Sum(a => Convert.ToInt32(a["count"]));
+            float score = 0;
+            var result = string.Format("{0}月{1}份|{2}月{3}份|{4}月{5}份", finialTime.Month, curMonthCount, curMonth.Month, prevMonthCount, preMonth.Month, lastMonthCount);
+            var conclusion = string.Empty;
+            if (curMonthCount > 0)
+            {
+                conclusion = "当月值" + curMonthCount;
+                score = 1;
+            }
+            else if (prevMonthCount > 0)
+            {
+                conclusion = "无";
+                score = 0.6f;
+            }
+            else if (lastMonthCount > 0)
+            {
+                conclusion = "|近2月无";
+                score = 0.3f;
+                result += conclusion;
+            }
+            else
+            {
+                conclusion = "|近3月无";
+                score = 0;
+                result += conclusion;
+            }
+            return new ProjectSysRankingModel(projectInfo, indexname, conclusion, result, score, ScopeType.Single, weight, score * weight);
+        }
+        /// <summary>
+        /// 统计指标得分
+        /// </summary>
+        /// <param name="projectList">项目列表</param>
+        /// <param name="rows">待统计的指标列表</param>
+        /// <param name="indexname">指标名称</param>
+        /// <param name="handler">计算指标得分函数</param>
+        /// <returns>项目指定的得分情况</returns>
+        private static List<ProjectSysRankingModel> DataHandle(List<CurrentProjectInfo> projectList, DataRow[] rows, string indexname, Func<CurrentProjectInfo, DataRow[], ProjectSysRankingModel> handler)
+        {
+            var curIndexList = rows.Where(a => a["indexname"].ToString() == indexname).ToArray();
+            var resultList = projectList.Select(a => handler(a, curIndexList)).ToList();
+            return resultList;
+        }
+
+
+        #region 通用统计得分方法
+        /// <summary>
+        /// 最近三月方式统计得分
+        /// </summary>
+        /// <param name="projectList">项目列表</param>
+        /// <param name="rows">待统计的指标列表</param>
+        /// <param name="indexname">指标名称</param>
+        /// <param name="weight">分值权重</param>
+        /// <returns></returns>
+        public static List<ProjectSysRankingModel> CalcLatelyThressScore(this List<CurrentProjectInfo> projectList, DataRow[] rows, string indexname, int weight)
+        {
+            return DataHandle(projectList, rows, indexname, (projectInfo, indexRows) =>
+            {
+                return GetLatelyThressTotal(projectInfo, indexRows, indexname, weight);
+            }).ToList();
+        }
+
+        /// <summary>
+        /// 最近三月方式统计得分
+        /// </summary>
+        /// <param name="projectList">项目列表</param>
+        /// <param name="rows">待统计的指标列表</param>
+        /// <param name="indexname">指标名称</param>
+        /// <param name="weight">分值权重</param>
+        /// <param name="fullScoreCount">得满分至少需要的记录条数</param> 
+        /// <returns></returns>
+        public static List<ProjectSysRankingModel> CalcLatelyThressScore(this List<CurrentProjectInfo> projectList, DataRow[] rows, string indexname, int weight, int fullScoreCount)
+        {
+            return DataHandle(projectList, rows, indexname, (projectInfo, indexRows) =>
+            {
+                return GetLatelyThressTotal(projectInfo, indexRows, indexname, weight, fullScoreCount);
+            }).ToList();
+        }
+
+        /// <summary>
+        /// 分“无数据”，“有”两个个等级统计得分
+        /// </summary>
+        /// <param name="projectList">项目列表</param>
+        /// <param name="rows">待统计的指标列表</param>
+        /// <param name="indexname">指标名称</param>
+        /// <param name="weight">分值权重</param>
+        /// <returns>0分，满分</returns>
+        public static List<ProjectSysRankingModel> CalcTwoGradesScore(this List<CurrentProjectInfo> projectList, DataRow[] rows, string indexname, int weight)
+        {
+            return DataHandle(projectList, rows, indexname, (projectInfo, indexRows) =>
+            {
+                var count = indexRows.Where(a => a["projectid"].ToString() == projectInfo.Id).Sum(a => Convert.ToInt32(a["count"]));
+                float score = 0;
+                var result = "共" + count + "条记录";
+                var conclusion = string.Empty;
+                if (count > 0)
+                {
+                    score = 1;
+                    conclusion = "有";
+                }
+                else
+                {
+                    score = 0;
+                    conclusion = "无数据";
+                }
+                return new ProjectSysRankingModel(projectInfo, indexname, conclusion, result, score, ScopeType.Single, weight, score * weight);
+            }).ToList();
+        }
+
+        /// <summary>
+        /// 分“无数据”，“不完善”，“有”三个等级统计得分
+        /// </summary>
+        /// <param name="projectList">项目列表</param>
+        /// <param name="rows">待统计的指标列表</param>
+        /// <param name="indexname">指标名称</param>
+        /// <param name="weight">分值权重</param>
+        /// <param name="fullScoreCount">得满分至少需要的记录条数</param>
+        /// <returns>0分,50%*满分，满分</returns>
+        public static List<ProjectSysRankingModel> CalcThreeGradesScore(this List<CurrentProjectInfo> projectList, DataRow[] rows, string indexname, int weight, int fullScoreCount)
+        {
+            return DataHandle(projectList, rows, indexname, (projectInfo, indexRows) =>
+            {
+                var count = indexRows.Where(a => a["projectid"].ToString() == projectInfo.Id).Sum(a => Convert.ToInt32(a["count"]));
+                float score = 0;
+                var result = "共" + count + "条记录";
+                var conclusion = string.Empty;
+                if (count >= fullScoreCount)
+                {
+                    score = 1;
+                    conclusion = "有";
+                }
+                else if (count > 0)
+                {
+                    score = 0.5f;
+                    conclusion = "不完善";
+                }
+                else
+                {
+                    score = 0;
+                    conclusion = "无数据";
+                }
+                return new ProjectSysRankingModel(projectInfo, indexname, conclusion, result, score, ScopeType.Single, weight, score * weight);
+            }).ToList();
+        }
+
+        /// <summary>
+        /// 根据当月数据分“无数据”，“不完善”，“有”三个等级统计得分
+        /// </summary>
+        /// <param name="projectList">项目列表</param>
+        /// <param name="rows">待统计的指标列表</param>
+        /// <param name="indexname">指标名称</param>
+        /// <param name="weight">分值权重</param>
+        /// <param name="fullScoreCount">得满分至少需要的记录条数</param>
+        /// <returns>0分,50%*满分，满分</returns>
+        public static List<ProjectSysRankingModel> CalcThreeGradesScoreByCurMonth(this List<CurrentProjectInfo> projectList, DataRow[] rows, string indexname, int weight, int fullScoreCount)
+        {
+            return DataHandle(projectList, rows, indexname, (projectInfo, indexRows) =>
+            {
+                var count = indexRows.Where(a => a["projectid"].ToString() == projectInfo.Id
+                    && Convert.ToDateTime(a["createdate"]) >= curMonth
+                    && Convert.ToDateTime(a["createdate"]) < finialTime).Sum(a => Convert.ToInt32(a["count"]));
+                float score = 0;
+                var result = "共" + count + "条记录";
+                var conclusion = string.Empty;
+                if (count >= fullScoreCount)
+                {
+                    score = 1;
+                    conclusion = "有";
+                }
+                else if (count > 0)
+                {
+                    score = 0.5f;
+                    conclusion = "不完善";
+                }
+                else
+                {
+                    score = 0;
+                    conclusion = "无数据";
+                }
+                return new ProjectSysRankingModel(projectInfo, indexname, conclusion, result, score, ScopeType.Single, weight, score * weight);
+            }).ToList();
+        }
+
+        private static ProjectSysRankingModel GetLatelyThressTotal(CurrentProjectInfo projectInfo, DataRow[] indexRows, string indexname, int weight, int fullScoreCount)
+        {
+            // 当月
+            var curMonthCount = indexRows.Where(a => a["projectid"].ToString() == projectInfo.Id && Convert.ToDateTime(a["createdate"]) >= curMonth && Convert.ToDateTime(a["createdate"]) < finialTime).Sum(a => Convert.ToInt32(a["count"]));
+            // 上月
+            var prevMonthCount = indexRows.Where(a => a["projectid"].ToString() == projectInfo.Id && Convert.ToDateTime(a["createdate"]) >= preMonth && Convert.ToDateTime(a["createdate"]) < curMonth).Sum(a => Convert.ToInt32(a["count"]));
+            // 上上月
+            var lastMonthCount = indexRows.Where(a => a["projectid"].ToString() == projectInfo.Id && Convert.ToDateTime(a["createdate"]) >= lastMonth && Convert.ToDateTime(a["createdate"]) < preMonth).Sum(a => Convert.ToInt32(a["count"]));
+            float score = 0;
+            var result = string.Format("{0}月{1}份|{2}月{3}份|{4}月{5}份", finialTime.Month, curMonthCount, curMonth.Month, prevMonthCount, preMonth.Month, lastMonthCount);
+            var conclusion = string.Empty;
+            if (curMonthCount >= fullScoreCount)
+            {
+                conclusion = "当月值" + curMonthCount;
+                score = 1;
+            }
+            else if (curMonthCount > 0)
+            {
+                conclusion = "当月值" + curMonthCount;
+                score = 0.5f;
+            }
+            else if (prevMonthCount > 0)
+            {
+                conclusion = "无";
+                score = 0.6f;
+            }
+            else if (lastMonthCount > 0)
+            {
+                conclusion = "|近2月无";
+                score = 0.3f;
+                result += conclusion;
+            }
+            else
+            {
+                conclusion = "|近3月无";
+                score = 0;
+                result += conclusion;
+            }
+            return new ProjectSysRankingModel(projectInfo, indexname, conclusion, result, score, ScopeType.Single, weight, score * weight);
+        }
+        #endregion
+
+    }
+}
+

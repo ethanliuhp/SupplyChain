@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Application.Business.Erp.PortalIntegration.Domain" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="OpeOrg">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="OrgCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrgName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrgType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ParentOrgCode" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OpeOrg" nillable="true" type="tns:OpeOrg" />
+  <xs:complexType name="RetOb">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Out0" type="xs:int" />
+      <xs:element minOccurs="0" name="Result" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RetOb" nillable="true" type="tns:RetOb" />
+  <xs:complexType name="Post">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="OrderNo" type="xs:int" />
+      <xs:element minOccurs="0" name="OrgCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PosiCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PosiName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Post" nillable="true" type="tns:Post" />
+  <xs:complexType name="User">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="User" nillable="true" type="tns:User" />
+  <xs:complexType name="Role">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="RoleCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RoleName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Role" nillable="true" type="tns:Role" />
+  <xs:complexType name="ProjectInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AprroachDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="BeginDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="BuildingArea" type="xs:decimal" />
+      <xs:element minOccurs="0" name="BuildingHeight" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ContractArea" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CreateDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="EndDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="GroundLayers" type="xs:decimal" />
+      <xs:element minOccurs="0" name="HandlePersonName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ManagerDepart" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OwnerOrg" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OwnerOrgName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OwnerOrgSysCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProjectCost" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ProjectLifeCycle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProjectLocationCity" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProjectLocationDescript" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProjectLocationProvince" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="QuanlityTarget" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SaftyTarget" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnderGroundLayers" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProjectInfo" nillable="true" type="tns:ProjectInfo" />
+  <xs:complexType name="ArrayOfProjectInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProjectInfo" nillable="true" type="tns:ProjectInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProjectInfo" nillable="true" type="tns:ArrayOfProjectInfo" />
+</xs:schema>

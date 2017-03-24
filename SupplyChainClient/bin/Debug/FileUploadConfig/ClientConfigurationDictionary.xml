@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DictionarySerializer version="1.0">
+  <Context Name="EditorConfigurationClientMessages">
+    <Label Name="CONNECTIONFAILED">
+      <LocalizedLabel LanguageRef="en">Unable to connect to the server</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">Impossibile collegarsi al server</LocalizedLabel>
+      <LocalizedLabel LanguageRef="de">Verbindung zu Server kann nicht hergestellt werden.</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">无法连接到服务器.</LocalizedLabel>
+    </Label>
+    <Label Name="INVALIDCONFIGURATION">
+      <LocalizedLabel LanguageRef="en">Invalid configuration file</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">File di configurazione errato</LocalizedLabel>
+      <LocalizedLabel LanguageRef="de">Ungültige Konfigurationsdatei</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">配置文件不正确.</LocalizedLabel>
+    </Label>
+      <Label Name="FAILEDCONFIGDOWNLOAD">
+          <LocalizedLabel LanguageRef="en">Unable to download the requested configuration from the server.\nCheck your connection to the server and try again.\nContact your system administrator if the problem persists.</LocalizedLabel>
+          <LocalizedLabel LanguageRef="it">Impossibile scaricare la configurazione richiesta dal server.\nVerificare la connessione al server e riprovare.\nContattare l'amministratore di sistema se il problema persiste.</LocalizedLabel>
+          <LocalizedLabel LanguageRef="de">de_Unable to download the requested configuration from the server.\nCheck your connection to the server and try again.\nContact your system administrator if the problem persists.</LocalizedLabel>
+          <LocalizedLabel LanguageRef="zhs">配置文件下载失败。\n原因如下：无法连接到服务器或者配置模板加载失败。\n请您与管理员联系。</LocalizedLabel>
+      </Label>
+  </Context>
+</DictionarySerializer>

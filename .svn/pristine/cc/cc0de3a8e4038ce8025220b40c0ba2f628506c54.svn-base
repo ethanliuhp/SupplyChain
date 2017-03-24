@@ -1,0 +1,3876 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="SendPopupMessage_std">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderUserID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppTitle" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessage_stdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendPopupMessage_stdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessage_stdEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderUserID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppTitle" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strSubAppcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strDetailTitle" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessage_stdExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendPopupMessage_stdExResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderUserID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppTitle" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendPopupMessageResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderUserID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppTitle" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strSubAppcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strDetailTitle" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendPopupMessageExResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByUserCode_std">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="nSenderUserCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppTitle" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByUserCode_stdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendPopupMessageByUserCode_stdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByUserCode_stdEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="nSenderUserCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppTitle" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strSubAppcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strDetailTitle" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByUserCode_stdExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendPopupMessageByUserCode_stdExResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByUserCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="nSenderUserCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppTitle" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByUserCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendPopupMessageByUserCodeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByUserCodeEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="nSenderUserCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppTitle" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strSubAppcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strDetailTitle" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByUserCodeExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendPopupMessageByUserCodeExResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCommonMessage_std">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderUserID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strContent" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCommonMessage_stdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendCommonMessage_stdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCommonMessage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderUserID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strContent" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCommonMessageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendCommonMessageResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCommonMessageByUserCode_std">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="nSenderUserCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strContent" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCommonMessageByUserCode_stdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendCommonMessageByUserCode_stdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCommonMessageByUserCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="nSenderUserCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strContent" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCommonMessageByUserCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendCommonMessageByUserCodeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCountChangeMessage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderUserID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCountChangeMessageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendCountChangeMessageResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCountChangeMessage_std">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderUserID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCountChangeMessage_stdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendCountChangeMessage_stdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCountChangeMessageByCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="nSenderUserCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCountChangeMessageByCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendCountChangeMessageByCodeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCountChangeMessageByCode_std">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="nSenderUserCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCountChangeMessageByCode_stdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendCountChangeMessageByCode_stdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByProcStr_std">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sProcStr" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderUserID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppTitle" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByProcStr_stdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendPopupMessageByProcStr_stdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByProcStr_stdEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sProcStr" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderUserID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppTitle" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strSubAppcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strDetailTitle" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByProcStr_stdExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendPopupMessageByProcStr_stdExResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByProcStr">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sProcStr" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderUserID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppTitle" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByProcStrResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendPopupMessageByProcStrResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByProcStrEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sProcStr" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderUserID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppTitle" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strSubAppcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strDetailTitle" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByProcStrExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendPopupMessageByProcStrExResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByUserCodeProcStr_std">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sProcStr" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="nSenderUserCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppTitle" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByUserCodeProcStr_stdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendPopupMessageByUserCodeProcStr_stdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByUserCodeProcStr_stdEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sProcStr" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="nSenderUserCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppTitle" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strSubAppcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strDetailTitle" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByUserCodeProcStr_stdExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendPopupMessageByUserCodeProcStr_stdExResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByUserCodeProcStr">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sProcStr" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="nSenderUserCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppTitle" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByUserCodeProcStrResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendPopupMessageByUserCodeProcStrResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByUserCodeProcStrEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sProcStr" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="nSenderUserCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppTitle" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strSubAppcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strDetailTitle" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupMessageByUserCodeProcStrExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendPopupMessageByUserCodeProcStrExResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCommonMessageByProcStr_std">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sProcStr" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderUserID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strContent" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCommonMessageByProcStr_stdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendCommonMessageByProcStr_stdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCommonMessageByProcStr">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sProcStr" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderUserID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strContent" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCommonMessageByProcStrResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendCommonMessageByProcStrResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCommonMessageByUserCodeProcStr_std">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sProcStr" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="nSenderUserCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strContent" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCommonMessageByUserCodeProcStr_stdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendCommonMessageByUserCodeProcStr_stdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCommonMessageByUserCodeProcStr">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sProcStr" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="nSenderUserCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strContent" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCommonMessageByUserCodeProcStrResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendCommonMessageByUserCodeProcStrResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCountChangeMessageByProcStr">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sProcStr" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderUserID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCountChangeMessageByProcStrResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendCountChangeMessageByProcStrResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupWindowByUserID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderUserID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppTitle" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPopWidth" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPopHeight" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPopWay" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupWindowByUserIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendPopupWindowByUserIDResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupWindowByUsercode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="nSenderUserCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppTitle" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPopWidth" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPopHeight" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPopWay" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPopupWindowByUsercodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendPopupWindowByUsercodeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendHTMLMessageByUserID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderUserID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppTitle" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strSubAppcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strDetailTitle" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPopWidth" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPopHeight" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPopWay" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strWebHtml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendHTMLMessageByUserIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendHTMLMessageByUserIDResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendHTMLMessageByUserCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nSenderPlatID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="nSenderUserCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sReceiverPlatUserCodes" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppTitle" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nOnlineOnly" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="nReserveDays" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromApp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFromUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strSubAppcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strDetailTitle" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPopWidth" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPopHeight" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPopWay" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strWebHtml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendHTMLMessageByUserCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendHTMLMessageByUserCodeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DBMsgCancel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strCustomInfo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strAppCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DBMsgCancelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DBMsgCancelResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SendPopupMessage_stdSoapIn">
+    <wsdl:part name="parameters" element="tns:SendPopupMessage_std" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessage_stdSoapOut">
+    <wsdl:part name="parameters" element="tns:SendPopupMessage_stdResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessage_stdExSoapIn">
+    <wsdl:part name="parameters" element="tns:SendPopupMessage_stdEx" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessage_stdExSoapOut">
+    <wsdl:part name="parameters" element="tns:SendPopupMessage_stdExResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageSoapIn">
+    <wsdl:part name="parameters" element="tns:SendPopupMessage" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageSoapOut">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageExSoapIn">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageEx" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageExSoapOut">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageExResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCode_stdSoapIn">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByUserCode_std" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCode_stdSoapOut">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByUserCode_stdResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCode_stdExSoapIn">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByUserCode_stdEx" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCode_stdExSoapOut">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByUserCode_stdExResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByUserCode" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByUserCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeExSoapIn">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByUserCodeEx" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeExSoapOut">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByUserCodeExResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessage_stdSoapIn">
+    <wsdl:part name="parameters" element="tns:SendCommonMessage_std" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessage_stdSoapOut">
+    <wsdl:part name="parameters" element="tns:SendCommonMessage_stdResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageSoapIn">
+    <wsdl:part name="parameters" element="tns:SendCommonMessage" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageSoapOut">
+    <wsdl:part name="parameters" element="tns:SendCommonMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCode_stdSoapIn">
+    <wsdl:part name="parameters" element="tns:SendCommonMessageByUserCode_std" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCode_stdSoapOut">
+    <wsdl:part name="parameters" element="tns:SendCommonMessageByUserCode_stdResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:SendCommonMessageByUserCode" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:SendCommonMessageByUserCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageSoapIn">
+    <wsdl:part name="parameters" element="tns:SendCountChangeMessage" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageSoapOut">
+    <wsdl:part name="parameters" element="tns:SendCountChangeMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessage_stdSoapIn">
+    <wsdl:part name="parameters" element="tns:SendCountChangeMessage_std" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessage_stdSoapOut">
+    <wsdl:part name="parameters" element="tns:SendCountChangeMessage_stdResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageByCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:SendCountChangeMessageByCode" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageByCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:SendCountChangeMessageByCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageByCode_stdSoapIn">
+    <wsdl:part name="parameters" element="tns:SendCountChangeMessageByCode_std" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageByCode_stdSoapOut">
+    <wsdl:part name="parameters" element="tns:SendCountChangeMessageByCode_stdResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStr_stdSoapIn">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByProcStr_std" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStr_stdSoapOut">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByProcStr_stdResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStr_stdExSoapIn">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByProcStr_stdEx" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStr_stdExSoapOut">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByProcStr_stdExResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStrSoapIn">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByProcStr" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStrSoapOut">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByProcStrResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStrExSoapIn">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByProcStrEx" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStrExSoapOut">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByProcStrExResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStr_stdSoapIn">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByUserCodeProcStr_std" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStr_stdSoapOut">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByUserCodeProcStr_stdResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStr_stdExSoapIn">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByUserCodeProcStr_stdEx" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStr_stdExSoapOut">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByUserCodeProcStr_stdExResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStrSoapIn">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByUserCodeProcStr" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStrSoapOut">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByUserCodeProcStrResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStrExSoapIn">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByUserCodeProcStrEx" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStrExSoapOut">
+    <wsdl:part name="parameters" element="tns:SendPopupMessageByUserCodeProcStrExResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByProcStr_stdSoapIn">
+    <wsdl:part name="parameters" element="tns:SendCommonMessageByProcStr_std" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByProcStr_stdSoapOut">
+    <wsdl:part name="parameters" element="tns:SendCommonMessageByProcStr_stdResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByProcStrSoapIn">
+    <wsdl:part name="parameters" element="tns:SendCommonMessageByProcStr" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByProcStrSoapOut">
+    <wsdl:part name="parameters" element="tns:SendCommonMessageByProcStrResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCodeProcStr_stdSoapIn">
+    <wsdl:part name="parameters" element="tns:SendCommonMessageByUserCodeProcStr_std" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCodeProcStr_stdSoapOut">
+    <wsdl:part name="parameters" element="tns:SendCommonMessageByUserCodeProcStr_stdResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCodeProcStrSoapIn">
+    <wsdl:part name="parameters" element="tns:SendCommonMessageByUserCodeProcStr" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCodeProcStrSoapOut">
+    <wsdl:part name="parameters" element="tns:SendCommonMessageByUserCodeProcStrResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageByProcStrSoapIn">
+    <wsdl:part name="parameters" element="tns:SendCountChangeMessageByProcStr" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageByProcStrSoapOut">
+    <wsdl:part name="parameters" element="tns:SendCountChangeMessageByProcStrResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupWindowByUserIDSoapIn">
+    <wsdl:part name="parameters" element="tns:SendPopupWindowByUserID" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupWindowByUserIDSoapOut">
+    <wsdl:part name="parameters" element="tns:SendPopupWindowByUserIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupWindowByUsercodeSoapIn">
+    <wsdl:part name="parameters" element="tns:SendPopupWindowByUsercode" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupWindowByUsercodeSoapOut">
+    <wsdl:part name="parameters" element="tns:SendPopupWindowByUsercodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendHTMLMessageByUserIDSoapIn">
+    <wsdl:part name="parameters" element="tns:SendHTMLMessageByUserID" />
+  </wsdl:message>
+  <wsdl:message name="SendHTMLMessageByUserIDSoapOut">
+    <wsdl:part name="parameters" element="tns:SendHTMLMessageByUserIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendHTMLMessageByUserCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:SendHTMLMessageByUserCode" />
+  </wsdl:message>
+  <wsdl:message name="SendHTMLMessageByUserCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:SendHTMLMessageByUserCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="DBMsgCancelSoapIn">
+    <wsdl:part name="parameters" element="tns:DBMsgCancel" />
+  </wsdl:message>
+  <wsdl:message name="DBMsgCancelSoapOut">
+    <wsdl:part name="parameters" element="tns:DBMsgCancelResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessage_stdHttpGetIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessage_stdHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessage_stdExHttpGetIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strSubAppcode" type="s:string" />
+    <wsdl:part name="strDetailTitle" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessage_stdExHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageHttpGetIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageExHttpGetIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strSubAppcode" type="s:string" />
+    <wsdl:part name="strDetailTitle" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageExHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCode_stdHttpGetIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCode_stdHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCode_stdExHttpGetIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strSubAppcode" type="s:string" />
+    <wsdl:part name="strDetailTitle" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCode_stdExHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeHttpGetIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeExHttpGetIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strSubAppcode" type="s:string" />
+    <wsdl:part name="strDetailTitle" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeExHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessage_stdHttpGetIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strContent" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessage_stdHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageHttpGetIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strContent" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCode_stdHttpGetIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strContent" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCode_stdHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCodeHttpGetIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strContent" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCodeHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageHttpGetIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessage_stdHttpGetIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessage_stdHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageByCodeHttpGetIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageByCodeHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageByCode_stdHttpGetIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageByCode_stdHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStr_stdHttpGetIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStr_stdHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStr_stdExHttpGetIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strSubAppcode" type="s:string" />
+    <wsdl:part name="strDetailTitle" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStr_stdExHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStrHttpGetIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStrHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStrExHttpGetIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strSubAppcode" type="s:string" />
+    <wsdl:part name="strDetailTitle" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStrExHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStr_stdHttpGetIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStr_stdHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStr_stdExHttpGetIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strSubAppcode" type="s:string" />
+    <wsdl:part name="strDetailTitle" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStr_stdExHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStrHttpGetIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStrHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStrExHttpGetIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strSubAppcode" type="s:string" />
+    <wsdl:part name="strDetailTitle" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStrExHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByProcStr_stdHttpGetIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strContent" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByProcStr_stdHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByProcStrHttpGetIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strContent" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByProcStrHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCodeProcStr_stdHttpGetIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strContent" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCodeProcStr_stdHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCodeProcStrHttpGetIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strContent" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCodeProcStrHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageByProcStrHttpGetIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageByProcStrHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupWindowByUserIDHttpGetIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strPopWidth" type="s:string" />
+    <wsdl:part name="strPopHeight" type="s:string" />
+    <wsdl:part name="strPopWay" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupWindowByUserIDHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupWindowByUsercodeHttpGetIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strPopWidth" type="s:string" />
+    <wsdl:part name="strPopHeight" type="s:string" />
+    <wsdl:part name="strPopWay" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupWindowByUsercodeHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendHTMLMessageByUserIDHttpGetIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strSubAppcode" type="s:string" />
+    <wsdl:part name="strDetailTitle" type="s:string" />
+    <wsdl:part name="strPopWidth" type="s:string" />
+    <wsdl:part name="strPopHeight" type="s:string" />
+    <wsdl:part name="strPopWay" type="s:string" />
+    <wsdl:part name="strWebHtml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendHTMLMessageByUserIDHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendHTMLMessageByUserCodeHttpGetIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserCodes" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strSubAppcode" type="s:string" />
+    <wsdl:part name="strDetailTitle" type="s:string" />
+    <wsdl:part name="strPopWidth" type="s:string" />
+    <wsdl:part name="strPopHeight" type="s:string" />
+    <wsdl:part name="strPopWay" type="s:string" />
+    <wsdl:part name="strWebHtml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendHTMLMessageByUserCodeHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="DBMsgCancelHttpGetIn">
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DBMsgCancelHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessage_stdHttpPostIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessage_stdHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessage_stdExHttpPostIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strSubAppcode" type="s:string" />
+    <wsdl:part name="strDetailTitle" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessage_stdExHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageHttpPostIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageExHttpPostIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strSubAppcode" type="s:string" />
+    <wsdl:part name="strDetailTitle" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageExHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCode_stdHttpPostIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCode_stdHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCode_stdExHttpPostIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strSubAppcode" type="s:string" />
+    <wsdl:part name="strDetailTitle" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCode_stdExHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeHttpPostIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeExHttpPostIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strSubAppcode" type="s:string" />
+    <wsdl:part name="strDetailTitle" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeExHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessage_stdHttpPostIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strContent" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessage_stdHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageHttpPostIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strContent" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCode_stdHttpPostIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strContent" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCode_stdHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCodeHttpPostIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strContent" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCodeHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageHttpPostIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessage_stdHttpPostIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessage_stdHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageByCodeHttpPostIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageByCodeHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageByCode_stdHttpPostIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageByCode_stdHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStr_stdHttpPostIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStr_stdHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStr_stdExHttpPostIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strSubAppcode" type="s:string" />
+    <wsdl:part name="strDetailTitle" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStr_stdExHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStrHttpPostIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStrHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStrExHttpPostIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strSubAppcode" type="s:string" />
+    <wsdl:part name="strDetailTitle" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByProcStrExHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStr_stdHttpPostIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStr_stdHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStr_stdExHttpPostIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strSubAppcode" type="s:string" />
+    <wsdl:part name="strDetailTitle" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStr_stdExHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStrHttpPostIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStrHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStrExHttpPostIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strSubAppcode" type="s:string" />
+    <wsdl:part name="strDetailTitle" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupMessageByUserCodeProcStrExHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByProcStr_stdHttpPostIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strContent" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByProcStr_stdHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByProcStrHttpPostIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strContent" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByProcStrHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCodeProcStr_stdHttpPostIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strContent" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCodeProcStr_stdHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCodeProcStrHttpPostIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strContent" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCommonMessageByUserCodeProcStrHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageByProcStrHttpPostIn">
+    <wsdl:part name="sProcStr" type="s:string" />
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendCountChangeMessageByProcStrHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupWindowByUserIDHttpPostIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strPopWidth" type="s:string" />
+    <wsdl:part name="strPopHeight" type="s:string" />
+    <wsdl:part name="strPopWay" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupWindowByUserIDHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupWindowByUsercodeHttpPostIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strUrl" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strPopWidth" type="s:string" />
+    <wsdl:part name="strPopHeight" type="s:string" />
+    <wsdl:part name="strPopWay" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPopupWindowByUsercodeHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendHTMLMessageByUserIDHttpPostIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserID" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserIds" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strSubAppcode" type="s:string" />
+    <wsdl:part name="strDetailTitle" type="s:string" />
+    <wsdl:part name="strPopWidth" type="s:string" />
+    <wsdl:part name="strPopHeight" type="s:string" />
+    <wsdl:part name="strPopWay" type="s:string" />
+    <wsdl:part name="strWebHtml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendHTMLMessageByUserIDHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendHTMLMessageByUserCodeHttpPostIn">
+    <wsdl:part name="nSenderPlatID" type="s:string" />
+    <wsdl:part name="nSenderUserCode" type="s:string" />
+    <wsdl:part name="sReceiverPlatUserCodes" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+    <wsdl:part name="strAppTitle" type="s:string" />
+    <wsdl:part name="nOnlineOnly" type="s:string" />
+    <wsdl:part name="nReserveDays" type="s:string" />
+    <wsdl:part name="strFromApp" type="s:string" />
+    <wsdl:part name="strFromUserName" type="s:string" />
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strSubAppcode" type="s:string" />
+    <wsdl:part name="strDetailTitle" type="s:string" />
+    <wsdl:part name="strPopWidth" type="s:string" />
+    <wsdl:part name="strPopHeight" type="s:string" />
+    <wsdl:part name="strPopWay" type="s:string" />
+    <wsdl:part name="strWebHtml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendHTMLMessageByUserCodeHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="DBMsgCancelHttpPostIn">
+    <wsdl:part name="strCustomInfo" type="s:string" />
+    <wsdl:part name="strAppCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DBMsgCancelHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="ImMessageServiceSoap">
+    <wsdl:operation name="SendPopupMessage_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessage_stdSoapIn" />
+      <wsdl:output message="tns:SendPopupMessage_stdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessage_stdEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessage_stdExSoapIn" />
+      <wsdl:output message="tns:SendPopupMessage_stdExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageSoapIn" />
+      <wsdl:output message="tns:SendPopupMessageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageExSoapIn" />
+      <wsdl:output message="tns:SendPopupMessageExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCode_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCode_stdSoapIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCode_stdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCode_stdEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCode_stdExSoapIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCode_stdExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCodeSoapIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCodeExSoapIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCodeExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessage_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessage_stdSoapIn" />
+      <wsdl:output message="tns:SendCommonMessage_stdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessageSoapIn" />
+      <wsdl:output message="tns:SendCommonMessageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCode_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessageByUserCode_stdSoapIn" />
+      <wsdl:output message="tns:SendCommonMessageByUserCode_stdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessageByUserCodeSoapIn" />
+      <wsdl:output message="tns:SendCommonMessageByUserCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入计数变更消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCountChangeMessageSoapIn" />
+      <wsdl:output message="tns:SendCountChangeMessageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessage_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入计数变更消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCountChangeMessage_stdSoapIn" />
+      <wsdl:output message="tns:SendCountChangeMessage_stdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessageByCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入计数变更消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCountChangeMessageByCodeSoapIn" />
+      <wsdl:output message="tns:SendCountChangeMessageByCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessageByCode_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入计数变更消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCountChangeMessageByCode_stdSoapIn" />
+      <wsdl:output message="tns:SendCountChangeMessageByCode_stdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStr_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByProcStr_stdSoapIn" />
+      <wsdl:output message="tns:SendPopupMessageByProcStr_stdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStr_stdEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByProcStr_stdExSoapIn" />
+      <wsdl:output message="tns:SendPopupMessageByProcStr_stdExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStr">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByProcStrSoapIn" />
+      <wsdl:output message="tns:SendPopupMessageByProcStrSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStrEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByProcStrExSoapIn" />
+      <wsdl:output message="tns:SendPopupMessageByProcStrExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStr_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCodeProcStr_stdSoapIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCodeProcStr_stdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStr_stdEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCodeProcStr_stdExSoapIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCodeProcStr_stdExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStr">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCodeProcStrSoapIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCodeProcStrSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStrEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCodeProcStrExSoapIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCodeProcStrExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByProcStr_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessageByProcStr_stdSoapIn" />
+      <wsdl:output message="tns:SendCommonMessageByProcStr_stdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByProcStr">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessageByProcStrSoapIn" />
+      <wsdl:output message="tns:SendCommonMessageByProcStrSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCodeProcStr_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessageByUserCodeProcStr_stdSoapIn" />
+      <wsdl:output message="tns:SendCommonMessageByUserCodeProcStr_stdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCodeProcStr">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessageByUserCodeProcStrSoapIn" />
+      <wsdl:output message="tns:SendCommonMessageByUserCodeProcStrSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessageByProcStr">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入计数变更消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCountChangeMessageByProcStrSoapIn" />
+      <wsdl:output message="tns:SendCountChangeMessageByProcStrSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupWindowByUserID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupWindowByUserIDSoapIn" />
+      <wsdl:output message="tns:SendPopupWindowByUserIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupWindowByUsercode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupWindowByUsercodeSoapIn" />
+      <wsdl:output message="tns:SendPopupWindowByUsercodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendHTMLMessageByUserID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">发送HTML消息</wsdl:documentation>
+      <wsdl:input message="tns:SendHTMLMessageByUserIDSoapIn" />
+      <wsdl:output message="tns:SendHTMLMessageByUserIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendHTMLMessageByUserCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">发送HTML消息</wsdl:documentation>
+      <wsdl:input message="tns:SendHTMLMessageByUserCodeSoapIn" />
+      <wsdl:output message="tns:SendHTMLMessageByUserCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DBMsgCancel">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入计数变更消息</wsdl:documentation>
+      <wsdl:input message="tns:DBMsgCancelSoapIn" />
+      <wsdl:output message="tns:DBMsgCancelSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ImMessageServiceHttpGet">
+    <wsdl:operation name="SendPopupMessage_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessage_stdHttpGetIn" />
+      <wsdl:output message="tns:SendPopupMessage_stdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessage_stdEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessage_stdExHttpGetIn" />
+      <wsdl:output message="tns:SendPopupMessage_stdExHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageHttpGetIn" />
+      <wsdl:output message="tns:SendPopupMessageHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageExHttpGetIn" />
+      <wsdl:output message="tns:SendPopupMessageExHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCode_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCode_stdHttpGetIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCode_stdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCode_stdEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCode_stdExHttpGetIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCode_stdExHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCodeHttpGetIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCodeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCodeExHttpGetIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCodeExHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessage_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessage_stdHttpGetIn" />
+      <wsdl:output message="tns:SendCommonMessage_stdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessageHttpGetIn" />
+      <wsdl:output message="tns:SendCommonMessageHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCode_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessageByUserCode_stdHttpGetIn" />
+      <wsdl:output message="tns:SendCommonMessageByUserCode_stdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessageByUserCodeHttpGetIn" />
+      <wsdl:output message="tns:SendCommonMessageByUserCodeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入计数变更消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCountChangeMessageHttpGetIn" />
+      <wsdl:output message="tns:SendCountChangeMessageHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessage_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入计数变更消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCountChangeMessage_stdHttpGetIn" />
+      <wsdl:output message="tns:SendCountChangeMessage_stdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessageByCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入计数变更消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCountChangeMessageByCodeHttpGetIn" />
+      <wsdl:output message="tns:SendCountChangeMessageByCodeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessageByCode_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入计数变更消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCountChangeMessageByCode_stdHttpGetIn" />
+      <wsdl:output message="tns:SendCountChangeMessageByCode_stdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStr_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByProcStr_stdHttpGetIn" />
+      <wsdl:output message="tns:SendPopupMessageByProcStr_stdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStr_stdEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByProcStr_stdExHttpGetIn" />
+      <wsdl:output message="tns:SendPopupMessageByProcStr_stdExHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStr">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByProcStrHttpGetIn" />
+      <wsdl:output message="tns:SendPopupMessageByProcStrHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStrEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByProcStrExHttpGetIn" />
+      <wsdl:output message="tns:SendPopupMessageByProcStrExHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStr_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCodeProcStr_stdHttpGetIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCodeProcStr_stdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStr_stdEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCodeProcStr_stdExHttpGetIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCodeProcStr_stdExHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStr">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCodeProcStrHttpGetIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCodeProcStrHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStrEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCodeProcStrExHttpGetIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCodeProcStrExHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByProcStr_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessageByProcStr_stdHttpGetIn" />
+      <wsdl:output message="tns:SendCommonMessageByProcStr_stdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByProcStr">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessageByProcStrHttpGetIn" />
+      <wsdl:output message="tns:SendCommonMessageByProcStrHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCodeProcStr_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessageByUserCodeProcStr_stdHttpGetIn" />
+      <wsdl:output message="tns:SendCommonMessageByUserCodeProcStr_stdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCodeProcStr">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessageByUserCodeProcStrHttpGetIn" />
+      <wsdl:output message="tns:SendCommonMessageByUserCodeProcStrHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessageByProcStr">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入计数变更消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCountChangeMessageByProcStrHttpGetIn" />
+      <wsdl:output message="tns:SendCountChangeMessageByProcStrHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupWindowByUserID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupWindowByUserIDHttpGetIn" />
+      <wsdl:output message="tns:SendPopupWindowByUserIDHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupWindowByUsercode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupWindowByUsercodeHttpGetIn" />
+      <wsdl:output message="tns:SendPopupWindowByUsercodeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendHTMLMessageByUserID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">发送HTML消息</wsdl:documentation>
+      <wsdl:input message="tns:SendHTMLMessageByUserIDHttpGetIn" />
+      <wsdl:output message="tns:SendHTMLMessageByUserIDHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendHTMLMessageByUserCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">发送HTML消息</wsdl:documentation>
+      <wsdl:input message="tns:SendHTMLMessageByUserCodeHttpGetIn" />
+      <wsdl:output message="tns:SendHTMLMessageByUserCodeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DBMsgCancel">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入计数变更消息</wsdl:documentation>
+      <wsdl:input message="tns:DBMsgCancelHttpGetIn" />
+      <wsdl:output message="tns:DBMsgCancelHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ImMessageServiceHttpPost">
+    <wsdl:operation name="SendPopupMessage_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessage_stdHttpPostIn" />
+      <wsdl:output message="tns:SendPopupMessage_stdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessage_stdEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessage_stdExHttpPostIn" />
+      <wsdl:output message="tns:SendPopupMessage_stdExHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageHttpPostIn" />
+      <wsdl:output message="tns:SendPopupMessageHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageExHttpPostIn" />
+      <wsdl:output message="tns:SendPopupMessageExHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCode_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCode_stdHttpPostIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCode_stdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCode_stdEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCode_stdExHttpPostIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCode_stdExHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCodeHttpPostIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCodeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCodeExHttpPostIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCodeExHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessage_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessage_stdHttpPostIn" />
+      <wsdl:output message="tns:SendCommonMessage_stdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessageHttpPostIn" />
+      <wsdl:output message="tns:SendCommonMessageHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCode_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessageByUserCode_stdHttpPostIn" />
+      <wsdl:output message="tns:SendCommonMessageByUserCode_stdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessageByUserCodeHttpPostIn" />
+      <wsdl:output message="tns:SendCommonMessageByUserCodeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入计数变更消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCountChangeMessageHttpPostIn" />
+      <wsdl:output message="tns:SendCountChangeMessageHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessage_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入计数变更消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCountChangeMessage_stdHttpPostIn" />
+      <wsdl:output message="tns:SendCountChangeMessage_stdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessageByCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入计数变更消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCountChangeMessageByCodeHttpPostIn" />
+      <wsdl:output message="tns:SendCountChangeMessageByCodeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessageByCode_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入计数变更消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCountChangeMessageByCode_stdHttpPostIn" />
+      <wsdl:output message="tns:SendCountChangeMessageByCode_stdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStr_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByProcStr_stdHttpPostIn" />
+      <wsdl:output message="tns:SendPopupMessageByProcStr_stdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStr_stdEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByProcStr_stdExHttpPostIn" />
+      <wsdl:output message="tns:SendPopupMessageByProcStr_stdExHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStr">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByProcStrHttpPostIn" />
+      <wsdl:output message="tns:SendPopupMessageByProcStrHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStrEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByProcStrExHttpPostIn" />
+      <wsdl:output message="tns:SendPopupMessageByProcStrExHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStr_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCodeProcStr_stdHttpPostIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCodeProcStr_stdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStr_stdEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCodeProcStr_stdExHttpPostIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCodeProcStr_stdExHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStr">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCodeProcStrHttpPostIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCodeProcStrHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStrEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupMessageByUserCodeProcStrExHttpPostIn" />
+      <wsdl:output message="tns:SendPopupMessageByUserCodeProcStrExHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByProcStr_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessageByProcStr_stdHttpPostIn" />
+      <wsdl:output message="tns:SendCommonMessageByProcStr_stdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByProcStr">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessageByProcStrHttpPostIn" />
+      <wsdl:output message="tns:SendCommonMessageByProcStrHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCodeProcStr_std">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessageByUserCodeProcStr_stdHttpPostIn" />
+      <wsdl:output message="tns:SendCommonMessageByUserCodeProcStr_stdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCodeProcStr">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入普通外部应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCommonMessageByUserCodeProcStrHttpPostIn" />
+      <wsdl:output message="tns:SendCommonMessageByUserCodeProcStrHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessageByProcStr">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入计数变更消息</wsdl:documentation>
+      <wsdl:input message="tns:SendCountChangeMessageByProcStrHttpPostIn" />
+      <wsdl:output message="tns:SendCountChangeMessageByProcStrHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupWindowByUserID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupWindowByUserIDHttpPostIn" />
+      <wsdl:output message="tns:SendPopupWindowByUserIDHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupWindowByUsercode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入协同应用消息Code</wsdl:documentation>
+      <wsdl:input message="tns:SendPopupWindowByUsercodeHttpPostIn" />
+      <wsdl:output message="tns:SendPopupWindowByUsercodeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendHTMLMessageByUserID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">发送HTML消息</wsdl:documentation>
+      <wsdl:input message="tns:SendHTMLMessageByUserIDHttpPostIn" />
+      <wsdl:output message="tns:SendHTMLMessageByUserIDHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendHTMLMessageByUserCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">发送HTML消息</wsdl:documentation>
+      <wsdl:input message="tns:SendHTMLMessageByUserCodeHttpPostIn" />
+      <wsdl:output message="tns:SendHTMLMessageByUserCodeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DBMsgCancel">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入计数变更消息</wsdl:documentation>
+      <wsdl:input message="tns:DBMsgCancelHttpPostIn" />
+      <wsdl:output message="tns:DBMsgCancelHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ImMessageServiceSoap" type="tns:ImMessageServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendPopupMessage_std">
+      <soap:operation soapAction="http://tempuri.org/SendPopupMessage_std" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessage_stdEx">
+      <soap:operation soapAction="http://tempuri.org/SendPopupMessage_stdEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessage">
+      <soap:operation soapAction="http://tempuri.org/SendPopupMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageEx">
+      <soap:operation soapAction="http://tempuri.org/SendPopupMessageEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCode_std">
+      <soap:operation soapAction="http://tempuri.org/SendPopupMessageByUserCode_std" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCode_stdEx">
+      <soap:operation soapAction="http://tempuri.org/SendPopupMessageByUserCode_stdEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCode">
+      <soap:operation soapAction="http://tempuri.org/SendPopupMessageByUserCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeEx">
+      <soap:operation soapAction="http://tempuri.org/SendPopupMessageByUserCodeEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessage_std">
+      <soap:operation soapAction="http://tempuri.org/SendCommonMessage_std" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessage">
+      <soap:operation soapAction="http://tempuri.org/SendCommonMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCode_std">
+      <soap:operation soapAction="http://tempuri.org/SendCommonMessageByUserCode_std" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCode">
+      <soap:operation soapAction="http://tempuri.org/SendCommonMessageByUserCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessage">
+      <soap:operation soapAction="http://tempuri.org/SendCountChangeMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessage_std">
+      <soap:operation soapAction="http://tempuri.org/SendCountChangeMessage_std" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessageByCode">
+      <soap:operation soapAction="http://tempuri.org/SendCountChangeMessageByCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessageByCode_std">
+      <soap:operation soapAction="http://tempuri.org/SendCountChangeMessageByCode_std" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStr_std">
+      <soap:operation soapAction="http://tempuri.org/SendPopupMessageByProcStr_std" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStr_stdEx">
+      <soap:operation soapAction="http://tempuri.org/SendPopupMessageByProcStr_stdEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStr">
+      <soap:operation soapAction="http://tempuri.org/SendPopupMessageByProcStr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStrEx">
+      <soap:operation soapAction="http://tempuri.org/SendPopupMessageByProcStrEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStr_std">
+      <soap:operation soapAction="http://tempuri.org/SendPopupMessageByUserCodeProcStr_std" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStr_stdEx">
+      <soap:operation soapAction="http://tempuri.org/SendPopupMessageByUserCodeProcStr_stdEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStr">
+      <soap:operation soapAction="http://tempuri.org/SendPopupMessageByUserCodeProcStr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStrEx">
+      <soap:operation soapAction="http://tempuri.org/SendPopupMessageByUserCodeProcStrEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByProcStr_std">
+      <soap:operation soapAction="http://tempuri.org/SendCommonMessageByProcStr_std" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByProcStr">
+      <soap:operation soapAction="http://tempuri.org/SendCommonMessageByProcStr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCodeProcStr_std">
+      <soap:operation soapAction="http://tempuri.org/SendCommonMessageByUserCodeProcStr_std" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCodeProcStr">
+      <soap:operation soapAction="http://tempuri.org/SendCommonMessageByUserCodeProcStr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessageByProcStr">
+      <soap:operation soapAction="http://tempuri.org/SendCountChangeMessageByProcStr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupWindowByUserID">
+      <soap:operation soapAction="http://tempuri.org/SendPopupWindowByUserID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupWindowByUsercode">
+      <soap:operation soapAction="http://tempuri.org/SendPopupWindowByUsercode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendHTMLMessageByUserID">
+      <soap:operation soapAction="http://tempuri.org/SendHTMLMessageByUserID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendHTMLMessageByUserCode">
+      <soap:operation soapAction="http://tempuri.org/SendHTMLMessageByUserCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DBMsgCancel">
+      <soap:operation soapAction="http://tempuri.org/DBMsgCancel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ImMessageServiceSoap12" type="tns:ImMessageServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendPopupMessage_std">
+      <soap12:operation soapAction="http://tempuri.org/SendPopupMessage_std" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessage_stdEx">
+      <soap12:operation soapAction="http://tempuri.org/SendPopupMessage_stdEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessage">
+      <soap12:operation soapAction="http://tempuri.org/SendPopupMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageEx">
+      <soap12:operation soapAction="http://tempuri.org/SendPopupMessageEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCode_std">
+      <soap12:operation soapAction="http://tempuri.org/SendPopupMessageByUserCode_std" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCode_stdEx">
+      <soap12:operation soapAction="http://tempuri.org/SendPopupMessageByUserCode_stdEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCode">
+      <soap12:operation soapAction="http://tempuri.org/SendPopupMessageByUserCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeEx">
+      <soap12:operation soapAction="http://tempuri.org/SendPopupMessageByUserCodeEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessage_std">
+      <soap12:operation soapAction="http://tempuri.org/SendCommonMessage_std" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessage">
+      <soap12:operation soapAction="http://tempuri.org/SendCommonMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCode_std">
+      <soap12:operation soapAction="http://tempuri.org/SendCommonMessageByUserCode_std" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCode">
+      <soap12:operation soapAction="http://tempuri.org/SendCommonMessageByUserCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessage">
+      <soap12:operation soapAction="http://tempuri.org/SendCountChangeMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessage_std">
+      <soap12:operation soapAction="http://tempuri.org/SendCountChangeMessage_std" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessageByCode">
+      <soap12:operation soapAction="http://tempuri.org/SendCountChangeMessageByCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessageByCode_std">
+      <soap12:operation soapAction="http://tempuri.org/SendCountChangeMessageByCode_std" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStr_std">
+      <soap12:operation soapAction="http://tempuri.org/SendPopupMessageByProcStr_std" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStr_stdEx">
+      <soap12:operation soapAction="http://tempuri.org/SendPopupMessageByProcStr_stdEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStr">
+      <soap12:operation soapAction="http://tempuri.org/SendPopupMessageByProcStr" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStrEx">
+      <soap12:operation soapAction="http://tempuri.org/SendPopupMessageByProcStrEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStr_std">
+      <soap12:operation soapAction="http://tempuri.org/SendPopupMessageByUserCodeProcStr_std" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStr_stdEx">
+      <soap12:operation soapAction="http://tempuri.org/SendPopupMessageByUserCodeProcStr_stdEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStr">
+      <soap12:operation soapAction="http://tempuri.org/SendPopupMessageByUserCodeProcStr" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStrEx">
+      <soap12:operation soapAction="http://tempuri.org/SendPopupMessageByUserCodeProcStrEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByProcStr_std">
+      <soap12:operation soapAction="http://tempuri.org/SendCommonMessageByProcStr_std" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByProcStr">
+      <soap12:operation soapAction="http://tempuri.org/SendCommonMessageByProcStr" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCodeProcStr_std">
+      <soap12:operation soapAction="http://tempuri.org/SendCommonMessageByUserCodeProcStr_std" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCodeProcStr">
+      <soap12:operation soapAction="http://tempuri.org/SendCommonMessageByUserCodeProcStr" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessageByProcStr">
+      <soap12:operation soapAction="http://tempuri.org/SendCountChangeMessageByProcStr" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupWindowByUserID">
+      <soap12:operation soapAction="http://tempuri.org/SendPopupWindowByUserID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupWindowByUsercode">
+      <soap12:operation soapAction="http://tempuri.org/SendPopupWindowByUsercode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendHTMLMessageByUserID">
+      <soap12:operation soapAction="http://tempuri.org/SendHTMLMessageByUserID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendHTMLMessageByUserCode">
+      <soap12:operation soapAction="http://tempuri.org/SendHTMLMessageByUserCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DBMsgCancel">
+      <soap12:operation soapAction="http://tempuri.org/DBMsgCancel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ImMessageServiceHttpGet" type="tns:ImMessageServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="SendPopupMessage_std">
+      <http:operation location="/SendPopupMessage_std" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessage_stdEx">
+      <http:operation location="/SendPopupMessage_stdEx" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessage">
+      <http:operation location="/SendPopupMessage" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageEx">
+      <http:operation location="/SendPopupMessageEx" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCode_std">
+      <http:operation location="/SendPopupMessageByUserCode_std" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCode_stdEx">
+      <http:operation location="/SendPopupMessageByUserCode_stdEx" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCode">
+      <http:operation location="/SendPopupMessageByUserCode" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeEx">
+      <http:operation location="/SendPopupMessageByUserCodeEx" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessage_std">
+      <http:operation location="/SendCommonMessage_std" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessage">
+      <http:operation location="/SendCommonMessage" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCode_std">
+      <http:operation location="/SendCommonMessageByUserCode_std" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCode">
+      <http:operation location="/SendCommonMessageByUserCode" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessage">
+      <http:operation location="/SendCountChangeMessage" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessage_std">
+      <http:operation location="/SendCountChangeMessage_std" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessageByCode">
+      <http:operation location="/SendCountChangeMessageByCode" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessageByCode_std">
+      <http:operation location="/SendCountChangeMessageByCode_std" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStr_std">
+      <http:operation location="/SendPopupMessageByProcStr_std" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStr_stdEx">
+      <http:operation location="/SendPopupMessageByProcStr_stdEx" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStr">
+      <http:operation location="/SendPopupMessageByProcStr" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStrEx">
+      <http:operation location="/SendPopupMessageByProcStrEx" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStr_std">
+      <http:operation location="/SendPopupMessageByUserCodeProcStr_std" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStr_stdEx">
+      <http:operation location="/SendPopupMessageByUserCodeProcStr_stdEx" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStr">
+      <http:operation location="/SendPopupMessageByUserCodeProcStr" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStrEx">
+      <http:operation location="/SendPopupMessageByUserCodeProcStrEx" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByProcStr_std">
+      <http:operation location="/SendCommonMessageByProcStr_std" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByProcStr">
+      <http:operation location="/SendCommonMessageByProcStr" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCodeProcStr_std">
+      <http:operation location="/SendCommonMessageByUserCodeProcStr_std" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCodeProcStr">
+      <http:operation location="/SendCommonMessageByUserCodeProcStr" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessageByProcStr">
+      <http:operation location="/SendCountChangeMessageByProcStr" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupWindowByUserID">
+      <http:operation location="/SendPopupWindowByUserID" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupWindowByUsercode">
+      <http:operation location="/SendPopupWindowByUsercode" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendHTMLMessageByUserID">
+      <http:operation location="/SendHTMLMessageByUserID" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendHTMLMessageByUserCode">
+      <http:operation location="/SendHTMLMessageByUserCode" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DBMsgCancel">
+      <http:operation location="/DBMsgCancel" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ImMessageServiceHttpPost" type="tns:ImMessageServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="SendPopupMessage_std">
+      <http:operation location="/SendPopupMessage_std" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessage_stdEx">
+      <http:operation location="/SendPopupMessage_stdEx" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessage">
+      <http:operation location="/SendPopupMessage" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageEx">
+      <http:operation location="/SendPopupMessageEx" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCode_std">
+      <http:operation location="/SendPopupMessageByUserCode_std" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCode_stdEx">
+      <http:operation location="/SendPopupMessageByUserCode_stdEx" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCode">
+      <http:operation location="/SendPopupMessageByUserCode" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeEx">
+      <http:operation location="/SendPopupMessageByUserCodeEx" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessage_std">
+      <http:operation location="/SendCommonMessage_std" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessage">
+      <http:operation location="/SendCommonMessage" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCode_std">
+      <http:operation location="/SendCommonMessageByUserCode_std" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCode">
+      <http:operation location="/SendCommonMessageByUserCode" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessage">
+      <http:operation location="/SendCountChangeMessage" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessage_std">
+      <http:operation location="/SendCountChangeMessage_std" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessageByCode">
+      <http:operation location="/SendCountChangeMessageByCode" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessageByCode_std">
+      <http:operation location="/SendCountChangeMessageByCode_std" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStr_std">
+      <http:operation location="/SendPopupMessageByProcStr_std" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStr_stdEx">
+      <http:operation location="/SendPopupMessageByProcStr_stdEx" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStr">
+      <http:operation location="/SendPopupMessageByProcStr" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByProcStrEx">
+      <http:operation location="/SendPopupMessageByProcStrEx" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStr_std">
+      <http:operation location="/SendPopupMessageByUserCodeProcStr_std" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStr_stdEx">
+      <http:operation location="/SendPopupMessageByUserCodeProcStr_stdEx" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStr">
+      <http:operation location="/SendPopupMessageByUserCodeProcStr" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupMessageByUserCodeProcStrEx">
+      <http:operation location="/SendPopupMessageByUserCodeProcStrEx" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByProcStr_std">
+      <http:operation location="/SendCommonMessageByProcStr_std" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByProcStr">
+      <http:operation location="/SendCommonMessageByProcStr" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCodeProcStr_std">
+      <http:operation location="/SendCommonMessageByUserCodeProcStr_std" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommonMessageByUserCodeProcStr">
+      <http:operation location="/SendCommonMessageByUserCodeProcStr" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCountChangeMessageByProcStr">
+      <http:operation location="/SendCountChangeMessageByProcStr" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupWindowByUserID">
+      <http:operation location="/SendPopupWindowByUserID" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPopupWindowByUsercode">
+      <http:operation location="/SendPopupWindowByUsercode" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendHTMLMessageByUserID">
+      <http:operation location="/SendHTMLMessageByUserID" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendHTMLMessageByUserCode">
+      <http:operation location="/SendHTMLMessageByUserCode" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DBMsgCancel">
+      <http:operation location="/DBMsgCancel" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ImMessageService">
+    <wsdl:port name="ImMessageServiceSoap" binding="tns:ImMessageServiceSoap">
+      <soap:address location="http://www.cscec3b.com:8888/WebService/Im/Message/ImMessageService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ImMessageServiceSoap12" binding="tns:ImMessageServiceSoap12">
+      <soap12:address location="http://www.cscec3b.com:8888/WebService/Im/Message/ImMessageService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ImMessageServiceHttpGet" binding="tns:ImMessageServiceHttpGet">
+      <http:address location="http://www.cscec3b.com:8888/WebService/Im/Message/ImMessageService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ImMessageServiceHttpPost" binding="tns:ImMessageServiceHttpPost">
+      <http:address location="http://www.cscec3b.com:8888/WebService/Im/Message/ImMessageService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

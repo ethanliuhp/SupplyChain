@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.BasicData.UnitMng.Domain.UnitDetail,SupplyChain" table="THD_UnitDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    
+    <!--<property name="DimensionId"/>-->
+    <many-to-one name="DimensionId" column="DimensionId"  class="Application.Resource.MaterialResource.Domain.Dimension,ResourceManager"></many-to-one>
+    <property name="DimensionName"/>
+    
+    <many-to-one name="UnitId" column="UnitId"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="UnitName"/>
+
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.BasicData.UnitMng.Domain.UnitMaster, SupplyChain"></many-to-one>
+
+  </class>
+</hibernate-mapping>
+
+

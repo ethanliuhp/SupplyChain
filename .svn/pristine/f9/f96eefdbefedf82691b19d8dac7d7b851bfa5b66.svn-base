@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <configSections>
+        <sectionGroup name="applicationSettings" type="System.Configuration.ApplicationSettingsGroup, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" >
+            <section name="Application.Business.Erp.SupplyChain.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+        </sectionGroup>
+    </configSections>
+    <applicationSettings>
+        <Application.Business.Erp.SupplyChain.Properties.Settings>
+            <setting name="SupplyChain_SendMsgWebservice_MainService" serializeAs="String">
+                <value>http://www.cscec3b.com:800/MsgSender/MainService.asmx</value>
+            </setting>
+        </Application.Business.Erp.SupplyChain.Properties.Settings>
+    </applicationSettings>
+</configuration>

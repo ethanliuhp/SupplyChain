@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.PaymentMaster,SupplyChain" table="THD_PaymentMaster" lazy="true" select-before-update="true">
+
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+     
+    <property name="Code"></property>
+	<property name="CreateYear" column="CreateYear"/>
+	<property name="CreateMonth" column="CreateMonth"/>
+	<many-to-one name="CurrencyType" column="CurrencyType" fetch="join" class="Application.Resource.FinancialResource.Domain.Currency,ResourceManager"/>
+	<property name="ExchangeRate" column="ExchangeRate"/>
+    <many-to-one name="CreatePerson" column="CreatePerson" fetch="join" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="CreatePersonName"/>
+    <many-to-one name="HandlePerson" column="HandlePerson" fetch="join" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="HandlePersonName"/> 
+
+    <property name="CreateDate" column="CreateDate"/>
+    <property name="RealOperationDate" column="RealOperationDate"/>
+    <property name="DocState" column="State" />  
+    <property name="OpgSysCode" column="OpgSysCode"/>
+    <many-to-one name="OperOrgInfo" column="OperationOrg" fetch="join" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperOrgInfoName" column="OperationOrgName"/>
+    <property name="SumMoney" column="SumMoney"/>
+    <property name="Descript" column="Descript"/>
+    <property name="ProjectId"></property>
+    <property name="ProjectName"/>
+	 
+	 <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.PaymentDetail, SupplyChain"/>
+    </set>
+	<set name="ListInvoice" cascade="all-delete-orphan" inverse="true" lazy="true">
+		<cache usage="read-write"/>
+		<key column="PaymentID" />
+		<one-to-many class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.PaymentInvoice, SupplyChain"/>
+	</set>
+	<property name="TheSupplierRelationInfo" column="SupplierRelation"></property>
+	<property name="TheSupplierName" column="SupplierRelationName"></property>
+	<property name="TheCustomerRelationInfo"></property>
+	<property name="TheCustomerName"></property>
+	<property name="AccountTitleID"></property>
+	<property name="AccountTitleName"></property>
+	<property name="AccountTitleCode"></property>
+	<property name="AccountTitleSyscode"></property>
+	<property name="BankAccountNo"></property>
+	<property name="BankName"></property>
+	<property name="BankAddress"></property>
+	<property name="AddBalMoney"></property>
+	<property name="AddPayMoney"></property>
+	<property name="AddInvoiceMoney"></property>
+  <property name="IfProjectMoney"></property>
+	<property name="PrintTimes"></property>
+  <property name="OriginalCollectionUnit"></property>
+  <property name="PaymentClause"></property>
+  <many-to-one name="FundPlan" fetch="join" class="Application.Business.Erp.SupplyChain.MoneyManage.IndirectCost.Domain.ProjectFundPlanDetail, SupplyChain"/>
+  <property name="FundPlanCode"></property>
+  <property name="RefundDate"></property>
+  <many-to-one name="RequestBill" fetch="join" class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.PaymentRequest, SupplyChain"/>
+  </class>
+</hibernate-mapping>

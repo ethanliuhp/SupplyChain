@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ShellColumnSerializer Filter="C:\temp\PWS;E:\Workspaces" version="1.0">
+    <Context Name="PARTNAMEID" PID="0" Type="VT_BSTR" Format="LEFT" Size="10" Flag="TYPE_STR">
+        <Label Type="Name">
+            <LocalizedLabel LanguageRef="en">Part Name ID</LocalizedLabel>
+          <LocalizedLabel LanguageRef="it">ID codice componente</LocalizedLabel>
+          <LocalizedLabel LanguageRef="fr">ID code composant</LocalizedLabel>
+          <LocalizedLabel LanguageRef="de">Teilenummer-ID</LocalizedLabel>
+          <LocalizedLabel LanguageRef="ja">部品番号</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">零件名称标识</LocalizedLabel>
+        </Label>
+        <Label Type="Description">
+            <LocalizedLabel LanguageRef="en">Part Name Identifier</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">Identificatore nome componente</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_Part Name ID</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">零件名称标识</LocalizedLabel>
+        </Label>
+    </Context>
+    <Context Name="PARTID" PID="1" Type="VT_BSTR" Format="LEFT" Size="10" Flag="TYPE_STR">
+        <Label Type="Name">
+            <LocalizedLabel LanguageRef="en">Part ID</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">ID componente</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">Teil-ID</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">零件标识</LocalizedLabel>
+        </Label>
+        <Label Type="Description">
+            <LocalizedLabel LanguageRef="en">Part Identifier</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">Identificatore componente</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_Part ID</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">零件标识</LocalizedLabel>
+        </Label>
+    </Context>
+    <Context Name="TMM_COMPONENT" PID="2" Type="VT_BSTR" Format="LEFT" Size="10" Flag="TYPE_STR">
+        <Label Type="Name">
+            <LocalizedLabel LanguageRef="en">TMM_PART</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">COMPONENTE_TMM</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">TMM_TEIL</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">TMM_COMPONENT</LocalizedLabel>
+        </Label>
+        <Label Type="Description">
+            <LocalizedLabel LanguageRef="en">TMM_PART</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">COMPONENTE_TMM</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">TMM_TEIL</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">TMM_COMPONENT</LocalizedLabel>
+        </Label>
+    </Context>
+    <Context Name="COMPNAME" PID="3" Type="VT_BSTR" Format="LEFT" Size="10" Flag="TYPE_STR|ONBYDEFAULT">
+        <Label Type="Name">
+            <LocalizedLabel LanguageRef="en">Part Name</LocalizedLabel>
+          <LocalizedLabel LanguageRef="it">Codice componente</LocalizedLabel>
+          <LocalizedLabel LanguageRef="fr">Code composant</LocalizedLabel>
+          <LocalizedLabel LanguageRef="de">Teilenummer</LocalizedLabel>
+          <LocalizedLabel LanguageRef="ja">部品番号</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">零件名称</LocalizedLabel>
+        </Label>
+        <Label Type="Description">
+            <LocalizedLabel LanguageRef="en">Part Name</LocalizedLabel>
+          <LocalizedLabel LanguageRef="it">Codice componente</LocalizedLabel>
+          <LocalizedLabel LanguageRef="fr">Code composant</LocalizedLabel>
+          <LocalizedLabel LanguageRef="de">Teilenummer</LocalizedLabel>
+          <LocalizedLabel LanguageRef="ja">部品番号</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">零件名称</LocalizedLabel>
+        </Label>
+    </Context>
+    <Context Name="PARTREVISION" PID="4" Type="VT_BSTR" Format="LEFT" Size="10" Flag="TYPE_STR|ONBYDEFAULT">
+        <Label Type="Name">
+            <LocalizedLabel LanguageRef="en">Part Revision</LocalizedLabel>
+           <LocalizedLabel LanguageRef="it">Revisione componente</LocalizedLabel>
+          <LocalizedLabel LanguageRef="fr">Révision composant</LocalizedLabel>
+          <LocalizedLabel LanguageRef="de">Teilerevision</LocalizedLabel>
+          <LocalizedLabel LanguageRef="ja">部品のリビジョン</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">零件版本</LocalizedLabel>
+        </Label>
+        <Label Type="Description">
+            <LocalizedLabel LanguageRef="en">Part Revision</LocalizedLabel>
+          <LocalizedLabel LanguageRef="it">Revisione componente</LocalizedLabel>
+          <LocalizedLabel LanguageRef="fr">Révision composant</LocalizedLabel>
+          <LocalizedLabel LanguageRef="de">Teilerevision</LocalizedLabel>
+          <LocalizedLabel LanguageRef="ja">部品のリビジョン</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">零件版本</LocalizedLabel>
+        </Label>
+    </Context>
+    <Context Name="COMPDES" PID="5" Type="VT_BSTR" Format="LEFT" Size="10" Flag="TYPE_STR|ONBYDEFAULT">
+        <Label Type="Name">
+            <LocalizedLabel LanguageRef="en">Part Description</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">Descrizione componente</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_Part Description</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">零件描述</LocalizedLabel>
+        </Label>
+        <Label Type="Description">
+            <LocalizedLabel LanguageRef="en">Part Description</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">Descrizione componente</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_Part Description</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">零件描述</LocalizedLabel>
+        </Label>
+    </Context>
+    <Context Name="COMPITEM" PID="6" Type="VT_BSTR" Format="LEFT" Size="10" Flag="TYPE_STR">
+        <Label Type="Name">
+            <LocalizedLabel LanguageRef="en">Part Material</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">Materiale componente</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_Part Material</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">零件材料</LocalizedLabel>
+        </Label>
+        <Label Type="Description">
+            <LocalizedLabel LanguageRef="en">Part Material</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">Materiale componente</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_Part Material</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">零件材料</LocalizedLabel>
+        </Label>
+    </Context>
+    <Context Name="COMPUMIS" PID="7" Type="VT_BSTR" Format="LEFT" Size="10" Flag="TYPE_STR">
+        <Label Type="Name">
+            <LocalizedLabel LanguageRef="en">Part Unit</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">Unità componente</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">Teilmaßeinheit</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">零件单位</LocalizedLabel>
+        </Label>
+        <Label Type="Description">
+            <LocalizedLabel LanguageRef="en">Part Unit of Measurement</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">Unità di misura componente</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">Teilmaßeinheit</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">零件测量单位</LocalizedLabel>
+        </Label>
+    </Context>
+    <Context Name="FILENAMEID" PID="8" Type="VT_BSTR" Format="LEFT" Size="10" Flag="TYPE_STR">
+        <Label Type="Name">
+            <LocalizedLabel LanguageRef="en">File Name ID</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">ID nome file</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_File Name ID</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">文件名称标识</LocalizedLabel>
+        </Label>
+        <Label Type="Description">
+            <LocalizedLabel LanguageRef="en">File Name Identifier</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">Identificatore nome file</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_File Name ID</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">文件名称标识</LocalizedLabel>
+        </Label>
+    </Context>
+    <Context Name="FILECREATOR" PID="9" Type="VT_BSTR" Format="LEFT" Size="10" Flag="TYPE_STR|ONBYDEFAULT">
+        <Label Type="Name">
+            <LocalizedLabel LanguageRef="en">File Created By</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">File creato da</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_File Created By</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">文件名称标识</LocalizedLabel>
+        </Label>
+        <Label Type="Description">
+            <LocalizedLabel LanguageRef="en">File Created By</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">File creato da</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_File Created By</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">文件创建人</LocalizedLabel>
+        </Label>
+    </Context>
+    <Context Name="FILECREATIONDATE" PID="10" Type="VT_BSTR" Format="LEFT" Size="10" Flag="TYPE_STR">
+        <Label Type="Name">
+            <LocalizedLabel LanguageRef="en">File Creation Date</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">Data creazione file</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_File Creation Date</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">文件创建日期</LocalizedLabel>
+        </Label>
+        <Label Type="Description">
+            <LocalizedLabel LanguageRef="en">File Creation Date</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">Data creazione file</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_File Creation Date</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">文件创建日期</LocalizedLabel>
+        </Label>
+    </Context>
+    <Context Name="FILEID" PID="11" Type="VT_BSTR" Format="LEFT" Size="10" Flag="TYPE_STR">
+        <Label Type="Name">
+            <LocalizedLabel LanguageRef="en">File ID</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">ID file</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_File ID</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">文件标识</LocalizedLabel>
+        </Label>
+        <Label Type="Description">
+            <LocalizedLabel LanguageRef="en">File Identifier</LocalizedLabel>
+          <LocalizedLabel LanguageRef="it">Identificatore file</LocalizedLabel>
+          <LocalizedLabel LanguageRef="de">de_File ID</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">文件标识</LocalizedLabel>
+        </Label>
+    </Context>
+    <Context Name="FILEVERSION" PID="12" Type="VT_BSTR" Format="LEFT" Size="10" Flag="TYPE_STR|ONBYDEFAULT">
+        <Label Type="Name">
+            <LocalizedLabel LanguageRef="en">File Revision</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">Revisione file</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_File Revision</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">文件版本</LocalizedLabel>
+        </Label>
+        <Label Type="Description">
+            <LocalizedLabel LanguageRef="en">File Revision</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">Revisione file</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_File Revision</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">文件版本</LocalizedLabel>
+        </Label>
+    </Context>
+    <Context Name="FILEUPDATEDATE" PID="13" Type="VT_BSTR" Format="LEFT" Size="10" Flag="TYPE_STR">
+        <Label Type="Name">
+            <LocalizedLabel LanguageRef="en">File Modification Date</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">Data modifica file</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_File Modification Date</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">文件修改日期</LocalizedLabel>
+        </Label>
+        <Label Type="Description">
+            <LocalizedLabel LanguageRef="en">File Modification Date</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">Data modifica file</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_File Modification Date</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">文件修改日期</LocalizedLabel>
+        </Label>
+    </Context>
+    <Context Name="FILEUPDATOR" PID="14" Type="VT_BSTR" Format="LEFT" Size="10" Flag="TYPE_STR">
+        <Label Type="Name">
+            <LocalizedLabel LanguageRef="en">File Modified By</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">File modificato da</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_File Modified By</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">文件修改人</LocalizedLabel>
+        </Label>
+        <Label Type="Description">
+            <LocalizedLabel LanguageRef="en">File Modified By</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">File modificato da</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_File Modified By</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">文件修改人</LocalizedLabel>
+        </Label>
+    </Context>
+    <Context Name="FILEREVISION" PID="15" Type="VT_BSTR" Format="LEFT" Size="10" Flag="TYPE_STR|ONBYDEFAULT">
+        <Label Type="Name">
+            <LocalizedLabel LanguageRef="en">File Revision</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">Revisione file</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_File Revision</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">文件版本</LocalizedLabel>
+        </Label>
+        <Label Type="Description">
+            <LocalizedLabel LanguageRef="en">File Revision</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">Revisione file</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_File Revision</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">文件版本</LocalizedLabel>
+        </Label>
+    </Context>
+</ShellColumnSerializer>

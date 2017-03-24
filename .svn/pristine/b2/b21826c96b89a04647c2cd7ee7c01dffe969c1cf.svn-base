@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.DocumentManagement,SupplyChain" lazy="true" table="THD_DocumentManagement" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="uuid.hex" />
+    </id>
+    <many-to-one name="ProjectTask" column="ProjectTask"  class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain"/>
+    <property name="ProjectTaskName" />
+    <property name="DocumentGUID"/>
+    <property name="DocumentName" />
+    <property name="DocumentDeacript"/>
+    <property name="SubmitDate"/>
+    <many-to-one name="DocHandlePerson" column="DocHandlePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="DocHandlePersonName"/>
+    <property name="DocURL"/>
+    <property name="ProjectGUID"/>
+    <property name="ProjectName"/>
+  </class>
+</hibernate-mapping>

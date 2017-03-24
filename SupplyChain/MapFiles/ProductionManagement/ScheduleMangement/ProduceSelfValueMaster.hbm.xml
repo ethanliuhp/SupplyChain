@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.ProduceSelfValueMaster,SupplyChain" table="THD_ProduceSelfValueMaster" lazy="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.ProduceSelfValueDetail, SupplyChain"/>
+    </set>
+    <property name="SchedualGUID" />
+    <property name="ProjectId" />
+    <property name="ProjectName" />
+    <property name="AccountType" />
+    <property name="BeginDate" column="BeginDate" type="DateTime"/>
+    <property name="EndDate" column="EndDate" type="DateTime"/>
+    <property name="PlanDate" column="PlanDate" type="DateTime"/>
+    <property name="RealDate" column="RealDate" type="DateTime"/>
+    <!--制单年-->
+    <property name="CreateYear" column="CreateYear"/>
+    <!--制单月-->
+    <property name="CreateMonth" column="CreateMonth"/>
+    <!--核算年-->
+    <property name="AccountYear" />
+    <!--核算月-->
+    <property name="AccountMonth" />
+    <property name="State" />
+    <many-to-one name="OperOrgInfo" column="OperatioOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"></many-to-one>
+    <property name="OperOrgInfoName" column="OperatioOrgName" />
+    <property name="OperOrgSysCode" column="OperOrgSysCode" />
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,133 @@
+﻿using System;
+using VirtualMachine.Core;
+using System.Collections;
+using Application.Business.Erp.SupplyChain.Base.Service;
+using Application.Business.Erp.SupplyChain.Approval.AppProcessMng.Domain;
+using Application.Business.Erp.SupplyChain.Approval.AppTableSetMng.Domain;
+using System.Reflection;
+using System.Data;
+using Application.Business.Erp.SupplyChain.Approval.AppSolutionSetMng.Domain;
+namespace Application.Business.Erp.SupplyChain.ApprovalMng.AppSolutionMng.Service
+{
+    public interface IAppSrv : IBaseService
+    {
+        bool Delete(object o);
+        bool Delete(IList l);
+        System.Data.DataSet GetStockInRefier(string _SQL);
+        object Save(object o);
+        IList Save(IList l);
+        IList GetOpeOrgsByInstance();
+        object GetDomain(Type t, ObjectQuery o);
+        void AppAgree(AppTableSet tableSet, AppSolutionSet theAppSolutionSet,AppStepsInfo curAppStepsInfo, string _AppComments, string BillId, IList AppMasterList, IList AppDetailList, IList AppMasteDataModify, IList AppDetailDataModify,string sPersonId);
+        void AppDisAgree(AppTableSet tableSet, AppStepsInfo curAppStepsInfo, string _AppComments, string BillId, IList AppMasterList, IList AppDetailList, IList AppMasteDataModify, IList AppDetailDataModify, string sPersonId);
+        void SubmitApprove(string sSolutionID, AppStepsInfo oAppStepsInfo, string sProjectId, string sJobId);
+        DateTime GetServerDateTime();
+
+        IList GetMasterProperties(string MasterClassName);
+        IList GetDetailProperties(string DetailClassName);
+
+        IList GetAppMasterProperties(string parentId);
+        IList GetAppDetailProperties(string parentId);
+
+        IList GetDomainByCondition(string ClassName, ObjectQuery oq);
+        IList GetAppSolution(AppTableSet AppTable);
+        IList GetAppStepsInfo(ObjectQuery oq);
+
+        IList GetAppData(Type type, ObjectQuery oq);
+
+        bool IfSendMessage();
+
+        /// <summary>
+        /// 查询当前用户的审批表单
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        IList CurrentUserTableSet(string sql);
+
+        Assembly GetSuppluChainAssembly();
+        string AppCommitBusiness(Object obj);
+        /// <summary>
+        /// 获取审批单据
+        /// </summary>
+        /// <param name="sOpjID">登录人的岗位ID</param>
+        /// <param name="sSysCode">登录人所属的组织层次码</param>
+        /// <param name="sProjectID">项目ID</param>
+        /// <param name="dateBegin">获取单据的起始时间</param>
+        /// <param name="dateEnd">获取单据的终止时间</param>
+        /// <returns></returns>
+        DataTable GetAppBill(string sOpjID, string sSysCode, string sProjectID, DateTime dateBegin, DateTime dateEnd);
+         /// <summary>
+        /// 根据审批配置表和单据ID获取单据数据
+        /// </summary>
+        /// <param name="sTableSetID"></param>
+        /// <param name="sBillID"></param>
+        /// <returns></returns>
+        IList    GetBill(string sTableSetID, string sBillID);
+        /// <summary>
+        /// 根据审批配置表 获取单据
+        /// </summary>
+        /// <param name="oAppTableSet"></param>
+        /// <returns></returns>
+        IList GetBill(AppTableSet oAppTableSet,string sProjectID);
+          IList GetBill(AppTableSet oAppTableSet, string sProjectID, DateTime dBeginTime, DateTime dEndTime);
+        /// <summary>
+        /// 根据审批方案ID获取审批方案
+        /// </summary>
+        /// <param name="sSolutionID"></param>
+        /// <returns></returns>
+        AppSolutionSet GetAppSolution(string sSolutionID);
+         /// <summary>
+        /// 通过步骤ID获取审批步骤
+        /// </summary>
+        /// <param name="sStepID"></param>
+        /// <returns></returns>
+        AppStepsSet GetAppStepSetByStepID(string sStepID);
+        /// <summary>
+        /// 根据
+        /// </summary>
+        /// <param name="sTableSteID"></param>
+        /// <returns></returns>
+        AppTableSet GetAppTableSetByID(string sTableSteID);
+        /// <summary>
+        /// 删除审批步骤
+        /// </summary>
+        /// <param name="lstDel"></param>
+        /// <param name="oAppSolutionSet"></param>
+        /// <returns></returns>
+        AppSolutionSet DeleteAppStep(IList lstDel, AppSolutionSet oAppSolutionSet);
+
+        DataTable GetAppBillByProc(string sOpjID, string sSysCode, string sProjectID, DateTime dateBegin, DateTime dateEnd,ref  string sErrMsg);
+        IList GetAppBillPerNameByProc(string sBillID);
+        
+         /// <summary>
+        /// 获取所有项目信息
+        /// </summary>
+        /// <returns></returns>
+        IList GetAllProject();
+        DataTable GetSetBillData(string sSQL);
+        bool SetBillData(string sSQL);
+        /// <summary>
+        /// 获取提交单据第一步审批人信息
+        /// </summary>
+        /// <param name="sBillID">单据ID</param>
+        /// <param name="sClassName">类名如：LaborSporadicMaster</param>
+        /// <returns>返回人员集合的dataset</returns>
+          DataSet GetSubmitBillPerson(string sBillID, string sClassName);
+        /// <summary>
+        /// 获取审批单据的下一步审批人信息
+        /// </summary>
+        /// <param name="sBillID">单据ID</param>
+        /// <returns>返回人员集合的dataset</returns>
+        DataSet GetAppingBillPerson(string sBillID);
+        DataSet GetPassBillID(string sTableSetID, string sBeginTime, string sEndTime, string sProjectID);
+        string GetSubmitBillPersonByName(string sBillID, string sClassName);
+
+        ApproveBill SaveApproveBill(ApproveBill bill, Type billType);
+
+        IList GetApprovingBills(string orgJobId, string personId, string projId);
+
+        ApproveBill GetApproveBillById(string id);
+
+        bool SubmitApprove(AppStepsInfo result, ApproveBill bill);
+    }
+}

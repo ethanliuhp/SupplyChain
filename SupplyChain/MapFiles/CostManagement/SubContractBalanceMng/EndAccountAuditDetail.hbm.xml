@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.SubContractBalanceMng.Domain.EndAccountAuditDetail,SupplyChain" table="THD_ENDACCOUNTAUDITDETAIL" lazy="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="version" type="long" unsaved-value="-1"/>
+
+    <many-to-one name="BalanceTask" column="BalanceTaskGUID" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain" ></many-to-one>
+    <property name="BalanceTaskName"/>
+    <property name="BalanceTaskSyscode" length="1000"/>
+    <many-to-one name="BalanceTaskDtl" column="BalanceTaskDtlGUID" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSDetail,SupplyChain" ></many-to-one>
+    <property name="BalanceTaskDtlName"/>
+    <many-to-one name="PriceUnit" column="PriceUnitGUID" class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager" ></many-to-one>
+    <property name="PriceUnitName"/>
+    <property name="Remarks"/>
+    <property name="UseDescript"/>
+    <property name="ConfirmQuantity"/>
+    <property name="BalancePrice" length="3"/>
+    <property name="BalanceTotalPrice" length="3"/>
+    <property name="BalacneQuantity" length="3"/>
+    <property name="BalanceBase" column="BalanceBase"/>
+    <property name="FontBillType"/>
+    <property name="FrontBillGUID"/>
+     <property name="SJGCL"/>
+     <property name="SJDJ"/>
+     <property name="SJJE"/>
+     <property name="SHYJ"/>
+    <many-to-one name="QuantityUnit" column="QuantityUnitGUID" class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager" ></many-to-one>
+    <property name="QuantityUnitName"/>
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.CostManagement.SubContractBalanceMng.Domain.EndAccountAuditBill,SupplyChain" lazy="false"></many-to-one>
+
+    
+    <!--<set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.SubContractBalanceMng.Domain.SubContractBalanceSubjectDtl,SupplyChain"/>
+    </set>-->
+    
+    
+    
+    <!--<property name="AccountQuantity" length="3"/>-->
+    <!--<property name="AccountPrice" length="3"/>-->
+    <!--工长(负责人)-->
+    <many-to-one name="HandlePerson" column="HandlePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="HandlePersonName"/>
+	  
+	<!--<property name="PlanWorkAmount"/>
+	<property name="PlanTotalprice"/>
+	<property name="AddBalanceQuantity"/>
+	<property name="AddBalanceMoney"/>-->
+  </class>
+</hibernate-mapping>

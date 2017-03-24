@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.Indicator.IndicatorDefine.Domain.IndicatorCategory,SupplyChain" table="THD_IndicatorCategory" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <property name="CategoryNodeType" column="NODETYPE"/>
+    <property name="Code" column="Code" length="50" not-null="true"/>
+    <property name="Name" column="CatName" not-null="true" length="50" />
+    <many-to-one name="ParentNode" column="PARENTID" class="Application.Business.Erp.SupplyChain.Indicator.IndicatorDefine.Domain.IndicatorCategory,SupplyChain" />
+    <bag name="ChildNodes" cascade="delete-orphan" inverse="true" lazy="true">
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.Indicator.IndicatorDefine.Domain.IndicatorCategory,SupplyChain" />
+    </bag>
+    <property name="SysCode" column="SysCode"/>
+    <property name="State" column="CatState" />
+    <property name="Level" column="CatLevel" />
+    <property name="Describe" column="Describe" length="200"/>
+    <property name="CreateDate" column="CreateDate" type="Date"/>
+    <many-to-one name="TheTree" column="TreeId" class="VirtualMachine.Patterns.CategoryTreePattern.Domain.CategoryTree,VirtualMachine" />
+    <!--子类本身的属性-->
+    <bag name="IndicatorDefinitions" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="CategoryID" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.Indicator.IndicatorDefine.Domain.IndicatorDefinition,SupplyChain"/>
+    </bag>
+  </class>
+</hibernate-mapping>

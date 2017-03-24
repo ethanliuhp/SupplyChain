@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.Basic.Domain.PeriodNode,SupplyChain" table="THD_PeroidNode" lazy="true" discriminator-value="-1">
+    <!--<id name="Id" column="Id" unsaved-value="null">
+      <generator class="uuid.hex" />
+    </id>-->
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <property name="Numbers"/>
+    <property name="PerNode"/>
+    <property name="PeriodRequey"/>
+    <!--<property name="ProjectId"/>
+    <property name="ProjectName" />-->
+    <many-to-one name="ProjectId" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.Basic.Domain.CurrentProjectInfo,SupplyChain"></many-to-one>
+
+  </class>
+</hibernate-mapping>
+
+

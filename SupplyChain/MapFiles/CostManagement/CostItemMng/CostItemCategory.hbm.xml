@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostItemCategory,SupplyChain" lazy="true" table="THD_CostItemCategory" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <!--基类的属性-->
+    <!--<version name="Version" column="Version" type="long" unsaved-value="-1" />-->
+    <property name="CategoryNodeType" />
+    <property name="Name" length="50" />
+    <property name="Code" length="200" />
+    <property name="CreateDate" type="Date" />
+    <property name="SysCode" />
+    <property name="State" />
+    <property name="Level" column="TLevel"/>
+    <property name="Describe"  />
+    <many-to-one name="ParentNode" column="ParentNodeID" class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostItemCategory,SupplyChain" />
+    <many-to-one name="Author" class="VirtualMachine.Patterns.BusinessEssence.Domain.BusinessOperators, VirtualMachine" />
+    <many-to-one name="TheTree" class="VirtualMachine.Patterns.CategoryTreePattern.Domain.CategoryTree,VirtualMachine" />
+    <property name="OrderNo" />
+    <bag name="ChildNodes" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write" />
+      <key column="ParentNodeID" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostItemCategory,SupplyChain" />
+    </bag>
+    <!--自身的属性-->
+    <property name="CreateTime" />
+    <property name="UpdatedDate" />
+    <property name="Summary" />
+    <property name="CategoryState"/>
+    <property name="TheProjectGUID" length="64"/>
+    <property name="TheProjectName"/>
+
+    <property name="CategoryType"/>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,119 @@
+﻿<?xml version="1.0"?>
+<!-- 
+    注意: 除了手动编辑此文件以外，您还可以使用 
+    Web 管理工具来配置应用程序的设置。可以使用 Visual Studio 中的
+     “网站”->“Asp.Net 配置”选项。
+    设置和注释的完整列表在 
+    machine.config.comments 中，该文件通常位于 
+    \Windows\Microsoft.Net\Framework\v2.x\Config 中
+-->
+<configuration> 
+	 
+	<appSettings>
+		<add key="ChartImageHandler" value="storage=file;timeout=20;dir=c:\TempImageFiles\;"/>
+		<!--门户单点登录集成-->
+		<add key="PORTALHOST" value="http://www.cscec3b.com:81/portal/"/>
+		<!--http://59.175.169.254:99/sso-server/-->
+		<add key="SSOHOST" value="http://10.70.18.172:8080/sso-server/"/>
+		<add key="PluginUrl" value="http://www.cscec3b.com:1234/sso/publish.htm"/>
+		<add key="SubSystemId" value="4"/>
+		<add key="BIMServerJsonApi" value="http://www.cscec3b.com:166/Cameral/ProjectAPI.ashx?"/>
+		<add key="WebcamServerJsonApi" value="http://www.cscec3b.com:166/Cameral/API.ashx?"/>
+		<add key="PortalIntegration.PortalService" value="http://192.168.1.108:8002/PortalIntegration"/>
+		<add key="PortalIntegration104Srv.PortalService" value="http://192.168.1.104:8002/PortalIntegration"/>
+		<add key="管理员名称" value="admin3030"/>
+		<add key="管理员岗位" value="管理员"/>
+		<add key="管理员角色" value="系统管理员"/>
+		<add key="菜单根节点" value="web菜单"/>
+    <!--资金管理配置信息-->
+    <!--<add key="DepartmentOrder" value="天津分公司;山东分公司;郑州分公司;长沙分公司;直管项目;安装分公司"/>-->
+    <add key="SimilarIndex" value="1|2,3,4|5,6,7,8|9,10|11,12,13|14,15,16|17,18,19"/>
+	</appSettings>
+	<connectionStrings/>
+	<system.web>
+		<!--timeout表示session超时时间(单位分钟),stateNetworkTimeout表示在客户端与服务端之间多长时间没有传送信息则断开连接（单位秒),此处设置为12个小时session超时,6个小时未传送数据自动断开-->
+		<!--StateServer-->
+		<sessionState mode="InProc"   timeout="720"  />
+		<customErrors mode="Off"/>
+		<!-- 
+            设置 compilation debug="true" 可将调试符号插入
+            已编译的页面中。但由于这会 
+            影响性能，因此只在开发过程中将此值 
+            设置为 true。
+        -->
+		<compilation debug="true">
+			<assemblies>
+				<add assembly="System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089"/>
+				<add assembly="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35"/>
+				<add assembly="System.Data.DataSetExtensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089"/>
+				<add assembly="System.Xml.Linq, Version=3.5.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089"/>
+				<add assembly="System.Web.DataVisualization, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35"/>
+				
+				<add assembly="Microsoft.Build.Framework, Version=3.5.0.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A"/>
+				<add assembly="System.Management, Version=2.0.0.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A"/>
+				<add assembly="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A"/>
+				<add assembly="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A"/>
+				<add assembly="Microsoft.JScript, Version=8.0.0.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A"/></assemblies>
+			<buildProviders>
+				<add extension=".rdlc" type="Microsoft.Reporting.RdlBuildProvider, Microsoft.ReportViewer.Common, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"/>
+			</buildProviders>
+		</compilation>
+		<!--
+            通过 <authentication> 节可以配置 ASP.NET 用来 
+            识别进入用户的
+            安全身份验证模式。 
+        -->
+		<authentication mode="Windows"/>
+		<!--
+            如果在执行请求的过程中出现未处理的错误，
+            则通过 <customErrors> 节可以配置相应的处理步骤。具体说来，
+            开发人员通过该节可以配置
+            要显示的 html 错误页
+            以代替错误堆栈跟踪。
+
+        <customErrors mode="RemoteOnly" defaultRedirect="GenericErrorPage.htm">
+            <error statusCode="403" redirect="NoAccess.htm" />
+            <error statusCode="404" redirect="FileNotFound.htm" />
+        </customErrors>
+        -->
+		<pages>
+			<controls>
+				<add tagPrefix="asp" namespace="System.Web.UI" assembly="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35"/>
+				<add tagPrefix="asp" namespace="System.Web.UI.WebControls" assembly="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35"/>
+				<add tagPrefix="asp" namespace="System.Web.UI.DataVisualization.Charting" assembly="System.Web.DataVisualization, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"/>
+			</controls>
+		</pages>
+	 
+		 
+	</system.web>
+	<system.codedom>
+		<compilers>
+			<compiler language="c#;cs;csharp" extension=".cs" warningLevel="4" type="Microsoft.CSharp.CSharpCodeProvider, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+				<providerOption name="CompilerVersion" value="v3.5"/>
+				<providerOption name="WarnAsError" value="false"/>
+			</compiler>
+			<compiler language="vb;vbs;visualbasic;vbscript" extension=".vb" warningLevel="4" type="Microsoft.VisualBasic.VBCodeProvider, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+				<providerOption name="CompilerVersion" value="v3.5"/>
+				<providerOption name="OptionInfer" value="true"/>
+				<providerOption name="WarnAsError" value="false"/>
+			</compiler>
+		</compilers>
+	</system.codedom>
+	<!-- 
+        在 Internet 信息服务 7.0 下运行 ASP.NET AJAX 需要 system.webServer
+        节。对早期版本的 IIS 来说则不需要此节。
+    -->
+	 
+	<runtime>
+		<assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+			<dependentAssembly>
+				<assemblyIdentity name="System.Web.Extensions" publicKeyToken="31bf3856ad364e35"/>
+				<bindingRedirect oldVersion="1.0.0.0-1.1.0.0" newVersion="3.5.0.0"/>
+			</dependentAssembly>
+			<dependentAssembly>
+				<assemblyIdentity name="System.Web.Extensions.Design" publicKeyToken="31bf3856ad364e35"/>
+				<bindingRedirect oldVersion="1.0.0.0-1.1.0.0" newVersion="3.5.0.0"/>
+			</dependentAssembly>
+		</assemblyBinding>
+	</runtime>
+</configuration>

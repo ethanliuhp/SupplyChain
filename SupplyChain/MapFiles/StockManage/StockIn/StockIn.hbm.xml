@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <subclass name="Application.Business.Erp.SupplyChain.StockManage.StockInManage.Domain.StockIn,SupplyChain" lazy="true" extends="Application.Business.Erp.SupplyChain.StockManage.StockInManage.BasicDomain.BasicStockIn,SupplyChain" select-before-update="true" discriminator-value="0">
+    <property name="Cph"/>
+    <property name="AssociatedOrder"/>
+    <property name="AssociatedPlan"/>
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.StockManage.StockInManage.Domain.StockInDtl, SupplyChain"/>
+    </set>
+    <property name="ConcreteBalID"/>
+  </subclass>
+</hibernate-mapping>

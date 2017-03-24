@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <subclass name="Application.Business.Erp.SupplyChain.StockManage.StockOutManage.Domain.StockOutDtl, SupplyChain" lazy="true" extends="Application.Business.Erp.SupplyChain.StockManage.StockOutManage.BasicDomain.BasicStockOutDtl, SupplyChain" select-before-update="true" discriminator-value="0">
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.StockManage.StockOutManage.Domain.StockOut, SupplyChain"/>
+
+    <set name="StockOutDtlSeqList" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="StockOutDtlId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.StockManage.StockOutManage.Domain.StockOutDtlSeq, SupplyChain"/>
+    </set>
+
+    <property name="ConcreteBalDtlID"/>
+  
+  </subclass>
+</hibernate-mapping>
+
+
+

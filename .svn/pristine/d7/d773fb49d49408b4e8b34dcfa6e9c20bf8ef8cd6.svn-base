@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ApprovalManagerLib</name>
+    </assembly>
+    <members>
+        <member name="M:ApprovalManagerLib.BasicData.BaseService.IBaseBasicDataSrv.Delete(System.Collections.IList)">
+            <summary>
+            删除
+            </summary>
+            <param name="lst"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApprovalManagerLib.BasicData.BaseService.IBaseBasicDataSrv.Delete(System.Object)">
+            <summary>
+            删除
+            </summary>
+            <param name="lst"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApprovalManagerLib.BasicData.BaseService.IBaseBasicDataSrv.Save(System.Collections.IList)">
+            <summary>
+            新增保存
+            </summary>
+            <param name="lst"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApprovalManagerLib.BasicData.BaseService.IBaseBasicDataSrv.Save(System.Object)">
+            <summary>
+            新增保存
+            </summary>
+            <param name="lst"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApprovalManagerLib.BasicData.BaseService.IBaseBasicDataSrv.Update(System.Object)">
+            <summary>
+            修改保存
+            </summary>
+            <param name="lst"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApprovalManagerLib.BasicData.BaseService.IBaseBasicDataSrv.Update(System.Collections.IList)">
+            <summary>
+            修改保存
+            </summary>
+            <param name="lst"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApprovalManagerLib.BasicData.BaseService.IBaseBasicDataSrv.GetObjects(System.Type)">
+            <summary>
+            查询制定类型的所有的数据
+            </summary>
+            <param name="aType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApprovalManagerLib.BasicData.BaseService.IBaseBasicDataSrv.GetObjects(System.Type,VirtualMachine.Core.ObjectQuery)">
+            <summary>
+            按条件查询制定类型的数据
+            </summary>
+            <param name="aType">类型</param>
+            <param name="oq">查询条件</param>
+            <returns>查询结果IList</returns>
+        </member>
+        <member name="M:ApprovalManagerLib.BasicData.BaseService.BaseBasicDataSrv.Save(System.Object)">
+            <summary>
+            保存新增数据
+            </summary>
+            <param name="obj">要保存的对象</param>
+            <returns>保存后的对象</returns>
+        </member>
+        <member name="M:ApprovalManagerLib.BasicData.BaseService.BaseBasicDataSrv.Save(System.Collections.IList)">
+            <summary>
+            保存新增数据
+            </summary>
+            <param name="lst">要保存的对象IList</param>
+            <returns>保存后的IList</returns>
+        </member>
+        <member name="M:ApprovalManagerLib.BasicData.BaseService.BaseBasicDataSrv.Update(System.Object)">
+            <summary>
+            保存要修改的数据
+            </summary>
+            <param name="obj">要修改的对象</param>
+            <returns>修改后的对象</returns>
+        </member>
+        <member name="M:ApprovalManagerLib.BasicData.BaseService.BaseBasicDataSrv.Update(System.Collections.IList)">
+            <summary>
+            修改对象
+            </summary>
+            <param name="lst">要修改的对象IList</param>
+            <returns>修改后的对象IList</returns>
+        </member>
+        <member name="M:ApprovalManagerLib.BasicData.BaseService.BaseBasicDataSrv.Delete(System.Collections.IList)">
+            <summary>
+            删除对象
+            </summary>
+            <param name="lst">要删除的对象IList</param>
+            <returns>True 删除成功，False 删除失败</returns>
+        </member>
+        <member name="M:ApprovalManagerLib.BasicData.BaseService.BaseBasicDataSrv.Delete(System.Object)">
+            <summary>
+            删除对象
+            </summary>
+            <param name="obj">要删除的对象</param>
+            <returns>True 删除成功，False 删除失败</returns>
+        </member>
+        <member name="M:ApprovalManagerLib.BasicData.BaseService.BaseBasicDataSrv.GetObjects(System.Type)">
+            <summary>
+            查询制定类型的所有的数据
+            </summary>
+            <param name="aType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApprovalManagerLib.BasicData.BaseService.BaseBasicDataSrv.GetObjects(System.Type,VirtualMachine.Core.ObjectQuery)">
+            <summary>
+            按条件查询制定类型的数据
+            </summary>
+            <param name="aType">类型</param>
+            <param name="oq">查询条件</param>
+            <returns>查询结果IList</returns>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDefineMng.Domain.AppSltModel.Content">
+            <summary>
+            模板内容
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDataMng.Domain.AppDataStepDtl.AppResult">
+            <summary>
+            审批结果
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDataMng.Domain.AppDataStepDtl.Comments">
+            <summary>
+            意见
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDataMng.Domain.AppDataStepDtl.AppRole">
+            <summary>
+            审批角色
+            </summary>
+        </member>
+        <member name="T:ApprovalManagerLib.BasicData.BaseDomain.BaseBasicData">
+            <summary>
+            基础数据基类
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.BasicData.BaseDomain.BaseBasicData.State">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.BasicData.BaseDomain.BaseBasicData.Id">
+            <summary>
+            ID
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.BasicData.BaseDomain.BaseBasicData.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.BasicData.BaseDomain.BaseBasicData.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.BasicData.BaseDomain.BaseBasicData.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.BasicData.BaseDomain.BaseBasicData.Descript">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDefineMng.Domain.AppPerson.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDefineMng.Domain.AppPerson.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDefineMng.Domain.AppDefine.ExeContent">
+            <summary>
+            执行命令行
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDefineMng.Domain.AppDefine.UseNameSpace">
+            <summary>
+            用命名空间
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDefineMng.Domain.AppDefine.RefAssembly">
+            <summary>
+            引用程序集合
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDefineMng.Domain.AppDefine.Name">
+            <summary>
+            审批名称
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDefineMng.Domain.AppDefine.Solution">
+            <summary>
+            方案
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDefineMng.Domain.AppDefine.ClassName">
+            <summary>
+            被审批类名称
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDefineMng.Domain.AppStep.Role">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDefineMng.Domain.AppStep.Remark">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDefineMng.Domain.AppStep.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDefineMng.Domain.AppStep.Code">
+            <summary>
+            代码
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDefineMng.Domain.AppStep.Serial">
+            <summary>
+            序号
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDataMng.Domain.AppData.Comments">
+            <summary>
+            意见
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDataMng.Domain.AppData.CommitDate">
+            <summary>
+            提交日期
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDataMng.Domain.AppData.AppCode">
+            <summary>
+            待审批Code
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDataMng.Domain.AppData.AppId">
+            <summary>
+            待审批Id
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDefineMng.Domain.AppSolution.Name">
+            <summary>
+            方案名称
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDefineMng.Domain.AppSolution.Code">
+            <summary>
+            方案代码
+            </summary>
+        </member>
+        <member name="P:ApprovalManagerLib.AppDefineMng.Domain.AppSolution.AppDefine">
+            <summary>
+            审批定义
+            </summary>
+        </member>
+    </members>
+</doc>

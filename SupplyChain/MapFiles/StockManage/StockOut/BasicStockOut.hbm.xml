@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.StockManage.StockOutManage.BasicDomain.BasicStockOut,SupplyChain" table="THD_StkStockOut" lazy="true" select-before-update="true" discriminator-value ="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <discriminator column="TheStockInOutKind" type="long" />
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+
+    <property name="Descript" column="Descript"/>
+    <many-to-one name="CurrencyType" column="CurrencyType" class="Application.Resource.FinancialResource.Domain.Currency,ResourceManager"/>
+
+    <many-to-one name="TheStationCategory" column="TheStationCategory" class="Application.Business.Erp.SupplyChain.StockManage.Base.Domain.StationCategory,SupplyChain"/>
+    <property name="Code" column="CODE"  />
+    <many-to-one name="TheSupplierRelationInfo" column="SupplierRelation" class="Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass.SupplierRelationInfo,ResourceManager"/>
+    <property name="TheSupplierName" column="SupplierRelationName"></property>
+    <property name="ProjectId"/>
+    <property name="ProjectName"/>
+    <property name="MonthConsumeId"/>
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperOrgInfoName" column="OperationOrgName"/>
+    <property name="ExchangeRate" column="ExchangeRate"/>
+    <property name="SubmitDate" column="SubmitDate"/>
+    <property name="ForwardBillCode" column="ForwardBillCode"/>
+    <property name="ForwardBillId" column="ForwardBillId"/>
+    <property name="ForwardBillType" column="ForwardBillType"/>
+    
+    <property name="StockOutManner"/>
+
+    <many-to-one name="CreatePerson" column="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="CreatePersonName"/>
+    <many-to-one name="AuditPerson" column="AuditPerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="AuditPersonName"/>
+    <many-to-one name="HandlePerson" column="HandlePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="HandlePersonName"></property>
+
+    <property name="CreateDate" column="CreateDate"/>
+    <property name="AuditDate" column="AuditDate"/>
+
+    <property name="CreateYear" column="CreateYear"/>
+    <property name="CreateMonth" column="CreateMonth"/>
+    <property name="AuditYear" column="AuditYear"/>
+    <property name="AuditMonth" column="AuditMonth"/>
+
+    <property name="RealOperationDate" column="RealOperationDate"/>
+    <property name="LastModifyDate"/>
+
+    <property name="IsTally"/>
+
+    <property name="DocState" column="STATE" />
+
+    <property name="SumMoney" length="2" />
+    <property name="SumQuantity" length="4" />
+
+    <property name="OpgSysCode" column="OpgSysCode"/>
+    <property name="Special"/>
+    <many-to-one name="MaterialCategory" column="MatCatId"/>
+    <property name="MatCatName"/>
+    <property name="ProfessionCategory"/>
+    <property name="PrintTimes"/>
+
+  </class>
+</hibernate-mapping>
+
+

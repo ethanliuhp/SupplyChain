@@ -1,0 +1,679 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using System.Collections;
+using System.Linq;
+using Application.Business.Erp.SupplyChain.CostManagement.PBS.Service;
+using Application.Business.Erp.SupplyChain.Client.Basic.Template;
+using Application.Business.Erp.SupplyChain.Basic.Domain;
+using Application.Business.Erp.SupplyChain.Client.Basic.CommonClass;
+using Application.Business.Erp.SupplyChain.CostManagement.PBS.Domain;
+using VirtualMachine.Core;
+//using VirtualMachine.Core.Expression;
+using Application.Business.Erp.SupplyChain.Client.Main;
+using NHibernate.Criterion;
+using System.Threading;
+using VirtualMachine.Component.Util;
+
+namespace Application.Business.Erp.SupplyChain.Client.CostManagement.PBS
+{
+    public partial class VPBSBuilding : TBasicDataView
+    {
+        #region 属性、字段
+
+        /// <summary>
+        /// 提供服务的接口
+        /// </summary>
+        private IPBSTreeSrv service;
+        /// <summary>
+        /// 标识是否是需要加载PBS模版
+        /// </summary>
+        private bool _isNewLoad = false;
+        /// <summary>
+        /// 当前登陆人所在的项目信息
+        /// </summary>
+        public CurrentProjectInfo projectInfo { get; set; }
+        /// <summary>
+        /// 当前所选择的pbs节点
+        /// </summary>
+        public PBSTree SelectPbs { get; set; }
+        public List<TreeNode> ListChecked { get; set; }
+
+        #endregion
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="mot"></param>
+        public VPBSBuilding(MPBSTree mot)
+        {
+            service = mot.Service;
+            ListChecked = new List<TreeNode>();
+            InitializeComponent();
+            ViewInit();
+
+            EventInit();
+            // 展开第一个节点
+            if (tvTree.Nodes.Count > 0)
+                tvTree.Nodes[0].Expand();
+        }
+        public void ReName()
+        {
+            // else if (e.ClickedItem.Name == 批量变更施工任务名称.Name)
+            // {
+            // mnuTree.Hide();
+            VPBSTreeBakNewBatchUpdateName_New oVPBSTreeBakNewBatchUpdateName_New = new VPBSTreeBakNewBatchUpdateName_New(this.tvTree.SelectedNode.Tag as PBSTree, new MPBSTree());
+            oVPBSTreeBakNewBatchUpdateName_New.ShowDialog();
+            if (oVPBSTreeBakNewBatchUpdateName_New.IsSave)
+            {
+                tvTree.Nodes.Clear();
+                LoadTreeNode();
+            }
+            // }
+        }
+        #region 页面初始化
+        /*
+         * 页面初始化流程
+         *  1. 点击进入视图时，读取项目的PBS树，如果存在则将树加载到TreeView上，否则提示选择PBS模版
+         *  2. 选择模版后，生成PBS节点树的根节点，并保存到数据库
+         *  3. 重新加载树
+        */
+
+        /// <summary>
+        /// 页面初始化
+        /// </summary>
+        private void ViewInit()
+        {
+            projectInfo = StaticMethod.GetProjectInfo();
+            // 首先判断是否存在PBS节点，不存在则提示选择模版类型
+            DataTable dt = service.GetPBSTreesInstanceBySql(projectInfo.Id);
+            if (dt == null || dt.Rows.Count == 0)
+            {
+                _isNewLoad = true;
+                return;
+            }
+            // 加载PBS节点树
+            LoadTreeNode();
+        }
+
+        /// <summary>
+        /// 加载PBS节点树
+        /// </summary>
+        private void LoadTreeNode()
+        {
+            // 查询所有节点
+            ObjectQuery oq = new ObjectQuery();
+            oq.AddCriterion(Expression.Eq("TheProjectGUID", projectInfo.Id));
+            oq.AddCriterion(Expression.Eq("State", 1));
+            oq.AddOrder(Order.Asc("OrderNo"));
+            oq.AddFetchMode("Template", NHibernate.FetchMode.Eager);
+            var list = service.ObjectQuery(typeof(PBSTree), oq).Select<PBSTree>();
+            if (list == null || list.Count == 0) return;
+            // 首先加载根节点
+            var pbsRoot = list.FirstOrDefault(a => a.Level == 1);
+            if (pbsRoot == null) return;
+            var root = CreateTreeNode(pbsRoot);
+            tvTree.Nodes.Add(root);
+            // 然后递归
+            CreateTreeNode(root, list);
+        }
+
+        /// <summary>
+        /// 创建树的子节点
+        /// </summary>
+        /// <param name="root">待添加子节点的节点</param>
+        /// <param name="list">项目PBS节点</param>
+        private void CreateTreeNode(TreeNode root, IEnumerable<PBSTree> list)
+        {
+            /*
+             * 添加子节点流程
+             *  1. 查询出所以的子节点
+             *  2. 遍历子节点，依次添加到父节点上
+             *  3. 根据子节点的属性，递归添加其子节点
+            */
+            var parent = root.Tag as PBSTree;
+            var chilren = list.Where(a => a.ParentNode != null && a.ParentNode.Id == parent.Id);
+            if (chilren.Count() == 0) return;
+            foreach (var item in chilren)
+            {
+                var node = CreateTreeNode(item);
+                root.Nodes.Add(node);
+                CreateTreeNode(node, list);
+            }
+        }
+
+        /// <summary>
+        /// 选择PBS模版
+        /// </summary>
+        public void SelectPBSTemplate()
+        {
+            if (!_isNewLoad) return;                // 只有不存在PBS节点时才提示选择模版
+            tvTree.Nodes.Clear();                   // 清除原有节点
+            VPBSTemplateSelect vts = new VPBSTemplateSelect() { StartPosition = FormStartPosition.Manual, Location = new Point(200, 100) };
+            vts.ShowDialog();
+            if (vts.SelectItem == null) return;     // 没有选择模版则不进行之后的操作
+            // 生成根节点并保存
+            PBSTree root = CreatePBSTree();
+            root.Name = projectInfo.Name;
+            root.FullPath = projectInfo.Name;
+            root.Template = vts.SelectItem;
+            root.CodeBit = Convert.ToInt32(vts.SelectItem.TypeBit);
+            root.Code = vts.SelectItem.Code;
+            root.OrderNo = 1;
+            root.Level = 1;
+            root.StructTypeGUID = root.Template.Id;
+            root.StructTypeName = root.Template.Name;
+            // 保存
+            service.SavePBSTree(root, null);
+            // 重新加载树
+            LoadTreeNode();
+        }
+
+        #endregion
+
+        #region 页面操作
+
+        private void EventInit()
+        {
+            tvTree.AfterSelect += (a, b) => { ShowNodeDetail(b.Node); ChangeControlState(false); };
+            tvTree.AfterCheck += (a, b) => CheckTreeNode(b);
+            btnAdd.Click += (a, b) =>
+            {
+                if (tvTree.Nodes.Count == 0) return;
+                Add(tvTree.SelectedNode);
+                ChangeControlState(false);
+            };
+            btnDelete.Click += (a, b) => Delete(tvTree.SelectedNode);
+            btnUpdate.Click += (a, b) =>
+            {
+                if (tvTree.Nodes.Count == 0) return;
+                ChangeControlState(true);
+            };
+            btnSave.Click += (a, b) => { Save(tvTree.SelectedNode); ChangeControlState(false); };
+            btnDelAll.Click += (a, b) =>
+            {
+                if (tvTree.Nodes.Count == 0) return;
+                DeleteAll();
+            };
+            btnReset.Click += (a, b) => Reset();
+            btnRename.Click += (a, b) => ReName();
+
+            上移.Click += (a, b) => Move(true);
+            下移.Click += (a, b) => Move(false);
+        }
+
+        /// <summary>
+        /// 选择节点后，展示节点的详情
+        /// </summary>
+        /// <param name="node"></param>
+        private void ShowNodeDetail(TreeNode node)
+        {
+            var pbs = node.Tag as PBSTree;
+            txtPath.Text = pbs.FullPath;
+            txtCode.Text = pbs.Code;
+            txtName.Text = pbs.Name;
+            txtConstructionArea.Text = ClientUtil.ToString(pbs.ConstructionArea);
+            if (pbs.Template != null)
+            {
+                txtType.Text = pbs.Template.Name;
+            }
+            txtRemark.Text = pbs.Describe;
+            SelectPbs = pbs;
+        }
+
+        /// <summary>
+        /// 增加节点
+        /// </summary>
+        private void Add(TreeNode node)
+        {
+            var pbs = node.Tag as PBSTree;
+            VPBSNodeAdd vna = new VPBSNodeAdd(pbs.Template);
+            if (!vna.EnableSelect)
+            {
+                MessageBox.Show("选择的节点下不可添加子节点...");
+                return;
+            }
+            vna.ShowDialog();
+            if (vna.NodeTemplate == null) return;
+            // 根据选择的信息创建子节点
+            CreateChildren(tvTree.SelectedNode, vna.NodeTemplate, vna.NodeName, vna.NodeCode, vna.Number, vna.NodeRemark);
+            node.Expand();
+        }
+
+        /// <summary>
+        /// 创建子节点
+        /// </summary>
+        private void CreateChildren(TreeNode root, PBSTemplate template, string name, string code, int number, string remark)
+        {
+            /*
+             * 创建子节点的流程
+             *  1. 生成PBS节点[如果number不为1，则在每个子节点名称及编码后增加节点编号]
+             *  2. 保存PBS节点
+             *  3. 增加TreeView节点
+             
+            */
+            var parentNode = root.Tag as PBSTree;
+            var allChildren = new List<PBSTree>();
+
+            // 部分属性初始化
+            var pbs = CreatePBSTree();
+            pbs.Code = parentNode.Code + "-" + code;
+            pbs.Name = name;
+            pbs.Describe = remark;
+            pbs.Template = template;
+            pbs.CodeBit = Convert.ToInt32(template.TypeBit);
+            pbs.ParentNode = parentNode;
+            pbs.StructTypeGUID = template.Id;
+            pbs.StructTypeName = template.Name;
+            pbs.Level = parentNode.Level + 1;
+
+            // 当前节点下的子节点数
+            int childCount = root.Nodes.Count;
+
+            // 同类型节点数
+            int order = 0;
+            if (childCount > 0)
+                order = root.Nodes.Select<TreeNode>().Where(a => (a.Tag as PBSTree).Template.Id == template.Id).Count();
+
+            if (number == 1 && order == 0)
+            {
+                pbs.OrderNo = order + 1;
+                pbs.FullPath = parentNode.FullPath + "\\" + name;
+                pbs = service.SavePBSTree(pbs, parentNode.SysCode);
+                allChildren.Add(pbs);
+            }
+            else
+            {
+                for (int i = 1; i <= number; i++)
+                {
+                    var child = pbs.Clone(null) as PBSTree;
+                    child.OrderNo = order + i;
+                    child.Name += (order + i).ToString().PadLeft(pbs.CodeBit, '0');
+                    child.FullPath = parentNode.FullPath + "\\" + child.Name;
+                    child.Code += (order + i).ToString().PadLeft(pbs.CodeBit, '0');
+                    child = service.SavePBSTree(child, parentNode.SysCode);
+                    allChildren.Add(child);
+                }
+            }
+
+            // 加载树
+            foreach (var item in allChildren)
+                root.Nodes.Add(CreateTreeNode(item));
+        }
+
+        /// <summary>
+        /// 删除节点
+        /// </summary>
+        private void Delete(TreeNode node)
+        {
+            if (node == tvTree.Nodes[0])
+            {
+                MessageBox.Show("不能删除根节点...");
+                return;
+            }
+            var result = MessageBox.Show("确定删除节点吗？", "提示", MessageBoxButtons.YesNo);
+            if (result == DialogResult.No) return;
+
+            var pbs = node.Tag as PBSTree;
+            CommonMethod.CommonMethodSrv.InsertData(string.Format("delete thd_pbstree where theprojectguid='{0}' and state = '1' and syscode like '{1}%'", projectInfo.Id, pbs.SysCode));
+            tvTree.Nodes.Remove(node);
+        }
+
+        /// <summary>
+        /// 修改节点
+        /// </summary>
+        private void Save(TreeNode node)
+        {
+            var pbs = node.Tag as PBSTree;
+            pbs.Code = txtCode.Text;
+            pbs.Name = txtName.Text;
+            int index = pbs.FullPath.LastIndexOf("\\");
+            if (index == -1)
+                pbs.FullPath = txtName.Text;
+            else
+                pbs.FullPath = pbs.FullPath.Substring(0, index) + "\\" + txtName.Text;
+            pbs.Describe = txtRemark.Text;
+            pbs.ConstructionArea = ClientUtil.ToDecimal(txtConstructionArea.Text);
+            txtPath.Text = pbs.FullPath;
+            service.Save(pbs);
+            node.Text = pbs.Name;
+        }
+
+        /// <summary>
+        /// 勾选树节点
+        /// </summary>
+        /// <param name="note"></param>
+        private void CheckTreeNode(TreeViewEventArgs b)
+        {
+            if (b.Action != TreeViewAction.Unknown)         // 如果是代码赋值触发的事件，则不执行CheckNode
+                CheckNode(b.Node, b.Node.Checked);
+
+            if (!b.Node.Checked && b.Node.Parent != null && b.Node.Parent.Checked)
+            {
+                // 如果取消了勾选，且父节也点勾选了，则取消父节点的勾选
+                SetCheckList(b.Node.Parent, false);
+            }
+        }
+
+        /// <summary>
+        /// 鼠标勾选时执行的操作
+        /// </summary>
+        private void CheckNode(TreeNode node, bool state)
+        {
+            SetCheckList(node, state);
+
+            // 遍历节点下的子节点
+            var children = node.Nodes;
+            if (children.Count == 0) return;
+            foreach (TreeNode item in children)
+            {
+                CheckNode(item, state);
+            }
+        }
+
+        /// <summary>
+        /// 设置节点勾选状态和树节点集合
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="state"></param>
+        private void SetCheckList(TreeNode node, bool state)
+        {
+            if (state && !ListChecked.Contains(node))
+                ListChecked.Add(node);
+            else if (!state && ListChecked.Contains(node))
+                ListChecked.Remove(node);
+            node.Checked = state;
+        }
+
+        /// <summary>
+        /// 删除选中的节点
+        /// </summary>
+        private void DeleteAll()
+        {
+            Delete(false);
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="state"></param>
+        private void Delete(bool state)
+        {
+            /*
+             * 批量删除操作流程
+             *  1. 判断选中节点，如果节点有子节点，则提示用户
+             *  2. 将选中的节点按树层次级别Level分组
+             *  3. 依次删除各层节点
+            */
+            if (!state)         // 这里的判断是为了在重置的时候取消提示加上的
+            {
+                if (ListChecked.Count == 0)
+                {
+                    MessageBox.Show("没有选中的节点...");
+                    return;
+                }
+                if (MessageBox.Show("确定删除选中节点吗？", "提示", MessageBoxButtons.YesNo) == DialogResult.No) return;
+            }
+            // 逐层删除
+            var levelGroup = ListChecked.GroupBy(a => a.Level).Select(a => a.Key).ToList();
+            levelGroup.Sort();          // 排序
+            levelGroup.Reverse();       // 倒序
+            foreach (var level in levelGroup)
+            {
+                var list = ListChecked.Where(a => a.Level == level).Select(a => a.Tag as PBSTree);
+                Delete(list.ToArray());
+            }
+            foreach (var item in ListChecked)
+            {
+                item.Remove();
+            }
+            ListChecked.Clear();
+        }
+
+        /// <summary>
+        /// 删除列表集合
+        /// </summary>
+        /// <param name="list"></param>
+        private void Delete(params PBSTree[] list)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < list.Count(); i++)
+            {
+                if (i == list.Count() - 1)
+                {
+                    sb.Append("'" + list[i].Id + "'");
+                    continue;
+                }
+                sb.Append("'" + list[i].Id + "',");
+            }
+            CommonMethod.CommonMethodSrv.InsertData(string.Format("delete thd_pbstree where theprojectguid = '{0}' and state = '1' and id in ({1})", projectInfo.Id, sb.ToString()));
+        }
+
+        private void Reset()
+        {
+            if (tvTree.Nodes.Count > 0)
+            {
+                if (MessageBox.Show("重新选择将删除现有结构，确定重新选择吗？", "提示", MessageBoxButtons.YesNo) == DialogResult.No) return;
+            }
+            /*
+             * 重置流程
+             * 1. 删除现有结构
+             * 2. 选择PBS模版
+            
+            */
+            // 选择所有节点
+            if (tvTree.Nodes.Count > 0)
+            {
+                tvTree.Nodes[0].Checked = true;
+                CheckTreeNode(new TreeViewEventArgs(tvTree.Nodes[0], TreeViewAction.ByMouse));
+                Delete(true);        // 删除所有节点
+            }
+            // 重新选择
+            _isNewLoad = true;
+            SelectPBSTemplate();
+        }
+
+        private void Move(bool isMoveUp)
+        {
+            List<PBSTree> lstPbsUpdate = new List<PBSTree>();
+            PBSTree curPBS = tvTree.SelectedNode.Tag as PBSTree;
+            TreeNode curNode = tvTree.SelectedNode;//当前节点
+            int curr_index = curNode.Index;//当前索引位置
+            bool ifCheck = curNode.Checked;
+            TreeNode parentNode = curNode.Parent;//父节点
+            if (parentNode != null)
+            {
+                int new_index = 0;//前一索引
+                //上移
+                if (isMoveUp)
+                {
+                    if (curr_index > 0)
+                    {
+                        new_index = curr_index - 1;
+                    }
+
+                    if (curNode.PrevNode != null && curNode.PrevNode.Tag != null)
+                    {
+                        var preTree = curNode.PrevNode.Tag as PBSTree;
+                        ////如果相等，则将将当前节点的序号减一，以及下一个节点之后的所有兄弟节点的序号减一,否则直接交换两者的序号即可
+                        if (preTree.OrderNo == curPBS.OrderNo)
+                        {
+                            curPBS.OrderNo = curPBS.OrderNo - 1;
+                            if (curNode.PrevNode.PrevNode != null && curNode.PrevNode.PrevNode.Tag != null)
+                            {
+                                SetOrderUp(lstPbsUpdate, curNode.PrevNode.PrevNode);
+                            }
+                        }
+                        else
+                        {
+                            var temp = curPBS.OrderNo;
+                            curPBS.OrderNo = preTree.OrderNo;
+                            preTree.OrderNo = temp;
+
+                            curNode.PrevNode.Tag = preTree;
+                            lstPbsUpdate.Add(preTree);
+                        }
+                    }
+                }
+                else//下移
+                {
+                    new_index = curr_index + 1;
+
+                    if (curNode.NextNode != null && curNode.NextNode.Tag != null)
+                    {
+                        var nextTree = curNode.NextNode.Tag as PBSTree;
+                        //如果相等，则将将当前节点的序号加一，以及下一个节点之后的所有兄弟节点的序号加一,否则直接交换两者的序号即可
+                        if ((nextTree.OrderNo == curPBS.OrderNo))
+                        {
+                            curPBS.OrderNo = curPBS.OrderNo + 1;
+                            if (curNode.NextNode.NextNode != null && curNode.NextNode.NextNode.Tag != null)
+                            {
+                                SetOrderDown(lstPbsUpdate, curNode.NextNode.NextNode);
+                            }
+                        }
+                        else
+                        {
+                            var temp = curPBS.OrderNo;
+                            curPBS.OrderNo = nextTree.OrderNo;
+                            nextTree.OrderNo = temp;
+
+                            curNode.NextNode.Tag = nextTree;
+                            lstPbsUpdate.Add(nextTree);
+                        }
+                    }
+                }
+
+                //构造新节点
+                TreeNode tn_new = new TreeNode();
+                tn_new.Name = curPBS.Id.ToString();
+                tn_new.Text = curPBS.Name;
+                tn_new.Tag = curPBS;
+                tn_new.Checked = ifCheck;
+                if (curNode.IsExpanded)
+                {
+                    tn_new.Expand();
+                }
+                else
+                {
+                    tn_new.Collapse();
+                }
+                curNode.Remove();
+                CreateNewTreeNodes(tn_new, curNode.Nodes);
+
+                parentNode.Nodes.Insert(new_index, tn_new);//插入节点
+                tvTree.SelectedNode = tn_new;
+                lstPbsUpdate.Add(curPBS);
+                service.Save((IList)lstPbsUpdate);
+            }
+        }
+
+        private void SetOrderUp(List<PBSTree> lst, TreeNode tn)
+        {
+            PBSTree curPBS = tn.Tag as PBSTree;
+            curPBS.OrderNo = curPBS.OrderNo - 1;
+            tn.Tag = curPBS;
+            lst.Add(curPBS);
+            if (tn.PrevNode != null && tn.PrevNode.Tag != null)
+            {
+                TreeNode preNode = tn.PrevNode;
+                PBSTree prePBS = preNode.Tag as PBSTree;
+
+                if (curPBS.OrderNo == prePBS.OrderNo)
+                {
+                    SetOrderUp(lst, preNode);
+                }
+            }
+        }
+
+        private void SetOrderDown(List<PBSTree> lst, TreeNode tn)
+        {
+            PBSTree curPBS = tn.Tag as PBSTree;
+            curPBS.OrderNo = curPBS.OrderNo + 1;
+            tn.Tag = curPBS;
+            lst.Add(curPBS);
+            if (tn.NextNode != null && tn.NextNode.Tag != null)
+            {
+                TreeNode preNode = tn.NextNode;
+                PBSTree prePBS = preNode.Tag as PBSTree;
+
+                if (curPBS.OrderNo == prePBS.OrderNo)
+                {
+                    SetOrderDown(lst, preNode);
+                }
+            }
+        }
+
+        private void CreateNewTreeNodes(TreeNode node_new, TreeNodeCollection nodes)
+        {
+            if (nodes == null || nodes.Count == 0)
+            {
+                return;
+            }
+            foreach (TreeNode item in nodes)
+            {
+                node_new.Nodes.Add(item);
+            }
+        }
+        #endregion
+
+        #region 功能函数
+
+        /// <summary>
+        /// 根据PBS对象生成树节点
+        /// </summary>
+        /// <param name="pbs"></param>
+        private TreeNode CreateTreeNode(PBSTree pbs)
+        {
+            return new TreeNode() { Tag = pbs, Text = pbs.Name };
+        }
+
+        /// <summary>
+        /// 创建节点对象
+        /// </summary>
+        /// <returns></returns>
+        private PBSTree CreatePBSTree()
+        {
+            return new PBSTree()
+            {
+                CreateDate = DateTime.Now,
+                State = 1,
+                UpdatedDate = DateTime.Now,
+                Author = ConstObject.TheLogin.TheBusinessOperators,
+                OwnerGUID = ConstObject.TheLogin.TheBusinessOperators.Id,
+                OwnerName = ConstObject.TheLogin.TheBusinessOperators.PerName,
+                OwnerOrgSysCode = projectInfo.OwnerOrgSysCode,
+                TheProjectGUID = projectInfo.Id,
+                TheProjectName = projectInfo.Name
+            };
+        }
+
+        /// <summary>
+        /// 修改控件状态
+        /// </summary>
+        /// <param name="state"></param>
+        private void ChangeControlState(bool state)
+        {
+            txtName.ReadOnly = txtRemark.ReadOnly = txtConstructionArea.ReadOnly = !state;
+            btnSave.Visible = state;
+        }
+
+        /// <summary>
+        /// 保存PBS节点及SysCode
+        /// </summary>
+        private void SavePBSTree(PBSTree pbs, string parentSysCode)
+        {
+            var a = service.Save(pbs);
+            pbs = a as PBSTree;
+            //while (string.IsNullOrEmpty(pbs.Id))
+            //    Thread.Sleep(10);
+            pbs.SysCode = parentSysCode + pbs.Id + ".";
+            service.Save(pbs);
+        }
+
+        #endregion
+    }
+}

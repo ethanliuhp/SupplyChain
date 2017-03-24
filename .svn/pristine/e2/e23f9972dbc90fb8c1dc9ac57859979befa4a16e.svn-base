@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MaterialHireMng.MaterialHireOrder.Domain.StockBlockMaster,SupplyChain" table="THD_StockBlock" lazy="true" select-before-update="true">
+
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.MaterialHireMng.MaterialHireOrder.Domain.StockBlockDetail, SupplyChain"/>
+    </set> 
+    <many-to-one name="CreatePerson" column="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="Code" column="Code"  />
+    <!--责任人-->
+    <many-to-one name="HandlePerson" column="HandlePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="HandlePersonName"/>
+    <property name="CreatePersonName"/>
+    <property name="RealOperationDate" column="RealOperationDate"/>
+    <property name="BlockStartTime" column="BlockStartDate"/>
+    <property name="BlockFinishTime" column="BlockFinishDate"/>
+    <property name="ProjectId" column="ProjectId"/>
+    <property name="ProjectName" column="ProjectName"/>
+    <property name="StockReason" column="StockReason"/>
+    <property name="Theme" column="Theme"/>
+    <property name="Contacter" column="Contacter"/>
+    <many-to-one name="OperationOrg" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperationOrgName" column="OperationOrgName"/>
+    <property name="OpgSysCode" column="OpgSysCode"/>
+    <property name="State" column="State"/>
+    <property name="Descript" column="Descript"/>
+    <property name="CreateDate" column="CreateDate"/>
+  </class>
+</hibernate-mapping>

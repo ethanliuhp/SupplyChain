@@ -1,0 +1,181 @@
+﻿namespace Application.Business.Erp.SupplyChain.Client.MoneyManage.FundPlan
+{
+    partial class VFundPayApplyFormation
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VFundPayApplyFormation));
+            this.gdFundPayApply = new VirtualMachine.Component.WinControls.Controls.CustomFlexGrid();
+            this.txtCode = new VirtualMachine.Component.WinControls.Controls.CustomEdit();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dtpBeginCreateDate = new VirtualMachine.Component.WinControls.Controls.CustomDateTimePicker();
+            this.dtpEndCreateDate = new VirtualMachine.Component.WinControls.Controls.CustomDateTimePicker();
+            this.lblEndCreateDate = new VirtualMachine.Component.WinControls.Controls.CustomLabel();
+            this.btnGenerate = new VirtualMachine.Component.WinControls.Controls.CustomButton();
+            this.pnlFloor.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // pnlFloor
+            // 
+            this.pnlFloor.Controls.Add(this.btnGenerate);
+            this.pnlFloor.Controls.Add(this.dtpBeginCreateDate);
+            this.pnlFloor.Controls.Add(this.dtpEndCreateDate);
+            this.pnlFloor.Controls.Add(this.lblEndCreateDate);
+            this.pnlFloor.Controls.Add(this.label2);
+            this.pnlFloor.Controls.Add(this.txtCode);
+            this.pnlFloor.Controls.Add(this.label1);
+            this.pnlFloor.Controls.Add(this.gdFundPayApply);
+            this.pnlFloor.Size = new System.Drawing.Size(887, 494);
+            this.pnlFloor.Controls.SetChildIndex(this.lblTitle, 0);
+            this.pnlFloor.Controls.SetChildIndex(this.gdFundPayApply, 0);
+            this.pnlFloor.Controls.SetChildIndex(this.label1, 0);
+            this.pnlFloor.Controls.SetChildIndex(this.txtCode, 0);
+            this.pnlFloor.Controls.SetChildIndex(this.label2, 0);
+            this.pnlFloor.Controls.SetChildIndex(this.lblEndCreateDate, 0);
+            this.pnlFloor.Controls.SetChildIndex(this.dtpEndCreateDate, 0);
+            this.pnlFloor.Controls.SetChildIndex(this.dtpBeginCreateDate, 0);
+            this.pnlFloor.Controls.SetChildIndex(this.btnGenerate, 0);
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.Location = new System.Drawing.Point(169, 26);
+            // 
+            // gdFundPayApply
+            // 
+            this.gdFundPayApply.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.gdFundPayApply.BackColorBkg = System.Drawing.SystemColors.ButtonFace;
+            this.gdFundPayApply.CheckedImage = ((System.Drawing.Bitmap)(resources.GetObject("gdFundPayApply.CheckedImage")));
+            this.gdFundPayApply.DefaultFont = new System.Drawing.Font("SimSun", 9F);
+            this.gdFundPayApply.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.gdFundPayApply.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.gdFundPayApply.Location = new System.Drawing.Point(3, 43);
+            this.gdFundPayApply.Name = "gdFundPayApply";
+            this.gdFundPayApply.Size = new System.Drawing.Size(881, 448);
+            this.gdFundPayApply.TabIndex = 237;
+            this.gdFundPayApply.UncheckedImage = ((System.Drawing.Bitmap)(resources.GetObject("gdFundPayApply.UncheckedImage")));
+            // 
+            // txtCode
+            // 
+            this.txtCode.BackColor = System.Drawing.SystemColors.Control;
+            this.txtCode.CustomBorderStyle = VirtualMachine.Component.WinControls.Controls.EditBorderStyle.None;
+            this.txtCode.DrawSelf = false;
+            this.txtCode.EditStyle = VirtualMachine.Component.WinControls.Controls.EditStyle.Text;
+            this.txtCode.EnterToTab = false;
+            this.txtCode.Location = new System.Drawing.Point(119, 13);
+            this.txtCode.Mask = VirtualMachine.Component.WinControls.Controls.MaskStyle.None;
+            this.txtCode.Name = "txtCode";
+            this.txtCode.Padding = new System.Windows.Forms.Padding(1);
+            this.txtCode.ReadOnly = false;
+            this.txtCode.Size = new System.Drawing.Size(175, 16);
+            this.txtCode.TabIndex = 302;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(113, 12);
+            this.label1.TabIndex = 303;
+            this.label1.Text = "资金支付审批单号：";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(309, 15);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(65, 12);
+            this.label2.TabIndex = 319;
+            this.label2.Text = "业务时间：";
+            // 
+            // dtpBeginCreateDate
+            // 
+            this.dtpBeginCreateDate.Location = new System.Drawing.Point(380, 8);
+            this.dtpBeginCreateDate.Name = "dtpBeginCreateDate";
+            this.dtpBeginCreateDate.Size = new System.Drawing.Size(110, 21);
+            this.dtpBeginCreateDate.TabIndex = 324;
+            // 
+            // dtpEndCreateDate
+            // 
+            this.dtpEndCreateDate.Location = new System.Drawing.Point(509, 8);
+            this.dtpEndCreateDate.Name = "dtpEndCreateDate";
+            this.dtpEndCreateDate.Size = new System.Drawing.Size(110, 21);
+            this.dtpEndCreateDate.TabIndex = 322;
+            // 
+            // lblEndCreateDate
+            // 
+            this.lblEndCreateDate.AutoSize = true;
+            this.lblEndCreateDate.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblEndCreateDate.FontSize = VirtualMachine.Component.WinControls.Style.FontSize.Default;
+            this.lblEndCreateDate.Location = new System.Drawing.Point(494, 12);
+            this.lblEndCreateDate.Name = "lblEndCreateDate";
+            this.lblEndCreateDate.Size = new System.Drawing.Size(11, 12);
+            this.lblEndCreateDate.TabIndex = 323;
+            this.lblEndCreateDate.Text = "-";
+            this.lblEndCreateDate.UnderLineColor = System.Drawing.Color.Red;
+            // 
+            // btnGenerate
+            // 
+            this.btnGenerate.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnGenerate.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnGenerate.FontSize = VirtualMachine.Component.WinControls.Style.FontSize.Default;
+            this.btnGenerate.Location = new System.Drawing.Point(654, 6);
+            this.btnGenerate.Name = "btnGenerate";
+            this.btnGenerate.Size = new System.Drawing.Size(75, 28);
+            this.btnGenerate.TabIndex = 325;
+            this.btnGenerate.Text = "生成";
+            this.btnGenerate.UseVisualStyleBackColor = true;
+            this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click);
+            // 
+            // VFundPayApplyFormation
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(887, 494);
+            this.Name = "VFundPayApplyFormation";
+            this.Text = "资金支付申请单编制";
+            this.pnlFloor.ResumeLayout(false);
+            this.pnlFloor.PerformLayout();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private VirtualMachine.Component.WinControls.Controls.CustomFlexGrid gdFundPayApply;
+        private VirtualMachine.Component.WinControls.Controls.CustomEdit txtCode;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private VirtualMachine.Component.WinControls.Controls.CustomDateTimePicker dtpBeginCreateDate;
+        private VirtualMachine.Component.WinControls.Controls.CustomDateTimePicker dtpEndCreateDate;
+        private VirtualMachine.Component.WinControls.Controls.CustomLabel lblEndCreateDate;
+        private VirtualMachine.Component.WinControls.Controls.CustomButton btnGenerate;
+    }
+}

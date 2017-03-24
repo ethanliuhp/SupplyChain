@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.FinanceMng.Domain.MaterialSettlementDetail,SupplyChain" table="THD_MaterialSettlementDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <!--物资-->
+    <many-to-one name="MaterialResource" column="Material"  class="Application.Resource.MaterialResource.Domain.Material,ResourceManager"/>
+    <property name="MaterialCode"/>
+    <property name="MaterialName"/>
+    <property name="MaterialSpec"/>
+    <property name="MaterialStuff"/>
+
+    <!--计量单位-->
+    <many-to-one name="MatStandardUnit" column="MatStandardUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="MatStandardUnitName"/>
+
+    <!--不含税单价-->
+    <property name="NotContainTaxPrice" />
+    <!--含税单价-->
+    <property name="ContainTaxPrice"/>
+    <!--不含税金额-->
+    <property name="NotContainTaxMoney"/>
+    <!--含税金额-->
+    <property name="ContainTaxMoney" />
+    <!--税额-->
+    <property name="Tax"/>
+    <property name="Quantity"/>
+    
+    <property name="Descript"/>
+
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.FinanceMng.Domain.MaterialSettlementMaster, SupplyChain"></many-to-one>
+
+  </class>
+</hibernate-mapping>
+
+

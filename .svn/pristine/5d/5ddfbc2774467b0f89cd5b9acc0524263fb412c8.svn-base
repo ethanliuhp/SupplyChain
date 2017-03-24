@@ -1,0 +1,4285 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>C1.Win.C1Preview.2</name>
+    </assembly>
+    <members>
+        <member name="M:C1.Win.AboutForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:C1.Win.LicensingForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:C1.Util.Localization.C1DescriptionAttribute">
+            <summary>
+            ------------------------------------------------------------------------
+            C1DescriptionAttribute replaces the DescriptionAttribute
+            and uses the C1Localizer class to return the localized Attribute string
+            </summary>
+        </member>
+        <member name="T:C1.Util.Localization.C1CategoryAttribute">
+            <summary>
+            ------------------------------------------------------------------------
+            C1CategoryAttribute replaces the CategoryAttribute
+            and uses the C1Localizer class to return the localized Attribute string
+            </summary>
+        </member>
+        <member name="T:C1.Util.Localization.C1Localizer">
+            <summary>
+            ------------------------------------------------------------------------
+            C1Localizer contains static methods to load and look up resources
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.GetDeviceCapsConsts">
+            <summary>
+            GetDeviceCaps() constants
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.SORT">
+            <summary>
+            Sorting IDs.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.LANG">
+            <summary>
+            Primary language IDs.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.SUBLANG">
+             <summary>
+              Sublanguage IDs.
+            
+              The name immediately following SUBLANG_ dictates which primary
+              language ID that sublanguage ID can be combined with to form a
+              valid language ID.
+             </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.LOCALE">
+            <summary>
+            Locale Types.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.FixFpu">
+            <summary>
+            usage:
+             using (FixFpu ff = new FixFpu())
+             { do printer stuff }
+            or
+             do printer stuff
+             FixFpu.Doit();
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.SWP">
+            <summary>
+            SetWindowPos flags.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.DM">
+            <summary>
+            Fiels of DEVMODE structure.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.CDS">
+            <summary>
+            Flags for ChangeDisplaySettings() function.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.DISP">
+            <summary>
+            Return values of the ChangeDisplaySettings() function.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.WM">
+            <summary>
+            Windows messages.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.EM">
+            <summary>
+            EditControl window messages.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.SB">
+            <summary>
+            WM_HSCROLL and WM_VSCROLL notifications codes.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.BST">
+            <summary>
+            BM_GETSTATE flags.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.BM">
+            <summary>
+            BM_XXX flags.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.ODT">
+            <summary>
+            DRAWITEMSTRUCT control types.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.ODA">
+            <summary>
+            DRAWITEMSTRUCT drawing actions.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.ODS">
+            <summary>
+            DRAWITEMSTRUCT visual states.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.C1">
+            <summary>
+            ComponentOne constants.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.RasterOperationCodes">
+            <summary>
+            Specifies a raster-operation code, used by BitBlt function and other.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.SW">
+            <summary>
+            ShowWindow() function codes.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.PRF">
+            <summary>
+            WM_PRINT drawing options.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.SF">
+            <summary>
+            Rich edit data format types.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.SFF">
+            <summary>
+            Rich edit data format replacement options.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.SCF">
+            <summary>
+            EM_SETCHARFORMAT / EM_GETCHARFORMAT flags.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.CFM">
+            <summary>
+            CHARFORMAT mask values.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.CFE">
+            <summary>
+            CHARFORMAT effects.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.TO">
+            <summary>
+            EM_SETTYPOGRAPHYOPTIONS flags.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.TA">
+            <summary>
+            Text Alignment Options.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.DCX">
+            <summary>
+            GetDCEx() flags.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.GW">
+            <summary>
+            GetWindow() Constants.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.GA">
+            <summary>
+            GetAncestor() constants.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.ETO">
+            <summary>
+            ExtTextOut() flags.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.SetBkModeConsts">
+            <summary>
+            SetBkMode modes.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.OBJ">
+            <summary>
+            GetObjectType() returning values.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.TMPF">
+            <summary>
+            TEXTMETRIC tmPitchAndFamily flags.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.OLE">
+            <summary>
+            OLE constants.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.WS">
+            <summary>
+            CreateWindow() flags.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.WS_EX">
+            <summary>
+            Extended Window Styles
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.ES">
+            <summary>
+            CreateWindow() flags for edit controls.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.DFC">
+            <summary>
+            DrawFrameControl(), type of frame control to draw.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.DFCS">
+            <summary>
+            DrawFrameControl(), state of control.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.PS">
+            <summary>
+            CreatePen() flags
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.GWL">
+            <summary>
+            SetWindowLong() flags.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.GR">
+            <summary>
+            GetGuiResources() flags.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.RGN">
+            <summary>
+            ExtSelectClipRgn() flags.
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.ScrollWindowFlags">
+            <summary>
+            ScrollWindowEx flags
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.MA">
+            <summary>
+            WM_MOUSEACTIVATE Return Codes
+            </summary>
+        </member>
+        <member name="T:C1.C1Preview.Win32.RasterOp">
+            <summary>
+            Constants for SetROP2
+            </summary>
+        </member>
+        <member name="P:C1.C1Preview.Win32.Gdip.AtomName">
+            <summary>
+            Name of Atom create by GDI+ for current thread.
+            </summary>
+        </member>
+        <member name="P:C1.C1Preview.Win32.Gdip.IsShutdown">
+            <summary>
+            Gets true if GDI+ currently shutdown.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.C1PreviewActionEnum">
+            <summary>
+            Specifies the action that can be taken on the preview.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.C1PreviewActionFlags">
+            <summary>
+            Specifies flags that can be used to group, enable and disable
+            preview actions (see C1PreviewActionEnum).
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.C1PreviewCursors">
+            <summary>
+            Holds the cursors used by the preview pane.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ShouldSerializeHandHover">
+            <summary>
+            Tests whether the HandHover property should be serialized.
+            </summary>
+            <returns>True if HandHover should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ResetHandHover">
+            <summary>
+            Resets the HandHover property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ShouldSerializeHandGrab">
+            <summary>
+            Tests whether the HandGrab property should be serialized.
+            </summary>
+            <returns>True if HandGrab should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ResetHandGrab">
+            <summary>
+            Resets the HandGrab property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ShouldSerializeZoomIn">
+            <summary>
+            Tests whether the ZoomIn property should be serialized.
+            </summary>
+            <returns>True if ZoomIn should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ResetZoomIn">
+            <summary>
+            Resets the ZoomIn property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ShouldSerializeZoomOut">
+            <summary>
+            Tests whether the ZoomOut property should be serialized.
+            </summary>
+            <returns>True if ZoomOut should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ResetZoomOut">
+            <summary>
+            Resets the ZoomOut property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ShouldSerializeZoomNone">
+            <summary>
+            Tests whether the ZoomNone property should be serialized.
+            </summary>
+            <returns>True if ZoomNone should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ResetZoomNone">
+            <summary>
+            Resets the ZoomNone property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ShouldSerializeMarginsHide">
+            <summary>
+            Tests whether the MarginsHide property should be serialized.
+            </summary>
+            <returns>True if MarginsHide should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ResetMarginsHide">
+            <summary>
+            Resets the MarginsHide property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ShouldSerializeMarginsShow">
+            <summary>
+            Tests whether the MarginsShow property should be serialized.
+            </summary>
+            <returns>True if MarginsShow should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ResetMarginsShow">
+            <summary>
+            Resets the MarginsShow property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ShouldSerializeMarginsHideH">
+            <summary>
+            Tests whether the MarginsHideH property should be serialized.
+            </summary>
+            <returns>True if MarginsHideH should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ResetMarginsHideH">
+            <summary>
+            Resets the MarginsHideH property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ShouldSerializeMarginsShowH">
+            <summary>
+            Tests whether the MarginsShowH property should be serialized.
+            </summary>
+            <returns>True if MarginsShowH should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ResetMarginsShowH">
+            <summary>
+            Resets the MarginsShowH property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ShouldSerializeMarginsHideV">
+            <summary>
+            Tests whether the MarginsHideV property should be serialized.
+            </summary>
+            <returns>True if MarginsHideV should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ResetMarginsHideV">
+            <summary>
+            Resets the MarginsHideV property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ShouldSerializeMarginsShowV">
+            <summary>
+            Tests whether the MarginsShowV property should be serialized.
+            </summary>
+            <returns>True if MarginsShowV should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ResetMarginsShowV">
+            <summary>
+            Resets the MarginsShowV property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ShouldSerializePanMarker">
+            <summary>
+            Tests whether the PanMarker property should be serialized.
+            </summary>
+            <returns>True if PanMarker should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ResetPanMarker">
+            <summary>
+            Resets the PanMarker property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ShouldSerializePanMarkerNS">
+            <summary>
+            Tests whether the PanMarkerNS property should be serialized.
+            </summary>
+            <returns>True if PanMarkerNS should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ResetPanMarkerNS">
+            <summary>
+            Resets the PanMarkerNS property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ShouldSerializePanMarkerEW">
+            <summary>
+            Tests whether the PanMarkerEW property should be serialized.
+            </summary>
+            <returns>True if PanMarkerEW should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ResetPanMarkerEW">
+            <summary>
+            Resets the PanMarkerEW property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ShouldSerializePanMarkerN">
+            <summary>
+            Tests whether the PanMarkerN property should be serialized.
+            </summary>
+            <returns>True if PanMarkerN should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ResetPanMarkerN">
+            <summary>
+            Resets the PanMarkerN property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ShouldSerializePanMarkerS">
+            <summary>
+            Tests whether the PanMarkerS property should be serialized.
+            </summary>
+            <returns>True if PanMarkerS should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ResetPanMarkerS">
+            <summary>
+            Resets the PanMarkerS property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ShouldSerializePanMarkerE">
+            <summary>
+            Tests whether the PanMarkerE property should be serialized.
+            </summary>
+            <returns>True if PanMarkerE should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ResetPanMarkerE">
+            <summary>
+            Resets the PanMarkerE property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ShouldSerializePanMarkerW">
+            <summary>
+            Tests whether the PanMarkerW property should be serialized.
+            </summary>
+            <returns>True if PanMarkerW should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ResetPanMarkerW">
+            <summary>
+            Resets the PanMarkerW property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ShouldSerializePanMarkerNE">
+            <summary>
+            Tests whether the PanMarkerNE property should be serialized.
+            </summary>
+            <returns>True if PanMarkerNE should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ResetPanMarkerNE">
+            <summary>
+            Resets the PanMarkerNE property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ShouldSerializePanMarkerSE">
+            <summary>
+            Tests whether the PanMarkerSE property should be serialized.
+            </summary>
+            <returns>True if PanMarkerSE should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ResetPanMarkerSE">
+            <summary>
+            Resets the PanMarkerSE property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ShouldSerializePanMarkerNW">
+            <summary>
+            Tests whether the PanMarkerNW property should be serialized.
+            </summary>
+            <returns>True if PanMarkerNW should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ResetPanMarkerNW">
+            <summary>
+            Resets the PanMarkerNW property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ShouldSerializePanMarkerSW">
+            <summary>
+            Tests whether the PanMarkerSW property should be serialized.
+            </summary>
+            <returns>True if PanMarkerSW should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewCursors.ResetPanMarkerSW">
+            <summary>
+            Resets the PanMarkerSW property to the default value.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewCursors.HandHover">
+            <summary>
+            Gets or sets the hand hovering cursor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewCursors.HandGrab">
+            <summary>
+            Gets or sets the hand grabbing cursor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewCursors.ZoomIn">
+            <summary>
+            Gets or sets the zoom in cursor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewCursors.ZoomOut">
+            <summary>
+            Gets or sets the zoom out cursor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewCursors.ZoomNone">
+            <summary>
+            Gets or sets the zoom disabled cursor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewCursors.MarginsHide">
+            <summary>
+            Gets or sets the hide margins cursor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewCursors.MarginsShow">
+            <summary>
+            Gets or sets the show margins cursor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewCursors.MarginsHideH">
+            <summary>
+            Gets or sets the hide horizontal margins cursor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewCursors.MarginsShowH">
+            <summary>
+            Gets or sets the show horizontal margins cursor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewCursors.MarginsHideV">
+            <summary>
+            Gets or sets the hide vertical margins cursor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewCursors.MarginsShowV">
+            <summary>
+            Gets or sets the show vertical margins cursor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewCursors.PanMarker">
+            <summary>
+            Gets or sets the pan marker cursor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewCursors.PanMarkerNS">
+            <summary>
+            Gets or sets the pan marker (north-south) cursor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewCursors.PanMarkerEW">
+            <summary>
+            Gets or sets the pan marker (east-west) cursor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewCursors.PanMarkerN">
+            <summary>
+            Gets or sets the pan marker (north) cursor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewCursors.PanMarkerS">
+            <summary>
+            Gets or sets the pan marker (south) cursor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewCursors.PanMarkerE">
+            <summary>
+            Gets or sets the pan marker (east) cursor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewCursors.PanMarkerW">
+            <summary>
+            Gets or sets the pan marker (west) cursor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewCursors.PanMarkerNE">
+            <summary>
+            Gets or sets the pan marker (north-east) cursor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewCursors.PanMarkerSE">
+            <summary>
+            Gets or sets the pan marker (south-east) cursor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewCursors.PanMarkerNW">
+            <summary>
+            Gets or sets the pan marker (north-west) cursor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewCursors.PanMarkerSW">
+            <summary>
+            Gets or sets the pan marker (south-west) cursor.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewFileActions.FileOpen(System.String)">
+            <summary>
+            Loads the document from specified file, if file does not exists
+            uses it directory as initial directory if FileOpen dialog.
+            </summary>
+            <param name="fileName">The name of file to open.</param>
+            <returns>Returns the opened document or null if the action was cancelled
+            or there was an error while loading the document.</returns>
+        </member>
+        <member name="T:C1.Win.C1Preview.C1PreviewPane">
+            <summary>
+            Represents the barebones control showing the preview of the associated document. To add functionality, other C1Preview components can be connected to this control.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.C1PreviewPane._inOnSizeChanged">
+            <summary>
+            Indicates that the _updatePreviewLayout() executed
+            from OnSizeChanged methdo.
+            See coments in the OnSizeChanged method and ZoomFactor properties.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.SetCurrentVisitedDocument(C1.Win.C1Preview.VisitedDocument,System.Boolean)">
+            <summary>
+            Sets the CurrentVisitedDocument property to specified value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.SaveCurrentVisitedDocument">
+            <summary>
+            Saves the content of currently viewed document
+            into the VisitedDocumentStorage and
+            set this storage to the CurrentVisitedDocument.Storage
+            property.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.AddVisitedDocument(C1.Win.C1Preview.HistorySavedActionsEnum)">
+            <summary>
+            Creates new VisitedDocument object linked with document
+            currently connected to the preview pane,
+            adds this object to the VisitedDocuments collection.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.LockHistory">
+            <summary>
+            Locks adding of new items to ViewHistory; a matching call to UnlockHistory() must be present.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.UnlockHistory(C1.Win.C1Preview.HistorySavedActionsEnum,System.String)">
+            <summary>
+            Unlocks adding of new items to ViewHistory; must match a previous call to LockHistory().
+            </summary>
+            <param name="userAction">User action which was performed between the calls to LockHistory() and UnlockHistory().</param>
+            <param name="historyItemCaption">Caption for the user action history item.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.HistoryForward">
+            <summary>
+            Goes forward in history.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.HistoryBack">
+            <summary>
+            Goes back in history.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.DoHyperlinkMouseUp(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            Returns true if jump to another place within document occurs
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.DoEscape">
+            <summary>
+            Handles the Escape key (clears selection, resets mouse mode).
+            </summary>
+            <returns>True.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.DoScrollTop">
+            <summary>
+            Scrolls to the top of the document.
+            </summary>
+            <returns>True.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.DoScrollBottom">
+            <summary>
+            Scrolls to the end of the document.
+            </summary>
+            <returns>True.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.DoScrollPageUp">
+            <summary>
+            Scrolls one page up.
+            </summary>
+            <returns>True.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.DoScrollPageDown">
+            <summary>
+            Scrolls one page down.
+            </summary>
+            <returns>True.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.DoScrollUp">
+            <summary>
+            Scrolls up.
+            </summary>
+            <returns>True.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.DoScrollDown">
+            <summary>
+            Scrolls down.
+            </summary>
+            <returns>True.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.DoScrollLeft">
+            <summary>
+            Scrolls left.
+            </summary>
+            <returns>True.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.DoScrollRight">
+            <summary>
+            Scrolls right.
+            </summary>
+            <returns>True.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.DoGoPreviousPage">
+            <summary>
+            Goes to previous page.
+            </summary>
+            <returns>True.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.DoGoNextPage">
+            <summary>
+            Goes to next page.
+            </summary>
+            <returns>True.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.DoSelectAll">
+            <summary>
+            Selects the whole document.
+            </summary>
+            <returns>True.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.DoCopySelection">
+            <summary>
+            Copies the current selection to clipboard.
+            </summary>
+            <returns>True.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.DoZoomIn">
+            <summary>
+            Zooms in.
+            </summary>
+            <returns>True.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.DoZoomOut">
+            <summary>
+            Zooms out.
+            </summary>
+            <returns>True.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.DoGoHistoryBack">
+            <summary>
+            Goes back in history.
+            </summary>
+            <returns>True.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.DoGoHistoryForward">
+            <summary>
+            Goes forward in history.
+            </summary>
+            <returns>True.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.SelectAll">
+            <summary>
+            Selects text in the whole document.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.OnPropertyChanged(System.String)">
+            <summary>
+            Raises the PropertyChanged event.
+            </summary>
+            <param name="propertyName">The name of the changed property.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.OnLongOperation(C1.C1Preview.LongOperationEventArgs)">
+            <summary>
+            Raises the LongOperation event on the preview pane.
+            </summary>
+            <param name="propertyName">A LongOperationEventArgs that contains the event data.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.OnLongOperation(System.Double,System.Boolean)">
+            <summary>
+            Raises the LongOperation event on the preview pane.
+            </summary>
+            <param name="complete">How much is complete (from 0 to 1).</param>
+            <param name="canCancel">Whether the operation can be cancelled.</param>
+            <returns>True if the operation should be cancelled.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.#ctor">
+            <summary>
+            Initializes a new instance of C1PreviewPane control.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._isPageShowable(System.Int32)">
+            <summary>
+            Tests whether the specified page can be shown (for non-cont mode,
+            without changing the StartPageIdx).
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._getShowableRows(System.Int32@,System.Int32@)">
+            <summary>
+            Gets the rows (1st and number) that can be currently shown.
+            In continuous mode, that includes all rows. Otherwise, that
+            includes Rows no of rows contiaining StartPageIdx.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._getNonContShowableRows(System.Int32@,System.Int32@)">
+            <summary>
+            calculates the no of rows that are to be shown in priciple, regardless
+            of the view window size etc. E.g. if !Continuous, all rows are to be shown.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._pageDescByPageIdx(System.Int32,System.Int32@,System.Int32@)">
+            <summary>
+            finds a page's row/col by page index.
+            </summary>
+            <returns>true if the page has been found.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._clientToPageView(System.Drawing.PointF)">
+            <summary>
+            Converts preview pane's client coords into "page view" coords,
+            which are used by _pageDescs.
+            </summary>
+            <param name="p">PointF in client coords.</param>
+            <returns>Page view coords of the point.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._clientToPageView(System.Drawing.Point)">
+            <summary>
+            Converts preview pane's client coords into "page view" coords,
+            which are used by _pageDescs.
+            </summary>
+            <param name="p">Point in client coords.</param>
+            <returns>Page view coords of the point.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._pageViewToClient(System.Drawing.PointF)">
+            <summary>
+            Converts page view coords to client
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._pageViewToClient(System.Drawing.RectangleF)">
+            <summary>
+            Converts page view coords to client
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._pageDescByClientCoords(System.Drawing.Point,System.Int32@,System.Int32@)">
+            <summary>
+            finds a page by client coords. returns true if the page has been found,
+            false if there's no such page (but fills row/col anyway, with the best fit).
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._getPageVisibility(C1.Win.C1Preview.C1PreviewPane.PageDesc)">
+            <summary>
+            Returns the amount of specified page's surface currently visible in the preview
+            client area.
+            </summary>
+            <param name="pd">Page desc.</param>
+            <returns>Percent of the page's surface that is visible.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._calcShowableRowsTopHeight(System.Int32@,System.Int32@)">
+            <summary>
+            calculates the top and height of the shown rows
+            (for continuous mode, that includes all rows).
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._updateZoomFactor">
+            <summary>
+            Updates ZoomFactor according to ZoomMode, if needed.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._findTextWidth(System.Single@)">
+            <summary>
+            Based on the current preview layout, calculates the width and left offset
+            for the "text width" zoom mode. All currently visible pages are taken into
+            account.
+            </summary>
+            <param name="offset">OUT: left offset.</param>
+            <returns>Text width.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._setCursor">
+            <summary>
+            Sets the cursor according to the MouseMode and the current state of the pane.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._zoomToRect(System.Drawing.Rectangle,System.Boolean)">
+            <summary>
+            Zooms in or out, centering the zoom rectangle.
+            </summary>
+            <param name="zr">Zoom rectangle, in client coords.</param>
+            <param name="zoomIn">True if zooming in, false otherwise.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._finishMouseOp(System.Boolean)">
+            <summary>
+            Finishes a mouse op in progress, optionally cancelling it.
+            The mouse op is determined by the current MouseMode.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._mouseTimer_Tick(System.Object,System.EventArgs)">
+            <summary>
+            Mouse op timer handler. Used to scroll view and draw mouse op
+            outline when the mouse is moved outside the client area while
+            a button is pressed.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._testClientPointInGap(System.Drawing.Point,C1.Win.C1Preview.HideMarginsFlags)">
+            <summary>
+            Tests whether the point is in the gap between the pages.
+            Should be called only when all pages are same size and orientation,
+            otherwise the results may be wrong.
+            </summary>
+            <param name="p">The point to test.</param>
+            <param name="test">Flags indicating which orientations to test.</param>
+            <returns>Flags indicating in which gaps the point is.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._drawZoomRect">
+            <summary>
+            Draws a reversible rectangle from _mouseOpStartPos to _mouseOpCurrPos,
+            clipped by client rectangle.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.C1PreviewPane.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._testDetachDocument">
+            <summary>
+            Detaches the current Document from the preview pages if necessary.
+            Called when the user starts directly manipulating the preview
+            pages rather than doing so via the underlying document.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._setPageMargin(C1.Win.C1Preview.MarginIndexEnum,System.Single)">
+            <summary>
+            Sets the specified page margin of the current doc to the specified value.
+            </summary>
+            <param name="marginIndex">The margin to set.</param>
+            <param name="value">The new margin value, in pixels.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._updatePageDescs(System.Boolean)">
+            <summary>
+            calculates the new page layout, sets the following member vars:
+            - _pageDescs
+            - _maxSize
+            - _hideMarginsAvail
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._updateSinglePageDesc(System.Int32)">
+            <summary>
+            Attempts to update a single page's descriptor (but may fail).
+            </summary>
+            <param name="pageIdx">The changed page's 0-based index in the document.</param>
+            <returns>True if succeeded, false otherwise (in which case 
+            _updatePreviewLayout should be called.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._calcPreviewSize(System.Int32)">
+            <summary>
+            Calculates the size of the page preview. Normally equal to the page's own size,
+            but may be smaller if margins are hidden, or different if PrintableLayout is set,
+            and the printer paper size differs from the page size.
+            </summary>
+            <param name="pageIdx">The page index.</param>
+            <returns>Unzoomed size of the page preview, in pixels.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.ShouldSerializeBackColor">
+            <summary>
+            Tests whether the BackColor property should be serialized.
+            </summary>
+            <returns>True if BackColor should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.ResetBackColor">
+            <summary>
+            Resets the BackColor property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.UpdatePreview">
+            <summary>
+            Forces the preview pane to update the preview.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._getPrintableArea(System.Drawing.SizeF)">
+            <summary>
+            Returns printable area for the paper best matching the specified page size
+            For auto paper source
+            </summary>
+            <param name="pageSize">The page size in (preview) pixels.</param>
+            <returns></returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._getPrinterPageSize(System.Drawing.SizeF)">
+            <summary>
+            Gets the printer page size, taking into PrintingOptions.AutoPaperSource
+            and PrintingOptions.AutoRotate. For use with PrintingLayout only.
+            </summary>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.ClientToDocument(System.Drawing.Point,System.Int32@,System.Drawing.PointF@)">
+            <summary>
+            Converts preview pane's client coordinates to document.
+            </summary>
+            <param name="pt">Point in client coords.</param>
+            <param name="pageIdx">Out: 0-based page index or -1.</param>
+            <param name="ptPage">Out: page coordinates.</param>
+            <returns>True if the page has been found, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.DocumentToClient(System.Int32,System.Drawing.PointF,System.Drawing.Point@)">
+            <summary>
+            Converts document coordinates to preview pane client coords.
+            </summary>
+            <param name="pageIdx">0-based page index.</param>
+            <param name="ptPage">Point on the page.</param>
+            <param name="pt">Out: Preview pane client point.</param>
+            <returns>True if the client point belongs to a document page, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.DocumentToClient(System.Int32,System.Drawing.RectangleF,System.Drawing.Rectangle@)">
+            <summary>
+            Converts a rectangle on a page in document coordinates to preview pane client coords.
+            </summary>
+            <param name="pageIdx">0-based page index.</param>
+            <param name="rPage">Rectangle on the page.</param>
+            <param name="r">Out: Preview pane client rectangle.</param>
+            <returns>True if the client rectangle's location belongs to a document page, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.GetPageVisibility(System.Int32)">
+            <summary>
+            Returns the percentage of the area of the specified page currently visible.
+            </summary>
+            <param name="pageIdx">0-based page index.</param>
+            <returns>Percentage of the page's surface visible.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.ShouldSerializeZoomFactor">
+            <summary>
+            Tests whether the ZoomFactor property should be serialized.
+            </summary>
+            <returns>True if ZoomFactor should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.ResetZoomFactor">
+            <summary>
+            Resets the ZoomFactor property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._setStartPageIdx(System.Int32)">
+            <summary>
+            Sets the StartPageIdx to the specified value.
+            Should be followed by a call to _updateScrollPosition unless
+            the caller knows what he's doing.
+            </summary>
+            <param name="value">The new start page value.</param>
+            <returns>True if the start page was really changed, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.ShouldSerializePagesFillColor">
+            <summary>
+            Tests whether the PagesFillColor property should be serialized.
+            </summary>
+            <returns>True if PagesFillColor should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.ResetPagesFillColor">
+            <summary>
+            Resets the PagesFillColor to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.ShouldSerializePagesPadding">
+            <summary>
+            Tests whether the PagesPadding property should be serialized.
+            </summary>
+            <returns>True if PagesPadding should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.ResetPagesPadding">
+            <summary>
+            Resets the PagesPadding to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.ShouldSerializePagesPaddingSmall">
+            <summary>
+            Tests whether the PagesPaddingSmall property should be serialized.
+            </summary>
+            <returns>True if PagesPaddingSmall should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.ResetPagesPaddingSmall">
+            <summary>
+            Resets the PagesPaddingSmall to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.ShouldSerializeSidesPadding">
+            <summary>
+            Tests whether the SidesPadding property should be serialized.
+            </summary>
+            <returns>True if SidesPadding should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.ResetSidesPadding">
+            <summary>
+            Resets the SidesPadding to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.ShouldSerializeZoomSteps">
+            <summary>
+            Tests whether the ZoomSteps property should be serialized.
+            </summary>
+            <returns>True if ZoomSteps should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.ResetZoomSteps">
+            <summary>
+            Resets the ZoomSteps property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._adjustVertScrollPos">
+            <summary>
+            Adjusts v-scroll position so that the rows are centered vertically,
+            if their height is smaller than the client rect (for non-continous mode only).
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._setScrollSize(System.Boolean)">
+            <summary>
+            calculates and sets the value/max value of scrollbars
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._vscrollToPage(C1.Win.C1Preview.C1PreviewPane.PageDesc)">
+            <summary>
+            Goes to the specified page but does not change the horizontal scroll offset
+            (as the result, start page idx may differ from target in multi-column layouts).
+            </summary>
+            <param name="pd">Page desc of the target page.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._scroll(System.Double,System.Double,System.Boolean)">
+            <summary>
+            Scrolls by the specified values (in page view coords), optionally
+            allowing to change the start row in non-continous mode.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._scrollRows(System.Int32)">
+            <summary>
+            Scrolls by Rows down or up, in non-continuous mode only.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._scrollSimple(System.Double,System.Double)">
+            <summary>
+            Scrolls the view by the specified values (in page view coords),
+            does not scroll into the void, does not change start page in
+            non-continuous mode.
+            </summary>
+            <returns>True if scrolled as requested, false if we hit an edge.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._setScrollPosition(System.Double,System.Double)">
+            <summary>
+            Sets the scroll position (in page/doc coords, i.e. unzoomed) to
+            the specified values. Not guaranteed to set the values exactly,
+            esp. in non-continuous mode, but tries to keep in the ballpark
+            (unlike _scroll e.g., which scrolls not more than one row away).
+            </summary>
+            <param name="x">The new X position (0 or negative).</param>
+            <param name="y">The new Y position (0 or negative).</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._updateScrollPosition(System.Double,System.Double,System.Boolean)">
+            <summary>
+            Sets (or offsets) the _scrollPosition to the specified values,
+            preventing scrolling too far out into the void, and keeping
+            scrollbars synced. In non-continuous mode does not change go to
+            another page (i.e. StartPageIdx does not change).
+            The values are in page view coords.
+            </summary>
+            <returns>True if the Y values were changed, or no Y change was
+            requested. False if the Y values were not changed at all because
+            we hit an edge (return value does not reflect changes in X coord.)
+            </returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._updateVisibleRowsInterval(System.Boolean)">
+            <summary>
+            Updates _visibleRow* and StartPageIdx.
+            </summary>
+            <param name="resetVisibleRowIdx">If false, _visibleRowIdx is assumed to be valid.
+            Otherwise, it is recalculated.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._canScrollCurrentView(System.Boolean,System.Boolean)">
+            <summary>
+            returns true if the current view can be scrolled (for non-continuous mode,
+            this means without changing the current start page).
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane._scrollToOutsideMouse(System.Drawing.Point,System.Boolean)">
+            <summary>
+            Scrolls the current view (w/out changing the start page) in the direction
+            of the point, which is usually the mouse position.
+            </summary>
+            <param name="mousePos">The point (in client coords) in which direction to scroll.</param>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.UnnamedDocumentNo">
+            <summary>
+            Used for naming nameless docs in history.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.HistoryOptions">
+            <summary>
+            Gets the HistoryOptions object defining the parameters of history in preview pane.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.VisitedDocuments">
+            <summary>
+            Gets the collection of visited documents, 
+            the items in this collection (VisitedDocument objects)
+            are added automatically when user navigates between documents.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.ViewHistory">
+            <summary>
+            Gets the collection of states of preview pane,
+            the items in this collection (ViewHistoryItem objects)
+            are added automatically when user scrolling, zooming etc 
+            the document in preview.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.CurrentVisitedDocumentIndex">
+            <summary>
+            Gets or sets the index of current visited document.
+            Assigning of this property causes the go to another document
+            stored in the VisitedDocuments collection.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.CurrentVisitedDocument">
+            <summary>
+            Gets or sets the VisitedDocument object.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.CurrentHistoryEntry">
+            <summary>
+            Gets or sets the current history entry.
+            The value should be in the ViewHistory collection
+            of this C1PreviewPane object, and can not be null.
+            Note that in some situations the history entry can not be changed
+            (e.g. when the operation is attempted while the preview
+            is changing its state). In those cases the set will be
+            ignored.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.CurrentHistoryEntryIndex">
+            <summary>
+            Gets or sets the index of current history entry.
+            Note that in some situations the index can not be changed
+            (e.g. when the operation is attempted while the preview
+            is changing its state). In those cases the set will be
+            ignored.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PreviewPane.VisitedDocumentAdding">
+            <summary>
+            Occurs when new VisitedDocument object adding to the VisitedDocuments collection,
+            in this event you can cancel this adding.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PreviewPane.SaveVisitedDocument">
+            <summary>
+            Occurs the HistoryOptions.VisitedDocumentStorage is VisitedDocumentStorageEnum.User
+            and visited document should be saved.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PreviewPane.LoadVisitedDocument">
+            <summary>
+            Occurs the HistoryOptions.VisitedDocumentStorage is VisitedDocumentStorageEnum.User
+            and visited document should be loaded.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PreviewPane.HistoryItemAdding">
+            <summary>
+            Occurs when new ViewHistoryItem object adding to the ViewHistory collection,
+            in this event you can cancel this adding.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.KeyMapStack">
+            <summary>
+            Gets the KeyMapStack containing key maps for keyboard handling.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PreviewPane.FormsUserAction">
+            <summary>
+            Occurs when user performs some action on RenderInputBase object within preview (Click, MouseDown etc).
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PreviewPane.PreviewAction">
+            <summary>
+            Occurs when the document action from preview forms should be executed.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PreviewPane.PropertyChanged">
+            <summary>
+            Occurs when a property of the preview pane that is not inherited from the base class changes.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PreviewPane.LongOperation">
+            <summary>
+            Occurs periodically when a long operation is in progress.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.IntegrateExternalTools">
+            <summary>
+            Gets or sets the value indicating whether the current preview pane
+            should integrate and handle external tools such as toolbars.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.Document">
+            <summary>
+            Gets or sets the document shown by the preview.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.BackColor">
+            <summary>
+            Gets or sets the background color for the control.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.Busy">
+            <summary>
+            Gets or sets the flag indicating whether the preview pane is currently busy.
+            Some actions (especially those that could cause significant changes in the
+            preview pane's state) raise this flag themselves, and cannot be performed when
+            this flag was raised by another operation. This flag should be tested before
+            attempting to change preview pane's properties or invoke methods on it.
+            </summary>
+            <value>The value of the Busy flag.</value>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.Continuous">
+            <summary>
+            Gets or sets the value indicating whether to show document pages continuously.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.PageLayout">
+            <summary>
+            Gets or sets the preview layout.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.ZoomMode">
+            <summary>
+            Gets or sets the preview zoom mode.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.ZoomFactor">
+            <summary>
+            Gets or sets the zoom factor (1 is actual size).
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.MinZoomFactor">
+            <summary>
+            Gets or sets the minimum allowed zoom factor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.MaxZoomFactor">
+            <summary>
+            Gets or sets the maximum allowed zoom factor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.TrackMousePosition">
+            <summary>
+            Gets or sets the value indicating whether the rulers should display marks
+            showing the current cursor position.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.Rows">
+            <summary>
+            Gets or sets the number of page rows shown in non-continuous mode.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.Cols">
+            <summary>
+            Gets or sets the number of page columns shown.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.StartPageIdx">
+            <summary>
+            Gets or sets the 0-based index of the currently visible page.
+            If several pages are visible, this property indicates the page with the
+            most surface shown.
+            When the property is set, the new start page's top left corner is aligned
+            with the preview window's top left corner.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.PreviewScrollPosition">
+            <summary>
+            Gets or sets the location of the top left corner of the preview area
+            (the scroll position) within the preview window. The value is relative
+            to the PreviewRectangle, not to the ClientRectangle. The value is
+            independent of the ZoomFactor (i.e. setting the same values will scroll
+            to the same logical position in the document at any zoom factor).
+            </summary>
+            <value>The scroll position (unzoomed).</value>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.MouseMode">
+            <summary>
+            Gets or sets the mouse mode (zoom, selection etc.).
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.HideMargins">
+            <summary>
+            Gets or sets the value indicating whether the user is allowed to hide/show margins
+            by clicking the mouse in the gap between pages.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.HideMarginsAvail">
+            <summary>
+            Gets the value indicating whether horizontal or vertical margins can be hidden
+            on the current document.
+            Margins can hide if all pages have the same size.
+            Additionally, horizontal margins can also hide if the preview has one column.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.HideMarginsState">
+            <summary>
+            Gets or sets the value indicating whether horizontal and/or vertical margins should be hidden.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.ShowRulers">
+            <summary>
+            Gets or sets the value indicating whether to show horizontal and/or vertical rulers.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.ShowPrintableArea">
+            <summary>
+            Gets or sets the value indicating whether to highlight the printable area
+            of the current printer.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.ShowPageOutline">
+            <summary>
+            Gets or sets the value indicating whether to show the original page outline
+            (as a dashed line) when PrintingLayout is true and the printer paper does
+            not match the original page size.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.PrintingLayout">
+            <summary>
+            Gets or sets the value indicating whether to show the physical printing
+            layout (printer page size and the location of the document pages' on the paper).
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.PrintOptions">
+            <summary>
+            Gets the print options.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.PrinterSettings">
+            <summary>
+            Gets or sets printer settings.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.PageSettings">
+            <summary>
+            Gets or sets page settings associated with the current document.
+            </summary>
+            <value>The page settings.</value>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.Reflowable">
+            <summary>
+            Gets the value indicating whether the currently loaded document
+            supports reflow.
+            </summary>
+            <value>True if the document can reflow, false otherwise.</value>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.PagesFillColor">
+            <summary>
+            Gets or sets the color used to fill the document pages in the preview
+            before drawing the content.
+            </summary>
+            <value>The fill color.</value>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.Pages">
+            <summary>
+            Gets the collection of the preview pages.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.PagesPadding">
+            <summary>
+            Gets or sets the padding between pages in the preview.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.PagesPaddingSmall">
+            <summary>
+            Gets or sets the padding between pages in the preview used when margins are hidden.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.SidesPadding">
+            <summary>
+            Gets or sets the padding between pages and the preview window edges.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.PagesPaddingCurr">
+            <summary>
+            Gets the current padding between pages in the preview.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.PreviewRectangle">
+            <summary>
+            Gets the preview rectangle (client are of the preview pane without the rulers and scrollbars).
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.VertPageRulerRectangle">
+            <summary>
+            Gets the rectangle for the vertical ruler for the current page, in client coordinates.
+            The actual visible ruler can be clipped by the VertRulerArea.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.HorzPageRulerRectangle">
+            <summary>
+            Gets the rectangle for the horizontal ruler for the current page, in client coordinates.
+            The actual visible ruler can be clipped by the HorzRulerArea.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.VertRulerArea">
+            <summary>
+            Gets the vertical ruler area (the actual ruler is always contained within that area).
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.HorzRulerArea">
+            <summary>
+            Gets the horizontal ruler area (the actual ruler is always contained within that area).
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.PagesFitPaper">
+            <summary>
+            Gets the value indicating whether the document pages have the same size
+            as the currently selected priinter paper.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.ToolTip">
+            <summary>
+            Gets the ToolTip used to display tooltips in the preview.
+            Change this to customize the way preview tooltips look (e.g. change colors etc.).
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.ShowToolTips">
+            <summary>
+            Gets or sets the value indicating whether to show tooltips.
+            </summary>
+            <value>True to turn tooltips on, false to turn them off.</value>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.HandleKeyboard">
+            <summary>
+            Gets or sets the value indicating whether the C1PreviewPane should handle the common preview keys.
+            </summary>
+            <value>True to turn keyboard handling on, false to turn it off.</value>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.ZoomSteps">
+            <summary>
+            Gets or sets the array of preset zoom factors.
+            </summary>
+            <value>The array of float values used as preset zoom factors.</value>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.StatusText">
+            <summary>
+            Gets or sets the string that is interpreted by attached controls as the current status string.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.PreviewCursors">
+            <summary>
+            Gets the set of cursors used in the preview.
+            </summary>
+            <value>The cursors.</value>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewPane.ExportOptions">
+            <summary>
+            Gets the options controlling the behavior of export modules.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.C1PreviewPane.PageDesc">
+            <summary>
+            Describes a single page preview area on the preview canvas
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.C1PreviewPane.PageDesc.PageIdx">
+            <summary>
+            The page index (0-based) in the document.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.C1PreviewPane.PageDesc.PreviewRect">
+            <summary>
+            Rectangle allocated to the page preview, in preview coords.
+            Defines a window over the page image, but may differ from it.
+            Does not account for the ZoomFactor, nor for the _pagesOffset.
+            The actual page rectangle may differ if hiding margins, or
+            if the document page size differs from the printer page size,
+            and preview shows physical pages.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.C1PreviewPane.PageDesc.PageSize">
+            <summary>
+            Original page size (incl. margins). Does not account for
+            ZoomFactor or PageZoom.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.C1PreviewPane.PageDesc.LocInPreview">
+            <summary>
+            Location of the page image within the PreviewRect. May be positive
+            if showing printer layout, and the page is reduced to fit in paper,
+            or negative if hiding margins.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.C1PreviewPane.PageDesc.PageZoom">
+            <summary>
+            Zoom factor due to fitting document page into the printer paper.
+            Does not depend on preview pane's ZoomFactor.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.C1PreviewPane.PageDesc.Margins">
+            <summary>
+            Page margins. May be used to show in rulers.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.C1PreviewPane.PageDesc.LocInPaper">
+            <summary>
+            Location of the page image on "paper". Zero unless showing printer layout
+            (PrintableLayout).
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.MarginResizer.Offset(System.Int32)">
+            <summary>
+            Accounts for ruler offset (used when scrolling)
+            </summary>
+            <param name="dz">The amount to offset.</param>
+        </member>
+        <member name="T:C1.Win.C1Preview.C1PreviewPane.PageMargins">
+            <summary>
+            Describes page margins, in page coords.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.C1PreviewPane.LayoutSection">
+            <summary>
+            Helper class providing a section inside which the preview layout is suspended.
+            Should be used to enclose fragments of code where several properties on which
+            the preview pages layout depends are changed. Layout updating is suspended
+            between the construction and disposing of the class instance. Sample usage:
+            using (LayoutSection ls = new LayoutSection(previewPane)) { ..code... }.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.LayoutSection.#ctor(C1.Win.C1Preview.C1PreviewPane,C1.Win.C1Preview.HistorySavedActionsEnum)">
+            <summary>
+            Initializes a new instance of the LayoutSection class.
+            </summary>
+            <param name="pane">The preview pane which is the owner of this layout section.</param>
+            <param name="historyItemAction">Action that caused this layout section (for history).</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewPane.LayoutSection.Dispose">
+            <summary>
+            Releases the resources used by the layout section. Updates the preview pane layout.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.C1PreviewPane.BusySection">
+            <summary>
+            Helper class providing a busy section. Usage:
+            using (new busy = BusySection(previewPane)) { ..code... }.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.VisitedDocumentAddingEventHandler">
+            <summary>
+            Represents the method that will handle an event occuring when
+            new item adding to the VisitedDocuments collection.
+            </summary>
+            <param name="source">The source of event.</param>
+            <param name="e">The VisitedDocumentAddingEventArgs object containing the event data.</param>
+        </member>
+        <member name="T:C1.Win.C1Preview.VisitedDocumentAddingEventArgs">
+            <summary>
+            Contains the data for VisitedDocumentAdding event of C1PreviewPane.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.VisitedDocumentAddingEventArgs.VisitedDocument">
+            <summary>
+            The adding VisitedDocument object.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.HistoryItemAddingEventHandler">
+            <summary>
+            Represents the method that will handle an event occuring when
+            new item adding to the ViewHistory collection.
+            </summary>
+            <param name="source">The source of event.</param>
+            <param name="e">The HistoryItemAddingEventArgs object containing the event data.</param>
+        </member>
+        <member name="T:C1.Win.C1Preview.HistoryItemAddingEventArgs">
+            <summary>
+            Contains the data for HistoryItemAdding event of C1PreviewPane.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.HistoryItemAddingEventArgs.HistoryItem">
+            <summary>
+            The adding ViewHistoryItem object.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.SaveVisitedDocumentEventHandler">
+            <summary>
+            Represents the method that will handle an event occuring when 
+            visited documeng should be saved to custom user-defined
+            storage.
+            </summary>
+            <param name="source">The source of event.</param>
+            <param name="e">The SaveVisitedDocumentEventArgs object containing the event data.</param>
+        </member>
+        <member name="T:C1.Win.C1Preview.SaveVisitedDocumentEventArgs">
+            <summary>
+            Contains the data for SaveVisitedDocument event of
+            C1PreviewPane.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.SaveVisitedDocumentEventArgs.UserData">
+            <summary>
+            Gets or sets the custom user-defined data. Typically this
+            data is filled on saving and then can be used on loading.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.LoadVisitedDocumentEventHandler">
+            <summary>
+            Represents the method that will handle an event occuring when 
+            visited document should be loaded from custom user-defined
+            storage.
+            </summary>
+            <param name="source">The source of event.</param>
+            <param name="e">The LoadVisitedDocumentEventArgs object containing the event data.</param>
+        </member>
+        <member name="T:C1.Win.C1Preview.LoadVisitedDocumentEventArgs">
+            <summary>
+            Contains the data for LoadVisitedDocument event of
+            C1PreviewPane.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.LoadVisitedDocumentEventArgs.Document">
+            <summary>
+            Gets or sets the loaded document.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.HyperlinkEventArgs">
+            <summary>
+            Provides a data for HyperlinkLeave and HyperlinkEnter events of C1PreviewPane.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.HyperlinkEventArgs.Hyperlink">
+            <summary>
+            Gets the hyperlink causing an event.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.HyperlinkJumpEventArgs">
+            <summary>
+            Provides a data for HyperlinkJump events of C1PreviewPane.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.HyperlinkJumpEventArgs.Cancel">
+            <summary>
+            Gets or sets a value indicating whether the hyperlink jump should be canceled.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.HyperlinkMouseEventArgs">
+            <summary>
+            Provides a data for HyperlinkMouseMove, HyperlinkMouseDown and
+            HyperlinkMouseUp events of C1PreviewPane.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.HyperlinkMouseEventArgs.Hyperlink">
+            <summary>
+            Gets the hyperlink causing an event.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.FormsUserActionEventArgs">
+            <summary>
+            Provides data for the FormsUserAction event.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.FormsUserActionEventArgs.UserAction">
+            <summary>
+            Gets the user action (Click, MouseDown, MouseUp etc.).
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.FormsUserActionEventArgs.InputAction">
+            <summary>
+            Gets the InputAction object that will handle the user action by default. 
+            This parameter can be null if no action is associated with the specified user action.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.FormsUserActionEventArgs.RenderObject">
+            <summary>
+            Gets the RenderInputBase object corresponding to the input control which
+            causes an event.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.FormsUserActionEventArgs.Handled">
+            <summary>
+            Gets or sets the value indicating whether the default handling of the user action 
+            should take place. Set this property to True to cancel the default handling.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.DocumentActionEventArgs">
+            <summary>
+            Provides data for the PreviewAction event.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.DocumentActionEventArgs.ActionHandler">
+            <summary>
+            Gets the ActionHandlerBase object to execute.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.DocumentActionEventArgs.Handled">
+            <summary>
+            Gets or sets a value that indicates whether the event 
+            handler has completely handled the event or whether 
+            the preview pane should continue its own processing. 
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.C1PreviewTextSearchPanel">
+            <summary>
+            Displays a text search panel allowing to find text in the connected preview pane.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.C1PreviewTextSearchPanel.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewTextSearchPanel.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewTextSearchPanel.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.C1PreviewThumbnailView">
+            <summary>
+            Displays a list of thumbnails representing the pages of the connected preview pane.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewThumbnailView._isViewChanged">
+            <summary>
+            Tests whether indices or the number of thumbnails visible in the window
+            has changed.
+            </summary>
+            <returns>True if there were changes, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewThumbnailView._setViewUpdated">
+            <summary>
+            Stores the current state of what is visible in the window.
+            Called by _updateThumbnails().
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewThumbnailView._forceViewChanged">
+            <summary>
+            Makes sure _thumbViewChanged returns true on next call.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewThumbnailView._updateThumbnails">
+            <summary>
+            Makes sure real thumbnails are attached to pages currently
+            shown in the thumbnail list view.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewThumbnailView._clear">
+            <summary>
+            Clears thumbnails, makes sure there's still a generic image.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewThumbnailView._reset">
+            <summary>
+            Makes sure all thumbnails are reset and if neccessary redrawn.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewThumbnailView._makeGenericThumbnail(System.Boolean)">
+            <summary>
+            Makes the generic (empty) thumbnail, stores it in position 0 of the image list.
+            </summary>
+            <param name="forceNew">Forces re-creation of the generic thumbnail even if it exists.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewThumbnailView._updatePageThumbnail(System.Int32)">
+            <summary>
+            Appends or updates the thumbnail for the specified page.
+            The actual thumbnail image is not created here - instead,
+            the page's image is set to the generic one, to be updated
+            by the time tick handler eventually, and the old entry in
+            the image list is marked as unused.
+            </summary>
+            <param name="pageIdx">The 0-based page index.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewThumbnailView._updateTexts(System.Int32)">
+            <summary>
+             Updates thumbnail captions.
+            </summary>
+            <param name="fromPageIdx">The index of the first page to update.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewThumbnailView.OnPropertyChanged(System.String)">
+            <summary>
+            Raises the PropertyChanged event.
+            </summary>
+            <param name="propertyName">The name of the changed property.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewThumbnailView.ShouldSerializeThumbnailSize">
+            <summary>
+            Tests whether the ThumbnailSize property should be serialized.
+            </summary>
+            <returns>True if ThumbnailSize should be serialized, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewThumbnailView.ResetThumbnailSize">
+            <summary>
+            Resets the ThumbnailSize property to the default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewThumbnailView._calcViewBox">
+            <summary>
+            Calculates the rectangle that represents the currently visible in
+            the preview portion of the StartPageIdx page of the preview.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewThumbnailView._calcItemSelectioinPoints(System.Drawing.Rectangle,System.Drawing.Rectangle)">
+            <summary>
+            Calculates the points forming the selection outline around the whole item
+            (it is assumeed that the text is approx below and not wider than the image).
+            </summary>
+            <param name="imageRect">The image rectangle.</param>
+            <param name="textRect">The text rectangle.</param>
+            <returns>The array of points that can be used to draw a border.</returns>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PreviewThumbnailView.PropertyChanged">
+            <summary>
+            Occurs when a property of the thumbnail view that is not inherited from the base class changes.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewThumbnailView.PreviewPane">
+            <summary>
+            Gets or sets the preview pane to which this thumbnail view is connected.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewThumbnailView.PageNoFmt">
+            <summary>
+            Gets or sets the format used to display the page number below the page thumbnail.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewThumbnailView.ThumbnailNavigation">
+            <summary>
+            Gets or sets the value indicating whether thumbnails should show the navigation rectangle which can be dragged or resized using the mouse.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewThumbnailView.UseImageAsThumbnail">
+            <summary>
+            Gets or sets the value indicating whether the page image obtained from the preview
+            pane should be used as the thumbnail (if this property is false, Image.GetThumbnailImage
+            is called to obtain the thumbnail).
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewThumbnailView.ThumbnailSize">
+            <summary>
+            Gets or sets the size of page thumbnails.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.C1PreviewThumbnailView.ThumbnailItem">
+            <summary>
+            Describes a list view item which is a preview page thumbnail.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.C1PrintPreviewControl">
+            <summary>
+            Represents an integrated preview control, containing a preview pane, a navigation panel, toolbars and a status bar.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewControl.#ctor">
+            <summary>
+            Initializes a new instance of the C1PrintPreviewControl class.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewControl.#ctor(System.String)">
+            <summary>
+            For internal use only.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.C1PrintPreviewControl.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewControl.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewControl.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewControl.ShouldSerializeToolBars">
+            <summary>
+            Indicates whether the ToolBars property should be persisted. 
+            </summary>
+            <returns>true if the property value has changed from its default; otherwise, false.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewControl.ResetToolBars">
+            <summary>
+            Resets the ToolBars property to its default value.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.DefaultSize">
+            <summary>
+            Gets the default size for the control.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.TopToolStripPanelVisible">
+            <summary>
+            Overridden.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.BottomToolStripPanelVisible">
+            <summary>
+            Overridden.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.LeftToolStripPanelVisible">
+            <summary>
+            Overridden.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.RightToolStripPanelVisible">
+            <summary>
+            Overridden.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.ContentPanel">
+            <summary>
+            Overridden.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.LeftToolStripPanel">
+            <summary>
+            Overridden.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.TopToolStripPanel">
+            <summary>
+            Overridden.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.RightToolStripPanel">
+            <summary>
+            Overridden.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.BottomToolStripPanel">
+            <summary>
+            Overridden.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.ExportOptions">
+            <summary>
+            Gets the options controlling the behavior of export modules.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.PreviewPane">
+            <summary>
+            Gets the preview pane.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.Document">
+            <summary>
+            Gets or sets the document shown by the preview.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.AvailablePreviewActions">
+            <summary>
+            Gets or sets the flags indicating which tools should be available in the preview.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.NavigationPanelVisible">
+            <summary>
+            Gets or sets the value indicating whether the navigation panel should be visible in the preview.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.StatusBarVisible">
+            <summary>
+            Gets or sets the value indicating whether the status bar should be visible in the preview.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.ImageSet">
+            <summary>
+            Gets or sets the image set used by the preview.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.PreviewThumbnailView">
+            <summary>
+            Gets the preview thumbnails view.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.PreviewOutlineView">
+            <summary>
+            Gets the preview outline view.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.PreviewTextSearchPanel">
+            <summary>
+            Gets the preview text search panel.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.PreviewProgressBar">
+            <summary>
+            Gets the preview progress bar.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.PreviewStatusText">
+            <summary>
+            Gets the preview status.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.PreviewNavigationPanel">
+            <summary>
+            Gets the preview navigation panel.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.PreviewStatusBar">
+            <summary>
+            Gets the preview status bar.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.ToolBars">
+            <summary>
+            Gets the toolbars of the preview control.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.C1PrintPreviewControl.ObjectState.SimplePropValue">
+            <summary>
+            Holds the simple read / write property.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.C1PrintPreviewControl.ObjectState.ContentPropValue">
+            <summary>
+            Holds the "Content" property, that serializes as
+            DesignerSerializationVisibility.Content.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.C1PrintPreviewControl.ObjectState.EnumerablePropValue">
+            <summary>
+            Holds the read-only property that supports IEnumerable
+            interface.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBars">
+            <summary>
+            Describes the toolbars used by the preview control.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBars.ShouldSerializeFile">
+            <summary>
+            Indicates whether the File property should be persisted. 
+            </summary>
+            <returns>true if the property value has changed from its default; otherwise, false.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBars.ResetFile">
+            <summary>
+            Resets the File property to its default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBars.ShouldSerializePage">
+            <summary>
+            Indicates whether the Page property should be persisted. 
+            </summary>
+            <returns>true if the property value has changed from its default; otherwise, false.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBars.ResetPage">
+            <summary>
+            Resets the Page property to its default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBars.ShouldSerializeNavigation">
+            <summary>
+            Indicates whether the Navigation property should be persisted. 
+            </summary>
+            <returns>true if the property value has changed from its default; otherwise, false.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBars.ResetNavigation">
+            <summary>
+            Resets the Navigation property to its default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBars.ShouldSerializeZoom">
+            <summary>
+            Indicates whether the Zoom property should be persisted. 
+            </summary>
+            <returns>true if the property value has changed from its default; otherwise, false.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBars.ResetZoom">
+            <summary>
+            Resets the Zoom property to its default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBars.ShouldSerializeText">
+            <summary>
+            Indicates whether the Text property should be persisted. 
+            </summary>
+            <returns>true if the property value has changed from its default; otherwise, false.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBars.ResetText">
+            <summary>
+            Resets the Text property to its default value.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBars.Owner">
+            <summary>
+            Gets the owner of the toolbars.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBars.File">
+            <summary>
+            Gets the File toolbar.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBars.Page">
+            <summary>
+            Gets the Page toolbar.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBars.Navigation">
+            <summary>
+            Gets the Navigation toolbar.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBars.Zoom">
+            <summary>
+            Gets the Zoom toolbar.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBars.Text">
+            <summary>
+            Gets the Text toolbar.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBar">
+            <summary>
+            Describes a single preview toolbar.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBar.ShouldSerialize">
+            <summary>
+            Indicates whether this toolbar should be persisted. 
+            </summary>
+            <returns>true if the toolbar has changed from its default; otherwise, false.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBar.Reset">
+            <summary>
+            Resets this toolbar to its default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBar.ShouldSerializeToolStrip">
+            <summary>
+            Indicates whether the Strip property should be persisted. 
+            </summary>
+            <returns>true if the property value has changed from its default; otherwise, false.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBar.ResetToolStrip">
+            <summary>
+            Resets the ToolStrip property to its default value.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBar.GetToolStripItemPropertyName(System.Windows.Forms.ToolStripItem)">
+            <summary>
+            Returns a tool strip item property name.
+            </summary>
+            <param name="toolStripItem">The tool strip item.</param>
+            <returns>The property name.</returns>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBar.Owner">
+            <summary>
+            Gets the owner of this toolbar.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBar.PreviewControl">
+            <summary>
+            Gets the preview control containing this toolbar.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBar.ToolStrip">
+            <summary>
+            Gets the ToolStrip containing the buttons in this toolbar.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBar.Visible">
+            <summary>
+            Indicates whether the ToolBar is visible.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBar.PreviewAction">
+            <summary>
+            Gets the the C1PreviewActionFlags value describing content of this toolbar.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.C1PrintPreviewControl.PreviewToolBar.TypeConverter">
+            <summary>
+            This type converter provides a design-time properties
+            which can be edited in property grid.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.Design.C1PreviewDesignerBase">
+            <summary>
+            Base class for C1PreviewPane and C1PrintPreviewControl classes.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.Design.C1PreviewDesignerBase.PrimarySelection">
+            <summary>
+            Gets the primary selected object.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.Design.GlyphManager">
+            <summary>
+            Implements all interactions with glyphs.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.GlyphManager.ShowMenu(System.Windows.Forms.ContextMenuStrip,System.Drawing.Point)">
+            <summary>
+            Displays the drop-down menu at specified position,
+            the position should be specified relative to top-left corner of adorner window.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.GlyphManager.ShowForm(C1.Win.C1Preview.Design.GlyphBase,C1.Win.C1Preview.Design.DropDownFormBase,System.Drawing.Point)">
+            <summary>
+            Displays the drop-down form at specified position,
+            the position should be specified relative to top-left corner of screen.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.GlyphManager.ShowForm(C1.Win.C1Preview.Design.GlyphBase,C1.Win.C1Preview.Design.DropDownFormBase,System.Drawing.Rectangle)">
+            <summary>
+            Displays the drop-down form at specified position,
+            the dropDownButtonBounds rectangle should be specified
+            relative to top-left corner of adorner window,
+            the form will be aligned to fit into screen and 
+            not overlap the dropDownButtonBounds.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.GlyphManager.IsPointInSystemGlyph(System.Drawing.Point)">
+            <summary>
+            Returns true if point is within some of system glyps, that not should be ignored.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.Design.GlyphStateEnum.UnderMouse">
+            <summary>
+            When glyph is under mouse.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.Design.GlyphStateEnum.Active">
+            <summary>
+            When glyph or one of its children is under mouse.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.Design.GlyphStateEnum.Visible">
+            <summary>
+            Exists if glyph is visible.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.Design.GlyphBase">
+            <summary>
+            Base class for all glyphs, used be designers of C1PreviewPane
+            and C1PrintPreviewControl.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.Design.GlyphBase.m_Areas">
+            <summary>
+            Specifies the area of glyph, all coordinates specified
+            relative to the adorner window.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.Design.GlyphBase._lastArea">
+            <summary>
+            Last area that was found in the GetHitTest method,
+            can be interpretated as area currently under mouse, use
+            Areas[_lastArea] to get bounds of this area.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.Design.GlyphBase._clipRect">
+            <summary>
+            The clipping rectangle for this glyph,
+            this rectangle is used in GetHitTest and painting.
+            Coordinates are specified relative to the adorner window.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.GlyphBase.GetClipRect">
+            <summary>
+            Returns the clipping rectangle that should be defined
+            before painting of this glyph, coordinates
+            should be specified relative to the adorner window.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.GlyphBase.GetAreas">
+            <summary>
+            Returns the array of rectangles representing the content of the glyph,
+            this array will be stored in the Areas property, coordinates
+            should be specified relative to the adorner window.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.Design.DesignerAreaGlyph">
+            <summary>
+            Glyph used to highlight some area on designer.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.Design.ButtonStyleEnum.Button">
+            <summary>
+            Simple push button.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.Design.ButtonStyleEnum.SplitButton">
+            <summary>
+            Button with drop-down arrow, drop-down arrow can be pressed separately.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.Design.ButtonStyleEnum.DropDownButton">
+            <summary>
+            Button with drop-down arrow, the drop-down arrow can not be pressed separately.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.Design.CustomizeButtonGlyph">
+            <summary>
+            The glyph that displays the drop-down button when mouse over it.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.Design.GlyphUtil">
+            <summary>
+            Contains some utils to draw the design-time glyphs.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.DropDownFormBase.RefreshControlsState">
+            <summary>
+            Refresh state of form's controls (Enabled, Visible etc).
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.DropDownFormBase.RefreshControlsValues">
+            <summary>
+            Refresh values of controls.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.DropDownFormBase.FullRefresh">
+            <summary>
+            Fully refreshes a form's controls.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.Design.DropDownFormBase.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.DropDownFormBase.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.DropDownFormBase.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.Design.DropDownFormBase.Glyph">
+            <summary>
+            Gets or sets the GlyphBase object creating this form.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.Design.PreviewControlLayoutForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.PreviewControlLayoutForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.PreviewControlLayoutForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.Design.NavigationPanelForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.NavigationPanelForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.NavigationPanelForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.Design.PageBodyForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.PageBodyForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.PageBodyForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.Design.PageGapsForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.PageGapsForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.PageGapsForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.Design.PageMarginsForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.PageMarginsForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.PageMarginsForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.Design.RulerForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.RulerForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.RulerForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.Design.StatusBarForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.StatusBarForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.StatusBarForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.Design.ToolBarForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.ToolBarForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.ToolBarForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.Design.ToolStripItemForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.ToolStripItemForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.ToolStripItemForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.Design.ToolStripButtonForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.ToolStripButtonForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.ToolStripButtonForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.Design.SampleC1PrintDocument">
+            <summary>
+            Provides a sample C1PrintDocument used by the C1PreviewPane designer
+            at design time.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.Design.Strings">
+            <summary>
+            Contains user interface strings loaded with C1Localizer.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.ExportOptions">
+            <summary>
+            Contains the options for all exporters (PdfExporter, XlsExporter and so on).
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.ExportOptions.Reset">
+            <summary>
+            Resets all options of exporters to default values.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.ExportOptions.IndexByExportProvider(C1.C1Preview.Export.ExportProvider)">
+            <summary>
+            Searches the ExportOptions object by ExportProvider.
+            </summary>
+            <param name="exportProvider">ExportProvider object, options of which must be searched.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.ExportOptions.IndexByExportProviderFormatKey(System.String)">
+            <summary>
+            Searches the ExportOptions object by ExportProvider.FormatKey property.
+            </summary>
+            <param name="exportProviderFormatKey">Value of ExportProvider.FormatKey property.</param>
+        </member>
+        <member name="P:C1.Win.C1Preview.ExportOptions.Count">
+            <summary>
+            Returns the number of options of exporters.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.ExportOptions.Item(System.Int32)">
+            <summary>
+            Returns the options of exporter by its index.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.ExportOptions.Item(System.Type)">
+            <summary>
+            Returns the options of exporter by type of ExportProvider.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.ExportOptions.Item(System.String)">
+            <summary>
+            Returns the options of exporter by FormatKey of ExportProvider.
+            Each ExportProvider has unique identificator (FormatKey property).
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.ExportOptions.Content">
+            <summary>
+            Do not use this property, it used for serialization.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.ExporterOptions">
+            <summary>
+            Represents the options of separate exporter,
+            the ExportOptions class contains the list of such objects.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.ExporterOptions.OptionsDialogClassName">
+            <summary>
+            Gets or sets the class name of the export options dialog form.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.ExporterOptions.Enabled">
+            <summary>
+            Indicates whether the exporter appears in the default FileSave dialog of C1PrintPreview.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.ExporterOptions.ShowOptions">
+            <summary>
+            Gets or sets the value indicating whether to show the options dialog before export.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.ExporterOptions.Preview">
+            <summary>
+            Gets or sets the value of Preview property of exporter.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.ExporterOptions.ExportProvider">
+            <summary>
+            Gets the ExportProvider object.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewToolsCreator._createTextStrip(System.Windows.Forms.ToolStrip)">
+            <summary>
+            Items order:
+            - hand tool
+            - text select tool
+            - find text
+            </summary>
+            <param name="textStrip">The toolstrip to add items to.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewToolsCreator._createZoomStrip(System.Windows.Forms.ToolStrip)">
+            <summary>
+            Items order:
+            - zoom tool split button with 2 tools in the dropdown
+                - zoom in tool
+                - zoom out tool
+            - zoom out button
+            - zoom factor textbox
+            - zoom factor dropdown
+            - zoom in button
+            </summary>
+            <param name="zoomStrip">The toolstrip to add items to.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewToolsCreator._createNavigationStrip(System.Windows.Forms.ToolStrip)">
+            <summary>
+            Items order:
+            - go first button
+            - go prev button
+            - page label
+            - page no text
+            - "of pages" label
+            - go next button
+            - go last button
+            - history prev
+            - history next
+            </summary>
+            <param name="navigationStrip">The toolstrip to add items to.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewToolsCreator._createPageStrip(System.Windows.Forms.ToolStrip)">
+            <summary>
+            Items order:
+            - single page view
+            - continuous page view
+            - page facing view
+            - continuous facing view
+            </summary>
+            <param name="pageStrip">The toolstrip to add items to.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewToolsCreator._createFileStrip(System.Windows.Forms.ToolStrip)">
+            <summary>
+            Items order:
+            - file open button
+            - file save button
+            - page setup button
+            - print button
+            - reflow button
+            </summary>
+            <param name="fileStrip">The toolstrip to add items to.</param>
+        </member>
+        <member name="T:C1.Win.C1Preview.C1PrintPreviewDialog">
+            <summary>
+            Displays a dialog box that shows the preview of the associated document.
+            Includes toolbars, navigation panel and status bar.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewDialog.#ctor">
+            <summary>
+            Initializes a new instance of the C1PrintPreviewDialog class.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.C1PrintPreviewDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PrintPreviewDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.Document">
+            <summary>
+            Gets or sets the document shown by the dialog.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.AvailablePreviewActions">
+            <summary>
+            Gets or sets flags indicating which tools should be available in the preview.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.NavigationPanelVisible">
+            <summary>
+            Gets or sets the value indicating whether the navigation panel should be visible.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.StatusBarVisible">
+            <summary>
+            Gets or sets the value indicating whether the status bar should be visible.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.PrintPreviewControl">
+            <summary>
+            Gets the C1PrintPreviewControl shown by the current print preview dialog.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.PreviewPane">
+            <summary>
+            Gets the preview pane.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.PreviewThumbnailView">
+            <summary>
+            Gets the preview thumbnails tspanel.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.PreviewOutlineView">
+            <summary>
+            Gets the preview outline tspanel.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.PreviewTextSearchPanel">
+            <summary>
+            Gets the preview text search tspanel.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.PreviewProgressBar">
+            <summary>
+            Gets the preview progress bar.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.PreviewStatusText">
+            <summary>
+            Gets the preview progress bar.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.Controls">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.AcceptButton">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.AccessibleDescription">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.AccessibleName">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.AccessibleRole">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.AllowDrop">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.Anchor">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.AutoScaleBaseSize">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.AutoScroll">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.AutoScrollMargin">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.AutoScrollMinSize">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.AutoSize">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.AutoValidate">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.BackColor">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.BackgroundImage">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.BackgroundImageLayout">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.CancelButton">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.CausesValidation">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.ContextMenu">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.ContextMenuStrip">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.Cursor">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.DataBindings">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.DefaultMinimumSize">
+            <summary>
+            Gets the default minimum size of the control.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.Dock">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.DockPadding">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.Enabled">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.Font">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.ForeColor">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.FormBorderStyle">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.ImeMode">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.IsMdiContainer">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.KeyPreview">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.Location">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.Margin">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.Menu">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.MinimumSize">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.Opacity">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.Padding">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.RightToLeft">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.RightToLeftLayout">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.SizeGripStyle">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.TabStop">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.TransparencyKey">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.UseWaitCursor">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PrintPreviewDialog.Visible">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PrintPreviewDialog.AutoSizeChanged">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PrintPreviewDialog.AutoValidateChanged">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PrintPreviewDialog.BackColorChanged">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PrintPreviewDialog.BackgroundImageChanged">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PrintPreviewDialog.BackgroundImageLayoutChanged">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PrintPreviewDialog.CausesValidationChanged">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PrintPreviewDialog.ContextMenuChanged">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PrintPreviewDialog.ContextMenuStripChanged">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PrintPreviewDialog.CursorChanged">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PrintPreviewDialog.DockChanged">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PrintPreviewDialog.EnabledChanged">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PrintPreviewDialog.FontChanged">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PrintPreviewDialog.ForeColorChanged">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PrintPreviewDialog.ImeModeChanged">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PrintPreviewDialog.LocationChanged">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PrintPreviewDialog.MarginChanged">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PrintPreviewDialog.MaximumSizeChanged">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PrintPreviewDialog.MinimumSizeChanged">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PrintPreviewDialog.PaddingChanged">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PrintPreviewDialog.RightToLeftChanged">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PrintPreviewDialog.RightToLeftLayoutChanged">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PrintPreviewDialog.SizeChanged">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PrintPreviewDialog.TabStopChanged">
+            <summary>
+            Overridden. Do not use.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.C1PreviewToolsIntegrator">
+            <summary>
+            Provides integration of external tools (such as toolbars and status bar)
+            with the preview pane, including handling of toolbar buttons.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewToolsIntegrator.#ctor">
+            <summary>
+            Creates a new instance of the class.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewToolsIntegrator.AttachTools(System.Windows.Forms.Control)">
+            <summary>
+            Searches the controls tree and attaches to any tools found on it.
+            </summary>
+            <param name="control">The top level control, or a nested control on
+            the form or control containing the tools that are to be integrated
+            with the preview pane.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewToolsIntegrator.DetachTools">
+            <summary>
+            Detaches the tools integrator from all tools
+            (but does not detach from the PreviewPane).
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewToolsIntegrator.AttachToolStrip(System.Windows.Forms.ToolStrip)">
+            <summary>
+            Attaches the tools integrator to the specified toolstrip.
+            If the toolstrip contains preview items, they will be handled
+            by the tools integrator.
+            </summary>
+            <param name="toolstrip">The toolstrip to attach to.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewToolsIntegrator.DetachToolStrip(System.Windows.Forms.ToolStrip)">
+            <summary>
+            Detaches the tools integrator from the specified toolstrip.
+            </summary>
+            <param name="toolstrip">The toolstrip to detach from.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewToolsIntegrator._previewTextSearchPanel_DesiredVisibleChanged(System.Object,System.EventArgs)">
+            <summary>
+            Hide/show the text search tspanel. Can handle one of the following 2 layouts:
+            -   if the text search tspanel is the only control in one of the 2 panels of a
+                SplitContainer, in which case that tspanel is collapsed or expanded, or
+            -   in all other cases the text search tspanel's Visible property is changed.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:C1.Win.C1Preview.C1PreviewOutlineView">
+            <summary>
+            Displays a tree representing the outline nodes of the connected preview pane.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewOutlineView.Dispose(System.Boolean)">
+            <summary>
+            Releases the resources used by the C1PreviewOutlineView.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewOutlineView.OnAfterSelect(System.Windows.Forms.TreeViewEventArgs)">
+            <summary>
+            Overloaded. Raises the AfterSelect event.
+            </summary>
+            <param name="e">A TreeViewEventArgs that contains the event data.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.C1PreviewOutlineView.OnPropertyChanged(System.String)">
+            <summary>
+            Raises the PropertyChanged event.
+            </summary>
+            <param name="propertyName">The name of the changed property.</param>
+        </member>
+        <member name="E:C1.Win.C1Preview.C1PreviewOutlineView.PropertyChanged">
+            <summary>
+            Occurs when a property of the outline view that is not inherited from the base class changes.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewOutlineView.Nodes">
+            <summary>
+            Gets the collection of tree nodes representing the outline entries of the document.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.C1PreviewOutlineView.PreviewPane">
+            <summary>
+            Gets or sets the preview pane to which this outline view is connected.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.DocumentHandlerBase">
+            <summary>
+            Describes an object used to interface between the preview
+            and the different types of documents (C1Preview,
+            .NET PrintDocument, C1Report's document, and so on).
+            NOTE: this class can NOT use pane.Document, as that property
+            is implemented via this class itself.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.DocumentHandlerBase.RefreshPreview">
+            <summary>
+            Refreshes the preview pages.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.DocumentHandlerBase.Reflow">
+            <summary>
+            Reflows the document using the current page settings.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.DocumentHandlerBase.SetPageMargin(C1.Win.C1Preview.MarginIndexEnum,System.Single)">
+            <summary>
+            Sets the specified page margin of the document to the specified value.
+            </summary>
+            <param name="marginIndex">Which margin to set.</param>
+            <param name="value">The new margin value, in pixels.</param>
+            <returns>True if the document was changed, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.DocumentHandlerBase.GetPageLayout(System.Int32,System.Drawing.SizeF@,System.Drawing.RectangleF@,System.Single@,System.Single@)">
+            <summary>
+            Retrieves the page layout info (page size, margins, header/footer heights).
+            Done via the doc handler so that it can add some doc-level info (e.g. account
+            for page margins common to all pages when calculating the content rect.
+            </summary>
+            <param name="pageIdx">The preview page index.</param>
+            <param name="pageSize">Out: the totatl page ("paper") size.</param>
+            <param name="contentRect">Out: content rectangle inside the total page size.</param>
+            <param name="headerHeight">Out: page header height.</param>
+            <param name="footerHeight">Out: page footer height.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.DocumentHandlerBase.GetVisitedDocumentStorageType">
+            <summary>
+            Gets the type of document starage used to store the documents
+            in history. The class shoud be descendant of VisitedDocumentStorage.
+            </summary>
+            <returns>The type of class.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.DocumentHandlerBase.SaveDocumentToStream(System.IO.Stream)">
+            <summary>
+            Stores the underlying document to the stream.
+            </summary>
+            <param name="stream">The stream object to store to.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.DocumentHandlerBase.CreateVisitedDocumentStorage">
+            <summary>
+            Creates the new VisitedDocumentStorage object and
+            saves the content of underlying document into this storage.
+            </summary>
+            <returns>The created VisitedDocumentStorage object.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.DocumentHandlerBase.BuildVisitedDocumentCaption(System.String@,System.Boolean@)">
+            <summary>
+            Generates the caption for document added to the document's history.
+            By default hasAutoDocumentCaption is true and documentCaption contains
+            caption like "Document1".
+            </summary>
+            <param name="documentCaption">OUT: The caption of document.</param>
+            <param name="hasAutoDocumentCaption">OUT: Should contains true if name was auto generated.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.DocumentHandlerBase.Disposing">
+            <summary>
+            Called by Dispose. Allows doc handlers to release resources.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.DocumentHandlerBase.GetPageMatrixSize">
+            <summary>
+            Gets the size of the preview page matrix (rows/cols).
+            </summary>
+            <returns>Size, where width indicates the number of columns,
+            and height the number of rows, in the page matrix.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.DocumentHandlerBase.TestPageAtMatrixPos(C1.Win.C1Preview.C1PreviewPane,System.Drawing.Point,System.Drawing.Size)">
+            <summary>
+            Tests whether there is a document page at the specified position in the pages' matrix.
+            </summary>
+            <param name="pane">The preview pane.</param>
+            <param name="page">The coordinates of the page to test.</param>
+            <param name="matrix">The size of the matrix.</param>
+            <returns>True if there is a page, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.DocumentHandlerBase.GetPageBounds(System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+            Returns the page bounds, either for the full page or for the
+            page sans the margins. If margins are not hidden, the bounding
+            rectangle's location is always at (0,0).
+            </summary>
+            <param name="pageIdx">The preview page index.</param>
+            <param name="hideHorzMargins">Indicates whether horizontal margins are hidden.</param>
+            <param name="hideVertMargins">Indicates whether vertical margins are hidden.</param>
+            <returns>The page bounding rectangle.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.DocumentHandlerBase.ClientToDocument(System.Drawing.Point,System.Int32@,C1.C1Preview.PointD@)">
+            <summary>
+            Converts preview pane's client coordinates to document,
+            the received coordinates depend on the type of connected document
+            for C1PrintDocument they are in ResolvedUnitType.
+            </summary>
+            <param name="pt">Point in client coords.</param>
+            <param name="pageIdx">Out: 0-based page index or -1.</param>
+            <param name="ptPage">Out: page coordinates.</param>
+            <returns>True if the page has been found, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.DocumentHandlerBase.DocumentToClient(System.Int32,C1.C1Preview.PointD,System.Drawing.Point@)">
+            <summary>
+            Converts document coordinates to preview pane client coords.
+            </summary>
+            <param name="pageIdx">0-based page index.</param>
+            <param name="ptPage">Point on the page.</param>
+            <param name="pt">Out: Preview pane client point.</param>
+            <returns>True if the client point belongs to a document page, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.DocumentHandlerBase.FindAnchor(System.String)">
+            <summary>
+            Searches the anchor in document.
+            </summary>
+            <param name="anchorName">The name of anchor to search.</param>
+            <returns>Returns the C1AnchorInfo object about searched anchor or null if not found.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.DocumentHandlerBase.GetPageHyperlinksMap(System.Int32)">
+            <summary>
+            Gets the C1HyperlinkInfoCollection object containing all hyperlinks
+            on specified page.
+            </summary>
+            <param name="pageIdx">Index of page in C1PreviewPane.Pages property.</param>
+            <returns>The C1HyperlinkInfoCollection object.</returns>
+        </member>
+        <member name="P:C1.Win.C1Preview.DocumentHandlerBase.IsDocumentChanging">
+            <summary>
+            Gets the value indicating whether the document is currently changing
+            due to its own reasons (e.g. reflows). Used to test against user changes
+            to the preview pages collection (which, unlike document's own changes,
+            should detach the preview document from the source).
+            </summary>
+            <value>True if the document is changing, false otherwise.</value>
+        </member>
+        <member name="P:C1.Win.C1Preview.DocumentHandlerBase.PageSettings">
+            <summary>
+            Gets or sets the (default) page settings for the document.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:C1.Win.C1Preview.DocumentHandlerBase.Reflowable">
+            <summary>
+            Gets the value indicating whether the document can reflow
+            using different page settings.
+            </summary>
+            <value>True if the document can reflow, false otherwise.</value>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.C1PreviewPaneDesigner._setPreviewPaneOn(System.ComponentModel.IComponent)">
+            <summary>
+            Checks the passed component for the presence of a property PreviewPane,
+            of the type C1PreviewPane, and if such a property exists assigns it
+            to the value of the current preview pane.
+            </summary>
+            <param name="c">The component to test/set the property of.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.C1PreviewPaneDesigner._unsetPreviewPaneOn(System.ComponentModel.IComponent)">
+            <summary>
+            Checks the passed component for the presence of a property PreviewPane,
+            set to the value of the current preview pane, and sets it to null if such
+            a property exists.
+            </summary>
+            <param name="c">The component to test/set the property of.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.C1PreviewPaneDesigner._setDocument(System.ComponentModel.IComponent)">
+            <summary>
+            If the Document of the current preview pane is null, and the passed
+            component is a C1PrintDocument, Document is set to it.
+            </summary>
+            <param name="c">The potential C1PrintDocument.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.Design.C1PreviewPaneDesigner._unsetDocument(System.ComponentModel.IComponent)">
+            <summary>
+            If the Document of the current preview pane is set to the passed
+            object, the pane's Document is set to null.
+            </summary>
+            <param name="c">The C1PrintDocument to unset.</param>
+        </member>
+        <member name="T:C1.Win.C1Preview.ViewState">
+            <summary>
+            Contains information about the state of C1PreviewPane:
+            scrooling position, zoom factor etc.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.ViewHistoryItem">
+            <summary>
+            Represents the separate item of the view history of the
+            preview pane.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.ViewHistoryItem.Owner">
+            <summary>
+            Gets the ViewHistoryItemCollection collection containing this object.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.ViewHistoryItem.Pane">
+            <summary>
+            Gets the C1PreviewPane object containg this object.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.ViewHistoryItem.VisitedDocument">
+            <summary>
+            The visited document that was opened when this history entry was created.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.ViewHistoryItemCollection">
+            <summary>
+            Collection of the ViewHistoryItem objects.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.ViewHistoryItemCollection.Owner">
+            <summary>
+            Gets the C1PreviewPane object containing this object.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.ViewHistoryItemCollection.Item(System.Int32)">
+            <summary>
+            Enumerates objects in collection.
+            </summary>
+            <param name="index">Index of object, zero-based.</param>
+            <returns>Returns the ViewHistoryItem object in specified position.</returns>
+        </member>
+        <member name="T:C1.Win.C1Preview.HistorySavedActionsEnum">
+            <summary>
+            Defines the user actions which can be saved in the preview history.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.VisitedDocumentStorageEnum">
+            <summary>
+            Defines the modes of documents keeping in the preview history.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.HistoryOptions">
+            <summary>
+            Contains options for the preview history.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.HistoryOptions.MaxHistoryLength">
+            <summary>
+            Gets or sets the maximum number of items stored in the preview history.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.HistoryOptions.SavedActions">
+            <summary>
+            Gets or sets the value indicating which kinds of 
+            actions are saved in the preview history.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.HistoryOptions.VisitedDocumentStorage">
+            <summary>
+            Gets or sets the value indicating how to store
+            documents in the preview history.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.HistoryOptions.MaxVisitedDocuments">
+            <summary>
+            Gets or sets the maximum number of stored visited documents.
+            </summary>
+        </member>
+        <member name="E:C1.Win.C1Preview.HistoryOptions.PropertyChanged">
+            <summary>
+            Occurs then value of any property of HistoryOptions is changed.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.VisitedDocumentStorage">
+            <summary>
+            Contains the content of visited document,
+            the format of content depends on the type of document 
+            (C1Doc, .NET PrintDocument etc).
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.VisitedDocumentStorage.CreateDocument">
+            <summary>
+            Creates an document on the basis of storage's data.
+            </summary>
+            <returns>Returns the created document.</returns>
+        </member>
+        <member name="T:C1.Win.C1Preview.VisitedDocument">
+            <summary>
+            Represents the document in the collection of visited documents.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.VisitedDocument.GetFullDocumentCaption">
+            <summary>
+            Gets the full document caption it is DocumentCaption with 
+            suffix depending on UserAction, for example if document was
+            created after changing the page settings then its name will:
+            "Document1 (page settings changed)".
+            If UserAction is DocumentOpen then simple DocumentCaption returned.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.VisitedDocument.CreateDocument">
+            <summary>
+            Creates the document which is stored in this visited document,
+            if this VisitedDocument object linked with currently opened
+            document then this method returns this *currently opened* document.
+            </summary>
+            <returns>Returns the created document.</returns>
+        </member>
+        <member name="P:C1.Win.C1Preview.VisitedDocument.Owner">
+            <summary>
+            Gets the VisitedDocumentCollection collection containing this object.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.VisitedDocument.Pane">
+            <summary>
+            Gets the C1PreviewPane object containing this object.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.VisitedDocument.DocumentCaption">
+            <summary>
+            Caption of visited document.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.VisitedDocument.HasAutoDocumentCaption">
+            <summary>
+            Gets the value indicating whether the visited document has an
+            automatically generated name.
+            This name will be changed when document is saved to file.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.VisitedDocument.UserAction">
+            <summary>
+            Gets the user's action producing this document.
+            This property is used to generate the FullDocumentCaption.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.VisitedDocument.Storage">
+            <summary>
+            Gets or sets the VisitedDocumentStorage object
+            containing the data of visited document.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.VisitedDocument.Index">
+            <summary>
+            Gets an index of this object in the owner collection.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.VisitedDocumentCollection">
+            <summary>
+            Collection of VisitedDocument objects.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.VisitedDocumentCollection.Owner">
+            <summary>
+            Gets the C1PreviewPane object containing this object.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.VisitedDocumentCollection.Item(System.Int32)">
+            <summary>
+            Enumerates objects in collection.
+            </summary>
+            <param name="index">Index of object, zero-based.</param>
+            <returns>Returns the VisitedDocument object in specified position.</returns>
+        </member>
+        <member name="T:C1.Util.Localization.StringTables">
+            <summary>
+            StringTables
+            this class contains a single static method InitTables that populates the
+            tables used by the Localizer class.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.RenderInputLink">
+            <summary>
+            Represents a link to the RenderInputBase descendant in the C1PrintDocument.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.RenderInputLink.RenderObject">
+            <summary>
+            Gets the underlying RenderInputBase object.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.RenderInputLink.PageIndex">
+            <summary>
+            Gets the PreviewPageBase object containing the control.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.RenderInputLinkCollection">
+            <summary>
+            Collection of the RenderInputLink objects.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.RenderInputLinkCollection.ClearOnPage(System.Int32)">
+            <summary>
+            Deletes all links linked with specified page.
+            </summary>
+            <param name="pageIndex">The index of page.</param>
+        </member>
+        <member name="T:C1.Win.C1Preview.PreviewHistoryOptions">
+            <summary>
+            Defines the history related options of C1PrintPreview control.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.PreviewHistoryOptions.Owner">
+            <summary>
+            Gets the C1PrintPreview object containing this object.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.PreviewHistoryOptions.MaxHistoryMenuSize">
+            <summary>
+            Gets or sets the maximum count of items in drop-down menus of
+            HistoryNext and HistoryPrev buttons.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.PreviewHistoryOptions.MaxVisitedDocumentsMenuSize">
+            <summary>
+            Gets or sets the maximum count of items in drop-down menus of
+            FileOpen button.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.TextSearchUtil.FindTextInstances(System.String,System.String,System.Int32,System.Int32,System.Int32,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Finds instances of text in a string.
+            </summary>
+            <param name="what">The text to search for.</param>
+            <param name="where">The string to search.</param>
+            <param name="fromIdx">Index in "where" to start search at.</param>
+            <param name="length">Length of substring to search in.</param>
+            <param name="maxCount">Max number of instances to find.</param>
+            <param name="forward">Search direction.</param>
+            <param name="ignoreCase">Ignore case.</param>
+            <param name="word">Whole word search.</param>
+            <returns>Array of indexes into "where" to the found instances.</returns>
+        </member>
+        <member name="T:C1.Win.C1Preview.EmfPageMapElem">
+            <summary>
+            An EmfPageMap is built for a page when that page must be searched for text,
+            or user is selecting text in it. EmfPageMap is a memory-heavy object, so
+            should be used sparingly (i.e. only when needed, and disposed afterwards).
+            
+            The map contains EmfPageMapElem elements, each corresponding to a record
+            in the page metafile. Elements for 2 record types are supported:
+            - string elements, used for text search/selection;
+            - link elements, used for hyperlinks and the like.
+            
+            All elements store their metafile rectangle.
+            
+            String elements store the string and the char map.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewSelection.SelectedRects(System.Int32)">
+            <summary>
+            Returns the array of selected rectangles for the page.
+            </summary>
+            <param name="pageIdx">The page index.</param>
+            <returns>The rectangles array (may be empty but not null).</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewSelection.PageHasSelection(System.Int32)">
+            <summary>
+            Tests whether the specified page has something selected.
+            </summary>
+            <param name="pageIdx">The page index to test.</param>
+            <returns>True if the page has selected text.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewSelection.SelectedLines">
+            <summary>
+            Returns the currently selected text as the collection of lines.
+            </summary>
+            <returns>The lines collection.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewSelection.Start(System.Drawing.Point)">
+            <summary>
+            Starts the selection clearing any in-progress selection if needed.
+            </summary>
+            <param name="clientPt">The client point where to start the selection.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewSelection.Add(System.Drawing.Point)">
+            <summary>
+            Adds to the selection in progress (if there is no selection in progress,
+            an exception is thrown).
+            </summary>
+            <param name="clientPt">The client point to which the current selection is to be extended.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewSelection.Stop">
+            <summary>
+            Stops the current selection.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewSelection.Resume">
+            <summary>
+            Resumes the stopped selection, or starts selection at the top of the document
+            if there is no current closed selection present.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewSelection.Clear">
+            <summary>
+            Stops and clears the current selection if any.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewSelection.SelectAll">
+            <summary>
+            Selects all text in the document.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewSelection.SelectPage(System.Int32)">
+            <summary>
+            Selects all text on the specified page.
+            </summary>
+            <param name="pageIdx">The page index.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewSelection.SelectWord(System.Drawing.Point)">
+            <summary>
+            Selects word at or in front of the point.
+            </summary>
+            <param name="clientPt">The client point.</param>
+            <returns>True if a word was selected, false if no word was found.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewSelection.SelectFragment(C1.Win.C1Preview.C1TextFragment)">
+            <summary>
+            Selects a text fragment.
+            </summary>
+            <param name="frag">The text fragment to select.</param>
+            <returns></returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewSelection.FindAll(System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Finds all instances of the specified text in the document.
+            </summary>
+            <param name="searchTxt">The text to search for.</param>
+            <param name="caseSensitive">Whether the search is case-sensitive.</param>
+            <param name="wholeWord">Whether the search is limited to whole words only.</param>
+            <param name="backward">Whether to search from the bottom up.</param>
+            <returns>The array of fragments describing the instances found.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewSelection.FindText(System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Finds and selects the specified text.
+            </summary>
+            <param name="searchTxt">The text to search for.</param>
+            <param name="fromSelection">Whether to start the search from the current selection.</param>
+            <param name="forward">Whether to search forward.</param>
+            <param name="caseSensitive">Whether the search is case sensitive.</param>
+            <param name="wholeWord">Whether to limit the search to whole words only.</param>
+            <returns>True if the search was successful, false otherwise.</returns>
+        </member>
+        <member name="P:C1.Win.C1Preview.PreviewSelection.IsEmpty">
+            <summary>
+            Gets the value indicating whether something is selected or not.
+            </summary>
+            <value>True if the selection is empty.</value>
+        </member>
+        <member name="P:C1.Win.C1Preview.PreviewSelection.Selecting">
+            <summary>
+            Gets the value indicating whether we are currently selecting.
+            </summary>
+            <value>True if we are currently selecting.</value>
+        </member>
+        <member name="P:C1.Win.C1Preview.PreviewSelection.Forward">
+            <summary>
+            Gets the value indicating whether we are selecting forward.
+            </summary>
+            <value>True if we are selecting forward.</value>
+        </member>
+        <member name="P:C1.Win.C1Preview.PreviewSelection.FirstPageIdx">
+            <summary>
+            Gets the first (not regarding the direction) page with selected areas.
+            </summary>
+            <value>The minimum page index with something selected.</value>
+        </member>
+        <member name="P:C1.Win.C1Preview.PreviewSelection.PageCount">
+            <summary>
+            Gets the number of pages with selected text.
+            </summary>
+            <value>The page count.</value>
+        </member>
+        <member name="T:C1.Win.C1Preview.PreviewSelection.CharMapElem">
+            <summary>
+            Describes a single character map element.
+            Corresponds to a single character.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.PreviewSelection.CharMapElem.FragIdx">
+            <summary>
+            The index of the EmfPageMapElem containing this char.
+            </summary>
+        </member>
+        <member name="F:C1.Win.C1Preview.PreviewSelection.CharMapElem.CharIdx">
+            <summary>
+            Index of this char inside the EmfPageMapElem.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewSelection.CharMapElem.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of CharMapElem.
+            </summary>
+            <param name="fragIdx">Index of the EmfPageMapElem.</param>
+            <param name="charIdx">Index of the char in the fragment.</param>
+        </member>
+        <member name="T:C1.Win.C1Preview.PreviewSelection.PageSelection">
+            <summary>
+            Keeps track of a page's selection in terms of the map elements array
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.ThumbnailNavigator.Clear">
+            <summary>
+            Cleares state vars without redrawing anything.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.ThumbnailNavigator.Refresh(System.Drawing.Point)">
+            <summary>
+            Erases the current view box, updates page box data and redraws it.
+            </summary>
+            <param name="g"></param>
+            <param name="location"></param>
+        </member>
+        <member name="T:C1.Win.C1Preview.KeyMap">
+            <summary>
+            Represents a keymap used to map keystrokes to actions.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.KeyMap.AddHandler(System.Windows.Forms.Keys,C1.Win.C1Preview.KeyMap.DoAction)">
+            <summary>
+            Adds a handler to the keymap.
+            </summary>
+            <param name="keyData">The keystroke to map.</param>
+            <param name="handler">The handler for the keystroke.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.KeyMap.SetHandler(System.Windows.Forms.Keys,C1.Win.C1Preview.KeyMap.DoAction)">
+            <summary>
+            Sets a handler to an existing key.
+            </summary>
+            <param name="keyData">The keystroke to map.</param>
+            <param name="handler">The handler for the keystroke.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.KeyMap.ClearHandler(System.Windows.Forms.Keys)">
+            <summary>
+            Removes the handler for the specified keystroke from the keymap.
+            </summary>
+            <param name="keyData">The keystroke to remove.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.KeyMap.CanHandle(System.Windows.Forms.Keys)">
+            <summary>
+            Tests whether the current keymap can handle the keystroke.
+            </summary>
+            <param name="keyData">The keystroke to test.</param>
+            <returns>True if the current keymap contains a handler for the keystroke, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.KeyMap.HandleKey(System.Windows.Forms.Keys)">
+            <summary>
+            Invokes the handler for the specified keystroke.
+            </summary>
+            <param name="keyData">The keystroke to handle.</param>
+            <returns>The return value of the handler, false if it is not found.</returns>
+        </member>
+        <member name="P:C1.Win.C1Preview.KeyMap.Tag">
+            <summary>
+            Gets or sets user data associated with the keymap.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.KeyMap.DoAction">
+            <summary>
+            Describes an action that can be mapped to a keystroke.
+            </summary>
+            <returns>True to indicate that the expected action was taken, false otherwise.</returns>
+        </member>
+        <member name="T:C1.Win.C1Preview.KeyMapStack">
+            <summary>
+            Represents a stack of keymaps used to handle keyboard.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.KeyMapStack.Push(C1.Win.C1Preview.KeyMap)">
+            <summary>
+            Pushes a new keymap on the stack.
+            </summary>
+            <param name="keyMap">The keymap to push on the stack.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.KeyMapStack.Pop">
+            <summary>
+            Pops the top keymap from the stack.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.KeyMapStack.Top">
+            <summary>
+            Returns the top keymap.
+            </summary>
+            <returns>The top keymap.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.KeyMapStack.CanHandle(System.Windows.Forms.Keys)">
+            <summary>
+            Tests whether the stack contains a keymap that can handle the keystroke.
+            </summary>
+            <param name="keyData">The keystroke to test.</param>
+            <returns>True if a handler is found, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.KeyMapStack.CanHandle(System.Windows.Forms.Keys,C1.Win.C1Preview.KeyMap@)">
+            <summary>
+            Tests whether the stack contains a keymap that can handle the keystroke.
+            </summary>
+            <param name="keyData">The keystroke to test.</param>
+            <param name="keyMap">The keymap that can handle the keystroke.</param>
+            <returns>True if a handler is found, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.KeyMapStack.HandleKey(System.Windows.Forms.Keys)">
+            <summary>
+            Handles a keystroke.
+            </summary>
+            <param name="keyData">The keystroke to handle.</param>
+            <returns>True if the keystroke was handled, false otherwise.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.KeyMapStack.FindByTag(System.Object)">
+            <summary>
+            Finds a keymap by its tag.
+            </summary>
+            <param name="tag">The tag to search for.</param>
+            <returns>The keymap or null if none was found.</returns>
+        </member>
+        <member name="P:C1.Win.C1Preview.KeyMapStack.IsEmpty">
+            <summary>
+            Gets the value indicating whether the stack is empty.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.PreviewPageExternal">
+            <summary>
+            Describes a preview page which is really an image in an external (to us) list.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.PreviewPageBase">
+            <summary>
+            The base class for different types of preview pages.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewPageBase.GetImage(System.Boolean)">
+            <summary>
+            Returns the page image.
+            </summary>
+            <param name="renderInputControls">Indicates whether input controls on the page
+            should be rendered (if real controls are created over the page, this flag must
+            be set to false.</param>
+            <returns>The page image.</returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewPageBase.RefreshImage">
+            <summary>
+            Makes sure that the Image property will return an up-to-date image
+            the next time it is queried. In particular, if the page image is cached,
+            this method flushes the cache.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.PreviewPageBase.EmfPageMapHolder">
+            <summary>
+            Returns the EmfPageMap object for this page.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.PreviewPageExternal.Index">
+            <summary>
+            Gets or sets the index of this page in the list.
+            The index may need to be set to a different value e.g. if
+            new pages were added to the list, or existing pages removed.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.DocumentHandlerBindingList.BindingListController">
+            BindingListController
+            If the PrintDocument supports IBindingList, use this PrintController
+            and get the images directly from the list.
+            This avoids saving extra images for each page in the standard
+            PrintPreviewController or the MetaFilePrintController.
+        </member>
+        <member name="T:C1.Win.C1Preview.PreviewPageSimple">
+            <summary>
+            Describes a preview page represented by a simple page image.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.DocumentHandlerC1Doc.UpdateInputLinks">
+            <summary>
+            Updates the InputLinks collection, this collection
+            contains the controls of pages which full or
+            partially visible.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.DocumentHandlerC1Doc.SetFocus(C1.C1Preview.RenderInputFragment)">
+            <summary>
+            Sets an input focus to specified RenderInputFragment object.
+            </summary>
+            <param name="inputFragment">The object to focus.</param>
+        </member>
+        <member name="M:C1.Win.C1Preview.DocumentHandlerC1Doc.ExecuteAction(C1.C1Preview.UserActionEnum,C1.C1Preview.RenderInputBase)">
+            <summary>
+            Executes the specified action on RenderInputBase object.
+            </summary>
+            <param name="userAction">The user's action.</param>
+            <param name="ro">The focused RenderInputBase object when action occurs.</param>
+        </member>
+        <member name="T:C1.Win.C1Preview.DetachedPreviewDoc">
+            <summary>
+            Describes a simple document consisting of a list of page images.
+            Such a document is created automatically by the preview when the
+            user starts directly manipulating preview pages generated by a 
+            more intelligent document such as C1Preview, .NET PrintDocument etc.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.PreviewPageC1Doc">
+            <summary>
+            Describes a preview page belonging to a C1Preview.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.PageLayoutEnum">
+            <summary>
+            Describes the supported page view modes of the control.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.ZoomModeEnum">
+            <summary>
+            Describes the supported zoom modes of C1PrintPreview control.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.MouseModeEnum">
+            <summary>
+            Describes the supported preview pane mouse behavior modes.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.HideMarginsFlags">
+            <summary>
+            Describes page margins hide/show modes (when the mouse is over the margins area).
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.ImageSetEnum">
+            <summary>
+            Describes the image set used for toolbar images of the
+            preview actions.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.MouseOpEnum">
+            <summary>
+            Describes the mouse op currently in progress.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.CursorOpEnum">
+            <summary>
+            Describes current (potential or in progress) op invoked by
+            transient cursor (cursor depending on location in preview).
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.MarginIndexEnum">
+            <summary>
+            Indicates one of the 4 page margins.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.InactiveBaseForm">
+            <summary>
+            Class used to create forms that do not take focus from their owner.
+            </summary>
+        </member>
+        <member name="T:C1.Win.C1Preview.PreviewPages">
+            <summary>
+            Collection of preview pages.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewPages.ClonePageImages">
+            <summary>
+            Returns an array of page image clones
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewPages.BeginChanges(System.Boolean)">
+            <summary>
+            Begins a series of related changes to the pages collection,
+            specifying the type of changes to occur.
+            Should be followed by a call to EndChanges.
+            Improves performance and provides consistency.
+            </summary>
+            <param name="append">If true, the changes are assumed to be limited
+            to adding new pages to the end of the list. Specifying this
+            parameter as true may increase performance when creating long documents.
+            Note: it is the caller's responsibility to ensure that if this
+            parameter is true, the changes are indeed limited to appending
+            new pages only. Otherwise, unpredictable results may occur.
+            </param>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewPages.BeginChanges">
+            <summary>
+            Begins a series of related changes to the pages collection.
+            Should be followed by a call to EndChanges.
+            Improves performance and provides consistency.
+            </summary>
+        </member>
+        <member name="M:C1.Win.C1Preview.PreviewPages.EndChanges">
+            <summary>
+            Ends a series of related changes to the pages collection.
+            Should follow a call to BeginChanges.
+            Improves performance and provides consistency.
+            </summary>
+        </member>
+        <member name="P:C1.Win.C1Preview.PreviewPages.IsEmpty">
+            <summary>
+            Gets the value indicating whether the pages collection is empty.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:C1.Win.C1Preview.PreviewToolTip">
+            <summary>
+            Describes a tooltip that can be attached to a large control,
+            and set (e.g. from Cursor.get) depending on the current cursor
+            location inside the control.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<xs:schema id="NavigateSchema" 
+                  targetNamespace="http://tempuri.org/NavigateSchema.xsd"
+                  elementFormDefault="qualified"
+                  xmlns="http://tempuri.org/NavigateSchema.xsd"
+                  xmlns:mstns="http://tempuri.org/NavigateSchema.xsd"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Menu">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="MenuList">
+        </xs:element>
+        <xs:element name="level" type="xs:int">
+        </xs:element>
+        <xs:element name="type" type="xs:int">
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" />
+      <xs:attribute name="code" type="xs:string" />
+      <xs:attribute name="showAll" type="xs:boolean"  default="true"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Role">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="MenuList" />
+      </xs:sequence>
+      <xs:attribute name="code" type="xs:string" />
+      <xs:attribute name="describe" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MenuList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Menu" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Navigate">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Menu" maxOccurs="unbounded">
+        </xs:element>
+        <xs:element ref="Role" maxOccurs="unbounded">
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

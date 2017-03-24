@@ -1,0 +1,175 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Application.Business.Erp.SupplyChain.Client.Basic.Template;
+using VirtualMachine.Component.WinMVC.generic;
+using Application.Business.Erp.SupplyChain.Basic.Domain;
+using Application.Business.Erp.SupplyChain.Client.Basic.CommonClass;
+using Application.Business.Erp.SupplyChain.Client.CostManagement.WBS.GWBS;
+using Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain;
+using Application.Business.Erp.SupplyChain.Client.CostManagement.ContractExcuteMng;
+using Application.Business.Erp.SupplyChain.CostManagement.ContractExcuteMng.Domain;
+using Application.Business.Erp.SupplyChain.CostManagement.SubContractBalanceMng.Domain;
+using VirtualMachine.Core;
+using System.Collections;
+using NHibernate.Criterion;
+using VirtualMachine.Component.Util;
+using Application.Resource.PersonAndOrganization.OrganizationResource.Domain;
+using AuthManagerLib.AuthMng.AuthConfigMng.Domain;
+using Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain;
+using Application.Resource.PersonAndOrganization.HumanResource.RelateClass;
+using Application.Resource.MaterialResource.Domain;
+using Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain;
+using Application.Business.Erp.SupplyChain.Client.CostManagement.CostItemMng.CostAccountSubjectMng;
+using VirtualMachine.Patterns.BusinessEssence.Domain;
+using Application.Business.Erp.SupplyChain.Base.Domain;
+using VirtualMachine.Component.WinControls.CommonForm.FlashScreenMng;
+using Application.Business.Erp.SupplyChain.Client.StockMng;
+
+namespace Application.Business.Erp.SupplyChain.Client.CostManagement.SubContractBalanceMng
+{
+    public partial class VSubBalSubjectBatchUpdate : TBasicDataView
+    {
+        private MStockMng stockmodel = new MStockMng();
+        public MSubContractBalance model = new MSubContractBalance();
+        CurrentProjectInfo projectInfo = new CurrentProjectInfo();
+        public string billID = "";
+        private Hashtable subject_ht = new Hashtable();//科目名称集合
+
+        public VSubBalSubjectBatchUpdate(string transBillID)
+        {
+            InitializeComponent();
+            InitForm();
+            billID = transBillID;
+            RefreshControls(MainViewState.Browser);
+            Query();
+        }
+
+        private void InitForm()
+        {
+            InitEvents();
+            projectInfo = StaticMethod.GetProjectInfo();
+            subject_ht = model.SubBalSrv.GetCostSubjectNameList();
+        }
+
+        private void InitEvents()
+        {
+            this.btnSearch.Click += new EventHandler(btnSearch_Click);
+            this.btnSave.Click += new EventHandler(btnSave_Click);
+            this.btnSelectCostSubject.Click += new EventHandler(btnSelectSubject_Click);
+        }
+
+
+        void btnSelectSubject_Click(object sender, EventArgs e)
+        {
+            VSelectCostAccountSubject frm = new VSelectCostAccountSubject(new MCostAccountSubject());
+            frm.IsLeafSelect = false;
+            frm.ShowDialog();
+            CostAccountSubject cost = frm.SelectAccountSubject;
+            if (cost != null)
+            {
+                this.txtCostSubject.Text = cost.Name;
+                this.txtCostSubject.Tag = cost;
+            }
+        }
+
+        void btnExcelBill_Click(object sender, EventArgs e)
+        {
+            Application.Business.Erp.SupplyChain.Client.Basic.CommonClass.StaticMethod.ExcelClass.SaveDataGridViewToExcel(this.dgBalanceDtl, true);
+        }
+
+        void btnSave_Click(object sender, EventArgs e)
+        {
+            IList okList = new ArrayList();
+            foreach (DataGridViewRow var in this.dgBalanceDtl.Rows)
+            {
+                string dtlsubjectid = "";
+                DataDomain dDomain = new DataDomain();
+                if (var.Tag != null)
+                {
+                    dtlsubjectid = var.Tag as string;
+                }
+                string okSubjectName = ClientUtil.ToString(var.Cells[this.colOkSubjectName.Name].Value);
+                if (ClientUtil.ToString(okSubjectName) != "")
+                {
+                    if (subject_ht.Contains(okSubjectName) == false)
+                    {
+                        MessageBox.Show("核算科目名称[" + okSubjectName + "]无效，请核对！");
+                        return;
+                    }
+                    dDomain.Name1 = dtlsubjectid;
+                    dDomain.Name2 = ClientUtil.ToString(subject_ht[okSubjectName]);
+                    okList.Add(dDomain);
+                }
+            }
+            if (okList.Count > 0)
+            {
+                model.SubBalSrv.UpdateBillSubjectInfo(okList,null, 1);
+                MessageBox.Show("核算科目调整成功,请重新查询！");
+            }
+            else
+            {
+                MessageBox.Show("无核算科目调整信息！");
+            }
+        }
+
+        private void Query()
+        {
+            string condition = "";
+            projectInfo = StaticMethod.GetProjectInfo();
+            // 科目
+            CostAccountSubject selectCostSub = txtCostSubject.Tag as CostAccountSubject;
+            if (this.txtCostSubject.Text != "" && selectCostSub != null)
+            {
+                condition += "and t3.balancesubjectsyscode like '%" + selectCostSub.Id + "%'";
+
+            }
+            if (billID != "")
+            {
+                condition = condition + "and t1.id ='" + billID + "'";
+            }
+            else
+            {
+                return;
+            }
+            DataSet ds = model.SubBalSrv.SubContractBalanceQuery(condition);
+            this.dgBalanceDtl.Rows.Clear();
+
+            DataTable dt = ds.Tables[0];
+
+            decimal sumMoney = 0;
+            foreach (DataRow row in dt.Rows)
+            {
+                int i = dgBalanceDtl.Rows.Add();
+                dgBalanceDtl.Rows[i].Tag = row["dtlsubjectid"];
+                dgBalanceDtl[colBalanceBillingTime.Name, i].Value = ClientUtil.ToDateTime(row["createdate"]).ToShortDateString();
+                dgBalanceDtl[colBalanceTaskName.Name, i].Value = ClientUtil.ToString(row["dtltaskname"]);
+                dgBalanceDtl[colBalanceTaskDtlName.Name, i].Value = ClientUtil.ToString(row["balancetaskdtlname"]);
+                dgBalanceDtl[colFontBillType.Name, i].Value = Enum.GetName(typeof(FrontBillType), Convert.ToInt32(row["fontbilltype"].ToString()));
+                dgBalanceDtl[DtlHandlePerson.Name, i].Value = ClientUtil.ToString(row["HandlePersonName"].ToString());
+                dgBalanceDtl[colBalacneQuantity.Name, i].Value = ClientUtil.ToDecimal(row["balancequantity"]);
+                dgBalanceDtl[colBalancePrice.Name, i].Value = ClientUtil.ToDecimal(row["balanceprice"]);
+                dgBalanceDtl[colBalanceTotalPrice.Name, i].Value = ClientUtil.ToDecimal(row["balancetotalprice"]);
+
+                sumMoney += ClientUtil.ToDecimal(row["balancetotalprice"]);
+                dgBalanceDtl[colUsedAccount.Name, i].Value = ClientUtil.ToString(row["usedescript"]);
+                dgBalanceDtl[CostName.Name, i].Value = ClientUtil.ToString(row["costname"]);
+                dgBalanceDtl[ResourceTypeName.Name, i].Value = ClientUtil.ToString(row["resourcetypename"]);
+                dgBalanceDtl[ResourceTypeSpec.Name, i].Value = ClientUtil.ToString(row["resourcetypespec"]);
+                dgBalanceDtl[BalanceSubjectName.Name, i].Value = ClientUtil.ToString(row["balancesubjectname"]);
+                dgBalanceDtl[this.colSubjectCode.Name, i].Value = ClientUtil.ToString(row["balancesubjectcode"]);
+            }
+            this.dgBalanceDtl.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
+        }
+
+        void btnSearch_Click(object sender, EventArgs e)
+        {
+            Query();
+        }
+    }
+}

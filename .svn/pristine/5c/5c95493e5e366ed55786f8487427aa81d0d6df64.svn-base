@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProjectPlanningMange.Domain.BusinessProposalItem,SupplyChain" lazy="true" table="THD_BusinessProposalItem" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="PlanningItemType" />
+    <property name="PlanningPlannedCost" />
+    <property name="PlanningIncome" />
+    <property name="PlanningImplementDate" />
+    <property name="PlanningImplementStartDate" />
+    <property name="PlanningDateStart" />
+    <property name="PlanningTheme" />    
+    <property name="PlanningState" />
+    <property name="RefreshDate" />
+    <property name="PlanningDateEnd" />
+    <many-to-one name="MatStandardUnit" column="MatStandardUnit" class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"/>
+    <property name="MatStandardUnitName" />
+    <property name="BenefitRegulation" />
+    <property name="PlannedCost" />
+    <property name="FormerProceeds" />
+    <property name="State" />
+    <property name="Descript" />
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.ProjectPlanningMange.Domain.BusinessProposal, SupplyChain"></many-to-one>
+    <set name="IrpDetails" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.ProjectPlanningMange.Domain.IrpBusinessPlanManageLog, SupplyChain"/>
+    </set>
+  </class>
+</hibernate-mapping>

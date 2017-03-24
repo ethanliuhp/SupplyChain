@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.EngineerManage.TargetRespBookManage.Domain.TargetProgressNode,SupplyChain" lazy="true" table="THD_TargetProgressNode" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="UnitName" />
+    <many-to-one name="UnitId" />
+    <!--<many-to-one name="DocumentOwner" column="DocumentOwnerGUID" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>-->
+    <property name="NodeNameId" />
+    <many-to-one name="TargetRespBookGuid" />
+    <property name="BenefitGoal" />    
+    <property name="FigurativeProgress" />
+    <property name="EffectiveStatus" />
+    <property name="PredictValue" />
+    <property name="PlanCompleteDate" />
+
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.EngineerManage.TargetRespBookManage.Domain.TargetRespBook, SupplyChain"></many-to-one>
+
+  </class>
+</hibernate-mapping>
+

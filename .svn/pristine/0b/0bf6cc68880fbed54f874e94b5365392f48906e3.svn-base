@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.PBS.Domain.Feature,SupplyChain" lazy="true" table="THD_Feature" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <property name="Name" />
+    <property name="Description" />
+    <many-to-one name="TheFeatureSet" class="Application.Business.Erp.SupplyChain.CostManagement.PBS.Domain.FeatureSet,SupplyChain" />
+  </class>
+</hibernate-mapping>

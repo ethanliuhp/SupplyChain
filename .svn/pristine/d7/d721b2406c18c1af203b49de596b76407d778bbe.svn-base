@@ -1,0 +1,2 @@
+error:Message:IOException parsing XML document from file [E:\work\code\SSupplyChain\IRPWebClient\AppContext\appContext.xml]
+InnerException:Message:file [E:\work\code\SSupplyChain\IRPWebClient\AppContext\appContext.xml] cannot be resolved to local file path - resource does not use 'file:' protocol.

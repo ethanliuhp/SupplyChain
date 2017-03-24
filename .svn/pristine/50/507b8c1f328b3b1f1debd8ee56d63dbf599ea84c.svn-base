@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.FundSchemePayment,SupplyChain" table="THD_FundSchemePayment" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    
+    <many-to-one name="Master" column="FundSchemeId"  class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.FundPlanningMaster,SupplyChain"></many-to-one>
+
+    <property name="Year" />
+    <property name="Month" />
+    <property name="JobNameLink" />
+    <property name="CurrentCommonSpecialPay" />
+    <property name="CurrentNodePaySpecialPay" />
+    <property name="CurrentInnerSetupPay" />
+    <property name="CurrentSubcontractorPay" />
+    <property name="CurrentLaborPay" />
+    <property name="CurrentSteelPay" />
+    <property name="CurrentConcretePay" />
+    <property name="CurrentOtherMaterialPay" />
+    <property name="CurrentLeasingPay" />
+    <property name="CurrentUtilitiesPay" />
+    <property name="CurrentOtherEquipmentPay" />
+    <property name="CurrentGovernmentFeePay" />
+    <property name="CurrentOtherDirectPay" />
+    <property name="CurrentIndirectPay" />
+    <property name="CurrentTaxPaySubtotal" />
+    <property name="CurrentFinanceFeePay" />
+    <property name="CurrentPaySubtotal" />
+    <property name="CurrentOutputTaxGether" />
+    <property name="CurrentUnPayVAT" />
+    <property name="CurrentPayedVAT" />
+    <property name="CurrentSurchargePay" />
+    <property name="CurrentOtherPay" />
+    <property name="CurrentPayTotal" />
+    <property name="TotalPay" />
+    <property name="RowIndex" />
+    <property name="CurrentCommonSpecialCost" />
+    <property name="CurrentNodePaySpecialCost" />
+    <property name="CurrentInnerSetupCost" />
+    <property name="CurrentSubcontractorCost" />
+    <property name="CurrentLaborCost" />
+    <property name="CurrentSteelCost" />
+    <property name="CurrentConcreteCost" />
+    <property name="CurrentOtherMaterialCost" />
+    <property name="CurrentLeasingCost" />
+    <property name="CurrentUtilitiesCost" />
+    <property name="CurrentOtherEquipmentCost" />
+    <property name="CurrentGovernmentFee" />
+    <property name="CurrentOtherDirectCost" />
+    <property name="CurrentIndirectCost" />
+    <property name="CurrentCostSubtotal" />
+    <property name="CurrentFinanceFee" />
+    <property name="TotalCost" />
+    <property name="CurrentInputTaxTotal" />
+    
+  </class>
+</hibernate-mapping>
+
+

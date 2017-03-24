@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net" default-lazy-init="true">
+  <!--操作日志切片-->
+  <object id="LogClientComAopTarget" type="Application.Resource.CommonClass.Aop.LogClientCom.LogClientComAop,ResourceManager">
+  </object>
+
+  <object	id="TheLogClientComAop" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="LogClientComAopTarget"/>
+    <property name="interceptorNames">
+      <list>
+      </list>
+    </property>
+  </object>
+
+  <!--入库方式编码-->
+  <object id="MStockInMannerTarget" type="Application.Business.Erp.SupplyChain.Client.StockManage.Base.StockInMannerUI.MStockInManner,SupplyChainClient" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="RefMStockInManner" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MStockInMannerTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheLogClientComAop</value>
+      </list>
+    </property>
+  </object>
+  <!--出库用途编码-->
+  <object id="MStockOutPurposeTarget" type="Application.Business.Erp.SupplyChain.Client.StockManage.Base.StockOutPurposeUI.MStockOutPurpose,SupplyChainClient" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="RefMStockOutPurpose" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MStockOutPurposeTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheLogClientComAop</value>
+      </list>
+    </property>
+  </object>
+  <!--仓库编码-->
+  <object id="MStationCategoryTarget" type="Application.Business.Erp.SupplyChain.Client.StockManage.Base.StationCategoryUI.MStationCategory,SupplyChainClient" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="RefMStationCategory" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MStationCategoryTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheLogClientComAop</value>
+      </list>
+    </property>
+  </object>
+  <!--入库单-->
+  <object id="MStockInTarget" type="Application.Business.Erp.SupplyChain.Client.StockManage.StockInManage.StockInUI.MStockIn,SupplyChainClient" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="RefMStockIn" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MStockInTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheLogClientComAop</value>
+      </list>
+    </property>
+  </object>
+  <!--入库红单-->
+  <object id="MStockInRedTarget" type="Application.Business.Erp.SupplyChain.Client.StockManage.StockInManage.StockInRedUI.MStockInRed,SupplyChainClient" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="RefMStockInRed" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MStockInRedTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheLogClientComAop</value>
+      </list>
+    </property>
+  </object>
+  <!--入库记账-->
+  <object id="MStockInTallyTarget" type="Application.Business.Erp.SupplyChain.Client.StockManage.StockInManage.StockInTallyUI.MStockInTally,SupplyChainClient" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="RefMStockInTally" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MStockInTallyTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheLogClientComAop</value>
+      </list>
+    </property>
+  </object>
+  <!--出库单-->
+  <object id="MStockOutTarget" type="Application.Business.Erp.SupplyChain.Client.StockManage.StockOutManage.StockOutUI.MStockOut,SupplyChainClient" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="RefMStockOut" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MStockOutTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheLogClientComAop</value>
+      </list>
+    </property>
+  </object>
+  <!--出库红单-->
+  <object id="MStockOutRedTarget" type="Application.Business.Erp.SupplyChain.Client.StockManage.StockOutManage.StockOutRedUI.MStockOutRed,SupplyChainClient" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="RefMStockOutRed" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MStockOutRedTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheLogClientComAop</value>
+      </list>
+    </property>
+  </object>
+  <!--出库记账-->
+  <object id="MStockOutTallyTarget" type="Application.Business.Erp.SupplyChain.Client.StockManage.StockOutManage.StockOutTallyUI.MStockOutTally,SupplyChainClient" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="RefMStockOutTally" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MStockOutTallyTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheLogClientComAop</value>
+      </list>
+    </property>
+  </object>
+  <!--转仓单-->
+  <object id="MStockMoveTarget" type="Application.Business.Erp.SupplyChain.Client.StockManage.StockMoveManage.StockMoveUI.MStockMove,SupplyChainClient" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="RefMStockMove" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MStockMoveTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheLogClientComAop</value>
+      </list>
+    </property>
+  </object>
+  <!--转仓单冲红-->
+  <object id="MStockMoveRedTarget" type="Application.Business.Erp.SupplyChain.Client.StockManage.StockMoveManage.StockMoveRedUI.MStockMoveRed,SupplyChainClient" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="RefMStockMoveRed" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MStockMoveRedTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheLogClientComAop</value>
+      </list>
+    </property>
+  </object>
+  <!--盘盈单-->
+  <object id="MProfitInTarget" type="Application.Business.Erp.SupplyChain.Client.StockManage.StockCheck.StockProfitIn.MProfitIn,SupplyChainClient" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="RefMProfitIn" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MProfitInTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheLogClientComAop</value>
+      </list>
+    </property>
+  </object>
+  <!--盘亏单-->
+  <object id="MLossOutTarget" type="Application.Business.Erp.SupplyChain.Client.StockManage.StockCheck.StockLossOut.MLossOut,SupplyChainClient" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="RefMLossOut" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MLossOutTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheLogClientComAop</value>
+      </list>
+    </property>
+  </object>
+  <!--库存结帐-->
+  <object id="MStockInOutTarget" type="Application.Business.Erp.SupplyChain.Client.StockManage.Stock.StockInOutUI.MStockInOut,SupplyChainClient" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="RefMStockInOut" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MStockInOutTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheLogClientComAop</value>
+      </list>
+    </property>
+  </object> 
+  
+  
+
+</objects>

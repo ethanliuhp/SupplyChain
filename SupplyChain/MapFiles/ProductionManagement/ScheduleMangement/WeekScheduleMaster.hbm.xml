@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.WeekScheduleMaster,SupplyChain" table="THD_WeekScheduleMaster" lazy="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.WeekScheduleDetail, SupplyChain"/>
+    </set>
+    <many-to-one name="HandlePerson"/>
+    <property name="HandlePersonName"/>
+    <property name="HandlePersonSyscode" length="4000"/>
+
+    <many-to-one name="HandleOrg"/>
+    <property name="HandOrgLevel" />
+
+    <property name="CompletionAnalysis" />
+    <property name="PlannedBeginDate" />
+    <property name="PlannedEndDate" />
+    <property name="ProjectId"/>
+    <property name="ProjectName"/>
+    <property name="Descript"/>
+    <property name="Code"/>
+    <property name="CreateDate"/>
+    <many-to-one name="CreatePerson"/>
+    <property name="CreatePersonName"/>
+    <property name="ExecScheduleType"/>
+    <property name="DocState" column="State"/>
+    <property name="ForwardBillId"/>
+    <property name="ForwardBillCode"/>
+    <property name="SummaryStatus"/>
+
+    <property name="PlanName"/>
+
+    <!--会计年-->
+    <property name="AccountYear" />
+    <!--会计月-->
+    <property name="AccountMonth" />
+
+    <property name="RealOperationDate"/>
+    <property name="SubmitDate"/>
+    
+  </class>
+</hibernate-mapping>

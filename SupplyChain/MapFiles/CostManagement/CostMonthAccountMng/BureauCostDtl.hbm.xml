@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.BureauCostDtl,SupplyChain" table="thd_bureaucostdtl" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.CommercialReportMaster,SupplyChain"></many-to-one>
+    <property name="Descript" />
+    
+    <property name="ProjectType"/>
+    <property name="ProjectScale"/>
+    <property name="Location"/>
+    <property name="OwnerName"/>
+    <property name="OwnerProperty"/>
+    <property name="IsStractegicCustomer"/>
+    <property name="ProjectSite"/>
+    <property name="ConstructionAcreage"/>
+    <property name="ConstructionHeight"/>
+    <property name="TotalContractAmount" length="2"/>
+    <property name="SelfContractAmount" length="2"/>
+    <property name="GeneralManageCost" length="2"/>
+    <property name="ManageCostCalculateRate"/>
+    <property name="SettlementTime"/>
+    <property name="InvokeSituation"/>
+    <property name="ImprestRate"/>
+    <property name="PaymentRate"/>
+    <property name="PaymentForm"/>
+    <property name="MaintenancePayTime"/>
+    <property name="ManagementMode"/>
+    <property name="TargetScopeMoney" length="2"/>
+    <property name="DutyAgreementTime"/>
+    <property name="CheckNodeSetting"/>
+    <property name="ForeBidEarningRate"/>
+    <property name="CalculateCost"/>
+    <property name="CalculateBraekevenRate"/>
+    <property name="TargetCost"/>
+    <property name="HandInRate"/>
+    <property name="TargetRemark"/>
+    <property name="ShouldPaydeposit"/>
+    <property name="ActualPayDeposit"/>
+    <property name="QuarterFulfillTimes"/>
+    <property name="QuarterShouldPayMoney" length="2"/>
+    <property name="QuarterActualPayMoney" length="2"/>
+    <property name="Quarter2015Money" length="2"/>
+    <property name="NodeFulfillTimes"/>
+    <property name="NodeShouldPayMoney" length="2"/>
+    <property name="NodeActualPayMoney" length="2"/>
+    <property name="Node2015Money" length="2"/>
+    <property name="GeneralCompleteOutput"/>
+    <property name="SelefCompleteOutput"/>
+    <property name="ExpectConfirmAmount" length="2"/>
+    <property name="ExpectConfirmDate"/>
+    <property name="ConfirmedAmount" length="2"/>
+    <property name="ConfirmedDate"/>
+    <property name="EstimateAmount" length="2"/>
+    <property name="ProjectActualCost" length="2"/>
+    <property name="ProjectProfit" length="2"/>
+    <property name="GatheringAmountAtRate" length="2"/>
+    <property name="SelfAcceptAmount" length="2"/>
+    <property name="SelfImprest" length="2"/>
+    <property name="SelfProgressAmount" length="2"/>
+    <property name="SelfOthers"/>
+    <property name="PaymentAtRate" length="2"/>
+    <property name="PayedAmount" length="2"/>
+    <property name="ReportedQuantity"/>
+    <property name="ReportedAmount" length="2"/>
+    <property name="CorrespondingCost" length="2"/>
+    <property name="OwnerConfirmQuantity"/>
+    <property name="OwnerConfirmAmount" length="2"/>
+    <property name="PlanReduceAmount" length="2"/>
+    <property name="PlanIncreaseAmount" length="2"/>
+    <property name="ActualReduceAmount" length="2"/>
+    <property name="ActualIncreaseAmount" length="2"/>
+    <property name="AccumulatePaidBonus" length="2"/>
+    <property name="PaidBonus2015" length="2"/>
+    <property name="RebarDetailingAmount" length="2"/>
+    <property name="ContractStartDate"/>
+    <property name="ContractEndDate"/>
+    <property name="ActualStartDate"/>
+    <property name="ExpectEendDate"/>
+    <property name="IsPerforming"/>
+    <property name="DelayDays"/>
+    <property name="CauseIncreaseCost" length="2"/>
+    <property name="DurationCaption"/>
+    <property name="OwnerSignDays"/>
+    <property name="ConfirmExpense" length="2"/>
+    <property name="ConfrontForfeit" length="2"/>
+    <property name="ProgramType"/>
+    <property name="ProgramState"/>
+
+    <property name="GeneralContractName"></property>
+    <property name="PaymentMode"></property>
+    <property name="SettlementType"></property>
+    
+  </class>
+</hibernate-mapping>
+
+

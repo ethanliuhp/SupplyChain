@@ -1,0 +1,28 @@
+<ion-view view-title="{{title}}" hide-tabs="true">
+  <ion-nav-buttons side="right">
+   <button menu-toggle="right" ng-click='viewChange()' class="button button-icon icon ion-pie-graph"></button>
+  </ion-nav-buttons>
+  <ion-content overflow-scroll='false' has-bouncing='true'>
+    <ion-refresher on-refresh='drawImage()' pulling-text='下拉刷新...'></ion-refresher>
+    <ion-list ng-show='view'>
+      <ion-item class="item-remove-animate item-avatar item-icon-right home-item list-title-style alert-info" type="item-text-wrap">
+        <p class="list-item col-18 center small long-p" style='margin-top:4%;'>分支结构</p>
+        <p class="list-item col-18 center small long-p" style='margin-top:4%;'>累计拖欠</p>
+        <p class="list-item col-20 center small long-p">黄色预警<br>(一个月,1-2千万元)</p>
+        <p class="list-item col-22 center small long-p">橙色预警<br>(1个月,2千万元以上;2个月1-2千万元)</p>
+        <p class="list-item col-22 center small long-p">红色预警<br>(2个月,2千万元以上;3个月,500万元以上)</p>
+      </ion-item>
+      <ion-item class="item-remove-animate item-avatar item-icon-right home-item list-title-style bottom-0" ng-repeat="item in info" ng-class="{'item-back-odd':($index%2 == 0)}" ng-href='#/tab/index/arrears/detail/{{item.ID}}|{{item.Name}}'>
+        <p class="list-item col-18 center">{{item.Name}}</p>
+        <p class="list-item col-18 center">{{item.N | NumConvert}}</p>
+        <p class="list-item col-20 center">{{item.Y | NumConvert}}</p>
+        <p class="list-item col-22 center">{{item.O | NumConvert}}</p>
+        <p class="list-item col-22 center">{{item.R | NumConvert}}</p>
+      </ion-item>
+    </ion-list>
+    <p>&nbsp;</p>
+    <div style="width:99%;height:400px;" id="img" ng-show='!view'>
+    </div>
+    <p style="height:100px;">&nbsp;</p>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.Indicator.IndicatorUse.Domain.ViewStyleDimension,SupplyChain" table="THD_ViewStyleDimension" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="OrderNo" column="OrderNo"/>
+    <property name="Name" column="CatName" not-null="true" length="100" />
+    <property name="DimUnit" column="DimUnit" not-null="true" length="40" />
+    <many-to-one name="ParentId" column="ParentId" class="Application.Business.Erp.SupplyChain.Indicator.IndicatorUse.Domain.ViewStyleDimension,SupplyChain" />
+    <set name="ChildNodes" cascade="none" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.Indicator.IndicatorUse.Domain.ViewStyleDimension,SupplyChain" />
+    </set>
+    <many-to-one name="ViewStyleId" column="ViewStyleId" class="Application.Business.Erp.SupplyChain.Indicator.IndicatorUse.Domain.ViewStyle,SupplyChain" />
+    <property name="DimCatId" column="DimCatId"></property>
+  </class>
+</hibernate-mapping>

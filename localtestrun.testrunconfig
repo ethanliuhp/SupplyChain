@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRunConfiguration name="Local Test Run" id="2f9d278f-28f2-4682-98fc-eba605a1135d" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Description>This is a default test run configuration for a local test run.</Description>
+  <Deployment>
+    <DeploymentItem filename="C:\Inetpub\wwwroot\Info800Web\hibernate.cfg.xml" />
+  </Deployment>
+  <TestTypeSpecific />
+</TestRunConfiguration>

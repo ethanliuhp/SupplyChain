@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MaterialManage.MaterialReturnMng.Domain.MaterialRepair,SupplyChain" table="THD_MaterialRepair" lazy="true" select-before-update="true">
+
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="WorkContent"/>
+    <property name="Price"/>
+    <property name="Quantity"/>
+
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.MaterialManage.MaterialReturnMng.Domain.MaterialReturnDetail,SupplyChain"></many-to-one>
+
+  </class>
+</hibernate-mapping>

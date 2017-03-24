@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.PBSRelaTaskTypeRuleDetail,SupplyChain" lazy="true" table="THD_PBSRelaTaskTypeRuleDetail" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="Version" type="long" unsaved-value="-1" />
+    <property name="PBSType" />
+    <property name="TaskType" />
+
+    <many-to-one name="TheParent" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.PBSRelaTaskTypeRuleMaster,SupplyChain" lazy="false"></many-to-one>
+
+  </class>
+</hibernate-mapping>

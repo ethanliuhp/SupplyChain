@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <alias name="BillCodeAop" alias="BillCodeGeneratorAop"/>
+
+  <object id="FunctLogAop" type="AuthManagerLib.FunctLogMng.Aop.FunctLogAop,AuthManagerLib" autowire="byName"/>
+  <object id="MenuDataAuthAop" type="AuthManagerLib.MenuDataAuthMng.Aop.MenuDataAuthAop,AuthManagerLib" autowire="byName"/>
+
+  <object id="DataAuthModelSrvTarget" type="AuthManagerLib.MenuDataAuthMng.DataAuthModelMng.Service.DataAuthModelSrv,AuthManagerLib" autowire="byName">
+  </object>
+
+  <object	id="DataAuthModelSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="DataAuthModelSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <object id="FunctLogSrvTarget" type="AuthManagerLib.FunctLogMng.Service.FunctLogSrv,AuthManagerLib" autowire="byName">
+  </object>
+
+  <object	id="FunctLogSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="FunctLogSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <object id="ClientIPSetSrvTarget" type="AuthManagerLib.AuthMng.ClientIPMng.Service.ClientIPSetSrv,AuthManagerLib" autowire="byName">
+  </object>
+
+  <object	id="ClientIPSetSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ClientIPSetSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--表单号设置-->
+  <object id="BillCodeRuleSrvTarget" type="CommonSearchLib.BillCodeMng.Service.BillCodeRuleSrv,CommonSearchLib" autowire="byName">
+  </object>
+
+  <object	id="BillCodeRuleSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="BillCodeRuleSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--表单号数据-->
+  <object id="BillCodeDataSrvTarget" type="CommonSearchLib.BillCodeMng.Service.BillCodeDataSrv,CommonSearchLib" autowire="byName">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="BillCodeDataSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="BillCodeDataSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <object id="BillCodeAop" type="CommonSearchLib.BillCodeMng.Aop.BillCodeAop,CommonSearchLib" autowire="byName"/>  
+  <!--数据字典服务-->
+  <object id="ClassDictSrvTarget" type="CommonSearchLib.ClassDictionary.Service.ClassDictSrv,CommonSearchLib" autowire="byName">
+  </object>
+  <object	id="ClassDictSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ClassDictSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--查询配置服务-->
+  <object id="ClassCommonSearchSrvTarget" type="CommonSearchLib.CommonSearchMng.ClassCommonSearchMng.Service.ClassCommonSearchSrv,CommonSearchLib" autowire="byName">
+  </object>
+  <object	id="ClassCommonSearchSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ClassCommonSearchSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--权限菜单模板服务-->
+  <object id="MenusModelSrvTarget" type="AuthManagerLib.AuthMng.MenusModelMng.Service.MenusModelSrv,AuthManagerLib" autowire="byName">
+  </object>
+  <object	id="MenusModelSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MenusModelSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--权限菜单权限服务-->
+  <object id="AuthMenusSrvTarget" type="AuthManagerLib.AuthMng.MenusMng.Service.AuthMenusSrv,AuthManagerLib" autowire="byName">
+  </object>
+  <object	id="AuthMenusSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="AuthMenusSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  
+  <object id="MenuLogConfigModelSrvTarget" type="AuthManagerLib.AuthMng.MenusMng.Service.MenuLogConfigModelSrv,AuthManagerLib" autowire="byName">
+  </object>
+  <object	id="MenuLogConfigModelSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MenuLogConfigModelSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  
+  <!--权限组权限服务-->
+  <object id="AuthGroupsSrvTarget" type="AuthManagerLib.AuthMng.GroupsMng.Service.AuthGroupsSrv,AuthManagerLib" autowire="byName">
+  </object>
+  <object	id="AuthGroupsSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="AuthGroupsSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--权限权限配置服务-->
+  <object id="AuthConfigSrvTarget" type="AuthManagerLib.AuthMng.AuthConfigMng.Service.AuthConfigSrv,AuthManagerLib" autowire="byName">
+  </object>
+  <object	id="AuthConfigSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="AuthConfigSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--权限功能菜单服务-->
+  <object id="MenusSrvTarget" type="AuthManagerLib.AuthMng.MenusMng.Service.MenusSrv,AuthManagerLib" autowire="byName">
+  </object>
+  <object	id="MenusSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MenusSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--权限组服务-->
+  <object id="GroupsSrvTarget" type="AuthManagerLib.AuthMng.GroupsMng.Service.GroupsSrv,AuthManagerLib" autowire="byName">
+  </object>
+  <object	id="GroupsSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="GroupsSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--权限用户服务-->
+  <object id="UsersSrvTarget" type="AuthManagerLib.AuthMng.UsersMng.Service.UsersSrv,AuthManagerLib" autowire="byName">
+  </object>
+  <object	id="UsersSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="UsersSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--权限用户组服务-->
+  <object id="UsersGroupSrvTarget" type="AuthManagerLib.AuthMng.UsersMng.Service.UsersGroupSrv,AuthManagerLib" autowire="byName">
+  </object>
+  <object	id="UsersGroupSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="UsersGroupSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+</objects>

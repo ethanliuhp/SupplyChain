@@ -1,0 +1,96 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Application.Business.Erp.SupplyChain.Basic.Domain;
+
+namespace Cscec.Web.ProjectRanking
+{
+    public enum ScopeType
+    {
+        Total = 0,
+        Single = 1
+    }
+
+    public class ProjectSysRankingModel
+    {
+        public ProjectSysRankingModel()
+        {
+
+        }
+        public ProjectSysRankingModel(string projectName, DateTime dt, string syscode, string orgcode, string projectid, string indexname, string conclusion, string result, float score, ScopeType ct, int weight, float finalScore, EnumProjectInfoState projectInfoState)
+        {
+            ID = Guid.NewGuid().ToString();
+            ProjectName = projectName;
+            CreateDate = dt;
+            OwnerOrgSysCode = syscode;
+            OwnerOrg = orgcode;
+            ProjectID = projectid;
+            IndexName = indexname;
+            Conclusion = conclusion;
+            Result = result;
+            Score = score;
+            ScoreType = ct;
+            Weight = weight;
+            FinalScore = finalScore;
+            ProjectInfoState = projectInfoState;
+        }
+        public ProjectSysRankingModel(CurrentProjectInfo pro, string indexname, string conclusion, string result, float score, ScopeType ct, int weight, float finalScore, string subcompanyname)
+        {
+            Build(pro, indexname, conclusion, result, score, ct, weight, finalScore, subcompanyname);
+        }
+        public ProjectSysRankingModel(CurrentProjectInfo pro, string indexname, string conclusion, string result, float score, ScopeType ct, int weight, float finalScore)
+        {
+            Build(pro, indexname, conclusion, result, score, ct, weight, finalScore, null);
+        }
+
+        private void Build(CurrentProjectInfo pro, string indexname, string conclusion, string result, float score, ScopeType ct, int weight, float finalScore, string subcompanyname)
+        {
+            ID = Guid.NewGuid().ToString();
+            ProjectName = pro.Name;
+            CreateDate = DateTime.Now;
+            OwnerOrgSysCode = pro.OwnerOrgSysCode;
+            ProjectID = pro.Id;
+            IndexName = indexname;
+            Conclusion = conclusion;
+            Result = result;
+            Score = score;
+            ScoreType = ct;
+            Weight = weight;
+            FinalScore = finalScore;
+            ConstractStage = pro.ConstractStage;
+            CreateYear = pro.AprroachDate.Year;
+            SubCompanyName = subcompanyname;
+            RankingNote = pro.ProjectTypeDescript;
+            ProjectInfoState = pro.ProjectInfoState;
+        }
+
+        /// <summary>
+        /// 插入字符串
+        /// </summary>
+        /// <returns></returns>
+        public string InsertStr()
+        {
+            string sql = string.Format("insert into thd_projectsysranking(id,projectname,createdate,ownerorgsyscode,projectid,indexname,conclusion,result,score,scoretype,weight,finalscore,subcompanyname,constractstage,createyear,rankingnote,projectinfostate) values('{0}','{1}',to_date('{2}','yyyy-mm-dd'),'{3}','{4}','{5}','{6}','{7}',{8},{9},{10},{11},'{12}','{13}',{14},'{15}','{16}')", ID, ProjectName, CreateDate.ToString("yyyy-MM-dd"), OwnerOrgSysCode, ProjectID, IndexName, Conclusion, Result, Score, (int)ScoreType, Weight, FinalScore, SubCompanyName, ConstractStage, CreateYear, RankingNote, ProjectInfoState.ToString());
+            return sql;
+        }
+        public string ID { get; set; }
+        public string ProjectName { get; set; }
+        public DateTime CreateDate { get; set; }
+        public string OwnerOrgSysCode { get; set; }
+        public string OwnerOrg { get; set; }
+        public string ProjectID { get; set; }
+        public string IndexName { get; set; }
+        public string Conclusion { get; set; }
+        public string Result { get; set; }
+        public float Score { get; set; }
+        public ScopeType ScoreType { get; set; }
+        public int Weight { get; set; }
+        public float FinalScore { get; set; }
+        public string SubCompanyName { get; set; }
+        public string ConstractStage { get; set; }
+        public int CreateYear { get; set; }
+        public string RankingNote { get; set; }
+        public EnumProjectInfoState ProjectInfoState { get; set; }
+    }
+}

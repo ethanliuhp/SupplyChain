@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSDtlCostSubRate,SupplyChain" lazy="true" table="Thd_GWBSDtlCostSubRate" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSDetailCostSubject,SupplyChain">
+    </many-to-one>
+    <many-to-one name="SelFeelDtl" column="SelFeelDtl" class="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.SelFeeDtl,SupplyChain">
+    </many-to-one>
+    <property name="Rate" />
+  </class>
+</hibernate-mapping>

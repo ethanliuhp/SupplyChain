@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.Indicator.IndicatorUse.Domain.DimensionDefine,SupplyChain" table="THD_DimensionDefine" lazy="true" select-before-update="true" >
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="State" column="State"/>
+    <many-to-one name="Category" column="CategoryID" not-null="true" />
+    <property name="Name" column="DimName" />
+    <property name="Factor" column="Factor"/>
+    <property name="CalExpression" column="CalExpression" />
+    <property name ="CalTypeCode" column="CalTypeCode" />
+    <property name ="CalTypeName" column="CalTypeName" />
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,1 @@
+ onfocus="new WdatePicker(this,'%Y-%M-%D %h:%m:%s',true,'whyGreen')" class="Wdate"

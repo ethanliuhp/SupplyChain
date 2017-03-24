@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.PBS.Domain.PBSTree,SupplyChain" lazy="true" table="THD_PBSTree" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <!--基类的属性-->
+    <!--<version name="Version" column="Version" type="long" unsaved-value="-1" />-->
+    <property name="CategoryNodeType" />
+    <property name="Name" length="50" />
+    <property name="Code" length="200" />
+    <property name="CreateDate" type="Date" />
+    <property name="SysCode" length="4000" />
+    <property name="State" />
+    <property name="Level" column="TLevel"/>
+    <property name="Describe" length="512" />
+    <many-to-one name="ParentNode" column="ParentNodeID" class="Application.Business.Erp.SupplyChain.CostManagement.PBS.Domain.PBSTree,SupplyChain" />
+    <many-to-one name="Author" class="VirtualMachine.Patterns.BusinessEssence.Domain.BusinessOperators, VirtualMachine" />
+    <many-to-one name="TheTree" class="VirtualMachine.Patterns.CategoryTreePattern.Domain.CategoryTree,VirtualMachine" />
+    <property name="OrderNo" />
+    <bag name="ChildNodes" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write" />
+      <key column="ParentNodeID" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.PBS.Domain.PBSTree,SupplyChain" />
+    </bag>
+    <!--自身的属性-->
+    <property name="OwnerGUID" length="64"/>
+    <property name="OwnerName" length="50"/>
+    <property name="OwnerOrgSysCode" length="4000"/>
+    <property name="DocumentModelGUID" length="64"/>
+    <property name="NodeDesc" length="512"/>
+    <property name="StructTypeGUID" length="64"/>
+    <property name="StructTypeName"/>
+    <property name="TheProjectGUID" length="64"/>
+    <property name="TheProjectName"/>
+    <property name="UpdatedDate"/>
+    <property name="ConstructionArea"/>
+    <property name="FullPath" length="4000"/>
+    <property name="CodeBit" length="4000"/>
+    <many-to-one name="Template" class="Application.Business.Erp.SupplyChain.CostManagement.PBS.Domain.PBSTemplate,SupplyChain" />
+  </class>
+</hibernate-mapping>

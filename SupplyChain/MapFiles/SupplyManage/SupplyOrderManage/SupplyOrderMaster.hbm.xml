@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.SupplyManage.SupplyOrderManage.Domain.SupplyOrderMaster,SupplyChain" table="THD_SupplyOrderMaster" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="Code" column="Code"  />
+    <property name="DocState" column="State" />
+    <property name="Descript" column="Descript"/>
+    <property name="CreateYear" column="CreateYear"/>
+    <property name="CreateMonth" column="CreateMonth"/>
+
+    <property name="CreateDate" column="CreateDate"/>
+    <property name="RealOperationDate" column="RealOperationDate"/>
+    <property name="SignDate" column="SignDate"/>
+
+    <many-to-one name="CreatePerson" column="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="CreatePersonName"/>
+
+    <property name="AuditYear" column="AuditYear"/>
+    <property name="AuditMonth" column="AuditMonth"/>
+    <property name="AuditDate" column="AuditDate"/>
+    <!--审核人-->
+    <many-to-one name="AuditPerson" column="AuditPerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="AuditPersonName"/>
+
+    <many-to-one name="CurrencyType" column="CurrencyType" class="Application.Resource.FinancialResource.Domain.Currency,ResourceManager"/>
+    <property name="ExchangeRate" column="ExchangeRate"/>
+    <!--责任人-->
+    <many-to-one name="HandlePerson" column="HandlePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="HandlePersonName"/>
+    <!--业务组织-->
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperOrgInfoName" column="OperOrgName"/>
+
+    <!--供应商-->
+    <many-to-one name="TheSupplierRelationInfo" column="SupplierRelation" class="Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass.SupplierRelationInfo,ResourceManager"/>
+    <property name="SupplierName" column="SupplierName"/>
+
+    <property name="OpgSysCode" column="OpgSysCode"/>
+    <property name="HandOrgLevel" column="HandOrgLevel"/>
+    <property name="SubmitDate" column="SubmitDate"/>
+    <!--材料类别和名称-->
+    <many-to-one name="MaterialCategory" column="MaterialCategory" class="Application.Resource.MaterialResource.Domain.MaterialCategory,ResourceManager"/>
+    <property name="MaterialCategoryName" column="MaterialCategoryName"/>
+    <property name="MaterialCategoryCode" column="MaterialCategoryCode"/>
+    <!--专业分类-->
+    <property name="SpecialType"/>
+    
+    <!--归属项目-->
+    <property name="ProjectId"/>
+    <property name="ProjectName"/>
+    <property name="SumQuantity"/>
+    <property name="ContractMoney"/>
+    <property name="PumpMoney"/>
+
+    <property name="ForwardBillId"/>
+    <property name="ForwardBillCode"/>
+    <property name="ForwardBillType"/>
+    <!--认价总金额-->
+    <property name="RJSumMoney"/>
+    
+    <property name="Telephone"/>
+    <property name="ContactPerson"/>
+    <property name="OldContractNum"/>
+    <property name="QualityRequirement"/>
+    <property name="ContractMatDes"/>
+    <property name="AttachmentDocPath"/>
+    <property name="Special"/>
+    <property name="LastModifyDate"/>
+
+    <property name="BalanceStyle"/>
+    <property name="ProcessPayRate" length="3" />
+    <property name="CompletePayRate" length="3" />
+    <property name="WarrantyPayRate" length="3" />
+
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.SupplyManage.SupplyOrderManage.Domain.SupplyOrderDetail, SupplyChain"/>
+    </set>
+
+    <!--合同付款方式-->
+    <set name="PaymentDetails" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.SupplyManage.SupplyOrderManage.Domain.SupplyOrderPayment, SupplyChain"/>
+    </set>
+
+    <!--合同项目信息-->
+    <set name="ProjectDetails" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.SupplyManage.SupplyOrderManage.Domain.SupplyOrderProjectDetail, SupplyChain"/>
+    </set>
+
+  </class>
+</hibernate-mapping>
+
+

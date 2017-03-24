@@ -1,0 +1,22 @@
+<ion-view view-title="{{title}}" hide-tabs="true">
+  <ion-content overflow-scroll='false' has-bouncing='true'>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right home-item list-title-style alert-info" type="item-text-wrap">
+        <p class="list-item col-20 center small long-p" style='margin-top:3%;'>分支结构</p>
+        <p class="list-item col-20 center small long-p" style='margin-top:3%;'>本年收现率</p>
+        <p class="list-item col-20 center small long-p">黄色预警<br>(低于合同比例10%)</p>
+        <p class="list-item col-20 center small long-p">橙色预警<br>(低于合同比例10%-15%)</p>
+        <p class="list-item col-20 center small long-p">红色预警<br>(低于合同比例15%以上)</p>
+      </ion-item>
+      <ion-item class="item-remove-animate item-avatar item-icon-right home-item list-title-style bottom-0" type="item-text-wrap" ng-repeat="item in info" ng-class="{'item-back-odd':($index%2 == 0)}" ng-href='#/tab/index/cashrate/detail/{{item.ID}}|{{item.Name}}'>
+        <p class="list-item col-20 center">{{item.Name}}</p>
+        <p class="list-item col-20 center">{{item.N | IntegerConversion}}%</p>
+        <p class="list-item col-20 center">{{item.Y | NumberConversion : '个'}}</p>
+        <p class="list-item col-20 center">{{item.O | NumberConversion : '个'}}</p>
+        <p class="list-item col-20 center">{{item.R | NumberConversion : '个'}}</p>
+      </ion-item>
+    </ion-list>
+    <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+  </ion-content>
+</ion-view>
+

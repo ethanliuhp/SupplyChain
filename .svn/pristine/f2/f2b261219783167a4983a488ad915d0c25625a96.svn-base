@@ -1,0 +1,668 @@
+﻿namespace Application.Business.Erp.SupplyChain.Client.MoneyManage.FundScheme
+{
+    partial class VFundSchemeQuery
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VFundSchemeQuery));
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.ucProjectSelector1 = new Application.Business.Erp.SupplyChain.Client.MoneyManage.UcProjectSelector();
+            this.dgMaster = new VirtualMachine.Component.WinControls.Controls.CustomDataGridView();
+            this.colCodeBill = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.colBillProject = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCreateDateBill = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colState = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCreateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCreatePersonName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnQuery = new VirtualMachine.Component.WinControls.Controls.CustomButton();
+            this.txtCode = new VirtualMachine.Component.WinControls.Controls.CustomEdit();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dtpBeginCreateDate = new VirtualMachine.Component.WinControls.Controls.CustomDateTimePicker();
+            this.dtpEndCreateDate = new VirtualMachine.Component.WinControls.Controls.CustomDateTimePicker();
+            this.lblEndCreateDate = new VirtualMachine.Component.WinControls.Controls.CustomLabel();
+            this.tbContent = new System.Windows.Forms.TabControl();
+            this.tPageAmount = new System.Windows.Forms.TabPage();
+            this.rptGridAmount = new VirtualMachine.Component.WinControls.Controls.CustomFlexGrid();
+            this.tPageCostTax = new System.Windows.Forms.TabPage();
+            this.rptGridTax = new VirtualMachine.Component.WinControls.Controls.CustomFlexGrid();
+            this.tPageTaxRate = new System.Windows.Forms.TabPage();
+            this.rptGridIndRate = new VirtualMachine.Component.WinControls.Controls.CustomFlexGrid();
+            this.tPageFee = new System.Windows.Forms.TabPage();
+            this.rptGridFee = new VirtualMachine.Component.WinControls.Controls.CustomFlexGrid();
+            this.tPageGether = new System.Windows.Forms.TabPage();
+            this.rptGridGether = new VirtualMachine.Component.WinControls.Controls.CustomFlexGrid();
+            this.tPagePayment = new System.Windows.Forms.TabPage();
+            this.rptGridPayment = new VirtualMachine.Component.WinControls.Controls.CustomFlexGrid();
+            this.tPageSummary = new System.Windows.Forms.TabPage();
+            this.rptGridSummary = new VirtualMachine.Component.WinControls.Controls.CustomFlexGrid();
+            this.tPageContrast = new System.Windows.Forms.TabPage();
+            this.rptGridContrast = new VirtualMachine.Component.WinControls.Controls.CustomFlexGrid();
+            this.tPageBalance = new System.Windows.Forms.TabPage();
+            this.rptGridBalance = new VirtualMachine.Component.WinControls.Controls.CustomFlexGrid();
+            this.tPageMaster = new System.Windows.Forms.TabPage();
+            this.rptGridMaster = new VirtualMachine.Component.WinControls.Controls.CustomFlexGrid();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.pnlFloor.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgMaster)).BeginInit();
+            this.tbContent.SuspendLayout();
+            this.tPageAmount.SuspendLayout();
+            this.tPageCostTax.SuspendLayout();
+            this.tPageTaxRate.SuspendLayout();
+            this.tPageFee.SuspendLayout();
+            this.tPageGether.SuspendLayout();
+            this.tPagePayment.SuspendLayout();
+            this.tPageSummary.SuspendLayout();
+            this.tPageContrast.SuspendLayout();
+            this.tPageBalance.SuspendLayout();
+            this.tPageMaster.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // pnlFloor
+            // 
+            this.pnlFloor.Controls.Add(this.groupBox1);
+            this.pnlFloor.Controls.Add(this.groupBox2);
+            this.pnlFloor.Size = new System.Drawing.Size(1181, 490);
+            this.pnlFloor.Controls.SetChildIndex(this.groupBox2, 0);
+            this.pnlFloor.Controls.SetChildIndex(this.lblTitle, 0);
+            this.pnlFloor.Controls.SetChildIndex(this.groupBox1, 0);
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.Location = new System.Drawing.Point(169, 1);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.ucProjectSelector1);
+            this.groupBox2.Controls.Add(this.dgMaster);
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.btnQuery);
+            this.groupBox2.Controls.Add(this.txtCode);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.dtpBeginCreateDate);
+            this.groupBox2.Controls.Add(this.dtpEndCreateDate);
+            this.groupBox2.Controls.Add(this.lblEndCreateDate);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(1181, 157);
+            this.groupBox2.TabIndex = 144;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "资金策划表：";
+            // 
+            // ucProjectSelector1
+            // 
+            this.ucProjectSelector1.AutoSize = true;
+            this.ucProjectSelector1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ucProjectSelector1.Location = new System.Drawing.Point(633, 13);
+            this.ucProjectSelector1.Name = "ucProjectSelector1";
+            this.ucProjectSelector1.SelectedProject = null;
+            this.ucProjectSelector1.Size = new System.Drawing.Size(312, 26);
+            this.ucProjectSelector1.TabIndex = 327;
+            // 
+            // dgMaster
+            // 
+            this.dgMaster.AddDefaultMenu = false;
+            this.dgMaster.AddNoColumn = false;
+            this.dgMaster.AllowUserToAddRows = false;
+            this.dgMaster.AllowUserToDeleteRows = false;
+            this.dgMaster.AllowUserToResizeRows = false;
+            this.dgMaster.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dgMaster.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgMaster.CellBackColor = System.Drawing.SystemColors.Control;
+            this.dgMaster.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dgMaster.ColumnHeadersHeight = 24;
+            this.dgMaster.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgMaster.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colCodeBill,
+            this.colBillProject,
+            this.colCreateDateBill,
+            this.colState,
+            this.colCreateDate,
+            this.colCreatePersonName});
+            this.dgMaster.CustomBackColor = false;
+            this.dgMaster.EditCellBackColor = System.Drawing.Color.White;
+            this.dgMaster.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgMaster.EnterNext = VirtualMachine.Component.WinControls.Controls.EnterNextType.NextColumn;
+            this.dgMaster.FreezeFirstRow = false;
+            this.dgMaster.FreezeLastRow = false;
+            this.dgMaster.FrontColumnCount = 0;
+            this.dgMaster.GridColor = System.Drawing.SystemColors.WindowText;
+            this.dgMaster.HScrollOffset = 0;
+            this.dgMaster.IsAllowOrder = true;
+            this.dgMaster.IsConfirmDelete = true;
+            this.dgMaster.Location = new System.Drawing.Point(3, 53);
+            this.dgMaster.Name = "dgMaster";
+            this.dgMaster.PageIndex = 0;
+            this.dgMaster.PageSize = 0;
+            this.dgMaster.Query = null;
+            this.dgMaster.ReadOnly = true;
+            this.dgMaster.ReadOnlyCols = ((System.Collections.IList)(resources.GetObject("dgMaster.ReadOnlyCols")));
+            this.dgMaster.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dgMaster.RowHeadersVisible = false;
+            this.dgMaster.RowHeadersWidth = 22;
+            this.dgMaster.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgMaster.RowTemplate.Height = 23;
+            this.dgMaster.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgMaster.Size = new System.Drawing.Size(1166, 98);
+            this.dgMaster.TabIndex = 10;
+            this.dgMaster.TargetType = null;
+            this.dgMaster.VScrollOffset = 0;
+            this.dgMaster.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgMaster_CellContentDoubleClick);
+            // 
+            // colCodeBill
+            // 
+            this.colCodeBill.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.colCodeBill.DataPropertyName = "Code";
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            this.colCodeBill.DefaultCellStyle = dataGridViewCellStyle1;
+            this.colCodeBill.HeaderText = "单据号";
+            this.colCodeBill.MinimumWidth = 65;
+            this.colCodeBill.Name = "colCodeBill";
+            this.colCodeBill.ReadOnly = true;
+            this.colCodeBill.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colCodeBill.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.colCodeBill.Width = 66;
+            // 
+            // colBillProject
+            // 
+            this.colBillProject.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.colBillProject.DataPropertyName = "ProjectName";
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            this.colBillProject.DefaultCellStyle = dataGridViewCellStyle2;
+            this.colBillProject.HeaderText = "项目名称";
+            this.colBillProject.Name = "colBillProject";
+            this.colBillProject.Width = 78;
+            // 
+            // colCreateDateBill
+            // 
+            this.colCreateDateBill.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.colCreateDateBill.DataPropertyName = "SchemeTime";
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Format = "yyyy-MM-dd";
+            this.colCreateDateBill.DefaultCellStyle = dataGridViewCellStyle3;
+            this.colCreateDateBill.HeaderText = "资金策划周期";
+            this.colCreateDateBill.Name = "colCreateDateBill";
+            this.colCreateDateBill.Width = 102;
+            // 
+            // colState
+            // 
+            this.colState.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            this.colState.DefaultCellStyle = dataGridViewCellStyle4;
+            this.colState.HeaderText = "状态";
+            this.colState.Name = "colState";
+            this.colState.ReadOnly = true;
+            this.colState.Width = 54;
+            // 
+            // colCreateDate
+            // 
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            this.colCreateDate.DefaultCellStyle = dataGridViewCellStyle5;
+            this.colCreateDate.HeaderText = "创建日期";
+            this.colCreateDate.Name = "colCreateDate";
+            // 
+            // colCreatePersonName
+            // 
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            this.colCreatePersonName.DefaultCellStyle = dataGridViewCellStyle6;
+            this.colCreatePersonName.HeaderText = "创建人名称";
+            this.colCreatePersonName.Name = "colCreatePersonName";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(7, 20);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(89, 12);
+            this.label1.TabIndex = 301;
+            this.label1.Text = "资金策划单号：";
+            // 
+            // btnQuery
+            // 
+            this.btnQuery.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnQuery.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnQuery.FontSize = VirtualMachine.Component.WinControls.Style.FontSize.Default;
+            this.btnQuery.Location = new System.Drawing.Point(956, 12);
+            this.btnQuery.Name = "btnQuery";
+            this.btnQuery.Size = new System.Drawing.Size(75, 28);
+            this.btnQuery.TabIndex = 322;
+            this.btnQuery.Text = "查 询";
+            this.btnQuery.UseVisualStyleBackColor = true;
+            this.btnQuery.Click += new System.EventHandler(this.btnQuery_Click);
+            // 
+            // txtCode
+            // 
+            this.txtCode.BackColor = System.Drawing.SystemColors.Control;
+            this.txtCode.CustomBorderStyle = VirtualMachine.Component.WinControls.Controls.EditBorderStyle.None;
+            this.txtCode.DrawSelf = false;
+            this.txtCode.EditStyle = VirtualMachine.Component.WinControls.Controls.EditStyle.Text;
+            this.txtCode.EnterToTab = false;
+            this.txtCode.Location = new System.Drawing.Point(107, 18);
+            this.txtCode.Mask = VirtualMachine.Component.WinControls.Controls.MaskStyle.None;
+            this.txtCode.Name = "txtCode";
+            this.txtCode.Padding = new System.Windows.Forms.Padding(1);
+            this.txtCode.ReadOnly = false;
+            this.txtCode.Size = new System.Drawing.Size(175, 16);
+            this.txtCode.TabIndex = 300;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(293, 20);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(65, 12);
+            this.label2.TabIndex = 318;
+            this.label2.Text = "业务时间：";
+            // 
+            // dtpBeginCreateDate
+            // 
+            this.dtpBeginCreateDate.Location = new System.Drawing.Point(369, 16);
+            this.dtpBeginCreateDate.Name = "dtpBeginCreateDate";
+            this.dtpBeginCreateDate.Size = new System.Drawing.Size(110, 21);
+            this.dtpBeginCreateDate.TabIndex = 321;
+            // 
+            // dtpEndCreateDate
+            // 
+            this.dtpEndCreateDate.Location = new System.Drawing.Point(512, 16);
+            this.dtpEndCreateDate.Name = "dtpEndCreateDate";
+            this.dtpEndCreateDate.Size = new System.Drawing.Size(110, 21);
+            this.dtpEndCreateDate.TabIndex = 319;
+            // 
+            // lblEndCreateDate
+            // 
+            this.lblEndCreateDate.AutoSize = true;
+            this.lblEndCreateDate.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblEndCreateDate.FontSize = VirtualMachine.Component.WinControls.Style.FontSize.Default;
+            this.lblEndCreateDate.Location = new System.Drawing.Point(490, 20);
+            this.lblEndCreateDate.Name = "lblEndCreateDate";
+            this.lblEndCreateDate.Size = new System.Drawing.Size(11, 12);
+            this.lblEndCreateDate.TabIndex = 320;
+            this.lblEndCreateDate.Text = "-";
+            this.lblEndCreateDate.UnderLineColor = System.Drawing.Color.Red;
+            // 
+            // tbContent
+            // 
+            this.tbContent.Controls.Add(this.tPageAmount);
+            this.tbContent.Controls.Add(this.tPageCostTax);
+            this.tbContent.Controls.Add(this.tPageTaxRate);
+            this.tbContent.Controls.Add(this.tPageFee);
+            this.tbContent.Controls.Add(this.tPageGether);
+            this.tbContent.Controls.Add(this.tPagePayment);
+            this.tbContent.Controls.Add(this.tPageSummary);
+            this.tbContent.Controls.Add(this.tPageContrast);
+            this.tbContent.Controls.Add(this.tPageBalance);
+            this.tbContent.Controls.Add(this.tPageMaster);
+            this.tbContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbContent.Location = new System.Drawing.Point(3, 17);
+            this.tbContent.Name = "tbContent";
+            this.tbContent.SelectedIndex = 0;
+            this.tbContent.Size = new System.Drawing.Size(1175, 313);
+            this.tbContent.TabIndex = 326;
+            // 
+            // tPageAmount
+            // 
+            this.tPageAmount.Controls.Add(this.rptGridAmount);
+            this.tPageAmount.Location = new System.Drawing.Point(4, 22);
+            this.tPageAmount.Name = "tPageAmount";
+            this.tPageAmount.Padding = new System.Windows.Forms.Padding(3);
+            this.tPageAmount.Size = new System.Drawing.Size(1167, 287);
+            this.tPageAmount.TabIndex = 0;
+            this.tPageAmount.Tag = "项目进度报量及成本测算表";
+            this.tPageAmount.Text = "表5项目进度报量及成本测算表";
+            this.tPageAmount.UseVisualStyleBackColor = true;
+            // 
+            // rptGridAmount
+            // 
+            this.rptGridAmount.BackColorBkg = System.Drawing.SystemColors.ButtonFace;
+            this.rptGridAmount.CheckedImage = ((System.Drawing.Bitmap)(resources.GetObject("rptGridAmount.CheckedImage")));
+            this.rptGridAmount.DefaultFont = new System.Drawing.Font("SimSun", 9F);
+            this.rptGridAmount.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rptGridAmount.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rptGridAmount.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.rptGridAmount.Location = new System.Drawing.Point(3, 3);
+            this.rptGridAmount.Name = "rptGridAmount";
+            this.rptGridAmount.Size = new System.Drawing.Size(1161, 281);
+            this.rptGridAmount.TabIndex = 11;
+            this.rptGridAmount.UncheckedImage = ((System.Drawing.Bitmap)(resources.GetObject("rptGridAmount.UncheckedImage")));
+            // 
+            // tPageCostTax
+            // 
+            this.tPageCostTax.Controls.Add(this.rptGridTax);
+            this.tPageCostTax.Location = new System.Drawing.Point(4, 22);
+            this.tPageCostTax.Name = "tPageCostTax";
+            this.tPageCostTax.Padding = new System.Windows.Forms.Padding(3);
+            this.tPageCostTax.Size = new System.Drawing.Size(375, 80);
+            this.tPageCostTax.TabIndex = 1;
+            this.tPageCostTax.Tag = "项目成本价税测算表";
+            this.tPageCostTax.Text = "表6项目成本价税测算表";
+            this.tPageCostTax.UseVisualStyleBackColor = true;
+            // 
+            // rptGridTax
+            // 
+            this.rptGridTax.BackColorBkg = System.Drawing.SystemColors.ButtonFace;
+            this.rptGridTax.CheckedImage = ((System.Drawing.Bitmap)(resources.GetObject("rptGridTax.CheckedImage")));
+            this.rptGridTax.DefaultFont = new System.Drawing.Font("SimSun", 9F);
+            this.rptGridTax.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rptGridTax.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rptGridTax.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.rptGridTax.Location = new System.Drawing.Point(3, 3);
+            this.rptGridTax.Name = "rptGridTax";
+            this.rptGridTax.Size = new System.Drawing.Size(369, 74);
+            this.rptGridTax.TabIndex = 11;
+            this.rptGridTax.UncheckedImage = ((System.Drawing.Bitmap)(resources.GetObject("rptGridTax.UncheckedImage")));
+            // 
+            // tPageTaxRate
+            // 
+            this.tPageTaxRate.Controls.Add(this.rptGridIndRate);
+            this.tPageTaxRate.Location = new System.Drawing.Point(4, 22);
+            this.tPageTaxRate.Name = "tPageTaxRate";
+            this.tPageTaxRate.Size = new System.Drawing.Size(375, 80);
+            this.tPageTaxRate.TabIndex = 8;
+            this.tPageTaxRate.Tag = "间接费用及进项税测算表";
+            this.tPageTaxRate.Text = "表7间接费用及进项税测算表";
+            this.tPageTaxRate.UseVisualStyleBackColor = true;
+            // 
+            // rptGridIndRate
+            // 
+            this.rptGridIndRate.BackColorBkg = System.Drawing.SystemColors.ButtonFace;
+            this.rptGridIndRate.CheckedImage = ((System.Drawing.Bitmap)(resources.GetObject("rptGridIndRate.CheckedImage")));
+            this.rptGridIndRate.DefaultFont = new System.Drawing.Font("SimSun", 9F);
+            this.rptGridIndRate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rptGridIndRate.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rptGridIndRate.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.rptGridIndRate.Location = new System.Drawing.Point(0, 0);
+            this.rptGridIndRate.Name = "rptGridIndRate";
+            this.rptGridIndRate.Size = new System.Drawing.Size(375, 80);
+            this.rptGridIndRate.TabIndex = 13;
+            this.rptGridIndRate.UncheckedImage = ((System.Drawing.Bitmap)(resources.GetObject("rptGridIndRate.UncheckedImage")));
+            // 
+            // tPageFee
+            // 
+            this.tPageFee.Controls.Add(this.rptGridFee);
+            this.tPageFee.Location = new System.Drawing.Point(4, 22);
+            this.tPageFee.Name = "tPageFee";
+            this.tPageFee.Size = new System.Drawing.Size(375, 80);
+            this.tPageFee.TabIndex = 9;
+            this.tPageFee.Tag = "项目财务费用测算表";
+            this.tPageFee.Text = "表8项目财务费用测算表";
+            this.tPageFee.UseVisualStyleBackColor = true;
+            // 
+            // rptGridFee
+            // 
+            this.rptGridFee.BackColorBkg = System.Drawing.SystemColors.ButtonFace;
+            this.rptGridFee.CheckedImage = ((System.Drawing.Bitmap)(resources.GetObject("rptGridFee.CheckedImage")));
+            this.rptGridFee.DefaultFont = new System.Drawing.Font("SimSun", 9F);
+            this.rptGridFee.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rptGridFee.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rptGridFee.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.rptGridFee.Location = new System.Drawing.Point(0, 0);
+            this.rptGridFee.Name = "rptGridFee";
+            this.rptGridFee.Size = new System.Drawing.Size(375, 80);
+            this.rptGridFee.TabIndex = 13;
+            this.rptGridFee.UncheckedImage = ((System.Drawing.Bitmap)(resources.GetObject("rptGridFee.UncheckedImage")));
+            // 
+            // tPageGether
+            // 
+            this.tPageGether.Controls.Add(this.rptGridGether);
+            this.tPageGether.Location = new System.Drawing.Point(4, 22);
+            this.tPageGether.Name = "tPageGether";
+            this.tPageGether.Size = new System.Drawing.Size(375, 80);
+            this.tPageGether.TabIndex = 2;
+            this.tPageGether.Tag = "项目资金收款测算表";
+            this.tPageGether.Text = "表9项目资金收款测算表";
+            this.tPageGether.UseVisualStyleBackColor = true;
+            // 
+            // rptGridGether
+            // 
+            this.rptGridGether.BackColorBkg = System.Drawing.SystemColors.ButtonFace;
+            this.rptGridGether.CheckedImage = ((System.Drawing.Bitmap)(resources.GetObject("rptGridGether.CheckedImage")));
+            this.rptGridGether.DefaultFont = new System.Drawing.Font("SimSun", 9F);
+            this.rptGridGether.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rptGridGether.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rptGridGether.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.rptGridGether.Location = new System.Drawing.Point(0, 0);
+            this.rptGridGether.Name = "rptGridGether";
+            this.rptGridGether.Size = new System.Drawing.Size(375, 80);
+            this.rptGridGether.TabIndex = 11;
+            this.rptGridGether.UncheckedImage = ((System.Drawing.Bitmap)(resources.GetObject("rptGridGether.UncheckedImage")));
+            // 
+            // tPagePayment
+            // 
+            this.tPagePayment.Controls.Add(this.rptGridPayment);
+            this.tPagePayment.Location = new System.Drawing.Point(4, 22);
+            this.tPagePayment.Name = "tPagePayment";
+            this.tPagePayment.Size = new System.Drawing.Size(375, 80);
+            this.tPagePayment.TabIndex = 3;
+            this.tPagePayment.Tag = "项目资金支付款测算表";
+            this.tPagePayment.Text = "表10项目资金支付款测算表";
+            this.tPagePayment.UseVisualStyleBackColor = true;
+            // 
+            // rptGridPayment
+            // 
+            this.rptGridPayment.BackColorBkg = System.Drawing.SystemColors.ButtonFace;
+            this.rptGridPayment.CheckedImage = ((System.Drawing.Bitmap)(resources.GetObject("rptGridPayment.CheckedImage")));
+            this.rptGridPayment.DefaultFont = new System.Drawing.Font("SimSun", 9F);
+            this.rptGridPayment.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rptGridPayment.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rptGridPayment.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.rptGridPayment.Location = new System.Drawing.Point(0, 0);
+            this.rptGridPayment.Name = "rptGridPayment";
+            this.rptGridPayment.Size = new System.Drawing.Size(375, 80);
+            this.rptGridPayment.TabIndex = 11;
+            this.rptGridPayment.UncheckedImage = ((System.Drawing.Bitmap)(resources.GetObject("rptGridPayment.UncheckedImage")));
+            // 
+            // tPageSummary
+            // 
+            this.tPageSummary.Controls.Add(this.rptGridSummary);
+            this.tPageSummary.Location = new System.Drawing.Point(4, 22);
+            this.tPageSummary.Name = "tPageSummary";
+            this.tPageSummary.Size = new System.Drawing.Size(375, 80);
+            this.tPageSummary.TabIndex = 5;
+            this.tPageSummary.Tag = "项目资金策划表";
+            this.tPageSummary.Text = "表4项目资金策划表";
+            this.tPageSummary.UseVisualStyleBackColor = true;
+            // 
+            // rptGridSummary
+            // 
+            this.rptGridSummary.BackColorBkg = System.Drawing.SystemColors.ButtonFace;
+            this.rptGridSummary.CheckedImage = ((System.Drawing.Bitmap)(resources.GetObject("rptGridSummary.CheckedImage")));
+            this.rptGridSummary.DefaultFont = new System.Drawing.Font("SimSun", 9F);
+            this.rptGridSummary.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rptGridSummary.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rptGridSummary.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.rptGridSummary.Location = new System.Drawing.Point(0, 0);
+            this.rptGridSummary.Name = "rptGridSummary";
+            this.rptGridSummary.Size = new System.Drawing.Size(375, 80);
+            this.rptGridSummary.TabIndex = 11;
+            this.rptGridSummary.UncheckedImage = ((System.Drawing.Bitmap)(resources.GetObject("rptGridSummary.UncheckedImage")));
+            // 
+            // tPageContrast
+            // 
+            this.tPageContrast.Controls.Add(this.rptGridContrast);
+            this.tPageContrast.Location = new System.Drawing.Point(4, 22);
+            this.tPageContrast.Name = "tPageContrast";
+            this.tPageContrast.Size = new System.Drawing.Size(375, 80);
+            this.tPageContrast.TabIndex = 4;
+            this.tPageContrast.Tag = "现金流测算及资金策划对比表";
+            this.tPageContrast.Text = "表3现金流测算及资金策划对比表";
+            this.tPageContrast.UseVisualStyleBackColor = true;
+            // 
+            // rptGridContrast
+            // 
+            this.rptGridContrast.BackColorBkg = System.Drawing.SystemColors.ButtonFace;
+            this.rptGridContrast.CheckedImage = ((System.Drawing.Bitmap)(resources.GetObject("rptGridContrast.CheckedImage")));
+            this.rptGridContrast.DefaultFont = new System.Drawing.Font("SimSun", 9F);
+            this.rptGridContrast.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rptGridContrast.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rptGridContrast.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.rptGridContrast.Location = new System.Drawing.Point(0, 0);
+            this.rptGridContrast.Name = "rptGridContrast";
+            this.rptGridContrast.Size = new System.Drawing.Size(375, 80);
+            this.rptGridContrast.TabIndex = 11;
+            this.rptGridContrast.UncheckedImage = ((System.Drawing.Bitmap)(resources.GetObject("rptGridContrast.UncheckedImage")));
+            // 
+            // tPageBalance
+            // 
+            this.tPageBalance.Controls.Add(this.rptGridBalance);
+            this.tPageBalance.Location = new System.Drawing.Point(4, 22);
+            this.tPageBalance.Name = "tPageBalance";
+            this.tPageBalance.Size = new System.Drawing.Size(375, 80);
+            this.tPageBalance.TabIndex = 6;
+            this.tPageBalance.Tag = "项目收支平衡点";
+            this.tPageBalance.Text = "表2项目收支平衡点";
+            this.tPageBalance.UseVisualStyleBackColor = true;
+            // 
+            // rptGridBalance
+            // 
+            this.rptGridBalance.BackColorBkg = System.Drawing.SystemColors.ButtonFace;
+            this.rptGridBalance.CheckedImage = ((System.Drawing.Bitmap)(resources.GetObject("rptGridBalance.CheckedImage")));
+            this.rptGridBalance.DefaultFont = new System.Drawing.Font("SimSun", 9F);
+            this.rptGridBalance.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rptGridBalance.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rptGridBalance.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.rptGridBalance.Location = new System.Drawing.Point(0, 0);
+            this.rptGridBalance.Name = "rptGridBalance";
+            this.rptGridBalance.Size = new System.Drawing.Size(375, 80);
+            this.rptGridBalance.TabIndex = 11;
+            this.rptGridBalance.UncheckedImage = ((System.Drawing.Bitmap)(resources.GetObject("rptGridBalance.UncheckedImage")));
+            // 
+            // tPageMaster
+            // 
+            this.tPageMaster.Controls.Add(this.rptGridMaster);
+            this.tPageMaster.Location = new System.Drawing.Point(4, 22);
+            this.tPageMaster.Name = "tPageMaster";
+            this.tPageMaster.Size = new System.Drawing.Size(375, 80);
+            this.tPageMaster.TabIndex = 7;
+            this.tPageMaster.Tag = "资金策划审批表";
+            this.tPageMaster.Text = "表1资金策划审批表";
+            this.tPageMaster.UseVisualStyleBackColor = true;
+            // 
+            // rptGridMaster
+            // 
+            this.rptGridMaster.BackColorBkg = System.Drawing.SystemColors.ButtonFace;
+            this.rptGridMaster.CheckedImage = ((System.Drawing.Bitmap)(resources.GetObject("rptGridMaster.CheckedImage")));
+            this.rptGridMaster.DefaultFont = new System.Drawing.Font("SimSun", 9F);
+            this.rptGridMaster.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rptGridMaster.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rptGridMaster.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.rptGridMaster.Location = new System.Drawing.Point(0, 0);
+            this.rptGridMaster.Name = "rptGridMaster";
+            this.rptGridMaster.Size = new System.Drawing.Size(375, 80);
+            this.rptGridMaster.TabIndex = 12;
+            this.rptGridMaster.UncheckedImage = ((System.Drawing.Bitmap)(resources.GetObject("rptGridMaster.UncheckedImage")));
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.tbContent);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 157);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(1181, 333);
+            this.groupBox1.TabIndex = 145;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "资金策划表明细：";
+            // 
+            // VFundSchemeQuery
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1181, 490);
+            this.Name = "VFundSchemeQuery";
+            this.Text = "资金策划表查询";
+            this.pnlFloor.ResumeLayout(false);
+            this.pnlFloor.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgMaster)).EndInit();
+            this.tbContent.ResumeLayout(false);
+            this.tPageAmount.ResumeLayout(false);
+            this.tPageCostTax.ResumeLayout(false);
+            this.tPageTaxRate.ResumeLayout(false);
+            this.tPageFee.ResumeLayout(false);
+            this.tPageGether.ResumeLayout(false);
+            this.tPagePayment.ResumeLayout(false);
+            this.tPageSummary.ResumeLayout(false);
+            this.tPageContrast.ResumeLayout(false);
+            this.tPageBalance.ResumeLayout(false);
+            this.tPageMaster.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.GroupBox groupBox2;
+        private VirtualMachine.Component.WinControls.Controls.CustomDataGridView dgMaster;
+        private VirtualMachine.Component.WinControls.Controls.CustomEdit txtCode;
+        private System.Windows.Forms.Label label1;
+        private VirtualMachine.Component.WinControls.Controls.CustomDateTimePicker dtpBeginCreateDate;
+        private VirtualMachine.Component.WinControls.Controls.CustomDateTimePicker dtpEndCreateDate;
+        private VirtualMachine.Component.WinControls.Controls.CustomLabel lblEndCreateDate;
+        private System.Windows.Forms.Label label2;
+        private VirtualMachine.Component.WinControls.Controls.CustomButton btnQuery;
+        private System.Windows.Forms.TabControl tbContent;
+        private System.Windows.Forms.TabPage tPageAmount;
+        private VirtualMachine.Component.WinControls.Controls.CustomFlexGrid rptGridAmount;
+        private System.Windows.Forms.TabPage tPageCostTax;
+        private VirtualMachine.Component.WinControls.Controls.CustomFlexGrid rptGridTax;
+        private System.Windows.Forms.TabPage tPageTaxRate;
+        private VirtualMachine.Component.WinControls.Controls.CustomFlexGrid rptGridIndRate;
+        private System.Windows.Forms.TabPage tPageFee;
+        private VirtualMachine.Component.WinControls.Controls.CustomFlexGrid rptGridFee;
+        private System.Windows.Forms.TabPage tPageGether;
+        private VirtualMachine.Component.WinControls.Controls.CustomFlexGrid rptGridGether;
+        private System.Windows.Forms.TabPage tPagePayment;
+        private VirtualMachine.Component.WinControls.Controls.CustomFlexGrid rptGridPayment;
+        private System.Windows.Forms.TabPage tPageSummary;
+        private VirtualMachine.Component.WinControls.Controls.CustomFlexGrid rptGridSummary;
+        private System.Windows.Forms.TabPage tPageContrast;
+        private VirtualMachine.Component.WinControls.Controls.CustomFlexGrid rptGridContrast;
+        private System.Windows.Forms.TabPage tPageBalance;
+        private VirtualMachine.Component.WinControls.Controls.CustomFlexGrid rptGridBalance;
+        private System.Windows.Forms.TabPage tPageMaster;
+        private VirtualMachine.Component.WinControls.Controls.CustomFlexGrid rptGridMaster;
+        private System.Windows.Forms.DataGridViewLinkColumn colCodeBill;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colBillProject;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCreateDateBill;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colState;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCreateDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCreatePersonName;
+        private UcProjectSelector ucProjectSelector1;
+        private System.Windows.Forms.GroupBox groupBox1;
+
+    }
+}

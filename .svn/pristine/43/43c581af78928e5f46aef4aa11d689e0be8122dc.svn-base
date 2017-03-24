@@ -1,0 +1,632 @@
+﻿[class^="icon-"],
+[class*=" icon-"] {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-top: 1px;
+  *margin-right: .3em;
+  line-height: 14px;
+  vertical-align: text-top;
+  background-image: url("../Img/sysIcons/fontello.png");
+  background-position: 14px 14px;
+  background-repeat: no-repeat;
+}
+
+.white-icon {
+  background-image: url("../Img/sysIcons/fontello-white.png");
+}
+
+.gray-icon {
+  background-image: url("../Img/sysIcons/fontello-gray.png");
+}
+
+.xui-button.button-blue button [class^="icon-system-"],
+.xui-button.button-blue button [class*=" icon-system-"],
+.xui-button.button-purple button [class^="icon-system-"],
+.xui-button.button-purple button [class*=" icon-system-"],
+.xui-button.button-hotpink button [class^="icon-system-"],
+.xui-button.button-hotpink button [class*=" icon-system-"],
+.xui-button.button-darkcyan button [class^="icon-system-"],
+.xui-button.button-darkcyan button [class*=" icon-system-"],
+.xui-button.button-yellow button [class^="icon-system-"],
+.xui-button.button-yellow button [class*=" icon-system-"],
+.xui-button.button-green button  [class^="icon-system-"],
+.xui-button.button-green button  [class*=" icon-system-"],
+.xui-button.button-orange button [class^="icon-system-"],
+.xui-button.button-orange button [class*=" icon-system-"] {
+	background-image: url("../Img/sysIcons/fontello-white.png");
+}
+
+.xui-button button[disabled] [class^="icon-system-"],
+.xui-button button[disabled] [class*=" icon-system-"],
+.xui-button a[disabled] [class^="icon-system-"],
+.xui-button a[disabled] [class*=" icon-system-"],
+.menuButton a[disabled] [class^="icon-system-"],
+.menuButton a[disabled] [class*=" icon-system-"] {
+	background-image: url("../Img/sysIcons/fontello-gray.png");
+}
+
+/*
+.icon-system-android {
+	background-position: 0px 0px;
+}
+.icon-system-plus {
+	background-position: -24px 0px;
+}
+.icon-system-minus {
+	background-position: -48px 0px;
+}
+.icon-system-appstore {
+	background-position: -72px 0px;
+}
+.icon-system-windows {
+	background-position: -96px 0px;
+}
+.icon-system-left {
+	background-position: -120px 0px;
+}
+.icon-system-up {
+	background-position: -144px 0px;
+}
+.icon-system-right {
+	background-position: -168px 0px;
+}
+.icon-system-down {
+	background-position: -192px 0px;
+}
+.icon-system-home {
+	background-position: -216px 0px;
+}
+.icon-system-pause {
+	background-position: -240px 0px;
+}
+.icon-system-stop {
+	background-position: -264px 0px;
+}
+.icon-system-up-dir {
+	background-position: -288px 0px;
+}
+.icon-system-play {
+	background-position: -312px 0px;
+}
+.icon-system-right-dir {
+	background-position: -336px 0px;
+}
+.icon-system-down-dir {
+	background-position: -360px 0px;
+}
+.icon-system-left-dir {
+	background-position: -384px 0px;
+}
+.icon-system-star {
+	background-position: -408px 0px;
+}
+.icon-system-star-empty {
+	background-position: -432px 0px;
+}
+.icon-system-check {
+	background-position: -456px 0px;
+}
+.icon-system-th-list {
+	background-position: 0px -24px;
+}
+.icon-system-menu {
+	background-position: -24px -24px;
+}
+.icon-system-heart-empty {
+	background-position: -48px -24px;
+}
+.icon-system-heart {
+	background-position: -72px -24px;
+}
+.icon-system-layout {
+	background-position: -96px -24px;
+}
+.icon-system-attention {
+	background-position: -120px -24px;
+}
+.icon-system-mail {
+	background-position: -144px -24px;
+}
+.icon-system-pencil {
+	background-position: -168px -24px;
+}
+.icon-system-ok {
+	background-position: -192px -24px;
+}
+.icon-system-cancel {
+	background-position: -216px -24px;
+}
+.icon-system-plus-circle {
+	background-position: -240px -24px;
+}
+.icon-system-minus-circle {
+	background-position: -264px -24px;
+}
+.icon-system-forward {
+	background-position: -288px -24px;
+}
+.icon-system-trash {
+	background-position: -312px -24px;
+}
+.icon-system-eye {
+	background-position: -336px -24px;
+}
+.icon-system-edit-alt {
+	background-position: -360px -24px;
+}
+.icon-system-config {
+	background-position: -384px -24px;
+}
+.icon-system-user-add {
+	background-position: -408px -24px;
+}
+.icon-system-help-circled {
+	background-position: -432px -24px;
+}
+.icon-system-reply {
+	background-position: -456px -24px;
+}
+.icon-system-reply-all {
+	background-position: 0px -48px;
+}
+.icon-system-export {
+	background-position: -24px -48px;
+}
+.icon-system-print {
+	background-position: -48px -48px;
+}
+.icon-system-vcard {
+	background-position: -72px -48px;
+}
+.icon-system-location {
+	background-position: -96px -48px;
+}
+.icon-system-archive {
+	background-position: -120px -48px;
+}
+.icon-system-login {
+	background-position: -144px -48px;
+}
+.icon-system-logout {
+	background-position: -168px -48px;
+}
+.icon-system-popup {
+	background-position: -192px -48px;
+}
+.icon-system-window {
+	background-position: -216px -48px;
+}
+.icon-system-chart-pie {
+	background-position: -240px -48px;
+}
+.icon-system-down-open {
+	background-position: -264px -48px;
+}
+.icon-system-left-open {
+	background-position: -288px -48px;
+}
+.icon-system-right-open {
+	background-position: -312px -48px;
+}
+.icon-system-up-open {
+	background-position: -336px -48px;
+}
+.icon-system-refresh {
+	background-position: -360px -48px;
+}
+.icon-system-flow-tree {
+	background-position: -384px -48px;
+}
+.icon-system-gauge {
+	background-position: -408px -48px;
+}
+.icon-system-check-empty {
+	background-position: -432px -48px;
+}
+.icon-system-sort {
+	background-position: -456px -48px;
+}
+.icon-system-sitemap {
+	background-position: 0px -72px;
+}
+.icon-system-angle-double-left {
+	background-position: -24px -72px;
+}
+.icon-system-angle-double-right {
+	background-position: -48px -72px;
+}
+.icon-system-angle-double-up {
+	background-position: -72px -72px;
+}
+.icon-system-angle-double-down {
+	background-position: -96px -72px;
+}
+.icon-system-angle-left {
+	background-position: -120px -72px;
+}
+.icon-system-angle-right {
+	background-position: -144px -72px;
+}
+.icon-system-angle-up {
+	background-position: -168px -72px;
+}
+.icon-system-angle-down {
+	background-position: -192px -72px;
+}
+.icon-system-desktop {
+	background-position: -216px -72px;
+}
+.icon-system-laptop {
+	background-position: -240px -72px;
+}
+.icon-system-tablet {
+	background-position: -264px -72px;
+}
+.icon-system-mobile {
+	background-position: -288px -72px;
+}
+.icon-system-user {
+	background-position: -312px -72px;
+}
+.icon-system-users {
+	background-position: -336px -72px;
+}
+.icon-system-floppy {
+	background-position: -360px -72px;
+}
+.icon-system-folder {
+	background-position: -384px -72px;
+}
+.icon-system-calendar {
+	background-position: -408px -72px;
+}
+.icon-system-chart-line {
+	background-position: -432px -72px;
+}
+.icon-system-chart-bar {
+	background-position: -456px -72px;
+}
+.icon-system-pin {
+	background-position: 0px -96px;
+}
+.icon-system-attach {
+	background-position: -24px -96px;
+}
+.icon-system-phone {
+	background-position: -48px -96px;
+}
+.icon-system-upload {
+	background-position: -72px -96px;
+}
+.icon-system-download {
+	background-position: -96px -96px;
+}
+.icon-system-box {
+	background-position: -120px -96px;
+}
+.icon-system-camera {
+	background-position: -144px -96px;
+}
+.icon-system-search {
+	background-position: -168px -96px;
+}
+.icon-system-key {
+	background-position: -192px -96px;
+}
+.icon-system-lock {
+	background-position: -216px -96px;
+}
+.icon-system-lock-open {
+	background-position: -240px -96px;
+}
+.icon-system-back {
+	background-position: -264px -96px;
+}
+.icon-system-chart-area {
+	background-position: -288px -96px;
+}
+.icon-system-clock {
+	background-position: -312px -96px;
+}
+*/
+
+.icon36[class^="icon-"],
+.icon36[class*=" icon-"] {
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  vertical-align: text-top;
+  background-image: url("../Img/sysIcons/fontello36.png");
+}
+
+.icon36.white-icon {
+  background-image: url("../Img/sysIcons/fontello-white36.png");
+}
+
+.icon36.gray-icon {
+  background-image: url("../Img/sysIcons/fontello-gray36.png");
+}
+
+.icon36.icon-system-android {
+	background-position: 0px 0px;
+}
+.icon36.icon-system-plus {
+	background-position: -42px 0px;
+}
+.icon36.icon-system-minus {
+	background-position: -84px 0px;
+}
+.icon36.icon-system-appstore {
+	background-position: -126px 0px;
+}
+.icon36.icon-system-windows {
+	background-position: -168px 0px;
+}
+.icon36.icon-system-left {
+	background-position: -210px 0px;
+}
+.icon36.icon-system-up {
+	background-position: -252px 0px;
+}
+.icon36.icon-system-right {
+	background-position: -294px 0px;
+}
+.icon36.icon-system-down {
+	background-position: -336px 0px;
+}
+.icon36.icon-system-home {
+	background-position: -378px 0px;
+}
+.icon36.icon-system-pause {
+	background-position: -420px 0px;
+}
+.icon36.icon-system-stop {
+	background-position: -462px 0px;
+}
+.icon36.icon-system-up-dir {
+	background-position: -504px 0px;
+}
+.icon36.icon-system-play {
+	background-position: -546px 0px;
+}
+.icon36.icon-system-right-dir {
+	background-position: -588px 0px;
+}
+.icon36.icon-system-down-dir {
+	background-position: -630px 0px;
+}
+.icon36.icon-system-left-dir {
+	background-position: -672px 0px;
+}
+.icon36.icon-system-star {
+	background-position: -714px 0px;
+}
+.icon36.icon-system-star-empty {
+	background-position: -756px 0px;
+}
+.icon36.icon-system-check {
+	background-position: -798px 0px;
+}
+.icon36.icon-system-th-list {
+	background-position: 0px -42px;
+}
+.icon36.icon-system-menu {
+	background-position: -42px -42px;
+}
+.icon36.icon-system-heart-empty {
+	background-position: -84px -42px;
+}
+.icon36.icon-system-heart {
+	background-position: -126px -42px;
+}
+.icon36.icon-system-layout {
+	background-position: -168px -42px;
+}
+.icon36.icon-system-attention {
+	background-position: -210px -42px;
+}
+.icon36.icon-system-mail {
+	background-position: -252px -42px;
+}
+.icon36.icon-system-pencil {
+	background-position: -294px -42px;
+}
+.icon36.icon-system-ok {
+	background-position: -336px -42px;
+}
+.icon36.icon-system-cancel {
+	background-position: -378px -42px;
+}
+.icon36.icon-system-plus-circle {
+	background-position: -420px -42px;
+}
+.icon36.icon-system-minus-circle {
+	background-position: -462px -42px;
+}
+.icon36.icon-system-forward {
+	background-position: -504px -42px;
+}
+.icon36.icon-system-trash {
+	background-position: -546px -42px;
+}
+.icon36.icon-system-eye {
+	background-position: -588px -42px;
+}
+.icon36.icon-system-edit-alt {
+	background-position: -630px -42px;
+}
+.icon36.icon-system-config {
+	background-position: -672px -42px;
+}
+.icon36.icon-system-user-add {
+	background-position: -714px -42px;
+}
+.icon36.icon-system-help-circled {
+	background-position: -756px -42px;
+}
+.icon36.icon-system-reply {
+	background-position: -798px -42px;
+}
+.icon36.icon-system-reply-all {
+	background-position: 0px -84px;
+}
+.icon36.icon-system-export {
+	background-position: -42px -84px;
+}
+.icon36.icon-system-print {
+	background-position: -84px -84px;
+}
+.icon36.icon-system-vcard {
+	background-position: -126px -84px;
+}
+.icon36.icon-system-location {
+	background-position: -168px -84px;
+}
+.icon36.icon-system-archive {
+	background-position: -210px -84px;
+}
+.icon36.icon-system-login {
+	background-position: -252px -84px;
+}
+.icon36.icon-system-logout {
+	background-position: -294px -84px;
+}
+.icon36.icon-system-popup {
+	background-position: -336px -84px;
+}
+.icon36.icon-system-window {
+	background-position: -378px -84px;
+}
+.icon36.icon-system-chart-pie {
+	background-position: -420px -84px;
+}
+.icon36.icon-system-down-open {
+	background-position: -462px -84px;
+}
+.icon36.icon-system-left-open {
+	background-position: -504px -84px;
+}
+.icon36.icon-system-right-open {
+	background-position: -546px -84px;
+}
+.icon36.icon-system-up-open {
+	background-position: -588px -84px;
+}
+.icon36.icon-system-refresh {
+	background-position: -630px -84px;
+}
+.icon36.icon-system-flow-tree {
+	background-position: -672px -84px;
+}
+.icon36.icon-system-gauge {
+	background-position: -714px -84px;
+}
+.icon36.icon-system-check-empty {
+	background-position: -756px -84px;
+}
+.icon36.icon-system-sort {
+	background-position: -798px -84px;
+}
+.icon36.icon-system-sitemap {
+	background-position: 0px -126px;
+}
+.icon36.icon-system-angle-double-left {
+	background-position: -42px -126px;
+}
+.icon36.icon-system-angle-double-right {
+	background-position: -84px -126px;
+}
+.icon36.icon-system-angle-double-up {
+	background-position: -126px -126px;
+}
+.icon36.icon-system-angle-double-down {
+	background-position: -168px -126px;
+}
+.icon36.icon-system-angle-left {
+	background-position: -210px -126px;
+}
+.icon36.icon-system-angle-right {
+	background-position: -252px -126px;
+}
+.icon36.icon-system-angle-up {
+	background-position: -294px -126px;
+}
+.icon36.icon-system-angle-down {
+	background-position: -336px -126px;
+}
+.icon36.icon-system-desktop {
+	background-position: -378px -126px;
+}
+.icon36.icon-system-laptop {
+	background-position: -420px -126px;
+}
+.icon36.icon-system-tablet {
+	background-position: -462px -126px;
+}
+.icon36.icon-system-mobile {
+	background-position: -504px -126px;
+}
+.icon36.icon-system-user {
+	background-position: -546px -126px;
+}
+.icon36.icon-system-users {
+	background-position: -588px -126px;
+}
+.icon36.icon-system-floppy {
+	background-position: -630px -126px;
+}
+.icon36.icon-system-folder {
+	background-position: -672px -126px;
+}
+.icon36.icon-system-calendar {
+	background-position: -714px -126px;
+}
+.icon36.icon-system-chart-line {
+	background-position: -756px -126px;
+}
+.icon36.icon-system-chart-bar {
+	background-position: -798px -126px;
+}
+.icon36.icon-system-pin {
+	background-position: 0px -168px;
+}
+.icon36.icon-system-attach {
+	background-position: -42px -168px;
+}
+.icon36.icon-system-phone {
+	background-position: -84px -168px;
+}
+.icon36.icon-system-upload {
+	background-position: -126px -168px;
+}
+.icon36.icon-system-download {
+	background-position: -168px -168px;
+}
+.icon36.icon-system-box {
+	background-position: -210px -168px;
+}
+.icon36.icon-system-camera {
+	background-position: -252px -168px;
+}
+.icon36.icon-system-search {
+	background-position: -294px -168px;
+}
+.icon36.icon-system-key {
+	background-position: -336px -168px;
+}
+.icon36.icon-system-lock {
+	background-position: -378px -168px;
+}
+.icon36.icon-system-lock-open {
+	background-position: -420px -168px;
+}
+.icon36.icon-system-back {
+	background-position: -462px -168px;
+}
+.icon36.icon-system-chart-area {
+	background-position: -504px -168px;
+}
+.icon36.icon-system-clock {
+	background-position: -546px -168px;
+}

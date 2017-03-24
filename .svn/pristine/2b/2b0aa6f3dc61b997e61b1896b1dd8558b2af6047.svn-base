@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MaterialManage.MaterialRentalSettlementMng.Domain.MaterialRentalSettlementDetail,SupplyChain" table="THD_MaterialRentalSetDetail" lazy="true" select-before-update="true">
+
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <!--物资-->
+    <many-to-one name="MaterialResource" column="Material"  class="Application.Resource.MaterialResource.Domain.Material,ResourceManager"/>
+    <property name="MaterialCode"/>
+    <property name="MaterialName"/>
+    <property name="MaterialSpec"/>
+    <property name="MaterialStuff"/>
+    <property name="MaterialSysCode"/>
+    <!--设备来源-->
+    <property name="MaterialSource"/>
+    <!--价格单位-->
+    <many-to-one name="PriceUnit" column="PriceUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="PriceUnitName"/>
+    <!--时间单位-->
+    <many-to-one name="DateUnit" column="DateUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="DateUnitName"/>
+    <!--数量单位-->
+    <many-to-one name="QuantityUnit" column="QuantityUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="QuantityUnitName"/>
+
+    <property name="Quantity" length="4" />
+    <!--结算合价-->
+    <property name="SettleMoney" length="4" />
+    <property name="Descript"/>
+    <!--使用部位-->
+    <!--<property name="UsedPart"/>-->
+    <many-to-one name="UsedPart" column="UsedPart" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree, SupplyChain"/>
+    <property name="UsedPartName"/>
+    <property name="UsedPartSysCode"/>
+    
+    <!--租赁起始时间-->
+    <property name="StartSettleDate"/>
+    <!--租赁结束时间-->
+    <property name="EndSettleDate"/>
+    <!--租赁时间-->
+    <property name="SettleDate"/>
+    
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.MaterialManage.MaterialRentalSettlementMng.Domain.MaterialRentalSettlementMaster,SupplyChain"></many-to-one>
+
+    <set name="MaterialSubjectDetails" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.MaterialManage.MaterialRentalSettlementMng.Domain.MaterialSubjectDetail, SupplyChain"/>
+    </set>
+    
+  </class>
+</hibernate-mapping>

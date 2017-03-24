@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.GWBSTaskConfirm,SupplyChain" table="THD_GWBSTaskConfirmDetail" lazy="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.GWBSTaskConfirmMaster, SupplyChain"/>
+    <!--<many-to-one name="WeekScheduleDetail" column="WeekScheduleDetail" class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.WeekScheduleDetail, SupplyChain"/>-->
+    <property name="CostItemName" />
+    <many-to-one name="CostItem" />
+
+    <many-to-one name="WorkAmountUnitId" />
+    <property name="WorkAmountUnitName" />
+    <property name="ProjectTaskType" />
+    <property name="ActualCompletedQuantity" />
+    <property name="AccountingState" />
+    <property name="CollectState" />
+
+    <property name="CompletedPercent" />
+    <property name="SumCompletedPercent" />
+    <property name="Descript" />
+    <property name="RealOperationDate" />
+    <many-to-one name="GWBSDetail"/>
+    <property name="GWBSDetailName" />
+
+    <many-to-one name="TaskHandler" />
+    <property name="TaskHandlerName" />
+    <property name="AccountingDetailId" />
+    <property name="ConfirmState"/>
+
+    <many-to-one name="GWBSTree" />
+    <property name="GWBSTreeName" />
+    <property name="ConfirmDescript" />
+    <property name="GwbsSysCode" />
+    <property name="PlannedQuantity" />
+    <property name="ProgressAfterConfirm" />
+    <property name="ProgressBeforeConfirm" />
+    <property name="QuantiyAfterConfirm" />
+    <property name="QuantityBeforeConfirm" />
+
+    <many-to-one name="CreatePerson" column="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="CreatePersonName"/>
+    <!--业务组织-->
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperOrgInfoName" column="OperOrgName"/>
+    <property name="OpgSysCode" column="OpgSysCode"/>
+    
+    
+    <property name="AccountTime" type="DateTime"/>
+    <property name="MaterialFeeSettlementFlag"/>
+
+    <set name="NodeDetails" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="GWBSTaskConfirm" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.GWBSTaskConfirmNode, SupplyChain"/>
+    </set>
+
+    <property name="DailyCheckState"/>
+
+    <many-to-one name="WeekScheduleDetailGUID" class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.WeekScheduleDetail,SupplyChain"/>
+    <property name="DetailNumber"/>
+  </class>
+</hibernate-mapping>

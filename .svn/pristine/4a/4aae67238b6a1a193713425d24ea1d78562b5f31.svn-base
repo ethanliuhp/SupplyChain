@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MaterialHireMng.MaterialHireCollection.Domain.MatHireCollectionDetail,SupplyChain" table="THD_MatHireCollectionDetail" lazy="true" select-before-update="true">
+
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <!--物资-->
+    <many-to-one name="MaterialResource" column="Material"  class="Application.Resource.MaterialResource.Domain.Material,ResourceManager"/>
+    <property name="MaterialCode"/>
+    <property name="MaterialName"/>
+    <property name="MaterialSpec"/>
+    <property name="MaterialStuff"/>
+
+    <!--计量单位-->
+    <many-to-one name="MatStandardUnit" column="MatStandardUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="MatStandardUnitName"/>
+
+    <property name="Quantity" length="4" />
+    <property name="RentalPrice" length="8" />
+    <property name="Descript"/>
+    <!--使用部位-->
+    <many-to-one name="UsedPart" column="UsedPart" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree, SupplyChain"/>
+    <property name="UsedPartName" />
+    <property name="UsedPartSysCode" />
+    <!--结算科目-->
+    <many-to-one name="SubjectGUID" column="SubjectGUID"  class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostAccountSubject,ResourceManager"></many-to-one>
+    <property name="SubjectName"/>
+    <property name="SubjectSysCode"/>
+
+    <!--借用单位-->
+    <many-to-one name="BorrowUnit" column="BorrowUnit" class="Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass.SupplierRelationInfo,ResourceManager"></many-to-one>
+    <property name="BorrowUnitName"/>
+
+    <property name="BorrowQuantity"/>
+
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.MaterialHireMng.MaterialHireCollection.Domain.MatHireCollectionMaster,SupplyChain"></many-to-one>
+
+    <set name="MatCostDtls" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.MaterialHireMng.MaterialHireCollection.Domain.MatHireCollectionCostDtl, SupplyChain"/>
+    </set>
+    <!--退料时序-->
+    <set name="MaterialReturnDetailSeqs" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="MatCollDtlMaster" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.MaterialHireMng.MaterialHireReturn.Domain.MatHireReturnDetailSeq, SupplyChain"/>
+    </set>
+<property name="MaterialLength"/>
+    <!--<property name="RealQuantity"/>-->
+    <property name="MaterialType"/>
+    <property name="BeforeStockQty"></property>
+  </class>
+</hibernate-mapping>

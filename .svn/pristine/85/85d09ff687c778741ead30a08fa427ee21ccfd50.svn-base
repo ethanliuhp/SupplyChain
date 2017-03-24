@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="IRPServiceModel.Domain.CompanyMng.CompanyInfo,IRPServiceModel" table="IRP_COMPANYINFO" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <!--基类的属性-->
+    <property name="CategoryNodeType" />
+    <property name="Name" />
+    <property name="Code" />
+    <property name="CreateDate" type="Date" />
+    <property name="SysCode" />
+    <property name="State" />
+    <property name="Level" column="TLevel"/>
+    <property name="Describe"  />
+    <many-to-one name="ParentNode" column="ParentNodeID" class="IRPServiceModel.Domain.CompanyMng.CompanyInfo,IRPServiceModel" />
+    <many-to-one name="Author" class="VirtualMachine.Patterns.BusinessEssence.Domain.BusinessOperators, VirtualMachine" />
+    <many-to-one name="TheTree" class="VirtualMachine.Patterns.CategoryTreePattern.Domain.CategoryTree,VirtualMachine" />
+    <property name="OrderNo" />
+    <bag name="ChildNodes" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write" />
+      <key column="ParentNodeID" />
+      <one-to-many class="IRPServiceModel.Domain.CompanyMng.CompanyInfo,IRPServiceModel" />
+    </bag>
+    <!--自身的属性-->
+    <property name="PersonNum"  />
+    <property name="Address"  />
+    <many-to-one name="PersonMng" column="PersonMngID" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"></many-to-one>
+  </class>
+</hibernate-mapping>

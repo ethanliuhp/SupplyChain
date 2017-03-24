@@ -1,0 +1,510 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Application.Business.Erp.SupplyChain.Client.Basic.Template;
+//测试
+using Application.Business.Erp.SupplyChain.Basic.Domain;
+using System.Collections;
+using Application.Business.Erp.SupplyChain.ProjectDocumentManage.Domain;
+using System.IO;
+using Application.Business.Erp.SupplyChain.Client.Basic.CommonClass;
+using Application.Business.Erp.SupplyChain.Client.ProjectDocumentMng;
+using IRPServiceModel.Domain.Document;
+using Application.Resource.PersonAndOrganization.HumanResource.RelateClass;
+using VirtualMachine.Patterns.BusinessEssence.Domain;
+using VirtualMachine.Component.Util;
+using ImportIntegration;
+using VirtualMachine.Core;
+using NHibernate.Criterion;
+
+namespace Application.Business.Erp.SupplyChain.Client.EngineerManage.ProjectDocumentsMng
+{
+    public partial class VDocumentPublicUpload : TBasicDataView
+    {
+
+        public MDocumentCategory model = new MDocumentCategory();
+
+        //所属项目
+        public CurrentProjectInfo projectInfo = null;
+        public PersonInfo person = null;
+        //private DocumentMaster master = null;
+        //private DocumentCategory cate = null;
+        private string objectID = string.Empty;//对象id
+        private DocumentMaster result;
+
+        public DocumentMaster Result
+        {
+            get { return result; }
+            set { result = value; }
+        }
+        public VDocumentPublicUpload()
+        {
+            InitializeComponent();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">对象id</param>
+        public VDocumentPublicUpload(string id)
+        {
+            InitializeComponent();
+            //master = m;
+            //cate = c;
+            objectID = id;
+            InitEvent();
+            InitData();
+            InitcomboBoxData();
+        }
+        void InitcomboBoxData()
+        {
+            //文档信息类型
+            foreach (string infoType in Enum.GetNames(typeof(DocumentInfoTypeEnum)))
+            {
+                cmbDocumentInforType.Items.Add(infoType);
+            }
+            //文档状态
+            foreach (DocumentState state in Enum.GetValues(typeof(DocumentState)))
+            {
+                cmbDocumentStatus.Items.Add(ClientUtil.GetDocStateName(state));
+            }
+            //文档密级
+            foreach (string securityLevel in Enum.GetNames(typeof(DocumentSecurityLevelEnum)))
+            {
+                cmbSecurityLevel.Items.Add(securityLevel);
+            }
+            //文档检出状态
+            //foreach (string checkoutState in Enum.GetNames(typeof(DocumentCheckOutStateEnum)))
+            //{
+            //    cmbCheckoutState.Items.Add(checkoutState);
+            //}
+
+            this.cmbDocumentInforType.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.cmbDocumentStatus.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.cmbSecurityLevel.DropDownStyle = ComboBoxStyle.DropDownList;
+            //this.cmbCheckoutState.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbDocumentInforType.SelectedIndex = 0;
+            cmbDocumentStatus.SelectedIndex = 0;
+            cmbSecurityLevel.SelectedIndex = 0;
+            //cmbCheckoutState.SelectedIndex = 0;
+        }
+
+        void InitData()
+        {
+            object[] os = new object[] { txtResideProject };
+            ObjectLock.Lock(os);
+
+            //归属项目
+            projectInfo = Application.Business.Erp.SupplyChain.Client.Basic.CommonClass.StaticMethod.GetProjectInfo();
+            if (projectInfo != null)
+            {
+                txtResideProject.Tag = projectInfo;
+                txtResideProject.Text = projectInfo.Name;
+            }
+            person = Application.Business.Erp.SupplyChain.Client.Basic.CommonClass.ConstObject.LoginPersonInfo;
+            LoadDocumentCategory(null);
+            //cbCate.Items.AddRange(new object[] { "文档模版", "项目文档" });
+            //cbCate.SelectedIndex = 1;
+            //cbCate.DropDownStyle = ComboBoxStyle.DropDownList;
+        }
+
+        void InitEvent()
+        {
+            tvwCateGory.BeforeExpand += new TreeViewCancelEventHandler(tvwCateGory_BeforeExpand);
+            //cbCate.SelectedIndexChanged += new EventHandler(cbCate_SelectedIndexChanged);
+            btnSave.Click += new EventHandler(btnSave_Click);
+            btnQuit.Click += new EventHandler(btnQuit_Click);
+            #region 文件
+            btnSelectFile.Click += new EventHandler(btnSelectFile_Click);
+            btnClearSelected.Click += new EventHandler(btnClearSelected_Click);
+            btnClearAll.Click += new EventHandler(btnClearAll_Click);
+            #endregion
+        }
+
+        void tvwCateGory_BeforeExpand(object sender, TreeViewCancelEventArgs e)
+        {
+            LoadDocumentCategory(e.Node);
+        }
+
+        void cbCate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadDocumentCategory();
+        }
+
+        /// <summary>
+        /// 加载文档分类
+        /// </summary>
+        void LoadDocumentCategory()
+        {
+            Hashtable hashtable = new Hashtable();
+            try
+            {
+                tvwCateGory.Nodes.Clear();
+
+                ObjectQuery oq = new ObjectQuery();
+                Disjunction dis = new Disjunction();
+                //if (cbCate.Text == "文档模版")
+                //{
+                //    oq.AddCriterion(Expression.Eq("ProjectCode", "KB"));
+                //}
+                //else
+                //{
+                dis.Add(Expression.Not(Expression.Eq("ProjectCode", "KB")));
+                dis.Add(Expression.IsNull("ProjectCode"));
+                oq.AddCriterion(dis);
+                //}
+                oq.AddOrder(NHibernate.Criterion.Order.Asc("SysCode"));
+                IList cateList = model.ObjectQuery(typeof(DocumentCategory), oq);
+                if (cateList != null && cateList.Count > 0)
+                {
+                    foreach (DocumentCategory childNode in cateList)
+                    {
+                        TreeNode tnTmp = new TreeNode();
+                        tnTmp.Name = childNode.Id.ToString();
+                        tnTmp.Text = childNode.Name;
+                        tnTmp.Tag = childNode;
+                        if (childNode.ParentNode != null)
+                        {
+                            TreeNode tnp = null;
+                            tnp = hashtable[childNode.ParentNode.Id.ToString()] as TreeNode;
+                            if (tnp != null)
+                                tnp.Nodes.Add(tnTmp);
+                        }
+                        else
+                        {
+                            tvwCateGory.Nodes.Add(tnTmp);
+                        }
+                        hashtable.Add(tnTmp.Name, tnTmp);
+                    }
+                    this.tvwCateGory.SelectedNode = this.tvwCateGory.Nodes[0];
+                    this.tvwCateGory.SelectedNode.Expand();
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("加载数据出错：" + ExceptionUtil.ExceptionMessage(e));
+            }
+
+        }
+        /// <summary>
+        /// 加载当前节点的子节点
+        /// </summary>
+        /// <param name="oNode"></param>
+        private void LoadDocumentCategory(TreeNode oNode)
+        {
+            try
+            {
+                int iLevel = 1;
+                string sSysCode = string.Empty;
+                string projectId = string.Empty;
+                if (projectInfo != null && projectInfo.Id != null)
+                {
+                    projectId = projectInfo.Id;
+                }
+                if (oNode != null)
+                {
+                    DocumentCategory cate = oNode.Tag as DocumentCategory;
+                    iLevel = cate.Level + 1;
+                    sSysCode = cate.SysCode;
+                    oNode.Nodes.Clear();
+                }
+
+                IList list = model.GetDocumentCategoryChildList(iLevel, sSysCode,false,projectId);
+
+                foreach (DocumentCategory childNode in list)
+                {
+                    TreeNode tnTmp = new TreeNode();
+                    tnTmp.Name = childNode.Id;
+                    tnTmp.Text = childNode.Name;
+                    tnTmp.Tag = childNode;
+
+                    if (childNode.CategoryNodeType != VirtualMachine.Patterns.CategoryTreePattern.Domain.NodeType.LeafNode)
+                    {
+                        tnTmp.Nodes.Add("test");
+                    }
+
+                    if (oNode != null)
+                    {
+                        oNode.Nodes.Add(tnTmp);
+                    }
+                    else
+                    {
+                        tvwCateGory.Nodes.Add(tnTmp);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("加载数据出错：" + ExceptionUtil.ExceptionMessage(e));
+            }
+        }
+
+        //保存
+        void btnSave_Click(object sender, EventArgs e)
+        {
+            if (!Verify()) return;
+            DocumentInfoTypeEnum docInfoType = 0;
+            foreach (DocumentInfoTypeEnum type in Enum.GetValues(typeof(DocumentInfoTypeEnum)))
+            {
+                if (type.ToString() == cmbDocumentInforType.Text.Trim())
+                {
+                    docInfoType = type;
+                    break;
+                }
+            }
+            DocumentState docState = 0;
+            foreach (DocumentState state in Enum.GetValues(typeof(DocumentState)))
+            {
+                if (ClientUtil.GetDocStateName(state) == cmbDocumentStatus.Text.Trim())
+                {
+                    docState = state;
+                    break;
+                }
+            }
+
+            DocumentSecurityLevelEnum securityLevel = 0;
+            foreach (DocumentSecurityLevelEnum level in Enum.GetValues(typeof(DocumentSecurityLevelEnum)))
+            {
+                if (level.ToString() == cmbSecurityLevel.Text.Trim())
+                {
+                    securityLevel = level;
+                    break;
+                }
+            }
+            //DocumentCheckOutStateEnum checkOutState = 0;
+            //foreach (DocumentCheckOutStateEnum check in Enum.GetValues(typeof(DocumentCheckOutStateEnum)))
+            //{
+            //    if (check.ToString() == cmbCheckoutState.Text.Trim())
+            //    {
+            //        checkOutState = check;
+            //        break;
+            //    }
+            //}
+
+            try
+            {
+                #region 文档（主表）
+
+                DocumentMaster master = new DocumentMaster();
+                DocumentCategory cate = tvwCateGory.SelectedNode.Tag as DocumentCategory;
+
+                master.Category = cate;
+                master.CategoryCode = cate.Code;
+                master.CategoryName = cate.Name;
+                master.CategorySysCode = cate.SysCode;
+
+                //if (cbCate.Text == "文档模板")
+                //{
+                //    master.ProjectCode = "KB";
+                //    master.ProjectName = "知识库";
+                //    master.IsInspectionLot = true;
+                //}
+                //else
+                //{
+                master.ProjectCode = projectInfo.Code;
+                master.ProjectId = projectInfo.Id;
+                master.ProjectName = projectInfo.Name;
+                master.IsInspectionLot = false;
+                //}
+
+                master.OwnerID = person;
+                master.OwnerName = person.Name;
+                master.OwnerOrgSysCode = Application.Business.Erp.SupplyChain.Client.Basic.CommonClass.ConstObject.TheOperationOrg.SysCode;
+
+                master.Name = txtDocumentName.Text;
+                master.Code = txtDocumentCode.Text;
+                master.KeyWords = txtDocumentKeywords.Text;
+                master.Author = txtDocumentAuthor.Text;
+                master.Description = txtDocumentExplain.Text;
+                master.Title = txtDocumentTitle.Text;
+
+                master.DocType = docInfoType;
+                //master.CheckoutState = checkOutState;
+                master.SecurityLevel = securityLevel;
+                master.State = docState;
+
+                //if (cbIsOrTemp.Checked)
+                //{
+
+                //}
+                //else
+                //{
+
+                //}
+                //master.NGUID
+
+                master.SetNewVersion();
+                master.SetNewRevision();
+
+                master.CreateTime = DateTime.Now;
+                master.UpdateTime = DateTime.Now;
+                #endregion
+
+                #region 文件（明细）
+
+                FileCabinet appFileCabinet = null;
+                appFileCabinet = StaticMethod.GetDefaultFileCabinet();
+
+                foreach (DataGridViewRow row in gridFiles.Rows)
+                {
+                    DocumentDetail dtl = new DocumentDetail();
+                    dtl.Master = master;
+                    master.ListFiles.Add(dtl);
+
+                    string filePath = row.Cells[FilePath.Name].Value.ToString();
+                    FileInfo file = new FileInfo(filePath);
+                    if (file.Exists)
+                    {
+                        FileStream fileStream = file.OpenRead();
+                        int FileLen = (int)file.Length;
+                        Byte[] FileData = new Byte[FileLen];
+                        //将文件数据放到FileData数组对象实例中，0代表数组指针的起始位置,FileLen代表指针的结束位置
+                        fileStream.Read(FileData, 0, FileLen);
+
+                        dtl.FileDataByte = FileData;
+                    }
+
+                    dtl.ExtendName = Path.GetExtension(filePath);
+                    dtl.FileName = Path.GetFileName(filePath);
+                    dtl.TheFileCabinet = appFileCabinet;
+                }
+                #endregion
+
+                result = model.SaveDocumentAndFileAndDocObject(master, objectID);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            this.Close();
+        }
+
+        //保存前验证
+        bool Verify()
+        {
+            if (txtDocumentName.Text.Trim() == "")
+            {
+                MessageBox.Show("文档名称不能为空！");
+                return false;
+            }
+            if (txtDocumentCode.Text.Trim() == "")
+            {
+                MessageBox.Show("文档代码不能为空！");
+                return false;
+            }
+            if (tvwCateGory.SelectedNode == null)
+            {
+                MessageBox.Show("请选择一个文档分类！");
+                return false;
+            }
+            return true;
+        }
+
+        // 放弃
+        void btnQuit_Click(object sender, EventArgs e)
+        {
+            result = null;
+            this.Close();
+        }
+
+        #region 文件
+        private void btnSelectFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "所有文件(*.*)|*.*";
+            openFileDialog1.Multiselect = true;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string[] strFiles = openFileDialog1.FileNames;
+                int iCount = strFiles.Length;
+                for (int i = 0; i < iCount; i++)
+                {
+                    InsertToGrid(strFiles[i]);
+                }
+
+                gridFiles.AutoResizeColumns();
+            }
+        }
+        private const double KBCount = 1024;
+        private const double MBCount = KBCount * 1024;
+        private const double GBCount = MBCount * 1024;
+        private const double TBCount = GBCount * 1024;
+
+        /// <summary>
+        /// 得到适应的大小
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns>string</returns>
+        public static string GetAutoSizeString(double size, int roundCount)
+        {
+            if (KBCount > size)
+            {
+                return Math.Round(size, roundCount) + "B";
+            }
+            else if (MBCount > size)
+            {
+                return Math.Round(size / KBCount, roundCount) + "KB";
+            }
+            else if (GBCount > size)
+            {
+                return Math.Round(size / MBCount, roundCount) + "MB";
+            }
+            else if (TBCount > size)
+            {
+                return Math.Round(size / GBCount, roundCount) + "GB";
+            }
+            else
+            {
+                return Math.Round(size / TBCount, roundCount) + "TB";
+            }
+        }
+
+        private void InsertToGrid(string filePath)
+        {
+            int index = gridFiles.Rows.Add();
+            DataGridViewRow row = gridFiles.Rows[index];
+            row.Cells[FileName.Name].Value = Path.GetFileName(filePath);
+            row.Cells[FilePath.Name].Value = filePath;
+
+            FileInfo fileInfo = new FileInfo(filePath);
+            row.Cells[FileSize.Name].Value = GetAutoSizeString(fileInfo.Length, 3);
+        }
+
+        #region 变量
+
+        private DataTable sourceDataTable = new DataTable();
+        private IntergrationFrameWork cFuntions = null;
+        private string language = "zhs";
+
+        #endregion
+
+        private void btnClearSelected_Click(object sender, EventArgs e)
+        {
+            List<int> listRowIndex = new List<int>();
+            foreach (DataGridViewRow row in gridFiles.SelectedRows)
+            {
+                listRowIndex.Add(row.Index);
+            }
+            listRowIndex.Sort();
+            for (int i = listRowIndex.Count - 1; i > -1; i--)
+            {
+                gridFiles.Rows.RemoveAt(listRowIndex[i]);
+            }
+        }
+
+        private void btnClearAll_Click(object sender, EventArgs e)
+        {
+            for (int i = gridFiles.Rows.Count - 1; i > -1; i--)
+            {
+                gridFiles.Rows.RemoveAt(i);
+            }
+        }
+        #endregion
+    }
+}

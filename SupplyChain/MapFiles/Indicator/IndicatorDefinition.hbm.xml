@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.Indicator.IndicatorDefine.Domain.IndicatorDefinition,SupplyChain" table="THD_IndicatorDefinition" lazy="true" select-before-update="true" >
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="State" column="State"/>
+    <many-to-one name="Category" column="CategoryID" not-null="true" />
+    <property name="Code" column="Code" length="50" />
+    <property name="Name" column="Name" length="50" />
+    <property name="UnitId" column="UnitId" />
+    <property name="CreatedDate" column="CreateDate" type="Date"/>
+    <many-to-one name="Author" column="PerId" />
+    <many-to-one name="TheOpeOrg" column="OpeId" />
+    <property name="Description" column="Descript" length="200" />
+  </class>
+</hibernate-mapping>

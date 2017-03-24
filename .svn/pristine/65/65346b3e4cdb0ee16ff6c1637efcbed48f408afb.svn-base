@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MoneyManage.IndirectCost.Domain.IndirectCostDetail,SupplyChain" table="THD_IndirectCostDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.MoneyManage.IndirectCost.Domain.IndirectCostMaster,SupplyChain"></many-to-one>
+    <many-to-one name="AccountTitle" column="AccountTitleID"  class="Application.Business.Erp.SupplyChain.FinanceMng.Domain.AccountTitleTree,SupplyChain"></many-to-one>
+    <property name="AccountTitleName"></property>
+    <property name="AccountTitleCode"></property>
+	<property name="AccountTitleSyscode"></property>
+    <property name="BudgetMoney"></property>
+    <property name="Money"></property>
+    
+    <property name="PartnerType"></property>
+    <property name="AccountSymbol"></property>
+    <many-to-one  name="OrgInfo" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"></many-to-one >
+    <property name="OrgInfoSysCode"></property>
+    <property name="OrgInfoName"></property>
+    <property name="CostType"></property>
+    <property name="Descript"></property>
+  </class>
+</hibernate-mapping>
+
+

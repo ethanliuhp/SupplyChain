@@ -1,0 +1,243 @@
+﻿namespace Application.Business.Erp.SupplyChain.Client.MoneyManage.IndirectCost
+{
+    partial class VCompanyIndexGenerate
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VCompanyIndexGenerate));
+            this.dtpEndDate = new VirtualMachine.Component.WinControls.Controls.CustomDateTimePicker();
+            this.customLabel3 = new VirtualMachine.Component.WinControls.Controls.CustomLabel();
+            this.btnGenerate = new VirtualMachine.Component.WinControls.Controls.CustomButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnQuery = new VirtualMachine.Component.WinControls.Controls.CustomButton();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.dgMaster = new VirtualMachine.Component.WinControls.Controls.CustomDataGridView();
+            this.colOperDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colProjectCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pnlFloor.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgMaster)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // pnlFloor
+            // 
+            this.pnlFloor.Controls.Add(this.tabControl1);
+            this.pnlFloor.Controls.Add(this.groupBox1);
+            this.pnlFloor.Size = new System.Drawing.Size(807, 424);
+            this.pnlFloor.Controls.SetChildIndex(this.groupBox1, 0);
+            this.pnlFloor.Controls.SetChildIndex(this.lblTitle, 0);
+            this.pnlFloor.Controls.SetChildIndex(this.tabControl1, 0);
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.Location = new System.Drawing.Point(127, 9);
+            this.lblTitle.Size = new System.Drawing.Size(0, 20);
+            this.lblTitle.Text = "";
+            // 
+            // dtpEndDate
+            // 
+            this.dtpEndDate.Location = new System.Drawing.Point(170, 33);
+            this.dtpEndDate.Name = "dtpEndDate";
+            this.dtpEndDate.Size = new System.Drawing.Size(116, 21);
+            this.dtpEndDate.TabIndex = 139;
+            // 
+            // customLabel3
+            // 
+            this.customLabel3.AutoSize = true;
+            this.customLabel3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.customLabel3.FontSize = VirtualMachine.Component.WinControls.Style.FontSize.Default;
+            this.customLabel3.Location = new System.Drawing.Point(133, 37);
+            this.customLabel3.Name = "customLabel3";
+            this.customLabel3.Size = new System.Drawing.Size(35, 12);
+            this.customLabel3.TabIndex = 140;
+            this.customLabel3.Text = "日期:";
+            this.customLabel3.UnderLineColor = System.Drawing.Color.Red;
+            // 
+            // btnGenerate
+            // 
+            this.btnGenerate.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnGenerate.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnGenerate.FontSize = VirtualMachine.Component.WinControls.Style.FontSize.Default;
+            this.btnGenerate.Location = new System.Drawing.Point(407, 26);
+            this.btnGenerate.Name = "btnGenerate";
+            this.btnGenerate.Size = new System.Drawing.Size(79, 35);
+            this.btnGenerate.TabIndex = 141;
+            this.btnGenerate.Text = "指标生成";
+            this.btnGenerate.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnQuery);
+            this.groupBox1.Controls.Add(this.btnGenerate);
+            this.groupBox1.Controls.Add(this.customLabel3);
+            this.groupBox1.Controls.Add(this.dtpEndDate);
+            this.groupBox1.Location = new System.Drawing.Point(94, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(612, 74);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "每日关键指标生成";
+            // 
+            // btnQuery
+            // 
+            this.btnQuery.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnQuery.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnQuery.FontSize = VirtualMachine.Component.WinControls.Style.FontSize.Default;
+            this.btnQuery.Location = new System.Drawing.Point(310, 26);
+            this.btnQuery.Name = "btnQuery";
+            this.btnQuery.Size = new System.Drawing.Size(79, 35);
+            this.btnQuery.TabIndex = 142;
+            this.btnQuery.Text = "查 询";
+            this.btnQuery.UseVisualStyleBackColor = true;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Location = new System.Drawing.Point(12, 92);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(783, 444);
+            this.tabControl1.TabIndex = 2;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.Transparent;
+            this.tabPage1.Controls.Add(this.dgMaster);
+            this.tabPage1.Location = new System.Drawing.Point(4, 21);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(775, 419);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "信息列表";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // dgMaster
+            // 
+            this.dgMaster.AddDefaultMenu = false;
+            this.dgMaster.AddNoColumn = false;
+            this.dgMaster.AllowUserToAddRows = false;
+            this.dgMaster.AllowUserToDeleteRows = false;
+            this.dgMaster.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgMaster.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dgMaster.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgMaster.CausesValidation = false;
+            this.dgMaster.CellBackColor = System.Drawing.SystemColors.Control;
+            this.dgMaster.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dgMaster.ColumnHeadersHeight = 24;
+            this.dgMaster.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgMaster.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colOperDate,
+            this.colProjectCount,
+            this.colCount});
+            this.dgMaster.CustomBackColor = false;
+            this.dgMaster.EditCellBackColor = System.Drawing.Color.White;
+            this.dgMaster.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgMaster.EnableHeadersVisualStyles = false;
+            this.dgMaster.EnterNext = VirtualMachine.Component.WinControls.Controls.EnterNextType.NextColumn;
+            this.dgMaster.FreezeFirstRow = false;
+            this.dgMaster.FreezeLastRow = false;
+            this.dgMaster.FrontColumnCount = 0;
+            this.dgMaster.GridColor = System.Drawing.SystemColors.WindowText;
+            this.dgMaster.HScrollOffset = 0;
+            this.dgMaster.IsAllowOrder = true;
+            this.dgMaster.IsConfirmDelete = true;
+            this.dgMaster.Location = new System.Drawing.Point(6, 6);
+            this.dgMaster.MultiSelect = false;
+            this.dgMaster.Name = "dgMaster";
+            this.dgMaster.PageIndex = 0;
+            this.dgMaster.PageSize = 0;
+            this.dgMaster.Query = null;
+            this.dgMaster.ReadOnlyCols = ((System.Collections.IList)(resources.GetObject("dgMaster.ReadOnlyCols")));
+            this.dgMaster.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dgMaster.RowHeadersVisible = false;
+            this.dgMaster.RowHeadersWidth = 22;
+            this.dgMaster.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgMaster.RowTemplate.Height = 23;
+            this.dgMaster.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgMaster.Size = new System.Drawing.Size(763, 278);
+            this.dgMaster.TabIndex = 150;
+            this.dgMaster.TargetType = null;
+            this.dgMaster.VScrollOffset = 0;
+            // 
+            // colOperDate
+            // 
+            this.colOperDate.HeaderText = "日期";
+            this.colOperDate.Name = "colOperDate";
+            // 
+            // colProjectCount
+            // 
+            this.colProjectCount.HeaderText = "项目个数";
+            this.colProjectCount.Name = "colProjectCount";
+            this.colProjectCount.Width = 150;
+            // 
+            // colCount
+            // 
+            this.colCount.HeaderText = "记录总数";
+            this.colCount.Name = "colCount";
+            this.colCount.Width = 150;
+            // 
+            // VCompanyIndexGenerate
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(807, 424);
+            this.Name = "VCompanyIndexGenerate";
+            this.Text = "公司关键指标生成";
+            this.pnlFloor.ResumeLayout(false);
+            this.pnlFloor.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgMaster)).EndInit();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.GroupBox groupBox1;
+        private VirtualMachine.Component.WinControls.Controls.CustomButton btnGenerate;
+        private VirtualMachine.Component.WinControls.Controls.CustomLabel customLabel3;
+        private VirtualMachine.Component.WinControls.Controls.CustomDateTimePicker dtpEndDate;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private VirtualMachine.Component.WinControls.Controls.CustomDataGridView dgMaster;
+        private VirtualMachine.Component.WinControls.Controls.CustomButton btnQuery;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colOperDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colProjectCount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCount;
+
+
+    }
+}

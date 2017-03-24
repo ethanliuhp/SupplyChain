@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.PBS.Domain.PBSNodeRelation,SupplyChain" lazy="true" table="THD_PBSNodeRelation" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="RelationType" />
+    <property name="Description" />
+    <many-to-one name="TargetPBS" class="Application.Business.Erp.SupplyChain.CostManagement.PBS.Domain.PBSTree,SupplyChain" />
+    <property name="TargetPBSName" />
+    <property name="TargetPBSSyscode" />
+    <many-to-one name="SourcePBS" class="Application.Business.Erp.SupplyChain.CostManagement.PBS.Domain.PBSTree,SupplyChain" />
+    <property name="SourcePBSName" />
+    <property name="SourcePBSSyscode" />
+  </class>
+</hibernate-mapping>

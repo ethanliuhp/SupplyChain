@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.ProjectTaskTypeTree,SupplyChain" lazy="true" table="THD_ProjectTaskTypeTree" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <!--基类的属性-->
+    <!--<version name="Version" column="Version" type="long" unsaved-value="-1" />-->
+    <property name="CategoryNodeType" />
+    <property name="Name" length="50" />
+    <property name="Code" length="200" />
+    <property name="CreateDate" type="Date" />
+    <property name="SysCode"  />
+    <property name="State" />
+    <property name="Level" column="TLevel"/>
+    <property name="Describe"  />
+    <many-to-one name="ParentNode" column="ParentNodeID" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.ProjectTaskTypeTree,SupplyChain" />
+    <many-to-one name="Author" class="VirtualMachine.Patterns.BusinessEssence.Domain.BusinessOperators, VirtualMachine" />
+    <many-to-one name="TheTree" class="VirtualMachine.Patterns.CategoryTreePattern.Domain.CategoryTree,VirtualMachine" />
+    <property name="OrderNo" />
+    <bag name="ChildNodes" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write" />
+      <key column="ParentNodeID" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.ProjectTaskTypeTree,SupplyChain" />
+    </bag>
+    <!--自身的属性-->
+    <property name="TypeLevel"/>
+    <property name="TypeStandard" />
+    <property name="CheckRequire"/>
+    <property name="TypeSummary" />
+    <property name="Summary" />
+    <property name="ProjectDocTemplateGUID1" length="64"/>
+    <property name="ProjectDocTemplateGUID2" length="64"/>
+    <property name="ProjectDocTemplateGUID3" length="64"/>
+    <property name="UpdatedDate"/>
+    <property name="TheProjectGUID"/>
+    <property name="TheProjectName"/>
+  </class>
+</hibernate-mapping>

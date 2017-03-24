@@ -1,0 +1,25 @@
+﻿body 
+{
+    font-size:13px;
+}
+#main
+{
+    
+}
+#top
+{
+    border:solid 1px blue;
+}
+#contract
+{
+    border:solid 1px blue;
+    border-top-style:none;
+    text-align:center;
+    width:1000px;
+}
+#bottom
+{
+    border:solid 1px blue;
+    border-top-style:none;
+    display:none;
+}

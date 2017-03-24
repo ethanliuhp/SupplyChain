@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.FundPlanningMaster,SupplyChain" table="THD_FUNDSCHEMEMASTER" lazy="true" discriminator-value="-1">
+   
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="Code" />
+    <property name="ProjectId" />
+    <property name="ProjectName" />
+    <property name="Unit" />
+    <property name="Descript" />
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"></many-to-one>
+    <property name="OperOrgInfoName" column="OperationOrgName"/>
+    <property name="OpgSysCode" column="opgSysCode"/>
+    <property name="DeclareDate" />
+    <property name="CreateDate" />
+
+    <property name="ProjectCost" />
+    <property name="ContractDuration" />
+    <property name="GatheringCondition" />
+    <property name="SpecialDescript" />
+    <property name="SchemeBeginDate" />
+    <property name="SchemeEndDate" />
+    <property name="CalculateSituation" />
+    <property name="PlanningTarget" />
+    <property name="CalculateProfitRate" />
+    <property name="TargetHandin" />
+    <property name="CostCashRate" />
+    <property name="BreakevenPoint" />
+    <property name="CreatePersonName" />
+    <many-to-one name="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="DocState" column="State"></property>
+    <set name="CostCalculationDtl" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="FundSchemeId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.FundSchemeReportAmount, SupplyChain"/>
+    </set>
+    
+    <set name="GatheringCalculationDtl" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="FundSchemeId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.FundSchemeGathering, SupplyChain"/>
+    </set>
+
+    <set name="PaymentCalculationDtl" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="FundSchemeId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.FundSchemePayment, SupplyChain"/>
+    </set>
+
+    <set name="CashCostRateCalculationDtl" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="FundSchemeId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.FundSchemeCashCostRate, SupplyChain"/>
+    </set>
+
+    <set name="IndirectInputCalculate" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="FundSchemeId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.FundSchemeIndirectTaxRate, SupplyChain"/>
+    </set>
+
+    <set name="FinanceFeeCalculate" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="FundSchemeId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.FundSchemeFinanceFee, SupplyChain"/>
+    </set>
+
+    <set name="FundSummaryDtl" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="FundSchemeId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.FundSchemeSummary, SupplyChain"/>
+    </set>
+
+    <set name="FundCalculateContrastDtl" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="FundSchemeId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.FundSchemeContrast, SupplyChain"/>
+    </set>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.FactoringDataDetail,SupplyChain" table="THD_FactoringDataDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.FactoringDataMaster,SupplyChain"></many-to-one>
+    <property name="Money"></property>
+    <property name="DepartmentName"></property>
+    <property name="ProjectName"></property>
+    <property name="BankName"></property>
+    <property name="Balance"></property>
+    <property name="Rate"></property>
+    <property name="StartDate"></property>
+    <property name="EndDate"></property>
+    <property name="PayType"></property>
+    <property name="StartChargingDate"></property>
+    <property name="EndChargingDate"></property>
+    <property name="TotalDay"></property>
+    <property name="AmountPayable"></property>
+
+  </class>
+</hibernate-mapping>
+
+

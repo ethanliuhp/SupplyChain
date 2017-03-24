@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.LaborDemandPlanManage.Domain.LaborDemandPlanDetail,SupplyChain" table="THD_LaborDemandPlanDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <!--工程量计量单位-->
+    <many-to-one name="ProjectQuantityUnit" column="ProjectQuantityUnit" />
+    <property name="ProjectQuantityUnitName" column="ProjectQuantityUnitName"/>
+    <!--工期计量单位-->
+    <many-to-one name="ProjectTimeLimitUnit" column="ProjectTimeLimitUnit"/>
+    <property name="ProjectTimeLimitUnitName" column="ProjectTimeLimitUnitName"/>
+    <!--劳务队伍进场时间-->
+    <property name="LaborRankInTime" column="LaborRankInTime" type="DateTime"/>
+    <!--预计工程量-->
+    <property name="EstimateProjectQuantity" column="EstimateProjectQuantity"/>
+    <!--预计工期-->
+    <property name="EstimateProjectTimeLimit" column="EstimateProjectTimeLimit"/>
+    <!--质量安全专业要求-->
+    <property name="QualitySafetyRequirement" column="QualitySafetyRequirement"/>
+    <!--主要工作内容描述-->
+    <property name="MainJobDescript" column="MainJobDescript"/>
+
+    <!--<property name="LaborRankType" column="LaborRankType"/>-->
+    <!--劳务队伍类型-->
+    <property name="UsedRankType" column="UsedRankType"/>
+    <!--<property name="UsedRankTypeName" column="UsedRankTypeName"/>-->
+    <!--针对的GWBS-->
+    <property name="CorrespondGWBS" column="CorrespondGWBS"/>
+    <!--工程任务-->
+    <!--<property name="ProjectTask" column="ProjectTask"/>-->
+    <many-to-one name="ProjectTask" column="ProjectTask"  class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain"/>
+    <property name="ProjectTaskName" column="ProjectTaskName"/>
+    <property name="ProjectTaskSysCode" column="ProjectTaskSysCode"/>
+    <property name="ForwardDetailId"/>
+
+    <!--计划劳动力需求数量-->
+    <property name="PlanLaborDemandNumber" column="PlanLaborDemandNumber"/>
+    
+    <!--物资编码、材质、规格、名称等相关信息 -->
+    <property name="MaterialResource" column="MATERIALRESOURCE"/>
+    <property name="MaterialCode" column="MATERIALCODE"/>
+    <property name="MaterialName" column="MATERIALNAME"/>
+    <property name="MaterialSpec" column="MATERIALSPEC"/>
+    <many-to-one name="UsedPart" column="USEDPART" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain"/>
+    
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.ProductionManagement.LaborDemandPlanManage.Domain.LaborDemandPlanMaster,SupplyChain"></many-to-one>
+    <!--工种-->
+    <set name="WorkerDetails" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.ProductionManagement.LaborDemandPlanManage.Domain.LaborDemandWorkerType, SupplyChain"/>
+    </set>
+  </class>
+</hibernate-mapping>
+
+

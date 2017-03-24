@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.ConstructNodeSubject,SupplyChain" table="THD_ConstructNodeSubject" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="ProjectId"/>
+    <property name="ProjectName"/>
+    <many-to-one name="Subject" column="SubjectId" class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostAccountSubject,SupplyChain"/>
+    <property name="SubjectCode" />
+    <property name="SubjectName" />
+    <property name="CurrentRate" />
+    <property name="Rate" />
+    <property name="BeginDate" />
+    <property name="EndDate"></property>
+    <property name="Year"/>
+    <property name="Month"/>
+    <many-to-one name="DatePeriod" class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.DatePeriodDefine,SupplyChain" />
+    <property name="CreateDate" column="CreateTime" />
+    <property name="CreatePersonName" column="CreateBy"/>
+    <property name="OpgSysCode"/>
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperOrgInfoName" column="OperationOrgName"/>
+    <many-to-one name="WBSTree" column="WBSId" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain" />
+    <property name="WbsName"/>
+  </class>
+</hibernate-mapping>

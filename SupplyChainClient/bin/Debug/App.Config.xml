@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <appSettings>    
+    <add key="UpdateUrl" value="tcp://10.70.18.161:8997/UpdateService"/>
+    <add key="MainProgram" value="SupplyChainClient.exe"/>
+  </appSettings>
+</configuration>

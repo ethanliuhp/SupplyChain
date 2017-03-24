@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.Basic.Domain.MachineCostParame,SupplyChain" table="thd_machinecostparame" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <property name="SubjectId"/>
+    <property name="SubjectCode"/>
+    <property name="SubjectName"/>
+    <property name="Duration"/>
+    <property name="ActualentryDate"/>
+    <property name="ActualoutDate"/>
+    <property name="ProjectId"/>
+    <many-to-one name="Resconfig" column="Resconfig" not-null="true" class="Application.Business.Erp.SupplyChain.Basic.Domain.CurrentProjectInfo,SupplyChain"></many-to-one>
+  </class>
+</hibernate-mapping>

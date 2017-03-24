@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.ProjectTaskAccountMng.Domain.ProjectTaskDetailAccountSummary,SupplyChain" table="THD_ProjectTaskDtlAcctSummary" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="AccountProjectAmount"   />
+    <property name="AccountPrice"   />
+    <property name="AccountTotalPrice"   />
+    <property name="TheCompletePercent"   />
+
+    <many-to-one name="ProjectAmountUnitGUID" column="ProjectAmountUnitGUID"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="ProjectAmountUnitName" />
+    <property name="AddupCompletePercent"  />
+
+    <many-to-one name="PriceUnitGUID" column="PriceUnitGUID"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="PriceUnitName"/>
+    <property name="State"/>
+    <property name="Remark" />
+    <property name="AccountNodeGUID"/>
+    <property name="AccountNodeName"/>
+    <property name="AccountNodeSysCode" />
+
+    <many-to-one name="ProjectTaskDtlGUID" column="ProjectTaskDtlGUID"  class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSDetail,SupplyChain"></many-to-one>
+    <property name="ProjectTaskDtlName"/>
+
+    <property name="TheProjectGUID" />
+    <property name="TheProjectName"/>
+
+    <many-to-one name="TheAccountBill" column="ParentId" not-null="true" lazy="false" class="Application.Business.Erp.SupplyChain.CostManagement.ProjectTaskAccountMng.Domain.ProjectTaskAccountBill,SupplyChain"></many-to-one>
+
+    <property name="CurrAccFigureProgress"   />
+    <property name="AddupAccQuantity"   />
+    <property name="AddupAccFigureProgress"   />
+
+  </class>
+</hibernate-mapping>

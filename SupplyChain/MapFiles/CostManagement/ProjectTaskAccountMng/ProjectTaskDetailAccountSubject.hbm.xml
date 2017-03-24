@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.ProjectTaskAccountMng.Domain.ProjectTaskDetailAccountSubject,SupplyChain" table="THD_ProjectTaskDtlAcctSubject" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="TheProjectGUID" />
+    <property name="TheProjectName"/>
+    <property name="CostName" />
+
+    <property name="AccountPrice" />
+    <property name="AccountQuantity" />
+    <property name="AccountTotalPrice" />
+
+    <many-to-one name="QuantityUnitGUID" column="QuantityUnitGUID"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="QuantityUnitName"/>
+
+    <many-to-one name="PriceUnitGUID" column="PriceUnitGUID"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="PriceUnitName"/>
+
+    <many-to-one name="CostingSubjectGUID" column="CostingSubjectGUID" class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostAccountSubject,SupplyChain"/>
+    <property name="CostingSubjectName"/>
+    <property name="AccountCostSysCode"/>
+
+    <property name="ResourceTypeGUID"/>
+    <property name="ResourceTypeName"/>
+    <property name="ResourceTypeQuality" />
+    <property name="ResourceTypeSpec" />
+    <property name="ResourceCategorySysCode" />
+
+    <many-to-one name="TheAccountDetail" column="ParentId" not-null="true" lazy="false" class="Application.Business.Erp.SupplyChain.CostManagement.ProjectTaskAccountMng.Domain.ProjectTaskDetailAccount,SupplyChain"></many-to-one>
+
+    <many-to-one name="BestaetigtCostSubjectGUID" column="BestaetigtCostSubjectGUID" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSDetailCostSubject,SupplyChain"/>
+    <property name="BestaetigtCostSubjectName" />
+
+    <property name="MonthAccFlag"/>
+
+    <many-to-one name="ContructResponsibleGUID" column="ContructResponsibleGUID" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="ContructResponsibleName" />
+    <property name="ContructResponsibleOrgSysCode" />
+
+
+    <many-to-one name="TaskBearerGUID" column="TaskBearerGUID" class="Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass.SupplierRelationInfo,ResourceManager"/>
+    <property name="TaskBearerName"/>
+
+
+
+
+    <property name="ResContractQuantity" />
+    <property name="ContractQuantityPrice" />
+    <property name="ContractIncomeTotal" />
+    <property name="ContractQuotaNum" />
+    <property name="ContractProjectAmountPrice" />
+
+    <property name="ResponsibleQuantity" />
+    <property name="ResponsibleQnyPrice" />
+    <property name="ResponsibleWorkQnyPrice" />
+    <property name="ResponsibleUsageQny" />
+    <property name="ResponsibleUsageTotal" />
+    <property name="PlanQuantity" />
+    <property name="PlanQnyPrice" />
+    <property name="PlanWorkQnyPrice" />
+
+    <property name="PlanUsageQny" />
+    <property name="PlanUsageTotal" />
+    <property name="AccWorkQnyPrice" />
+    <property name="AccUsageQny" />
+    <property name="CurrContractIncomeQny" />
+    <property name="CurrContractIncomeTotal" />
+
+    <property name="CurrResponsibleCostQny" />
+    <property name="CurrResponsibleCostTotal" />
+
+    <property name="DiagramNumber"/>
+    <property name="IsBalance"/>
+  </class>
+</hibernate-mapping>
+
+

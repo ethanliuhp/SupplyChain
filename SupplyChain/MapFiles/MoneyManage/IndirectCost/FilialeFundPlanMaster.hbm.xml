@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MoneyManage.IndirectCost.Domain.FilialeFundPlanMaster,SupplyChain" table="Thd_FilialeFundPlanMaster" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="Descript" />
+    <property name="CurrentYearFundNetFlow" />
+    <property name="PresentMonthPlanPayment" />
+    <property name="PresentMonthGathering" />
+    <property name="PresentMonthSpendableFund" />
+    <property name="FinanceConfirmTaxIncome" />
+    <property name="Unit" />
+    <property name="TillLastMonthFundStock" />
+    <property name="CumulativeCurrentYearPayment" />
+    <property name="CumulativeCurrentYearGathering" />
+    <property name="CumulativeCurrentYearCashRatio" />
+    <property name="CumulativeCurrentYearFundFlow" />
+    <property name="CreateYear" column="Year"/>
+    <property name="ThereinSuperviseAccountFund" />
+    <property name="ThereinLoan" />
+    <property name="ThereinBankAccept" />
+    <many-to-one name="DeclareOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo, ResourceManager"/>
+    <property name="DeclareUnit" />
+    <property name="DeclarePerson" />
+    <property name="DeclareDate" />
+    <property name="Approval" />
+    <property name="CreateMonth"/>
+    <property name="DocState" column="State"/>
+    <property name="Code" />
+    <property name="CreateDate" />
+    <many-to-one name="CreatePerson" column="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="CreatePersonName" />
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperOrgInfoName" column="OperOrgName"/>
+    <property name="OpgSysCode" />
+
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.MoneyManage.IndirectCost.Domain.FilialeFundPlanDetail,SupplyChain"/>
+    </set>
+
+    <set name="OfficeFundPlanDetails" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.MoneyManage.IndirectCost.Domain.OfficeFundPlanPayDetail,SupplyChain"/>
+    </set>
+  </class>
+</hibernate-mapping>

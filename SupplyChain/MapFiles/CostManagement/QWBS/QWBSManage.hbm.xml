@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.QWBS.Domain.QWBSManage,SupplyChain" table="THD_QWBSManage" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+
+    <property name="NGUID"/>
+    <!--标前成本工程量-->
+    <property name="QDProjectCost"/>
+    <!--标前成本综合单价-->
+    <property name="QDPrice"/>
+    <!--成本测算合价-->
+    <property name="CostSumMoney"/>
+    <!--工程量计量单位-->
+    <many-to-one name="ProjectUnit" column="ProjectUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="ProjectUnitName"/>
+    <!--相关联的PBS-->
+    <!--<many-to-one name="PBSGUID" column="PBSGUID" not-null="true" class="Application.Business.Erp.SupplyChain.CostManagement.PBS.Domain.PBSTree,SupplyChain" lazy="false"></many-to-one>
+    <property name="PBSName"/>
+    --><!--组织层次码--><!--
+    <property name="PBSCode"/>-->
+    <!--合同签订工程量-->
+    <property name="ConProQuantity"/>
+    <!--合同签订合价-->
+    <property name="ConProMoney"/>
+    <!--合同签订综合单价-->
+    <property name="ConPorPrict"/>
+    <!--价格计量单位-->
+    <many-to-one name="PriceUnit" column="PriceUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="PriceUnitName"/>
+    <!--竣工结算工程量-->
+    <property name="ComProQuantity"/>
+    <!--竣工结算合价-->
+    <property name="ComProMoney"/>
+    <!--竣工结算综合价格-->
+    <property name="ComProPrice"/>
+    <!--清单任务级别-->
+    <property name="TaskLevel"/>
+    <!--清单任务名称-->
+    <property name="TaskName"/>
+    <!--清单任务项目特征-->
+    <property name="TaskCharacter"/>
+    <!--清单任务摘要-->
+    <property name="TaskDigest"/>
+    <!--任务要求完成时间-->
+    <property name="RequiredEndDate"/>
+    <!--任务要求开始时间-->
+    <property name="RequiredStartDate"/>
+    <!--所属清单任务类型（工程WBS）-->
+    <many-to-one name="ProjectTask" column="ProjectTask"  class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain"/>
+    <property name="ProjectTaskName"/>
+    <!--投标预算工程量-->
+    <property name="BidDudgetBill"/>
+    <!--投标预算合价-->
+    <property name="BidDudgetMoney"/>
+    <!--投标预算综合单价-->
+    <property name="BidDudgetPrice"/>
+    <!--业主招标工程量-->
+    <property name="OwnerBidProject"/>
+    <!--状态-->
+    <property name="State"/>
+    <!--清单项编码--><!--
+    <property name="Code"/>-->
+    <!--清单项目任务编码-->
+    <property name="ProjectCode"/>
+    <!--所属项目-->
+    <property name="ProjectId"/>
+    <property name="ProjectName"/>
+    <!--契约组-->
+    <property name="ContractGroup"/>
+    <!--契约组名称-->
+    <property name="ContractGroupName"/>
+
+    <property name="UpdatedDate" type="Date"/>
+    <property name="OrderNo" />
+    <property name="SysCode" length="4000" />
+
+    <!--<bag name="ChildNodes" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write" />
+      <key column="ParentNodeID" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain" />
+    </bag>-->
+
+    <many-to-one name="ParentNode" column="ParentNodeID" class="Application.Business.Erp.SupplyChain.CostManagement.QWBS.Domain.QWBSManage,SupplyChain" />
+    
+    <!--节点类型（根节点=0，枝节点=1，叶节点=2）-->
+    <property name="CategoryNodeType" />
+    <!--节点深度，从根节点开始开始往下数，根节点是1-->
+    <property name="Level" column="TLevel"/>
+    <!--所属分类树-->
+    <many-to-one name="TheTree" class="VirtualMachine.Patterns.CategoryTreePattern.Domain.CategoryTree,VirtualMachine" />
+    <property name="Code" />
+    <property name="CreateDate" />
+
+    <many-to-one name="OwnerGUID" column="OwnerGUID" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="OwnerName"/>
+    <property name="OwnerOrgSysCode" length="4000"/>
+
+    <many-to-one name="ProjectTaskTypeGUID" column="ProjectTaskTypeGUID" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.ProjectTaskTypeTree,SupplyChain" />
+    <property name="ProjectTaskTypeName" />
+    <many-to-one name="Author" class="VirtualMachine.Patterns.BusinessEssence.Domain.BusinessOperators, VirtualMachine" />
+    <property name="TaskState"/>
+  </class>
+</hibernate-mapping>
+
+

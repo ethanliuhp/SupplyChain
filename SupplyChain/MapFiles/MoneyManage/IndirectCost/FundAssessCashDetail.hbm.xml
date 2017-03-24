@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+   <class name="Application.Business.Erp.SupplyChain.MoneyManage.IndirectCost.Domain.FundAssessCashDetail,SupplyChain" table="THD_FundAssessCashDetail" lazy="true" discriminator-value="-1">
+        <id name="Id" column="Id" unsaved-value="null">
+           <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+        </id>
+     <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.MoneyManage.IndirectCost.Domain.FundAssessmentMaster,SupplyChain"></many-to-one>
+     <property name="CentralPurchase" />
+      <property name="InnerInstall" />
+      <property name="OtherContractPay" />
+      <property name="OtherAdjust" />
+      <property name="RealCashBalance" />
+      <property name="AssessCardinal" />
+      <property name="CashMoney" />
+      <property name="DeductionItem" />
+      <property name="WarnLevel" />
+      <property name="WarnRate" />
+      <property name="ApprovalRate" />
+      <property name="ApprovalDeduction" />
+      <property name="AssessCashMoney" />
+    </class>
+</hibernate-mapping>

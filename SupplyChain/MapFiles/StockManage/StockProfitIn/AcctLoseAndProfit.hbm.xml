@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.StockManage.StockProfitIn.Domain.AcctLoseAndProfit,SupplyChain" table="THD_AccLoseAndProfit" lazy="true"  select-before-update="true" discriminator-value="-1">
+
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+
+    <many-to-one name="CreatePerson" column="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <many-to-one name="AuditPerson" column="AuditPerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="CreateDate" type="Date" column="CreateDate"/>
+    <property name="AuditDate" type="Date" column="AuditDate"/>
+    <property name="CreateYear" column="CreateYear"/>
+    <property name="CreateMonth" column="CreateMonth"/>
+    <property name="AuditYear" column="AuditYear"/>
+    <property name="AuditMonth" column="AuditMonth"/>
+    <property name="BusinessType" column="BUSTYPE"/>
+    <property name="Descript" column="Descript"/>
+    <property name="BusinessTypeName" column="BUSTYPENAME"/>
+
+    <many-to-one name="TheSupplierRelationInfo" column="SupplierRelation" class="Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass.SupplierRelationInfo,ResourceManager"/>
+    <many-to-one name="TheCustomerRelationInfo" column="CustomerRelation" class="Application.Resource.PersonAndOrganization.ClientManagement.RelateClass.CustomerRelationInfo,ResourceManager" />
+
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="PARENTID" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.StockManage.StockProfitIn.Domain.AcctLoseAndProfitDtl,SupplyChain"/>
+    </set>
+
+    <property name="Code" column="CODE" length="50" />
+  </class>
+</hibernate-mapping>
+
+

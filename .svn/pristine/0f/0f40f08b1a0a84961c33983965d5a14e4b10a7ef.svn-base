@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.RectificationNoticeMng.Domain.RectificationNoticeDetail,SupplyChain" table="THD_RectificatNoticeDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <!--问题说明-->
+    <property name="QuestionState" column="QuestionState"/>
+    <!--前驱单据号-->
+    <property name="ForwordCode" column="ForwordCode"/>
+    <!--前驱检查内容说明-->
+    <property name="ForwordContent" column="ForwordContent"/>
+    <!--日常检查记录-->
+    <many-to-one name="ForwordInsLot" column="ForwordInsLot" ></many-to-one>
+
+    <!--<property name="ForwordInsLot" column="ForwordInsLot"/>-->
+    <!--问题代码-->
+    <property name="ProblemCode" column="ProblemCode"/>
+    <!--验收检查记录-->
+    <many-to-one name="AccepIns" column="AccepIns"  class="Application.Business.Erp.SupplyChain.ProductionManagement.AcceptanceInspectionMng.Domain.AcceptanceInspection,SupplyChain"></many-to-one>
+    <!--<property name="AccepIns" column="AccepIns"/>-->
+    <!--要求整改时间-->
+    <property name="RequiredDate" column="RequiredDate"/>
+    <!--隐患部位-->
+    <property name="DangerPart" column="DangerPart"/>
+    <!--隐患级别-->
+    <property name="DangerLevel" column="DangerLevel"/>
+    <!--隐患类型-->
+    <property name="DangerType" column="DangerType"/>
+    <!--整改措施和整改说明-->
+    <property name="RectContent" column="RectContent"/>
+    <!--整改结论-->
+    <property name="RectConclusion" column="RectConclusion"/>
+    <!--整改结论的时间-->
+    <property name="RectDate" column="RectDate"/>
+    <!--整改下发时间-->
+    <property name="RectSendDate" column="RectSendDate"/>
+    <!--整改要求-->
+    <property name="Rectrequired" column="Rectrequired"/>
+    <property name="IsCreated" column="IsCreated"/>
+    <!--专业检查记录明细-->
+    <many-to-one name="ProfessionDetail" column="ProfessionDetail"  class="Application.Business.Erp.SupplyChain.ProductionManagement.ProfessionInspectionRecord.Domain.ProfessionInspectionRecordDetail,SupplyChain"></many-to-one>
+    <property name="Descript" column="Descript"/>
+
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.ProductionManagement.RectificationNoticeMng.Domain.RectificationNoticeMaster,SupplyChain"></many-to-one>
+
+  </class>
+</hibernate-mapping>
+
+

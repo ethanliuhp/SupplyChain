@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.StockManage.DetectionReceiptManage.Domain.DetectionReceiptDetail,SupplyChain" table="THD_DetectionReceiptDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="uuid.hex" />
+    </id>
+
+    <!--物资-->
+    <many-to-one name="MaterialResource" column="Material"  class="Application.Resource.MaterialResource.Domain.Material,ResourceManager"/>
+    <property name="MaterialCode"/>
+    <property name="MaterialName"/>
+    <property name="MaterialSpec"/>
+    <property name="MaterialStuff"/>
+    <!--计量单位-->
+    <many-to-one name="MatStandardUnit" column="MatStandardUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="MatStandardUnitName"/>
+    <!--检测数量-->
+    <property name="DetectionQuantity" length="4" />
+    <!--供应单位-->
+    <many-to-one name="SupplyUnit" column="SupplyUnit" class="Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass.SupplierRelationInfo,ResourceManager"/>
+    <property name="SupplyUnitName"/>
+    <!--进场时间-->
+    <property name="ComeDate" column="ComeDate"/>
+    <!--厂家-->
+    <property name="Manufacturer" column="Manufacturer"/>
+    <!--外观检测-->
+    <property name="AppearanceTast" column="AppearanceTast"/>
+    <!--检测结果-->
+    <property name="TastResult" column="TastResult"/>
+    
+    <property name="Descript"/>
+
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.StockManage.DetectionReceiptManage.Domain.DetectionReceiptMaster, SupplyChain"></many-to-one>
+
+  </class>
+</hibernate-mapping>
+
+

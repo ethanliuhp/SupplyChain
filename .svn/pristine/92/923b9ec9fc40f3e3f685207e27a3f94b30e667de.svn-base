@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <!--工程对象关联文档服务-->
+  <object id="ProObjectRelaDocumentSrvTarget" type="Application.Business.Erp.SupplyChain.ProjectDocumentManage.Service.ProObjectRelaDocumentSrv,SupplyChain" autowire="byName">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="ProObjectRelaDocumentSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ProObjectRelaDocumentSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  
+  <!--文档分类服务-->
+  <object id="DocumentSrvTarget" type="IRPServiceModel.Services.Document.DocumentSrv,IRPServiceModel" autowire="byName">
+    <property name="Dao" ref="dao"/>
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+    <property name="NodeSrv" ref="CategoryNodeService"/>
+  </object>
+  
+  <object	id="DocumentSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="DocumentSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+
+
+  <!--公共服务-->
+  <object id="CommonMethodSrvTarget" type="IRPServiceModel.Services.Common.CommonMethodSrv,IRPServiceModel" autowire="byName">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="CommonMethodSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="CommonMethodSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--付款单-->
+  <object id="PaymentOrderSvrTarget" type="IRPServiceModel.Services.PaymentOrder.PaymentOrderSvr,IRPServiceModel" autowire="byName">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="PaymentOrderSvr" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="PaymentOrderSvrTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+<!--公司管理-->
+  <object id="CompanyInfoSvrTarget" type="IRPServiceModel.Services.CompanyMng.CompanyInfoSvr, IRPServiceModel" autowire="byName" lazy-init="true">
+    <property name="Dao" ref="dao"/>
+    <property name="NodeSrv" ref="CategoryNodeService" />
+    <property name="RuleSrv" ref="CategoryRuleService" />
+    <property name="TreeService" ref="CategoryTreeService" />
+  </object>
+  <object	id="CompanyInfoSvr" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="CompanyInfoSvrTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+</objects>

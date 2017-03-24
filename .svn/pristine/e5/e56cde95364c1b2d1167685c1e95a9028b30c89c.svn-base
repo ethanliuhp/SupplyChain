@@ -1,0 +1,100 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain;
+using System.Data;
+using System.Collections;
+using VirtualMachine.Core;
+using Application.Business.Erp.SupplyChain.Base.Service;
+using Application.Business.Erp.SupplyChain.Basic.Domain;
+using Application.Business.Erp.SupplyChain.CostManagement.OBS.Domain;
+using Application.Business.Erp.SupplyChain.Base.Domain;
+
+namespace Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Service
+{
+    public interface ICostMonthAccountSrv : IBaseService
+    {
+        int IfHaveAccount(int kjn, int kjy, string projectId, string accountTaskGUID, string accountTaskSyscode);
+        int IfHaveUnAccount(int kjn, int kjy, string projectId, string accountTaskGUID, string accountTaskSyscode);
+        string CostMonthAccountCal(CostMonthAccountBill model, CurrentProjectInfo projectInfo);
+        void UnCostMonthAccountCal(string costMonthAcctGUID);
+        DataSet QuerytCostMonthAccountLog(string condition);
+        IList SearchGWBSDetailLedger(CurrentProjectInfo projectInfo, DateTime dtStartDate, DateTime dtEndDate);
+        //IList SearchGWBSDetail(CurrentProjectInfo projectInfo);
+        IList GetCostMonthAccountBill(ObjectQuery objectQuery);
+        //取确权率台账
+        IList GetConfirmRight(DateTime start, DateTime end, string projectId, string sysCode);
+        IList GetAllProjectList();
+        OBSManage GetOBSManageByTaskNode(string taskNodeSyscode, string projectId);
+
+        Hashtable GetCompanyReportData(int kjn, int kjy);
+        Hashtable GetBusinessReportData(int kjn, int kjy, string projectId, string acctOrgGUID, IList taskList);
+        Hashtable GetProduceReportData(int kjn, int kjy, string projectId, string taskSyscode);
+
+        DataSet QueryCostMonthAcctBill(string condition);
+        DataSet CostMonthAcctGeneralQuery(string condition);
+        DataSet QueryGenCostMonthInfo(string projectId, int kjn, int kjy, string materialGuid, string materialCatGuid, string subjectGuid, string taskGuid);
+        IList SaveCostReporterConfig(IList listBill, IList listMoveBill);
+        IList QueryCostReporterConfig(string sPorjectID, string sType);
+
+        IList GetSpecialCollectReportData(int kjn, int kjy, string projectId, string accountOrgGUID, IList taskList, string qwbsGUID);
+        IList GetWholePlanData(int kjn, int kjy, string projectId, string accountTaskGUID, string accountOrgGUID);
+        Hashtable GetConfigSet(string sProjectID);
+        DataTable GetConfigSetProjectInfo();
+        IList QueryCostReporterConfig(string sType);
+        DataSet QuerytCostMonthAccountBill(string costAccountGUID);
+
+        Hashtable GetSpecialBusinessData(int kjn, int kjy, string projectId, string accountTaskGUID);
+
+        IList QuerySubcontractsLedger(string condition, int type);
+
+        DisclosureMaster SaveContractDisclosure(DisclosureMaster obj);
+        IList Query(Type type, ObjectQuery oQuery);
+
+        DisclosureMaster GetContractDisclosureById(string id);
+
+        IList GetContractDisclosure(ObjectQuery oq);
+
+        CommercialReportMaster GetCommercialMaster(string projctId, int year, int month, string type);
+
+        void SaveMasterAndDetail(CommercialReportMaster crMaster);
+
+        IList QueryCommercialReport(int year, int month, string type, string sOrgSysCode, string sProjectId);
+        IList QueryCostCompareReportData(string sProject, string sGwbsTreeID, int iYear, int iMonth);
+
+        List<CostMonthAccDtlConsume> GetRealCostConsume(string projId, List<string> nodes, int year, int month);
+        Hashtable GetCostSubjectNameList();
+        #region 取费模板
+        /// <summary>
+        /// 取费模板保存
+        /// </summary>
+        /// <param name="master"></param>
+        /// <returns></returns>
+        SelFeeTemplateMaster SaveOrUpdateSelFeeTemplateMaster(SelFeeTemplateMaster master);
+        /// <summary>
+        /// 取费模板删除
+        /// </summary>
+        /// <param name="master"></param>
+        /// <returns></returns>
+        bool DeleteSelFeeTemplateMaster(SelFeeTemplateMaster master);
+        /// <summary>
+        /// 获取取费模板
+        /// </summary>
+        /// <param name="oQuery"></param>
+        /// <returns></returns>
+        SelFeeTemplateMaster GetSelFeeTemplateMaster(ObjectQuery oQuery);
+        IList GetSelFeeTemplateMasterList(ObjectQuery oQuery);
+        /// <summary>
+        /// 获取取费集合
+        /// </summary>
+        /// <param name="oQuery"></param>
+        /// <returns></returns>
+        IList QuerySelFeeTemplateMaster(ObjectQuery oQuery);
+
+        SelFeeTemplateMaster GetSelFeeTemplateMasterById(string id);
+        #endregion
+
+        SumAreaParame SaveSumAreaParame(SumAreaParame obj);
+    }
+}

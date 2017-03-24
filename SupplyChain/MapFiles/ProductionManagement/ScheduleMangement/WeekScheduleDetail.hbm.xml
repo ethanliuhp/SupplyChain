@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.WeekScheduleDetail,SupplyChain" table="THD_WeekScheduleDetail" lazy="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.WeekScheduleMaster, SupplyChain"/>
+    <many-to-one name="GWBSTree" column="GWBSTree" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree, SupplyChain"/>
+    <property name="GWBSTreeName" />
+    <property name="GWBSTreeSysCode" length="4000"/>
+    <property name="NodeType" />
+
+    <many-to-one name="PBSTree" column="PBSTree" class="Application.Business.Erp.SupplyChain.CostManagement.PBS.Domain.PBSTree, SupplyChain"/>
+    <property name="PBSTreeName" />
+
+    <property name="PlannedBeginDate" />
+    <property name="PlannedEndDate" />
+    <property name="PlannedWrokload" />
+    <property name="PlannedDuration" />
+    <property name="TaskCheckState" />
+    <property name="TaskCompletedPercent" />
+    <property name="ActualDuration" />
+    <property name="ActualBeginDate" />
+    <property name="ActualEndDate" />
+    <property name="ActualWorklaod" />
+    <property name="CompletionAnalysis" />
+    <property name="PlanConformity" />
+    <property name="Descript" />
+    <property name="MainTaskContent" />
+    <property name="SummaryStatus"/>
+
+    <property name="ForwardBillMasterOwner"/>
+    <property name="ForwardBillMasterName"/>
+    <property name="ForwardBillDtlId"/>
+
+    <!--<many-to-one name="OBSService"/>-->
+    <property name="SupplierName"/>
+    <property name="ScheduleConfirmDate"/>
+    <property name="ScheduleConfirmFlag"/>
+    <property name="GWBSConfirmDate"/>
+    <property name="GWBSConfirmFlag"/>
+    <many-to-one name="SubContractProject"/>
+    <many-to-one name="SupplierRelationInfo"/>
+
+    <property name="ProjectId"/>
+    <property name="ProjectName"/>
+    <property name="CreateTime"/>
+
+    <property name="ScheduleUnit" />
+    <property name="State" />
+    <property name="SysCode" />
+    <many-to-one name="ParentNode" column="ParentNode" class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.WeekScheduleDetail, SupplyChain"/>
+    <property name="Level" column="NodeLevel"/>
+    <property name="OrderNo"/>
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.WeekScheduleTask, SupplyChain"/>
+    </set>
+    
+    <property name="IsFixed"/>
+    <property name="ProductionCuringNode"/>
+    <property name="WSDOrderNo"/>
+
+    <many-to-one name="SubmitPerson"/>
+    <property name="SubmitPersonName"/>
+    <property name="SubmitDate"/>
+    <many-to-one name="AuditPerson"/>
+    <property name="AuditPersonName"/>
+    <property name="AuditDate"/>
+
+    <set name="RalationDetails" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="WeekScheduleDetail" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.WeekScheduleRalation, SupplyChain"/>
+    </set>
+    
+  </class>
+</hibernate-mapping>

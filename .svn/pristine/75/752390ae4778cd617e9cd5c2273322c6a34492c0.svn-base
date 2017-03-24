@@ -1,0 +1,21 @@
+<ion-view view-title="{{title}}" hide-tabs="true"> 
+  <div class="time-picker">
+    <div class="row">
+      <p class="col-25 left" ng-click="prev()"><i class="ion-chevron-left"></i></p>
+      <p class="col-50" style="height:45px;line-height:40px;text-align:center;"><input type="date" style="width:100%;background-color:inherit;text-align:center;" ng-model="$parent.curDate" class="date" ng-change="dateChange($parent.curDate)"></p>
+      <p class="col-25 right" ng-click="next()"><i class="ion-chevron-right"></i></p>
+    </div>
+  </div>
+  <ion-content style="top:100px;" overflow-scroll='false' has-bouncing='true'>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right home-item" ng-repeat="item in list" type="item-text-wrap" ng-href="#/tab/index/{{item.Url}}">
+        <p class="home-item-title">
+          <span>{{$index + 1}}.{{item.Title}}</span><span class='badge-cscec' ng-show='item.WarningCount != 999'>{{item.WarningCount}}</span>
+        </p>
+        <p><span>{{item | FundConversion:'NumericalValue':'MeasurementUnitName'}}{{item | UnitConversion}}</span></p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
+    <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+  </ion-content>
+</ion-view>

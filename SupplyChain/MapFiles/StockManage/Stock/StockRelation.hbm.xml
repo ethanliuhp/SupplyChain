@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" auto-import="false">
+  <class name="Application.Business.Erp.SupplyChain.StockManage.Stock.Domain.StockRelation, SupplyChain" table="THD_StkStockRelation" lazy="true" select-before-update="true">
+
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <property name="AccountYear" />
+    <property name="AccountMonth" />
+    <property name="State" />
+    <property name="StationCategory" />
+    <property name="ProjectId" />
+    <property name="ProjectName" />
+    <property name="OperOrgInfo" />
+    <property name="OperOrgInfoName" />
+    <property name="StockInId" />
+    <property name="StockInDtlId" />
+    <property name="Price" />
+    <property name="Quantity" />
+    <property name="Money" />
+    <property name="RemainQuantity" />
+    <property name="RemainMoney" />
+    <property name="SeqId" />
+    <property name="SeqCreateDate" />
+    <property name="Material" />
+    <property name="MaterialName" />
+    <property name="MaterialCode" />
+    <property name="MaterialSpec" />
+    <property name="DiagramNumber" />
+    <property name="IdleQuantity" />
+    <property name="Descript"/>
+    <property name="Special"/>
+    <property name="ProfessionCategory"/>
+    <many-to-one name="SupplierRelationInfo"/>
+    <property name="SupplierName"/>
+    <property name="Confirmprice"/>
+    <property name="MaterialStuff"/>
+    <property name="MatStandardUnit"/>
+    <property name="MatStandardUnitName"/>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DictionarySerializer version="1.0">
+  <Context Name="DisplayText">
+    <Label Name="BatchImportTools">
+      <LocalizedLabel LanguageRef="en">BatchImportTools</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">BatchImportTools</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">批量导入工具</LocalizedLabel>
+    </Label>
+    <Label Name="Part">
+      <LocalizedLabel LanguageRef="en">Part:</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">Part:</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">零件:</LocalizedLabel>
+    </Label>
+    <Label Name="File">
+      <LocalizedLabel LanguageRef="en">File:</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">File:</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">文件:</LocalizedLabel>
+    </Label>
+    <Label Name="ImportPartRB">
+      <LocalizedLabel LanguageRef="en">BatchImportPartsAndBOM</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">BatchImportPartsAndBOM</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">批量明细导入</LocalizedLabel>
+    </Label>
+    <Label Name="ImportFileRB">
+      <LocalizedLabel LanguageRef="en">BatchImportFiles</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">BatchImportFiles</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">批量文档导入</LocalizedLabel>
+    </Label>
+    <Label Name="FileProductLabel">
+      <LocalizedLabel LanguageRef="en">ProductName:</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">ProductName:</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">产品名称:</LocalizedLabel>
+    </Label>
+    <Label Name="ExcelFileLabel">
+      <LocalizedLabel LanguageRef="en">ExcelFile:</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">ExcelFile:</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">Excel文件:</LocalizedLabel>
+    </Label>
+    <Label Name="SourceProductLabel">
+      <LocalizedLabel LanguageRef="en">SourceProduct:</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">SourceProduct:</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">源生产品:</LocalizedLabel>
+    </Label>
+    <Label Name="Save">
+      <LocalizedLabel LanguageRef="en">Save</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">Save</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">存储</LocalizedLabel>
+    </Label>
+    <Label Name="Cancel">
+      <LocalizedLabel LanguageRef="en">Cancel</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">Cancel</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">取消</LocalizedLabel>
+    </Label>
+    <Label Name="Login">
+      <LocalizedLabel LanguageRef="en">Login</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">Login</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">登录</LocalizedLabel>
+    </Label>
+    <Label Name="Logout">
+      <LocalizedLabel LanguageRef="en">Logout</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">Logout</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">注销</LocalizedLabel>
+    </Label>
+    <Label Name="Select">
+      <LocalizedLabel LanguageRef="en">Select</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">Select</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">选择</LocalizedLabel>
+    </Label>
+    <Label Name="SelectFileBt">
+      <LocalizedLabel LanguageRef="en">File</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">File</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">文件</LocalizedLabel>
+    </Label>
+    <Label Name="SelectFolderBt">
+      <LocalizedLabel LanguageRef="en">Folder</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">Folder</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">目录</LocalizedLabel>
+    </Label>
+    <Label Name="SelectFile">
+      <LocalizedLabel LanguageRef="en">SelectFile</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">SelectFile</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">选择文件</LocalizedLabel>
+    </Label>
+    <Label Name="RemoveFile">
+      <LocalizedLabel LanguageRef="en">RemoveFile</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">RemoveFile</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">移除文件</LocalizedLabel>
+    </Label>
+    <Label Name="SelectLinkPart">
+      <LocalizedLabel LanguageRef="en">SelectLinkPart</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">SelectLinkPart</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">关联零件</LocalizedLabel>
+    </Label>
+    <Label Name="PartToFile">
+      <LocalizedLabel LanguageRef="en">PartToFile</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">PartToFile</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">图档</LocalizedLabel>
+    </Label>
+    <Label Name="Reference">
+      <LocalizedLabel LanguageRef="en">Reference</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">Reference</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">普通文档</LocalizedLabel>
+    </Label>
+    <Label Name="ItemNo">
+      <LocalizedLabel LanguageRef="en">ItemNo</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">ItemNo</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">序号</LocalizedLabel>
+    </Label>
+    <Label Name="FileName">
+      <LocalizedLabel LanguageRef="en">FileName</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">FileName</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">文件名称</LocalizedLabel>
+    </Label>
+    <Label Name="LinkPart">
+      <LocalizedLabel LanguageRef="en">LinkPart</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">LinkPart</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">关联零件</LocalizedLabel>
+    </Label>
+    <Label Name="Exist">
+      <LocalizedLabel LanguageRef="en">Exist</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">Exist</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">是否存在</LocalizedLabel>
+    </Label>
+    <Label Name="FileExist">
+      <LocalizedLabel LanguageRef="en">Some File does not exist....</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">Some File does not exist....</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">有些文件本地不存在...</LocalizedLabel>
+    </Label>
+    <Label Name="SelectPart">
+      <LocalizedLabel LanguageRef="en">Please Select Part!</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">Please Select Part!</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">请选择零件!</LocalizedLabel>
+    </Label>
+    <Label Name="FinishSaveText">
+      <LocalizedLabel LanguageRef="en">Save is OK!</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">Save is OK!</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">存储完毕!</LocalizedLabel>
+    </Label>
+    <Label Name="FinishSaveCaption">
+      <LocalizedLabel LanguageRef="en">BatchImport：</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">BatchImport：</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">提示：</LocalizedLabel>
+    </Label>
+    <Label Name="Changed">
+      <LocalizedLabel LanguageRef="en">Changed</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">Changed</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">更新</LocalizedLabel>
+    </Label>
+    <Label Name="UnChanged">
+      <LocalizedLabel LanguageRef="en">UnChanged</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">UnChanged</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">引用</LocalizedLabel>
+    </Label>
+    <Label Name="ManageType">
+      <LocalizedLabel LanguageRef="en">ManageType</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">ManageType</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">入库方式</LocalizedLabel>
+    </Label>
+
+    <Label Name="PartType">
+      <LocalizedLabel LanguageRef="en">Part</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">Part</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">零件</LocalizedLabel>
+    </Label>
+
+    <Label Name="FileType">
+      <LocalizedLabel LanguageRef="en">File</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">File</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">文档对象</LocalizedLabel>
+    </Label>
+
+    <Label Name="BOMType">
+      <LocalizedLabel LanguageRef="en">BOM</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">BOM</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">BOM对象</LocalizedLabel>
+    </Label>
+
+    <Label Name="FileStructureType">
+      <LocalizedLabel LanguageRef="en">FileStructure</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">FileStructure</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">文档结构对象</LocalizedLabel>
+    </Label>
+
+    <Label Name="PartToFileType">
+      <LocalizedLabel LanguageRef="en">PartToFile</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">PartToFile</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">零件关联对象</LocalizedLabel>
+    </Label>
+
+    <Label Name="Initional">
+      <LocalizedLabel LanguageRef="en">Initional</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">Initional</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">系统初始化</LocalizedLabel>
+    </Label>
+    <Label Name="SelectFileDialog">
+      <LocalizedLabel LanguageRef="en">Please select file</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">Please select file</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">请选择文档</LocalizedLabel>
+    </Label>
+    <Label Name="PartTree">
+      <LocalizedLabel LanguageRef="en">PartTree</LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">PartTree</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">零件树</LocalizedLabel>
+    </Label>
+<Label Name="ObjectTypeIsNotInitial">
+      <LocalizedLabel LanguageRef="en">Assign ObjectType is not initial.Please login or check config item </LocalizedLabel>
+      <LocalizedLabel LanguageRef="it">Assign ObjectType is not initial.Please login or check config item</LocalizedLabel>
+      <LocalizedLabel LanguageRef="zhs">对象类型没有完成初始化，请首先完成登录或检查配置文件中默认业务对象</LocalizedLabel>
+    </Label>
+
+  </Context>
+</DictionarySerializer>

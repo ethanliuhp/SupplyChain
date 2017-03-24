@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.Indicator.IndicatorUse.Domain.ViewDistribute,SupplyChain" table="THD_ViewDistribute" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="StateCode" column="StateCode"/>
+    <property name="StateName" column="StateName" length="40"/>
+    <property name="ViewName" column="ViewName" length="80"/>
+    <property name="DistributeDate" column="DistributeDate" type="Date"/>
+    <property name="DistributeSerial" column="DistributeSerial"/>
+    <property name="WriteDate" column="WriteDate" type="Date"/>
+    <many-to-one name="Author" column="PerId" />
+    <many-to-one name="TheOpeOrg" column="OpeId" />
+    <many-to-one name="TheJob" column="JobId" />
+    <many-to-one name="Main" column="ViewMainId" />
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{359D72FA-1A0A-4AD1-8FB3-76301CB1784E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PortalIntegrationConsole</RootNamespace>
+    <AssemblyName>PortalIntegrationConsole</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ApprovalManagerLib, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ApprovalManagerLib.dll</HintPath>
+    </Reference>
+    <Reference Include="AuthManagerLib, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\AuthManagerLib.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonSearchLib, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CommonSearchLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=3.2.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="ResourceManager, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ResourceManager.dll</HintPath>
+    </Reference>
+    <Reference Include="SecureSystem, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SecureSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Aop, Version=1.2.0.20313, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Spring.Aop.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core, Version=1.2.0.20313, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="VirtualMachine, Version=2.0.0.1, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\VirtualMachine.dll</HintPath>
+    </Reference>
+    <Reference Include="WizardBase, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WizardBase.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutoBusinessService.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AutoBusinessService.Designer.cs">
+      <DependentUpon>AutoBusinessService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommonClass\StaticMethod.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSetXML.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSetXML.Designer.cs">
+      <DependentUpon>FrmSetXML.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ProjectSysRankingModel.cs" />
+    <Compile Include="Plugin\ProjectRankingPlugin.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AutoBusinessService.resx">
+      <DependentUpon>AutoBusinessService.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSetXML.resx">
+      <DependentUpon>FrmSetXML.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="App.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\IRPOrgUserSyncDataSrv\OrgUserSyncDataSrv.wsdl" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Service References\IRPOrgUserSyncDataSrv\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\KBOrgUserSyncDataSrv\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\MsgService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service\IUsersXmlSrv.cs" />
+    <Compile Include="Service\ProjectRanking.cs" />
+    <Compile Include="Service\ReloadIRPXml.cs" />
+    <Compile Include="Service\UsersXmlSrv.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AppContext\appContext.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="AppContext\appContextApproval.xml" />
+    <Content Include="AppContext\appContextAuth.xml" />
+    <Content Include="AppContext\appContextCost.xml" />
+    <Content Include="AppContext\appContextDoc.xml" />
+    <Content Include="AppContext\appContextMap.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="AppContext\appContextMoney.xml" />
+    <Content Include="AppContext\appContextRes.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="AppContext\appContextSecure.xml" />
+    <Content Include="AppContext\appContextStock.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="AppContext\appContextVM.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ContextConfig.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Service References\IRPOrgUserSyncDataSrv\OrgUserSyncDataSrv.disco" />
+    <None Include="Service References\IRPOrgUserSyncDataSrv\configuration91.svcinfo" />
+    <None Include="Service References\IRPOrgUserSyncDataSrv\configuration.svcinfo" />
+    <None Include="Service References\IRPOrgUserSyncDataSrv\PortalIntegrationConsole.IRPOrgUserSyncDataSrv.OpeOrg.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IRPOrgUserSyncDataSrv\PortalIntegrationConsole.IRPOrgUserSyncDataSrv.Post.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IRPOrgUserSyncDataSrv\PortalIntegrationConsole.IRPOrgUserSyncDataSrv.RetOb.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IRPOrgUserSyncDataSrv\PortalIntegrationConsole.IRPOrgUserSyncDataSrv.Role.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IRPOrgUserSyncDataSrv\PortalIntegrationConsole.IRPOrgUserSyncDataSrv.User.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\IRPOrgUserSyncDataSrv\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\KBOrgUserSyncDataSrv\OrgUserSyncDataSrv.wsdl" />
+    <None Include="Service References\KBOrgUserSyncDataSrv\OrgUserSyncDataSrv.disco" />
+    <None Include="Service References\KBOrgUserSyncDataSrv\configuration91.svcinfo" />
+    <None Include="Service References\KBOrgUserSyncDataSrv\configuration.svcinfo" />
+    <None Include="Service References\KBOrgUserSyncDataSrv\PortalIntegrationConsole.KBOrgUserSyncDataSrv.OpeOrg.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\KBOrgUserSyncDataSrv\PortalIntegrationConsole.KBOrgUserSyncDataSrv.Post.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\KBOrgUserSyncDataSrv\PortalIntegrationConsole.KBOrgUserSyncDataSrv.RetOb.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\KBOrgUserSyncDataSrv\PortalIntegrationConsole.KBOrgUserSyncDataSrv.Role.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\KBOrgUserSyncDataSrv\PortalIntegrationConsole.KBOrgUserSyncDataSrv.User.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\KBOrgUserSyncDataSrv\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\MsgService\ImMessageService.disco" />
+    <None Include="Service References\MsgService\ImMessageService.wsdl" />
+    <None Include="Service References\MsgService\configuration91.svcinfo" />
+    <None Include="Service References\MsgService\configuration.svcinfo" />
+    <None Include="Service References\MsgService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="SystemContext.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IRPServiceModel\IRPServiceModel.csproj">
+      <Project>{CC4F676B-2D14-4B0E-847D-934900926F18}</Project>
+      <Name>IRPServiceModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SupplyChain\SSupplyChain.csproj">
+      <Project>{75388C09-4FDB-4278-8E73-C715A6ADFF70}</Project>
+      <Name>SSupplyChain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\IRPOrgUserSyncDataSrv\" />
+    <WCFMetadataStorage Include="Service References\KBOrgUserSyncDataSrv\" />
+    <WCFMetadataStorage Include="Service References\MsgService\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

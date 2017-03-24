@@ -1,0 +1,66 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using System.Collections;
+using Application.Resource.PersonAndOrganization.OrganizationResource.Domain;
+using VirtualMachine.Core;
+using VirtualMachine.Patterns.CategoryTreePattern.Domain;
+using Application.Resource.PersonAndOrganization.HumanResource.Domain;
+using System.Data;
+using Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain;
+
+namespace Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Service
+{
+    public interface ICostAccountSubjectSrv
+    {
+        bool DeleteCostAccountSubject(CostAccountSubject pbs);
+        bool DeleteCostAccountSubject(IList lst);
+        System.Collections.IList GetALLChildNodes(CostAccountSubject pbs);
+        CostAccountSubject GetCostAccountSubjectById(string id);
+        System.Collections.IList GetCostAccountSubjects(Type t);
+        System.Collections.IList InvalidateCostAccountSubject(CostAccountSubject pbs);
+        CostAccountSubject MoveCostAccountSubject(CostAccountSubject pbs, CostAccountSubject toOrg);
+        VirtualMachine.Patterns.CategoryTreePattern.Service.ICategoryNodeService NodeSrv { get; set; }
+
+        /// <summary>
+        /// 如果有多个对象，第一个对象为根节点，后续为子节点
+        /// </summary>
+        /// <param name="lst">树节点集合</param>
+        /// <returns></returns>
+        IList SaveCostAccountSubjectRootNode(IList list);
+        CostAccountSubject SaveCostAccountSubject(CostAccountSubject childOrg);
+        IList GetCostAccountSubjectRules(Type treeType);
+        IList GetCostAccountSubjectRules(Type treeType, Type parentNodeType);
+        bool InitRule();
+      
+        IList GetCostAccountSubjects(Type t, ObjectQuery oq);
+        IList GetCostAccountSubjectAndJobs(Type t);
+        CostAccountSubject GetCostAccountSubject(CostAccountSubject orgCat);
+        IList GetCostAccountSubjectAndJobs();
+        IList SaveCostAccountSubjects(IList lst);
+        long GetMaxOrderNo(CategoryNode node, ObjectQuery oq);
+        /// <summary>
+        /// 获取成本核算科目节点集合(返回有权限和无权限的集合)
+        /// </summary>
+        IList GetCostAccountSubjectByInstance();
+        /// <summary>
+        /// 获取业务组织及岗位节点集合(返回有权限和无权限的集合)
+        /// </summary>
+        IList GetOpeOrgAndJobsByInstance();
+        CategoryTree InitTree(string treeName, Type treeType);
+        CategoryTree InitTree(string treeName, Type treeType, StandardPerson aPerson);
+        int SaveSQL(string sql);
+        DataSet SearchSQL(string sql);
+
+        string GetNextOPGCode();
+
+        /// <summary>
+        /// 获取对象编码
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        string GetCode(Type type);
+    }
+}

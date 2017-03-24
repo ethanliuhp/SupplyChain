@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.SpecialCostMaster,SupplyChain" table="thd_specialcostmaster" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="Code" column="Code"  />
+    <property name="DocState" column="State" />
+    <property name="CreateDate"/>
+    <!--费用类型-->
+    <property name="CostType"/>
+    <!--工程任务GUID-->
+    <many-to-one name="EngTaskId"/>
+    <!--工程任务名称-->
+    <property name="EngTaskName"/>
+    <property name="EngTaskSyscode"/>
+    <!--合同利润率-->
+    <property name="ContractProfit"/>
+    <!--合同总收入-->
+    <property name="ContractTotalIncome"/>
+    <!--合同总支出-->
+    <property name="ContractTotalIPay"/>
+    <!--累计核算形象进度-->
+    <property name="AccountingProgress"/>
+    <!--实际收入-->
+    <property name="RealIncome"/>
+    <!--实际支出-->
+    <property name="RealPay"/>
+    <!--提交时间-->
+    <property name="SubmitDate"/>
+    <property name="RealOperationDate"/>
+    <property name="ProjectId"/>
+    <property name="ProjectName"/>
+    <!--责任人-->
+    <many-to-one name="HandlePerson" column="HandlePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="HandlePersonName"/>
+    
+    <property name="CreatePersonName"/>
+    <many-to-one name="CreatePerson"/>
+    <property name="OpgSysCode"/>
+    <property name="AuditYear" column="AuditYear"/>
+    <property name="AuditMonth" column="AuditMonth"/>
+    <property name="AuditDate" column="AuditDate"/>
+
+    <!--审核人-->
+    <many-to-one name="AuditPerson" column="AuditPerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="AuditPersonName"/>
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.SpecialCostDetail,SupplyChain"/>
+    </set>
+  </class>
+</hibernate-mapping>
+
+

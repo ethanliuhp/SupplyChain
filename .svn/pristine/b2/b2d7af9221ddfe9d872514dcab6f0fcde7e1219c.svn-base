@@ -1,0 +1,200 @@
+﻿namespace Application.Business.Erp.SupplyChain.Client.MoneyManage.FundPlan
+{
+    partial class VFundPayApplyQuery
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.dtpBeginCreateDate = new VirtualMachine.Component.WinControls.Controls.CustomDateTimePicker();
+            this.dtpEndCreateDate = new VirtualMachine.Component.WinControls.Controls.CustomDateTimePicker();
+            this.lblEndCreateDate = new VirtualMachine.Component.WinControls.Controls.CustomLabel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.requestTypeLbl = new System.Windows.Forms.Label();
+            this.requestTypeCBox = new System.Windows.Forms.ComboBox();
+            this.queryBtn = new System.Windows.Forms.Button();
+            this.btnOperationOrg = new System.Windows.Forms.Button();
+            this.txtOperationOrg = new VirtualMachine.Component.WinControls.Controls.CustomEdit();
+            this.lblPSelect = new VirtualMachine.Component.WinControls.Controls.CustomLabel();
+            this.pnlFloor.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // pnlFloor
+            // 
+            this.pnlFloor.Controls.Add(this.btnOperationOrg);
+            this.pnlFloor.Controls.Add(this.txtOperationOrg);
+            this.pnlFloor.Controls.Add(this.lblPSelect);
+            this.pnlFloor.Controls.Add(this.queryBtn);
+            this.pnlFloor.Controls.Add(this.requestTypeLbl);
+            this.pnlFloor.Controls.Add(this.requestTypeCBox);
+            this.pnlFloor.Controls.Add(this.dtpBeginCreateDate);
+            this.pnlFloor.Controls.Add(this.dtpEndCreateDate);
+            this.pnlFloor.Controls.Add(this.lblEndCreateDate);
+            this.pnlFloor.Controls.Add(this.label2);
+            this.pnlFloor.Size = new System.Drawing.Size(915, 478);
+            this.pnlFloor.Controls.SetChildIndex(this.lblTitle, 0);
+            this.pnlFloor.Controls.SetChildIndex(this.label2, 0);
+            this.pnlFloor.Controls.SetChildIndex(this.lblEndCreateDate, 0);
+            this.pnlFloor.Controls.SetChildIndex(this.dtpEndCreateDate, 0);
+            this.pnlFloor.Controls.SetChildIndex(this.dtpBeginCreateDate, 0);
+            this.pnlFloor.Controls.SetChildIndex(this.requestTypeCBox, 0);
+            this.pnlFloor.Controls.SetChildIndex(this.requestTypeLbl, 0);
+            this.pnlFloor.Controls.SetChildIndex(this.queryBtn, 0);
+            this.pnlFloor.Controls.SetChildIndex(this.lblPSelect, 0);
+            this.pnlFloor.Controls.SetChildIndex(this.txtOperationOrg, 0);
+            this.pnlFloor.Controls.SetChildIndex(this.btnOperationOrg, 0);
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.Location = new System.Drawing.Point(432, 11);
+            // 
+            // dtpBeginCreateDate
+            // 
+            this.dtpBeginCreateDate.Location = new System.Drawing.Point(87, 11);
+            this.dtpBeginCreateDate.Name = "dtpBeginCreateDate";
+            this.dtpBeginCreateDate.Size = new System.Drawing.Size(110, 21);
+            this.dtpBeginCreateDate.TabIndex = 328;
+            // 
+            // dtpEndCreateDate
+            // 
+            this.dtpEndCreateDate.Location = new System.Drawing.Point(228, 11);
+            this.dtpEndCreateDate.Name = "dtpEndCreateDate";
+            this.dtpEndCreateDate.Size = new System.Drawing.Size(110, 21);
+            this.dtpEndCreateDate.TabIndex = 326;
+            // 
+            // lblEndCreateDate
+            // 
+            this.lblEndCreateDate.AutoSize = true;
+            this.lblEndCreateDate.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblEndCreateDate.FontSize = VirtualMachine.Component.WinControls.Style.FontSize.Default;
+            this.lblEndCreateDate.Location = new System.Drawing.Point(207, 15);
+            this.lblEndCreateDate.Name = "lblEndCreateDate";
+            this.lblEndCreateDate.Size = new System.Drawing.Size(11, 12);
+            this.lblEndCreateDate.TabIndex = 327;
+            this.lblEndCreateDate.Text = "-";
+            this.lblEndCreateDate.UnderLineColor = System.Drawing.Color.Red;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 15);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(65, 12);
+            this.label2.TabIndex = 325;
+            this.label2.Text = "业务时间：";
+            // 
+            // requestTypeLbl
+            // 
+            this.requestTypeLbl.AutoSize = true;
+            this.requestTypeLbl.Location = new System.Drawing.Point(348, 15);
+            this.requestTypeLbl.Name = "requestTypeLbl";
+            this.requestTypeLbl.Size = new System.Drawing.Size(65, 12);
+            this.requestTypeLbl.TabIndex = 332;
+            this.requestTypeLbl.Text = "申请类型：";
+            // 
+            // requestTypeCBox
+            // 
+            this.requestTypeCBox.FormattingEnabled = true;
+            this.requestTypeCBox.Items.AddRange(new object[] {
+            "下拨",
+            "备案"});
+            this.requestTypeCBox.Location = new System.Drawing.Point(423, 11);
+            this.requestTypeCBox.Name = "requestTypeCBox";
+            this.requestTypeCBox.Size = new System.Drawing.Size(121, 20);
+            this.requestTypeCBox.TabIndex = 331;
+            // 
+            // queryBtn
+            // 
+            this.queryBtn.Location = new System.Drawing.Point(818, 10);
+            this.queryBtn.Name = "queryBtn";
+            this.queryBtn.Size = new System.Drawing.Size(75, 23);
+            this.queryBtn.TabIndex = 333;
+            this.queryBtn.Text = "查询";
+            this.queryBtn.UseVisualStyleBackColor = true;
+            this.queryBtn.Click += new System.EventHandler(this.queryBtn_Click);
+            // 
+            // btnOperationOrg
+            // 
+            this.btnOperationOrg.Location = new System.Drawing.Point(768, 10);
+            this.btnOperationOrg.Name = "btnOperationOrg";
+            this.btnOperationOrg.Size = new System.Drawing.Size(44, 23);
+            this.btnOperationOrg.TabIndex = 336;
+            this.btnOperationOrg.Text = "选择";
+            this.btnOperationOrg.UseVisualStyleBackColor = true;
+            // 
+            // txtOperationOrg
+            // 
+            this.txtOperationOrg.BackColor = System.Drawing.SystemColors.Control;
+            this.txtOperationOrg.CustomBorderStyle = VirtualMachine.Component.WinControls.Controls.EditBorderStyle.None;
+            this.txtOperationOrg.DrawSelf = false;
+            this.txtOperationOrg.EditStyle = VirtualMachine.Component.WinControls.Controls.EditStyle.Text;
+            this.txtOperationOrg.EnterToTab = false;
+            this.txtOperationOrg.Location = new System.Drawing.Point(612, 13);
+            this.txtOperationOrg.Mask = VirtualMachine.Component.WinControls.Controls.MaskStyle.None;
+            this.txtOperationOrg.Name = "txtOperationOrg";
+            this.txtOperationOrg.Padding = new System.Windows.Forms.Padding(1);
+            this.txtOperationOrg.ReadOnly = true;
+            this.txtOperationOrg.Size = new System.Drawing.Size(150, 16);
+            this.txtOperationOrg.TabIndex = 335;
+            // 
+            // lblPSelect
+            // 
+            this.lblPSelect.AutoSize = true;
+            this.lblPSelect.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblPSelect.FontSize = VirtualMachine.Component.WinControls.Style.FontSize.Default;
+            this.lblPSelect.Location = new System.Drawing.Point(553, 15);
+            this.lblPSelect.Name = "lblPSelect";
+            this.lblPSelect.Size = new System.Drawing.Size(59, 12);
+            this.lblPSelect.TabIndex = 334;
+            this.lblPSelect.Text = "范围选择:";
+            this.lblPSelect.UnderLineColor = System.Drawing.Color.Red;
+            // 
+            // VFundPayApplyQuery
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(915, 478);
+            this.Name = "VFundPayApplyQuery";
+            this.Text = "资金支付申请单查询";
+            this.pnlFloor.ResumeLayout(false);
+            this.pnlFloor.PerformLayout();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private VirtualMachine.Component.WinControls.Controls.CustomDateTimePicker dtpBeginCreateDate;
+        private VirtualMachine.Component.WinControls.Controls.CustomDateTimePicker dtpEndCreateDate;
+        private VirtualMachine.Component.WinControls.Controls.CustomLabel lblEndCreateDate;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label requestTypeLbl;
+        private System.Windows.Forms.ComboBox requestTypeCBox;
+        private System.Windows.Forms.Button queryBtn;
+        private System.Windows.Forms.Button btnOperationOrg;
+        private VirtualMachine.Component.WinControls.Controls.CustomEdit txtOperationOrg;
+        private VirtualMachine.Component.WinControls.Controls.CustomLabel lblPSelect;
+    }
+}

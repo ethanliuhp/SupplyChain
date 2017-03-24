@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MoneyManage.IndirectCost.Domain.BorrowedOrderDetail,SupplyChain" table="THD_BorrowedOrderDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.MoneyManage.IndirectCost.Domain.BorrowedOrderMaster,SupplyChain"></many-to-one>
+    <property name="BorrowedType"></property>
+    <property name="BorrowedPurpose"></property>
+    <property name="BorrowedDate"></property>
+    <property name="CreateTime"></property>
+    <property name="Money"></property>
+    <property name="Descript"></property>
+    <property name="RefundDate"></property>
+    <property name="CashMoney"></property>
+    <property name="CheckMoney"></property>
+    <property name="CheckNo"></property>
+    <property name="ExchangeMoney"></property>
+    <property name="ExchangeNo"></property>
+  </class>
+</hibernate-mapping>
+
+

@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <configSections>
+    <section name="hibernate-configuration" type="NHibernate.Cfg.ConfigurationSectionHandler, NHibernate" />
+  </configSections>
+  <hibernate-configuration xmlns="urn:nhibernate-configuration-2.2">
+    <bytecode-provider type="lcg" />
+    <reflection-optimizer use="true" />
+    <session-factory>
+      <property name="connection.provider">NHibernate.Connection.DriverConnectionProvider, NHibernate</property>
+      <property name="cache.use_query_cache">false</property>
+      <property name="cache.use_second_level_cache">false</property>
+      <property name="cache.provider_class">NHibernate.Caches.SysCache.SysCacheProvider,NHibernate.Caches.SysCache</property>
+      <property name="connection.driver_class">NHibernate.Driver.OracleClientDriver</property>
+      <!--<property name="default_schema">IRP_MBP.dbo</property>-->
+      <property name="connection.connection_string">
+        Data Source=orcl_30;User ID=IRP_MBP;Password=IRP_MBP123
+      </property>
+      <property name="show_sql">false</property>
+      <property name="dialect">NHibernate.Dialect.Oracle10gDialect</property>
+      <property name="max_fetch_depth">3</property>
+    </session-factory>
+  </hibernate-configuration>
+  <appSettings>
+    <!-- IRP配置文件路径 -->
+    <add key="IRPAddress" value="E:\TDPLMConfig\DataSync"/>
+  </appSettings>
+  <system.web>
+    <membership defaultProvider="ClientAuthenticationMembershipProvider">
+      <providers>
+        <add name="ClientAuthenticationMembershipProvider" type="System.Web.ClientServices.Providers.ClientFormsAuthenticationMembershipProvider, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" serviceUri="" />
+      </providers>
+    </membership>
+    <roleManager defaultProvider="ClientRoleProvider" enabled="true">
+      <providers>
+        <add name="ClientRoleProvider" type="System.Web.ClientServices.Providers.ClientRoleProvider, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" serviceUri="" cacheTimeout="86400" />
+      </providers>
+    </roleManager>
+  </system.web>
+  <system.serviceModel>
+    <bindings>
+      <basicHttpBinding>
+        <binding name="OrgUserSyncDataSrvSoap" closeTimeout="00:01:00"
+          openTimeout="00:01:00" receiveTimeout="00:10:00" sendTimeout="00:01:00"
+          allowCookies="false" bypassProxyOnLocal="false" hostNameComparisonMode="StrongWildcard"
+          maxBufferSize="65536" maxBufferPoolSize="524288" maxReceivedMessageSize="65536"
+          messageEncoding="Text" textEncoding="utf-8" transferMode="Buffered"
+          useDefaultWebProxy="true">
+          <readerQuotas maxDepth="32" maxStringContentLength="8192" maxArrayLength="16384"
+            maxBytesPerRead="4096" maxNameTableCharCount="16384" />
+          <security mode="None">
+            <transport clientCredentialType="None" proxyCredentialType="None"
+              realm="" />
+            <message clientCredentialType="UserName" algorithmSuite="Default" />
+          </security>
+        </binding>
+        <binding name="OrgUserSyncDataSrvSoap1" closeTimeout="00:01:00"
+          openTimeout="00:01:00" receiveTimeout="00:10:00" sendTimeout="00:01:00"
+          allowCookies="false" bypassProxyOnLocal="false" hostNameComparisonMode="StrongWildcard"
+          maxBufferSize="65536" maxBufferPoolSize="524288" maxReceivedMessageSize="65536"
+          messageEncoding="Text" textEncoding="utf-8" transferMode="Buffered"
+          useDefaultWebProxy="true">
+          <readerQuotas maxDepth="32" maxStringContentLength="8192" maxArrayLength="16384"
+            maxBytesPerRead="4096" maxNameTableCharCount="16384" />
+          <security mode="None">
+            <transport clientCredentialType="None" proxyCredentialType="None"
+              realm="" />
+            <message clientCredentialType="UserName" algorithmSuite="Default" />
+          </security>
+        </binding>
+      </basicHttpBinding>
+    </bindings>
+    <client>
+      <endpoint address="http://localhost:3561/MainWeb/OrgUserSyncDataSrv.asmx"
+        binding="basicHttpBinding" bindingConfiguration="OrgUserSyncDataSrvSoap"
+        contract="IRPOrgUserSyncDataSrv.OrgUserSyncDataSrvSoap" name="OrgUserSyncDataSrvSoap" />
+      <endpoint address="http://localhost:3561/MainWeb/OrgUserSyncDataSrv.asmx"
+        binding="basicHttpBinding" bindingConfiguration="OrgUserSyncDataSrvSoap1"
+        contract="KBOrgUserSyncDataSrv.OrgUserSyncDataSrvSoap" name="OrgUserSyncDataSrvSoap1" />
+    </client>
+  </system.serviceModel>
+</configuration>

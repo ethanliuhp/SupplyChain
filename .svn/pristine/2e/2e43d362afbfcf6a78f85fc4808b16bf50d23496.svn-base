@@ -1,0 +1,21 @@
+<ion-view view-title="{{title}}" hide-tabs="true">
+  <ion-content overflow-scroll='false' has-bouncing='true'>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right home-item list-title-style alert-info" type="item-text-wrap">
+        <p class="list-item col-25 center">分支结构</p>
+        <p class="list-item col-25 center">当日收款</p>
+        <p class="list-item col-25 center">本月收款</p>
+        <p class="list-item col-25 center">本年收款</p>
+      </ion-item>
+      <ion-item class="item-remove-animate item-avatar item-icon-right home-item list-title-style bottom-0" ng-class="{'item-back-odd':($index%2 == 0)}" ng-repeat="item in info" ng-href='#/tab/index/receivables/detail/{{item.ID}}|{{item.Name}}'>
+        <p class="list-item col-25 center">{{item.Name}}</p>
+        <p class="list-item col-25 center">{{item.Day | NumConvert}}</p>
+        <p class="list-item col-25 center">{{item.Month | NumConvert}}</p>
+        <p class="list-item col-25 center">{{item.Year | NumConvert}}</p>
+      </ion-item>
+    </ion-list>
+    <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+  </ion-content>
+</ion-view>
+
+

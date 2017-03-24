@@ -1,0 +1,157 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Application.Business.Erp.SupplyChain.Client.Basic.Template;
+using Application.Business.Erp.SupplyChain.Client.Basic.CommonClass;
+using VirtualMachine.Core;
+using NHibernate.Criterion;
+using Application.Business.Erp.SupplyChain.Client.MoneyManage.FinanceMultData;
+using System.Collections;
+using VirtualMachine.Component.WinControls.CommonForm.FlashScreenMng;
+using Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain;
+using VirtualMachine.Component.Util;
+using Application.Business.Erp.ResourceManager.Client.ResourceUI.PersonAndOrganization.OrganizationResource;
+using Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass;
+using Application.Business.Erp.SupplyChain.Client.Util;
+using VirtualMachine.Component.WinControls.Controls;
+
+namespace Application.Business.Erp.SupplyChain.Client.MoneyManage.FundPlan
+{
+    public partial class VFundPayApplyQuery : TBasicDataView
+    {
+        private MFinanceMultData mOperate = new MFinanceMultData();
+        private IList paymentRequestList;
+        private IList paymentMasterList = new List<PaymentMaster>();
+
+        public VFundPayApplyQuery()
+        {
+            InitializeComponent();
+
+            InitEvents();
+
+            InitData();
+        }
+
+        public void InitData()
+        {
+            this.dtpBeginCreateDate.Value = ConstObject.TheLogin.LoginDate.AddDays(-7);
+            this.dtpEndCreateDate.Value = ConstObject.TheLogin.LoginDate;
+
+            var projectInfo = StaticMethod.GetProjectInfo();
+            if (projectInfo != null && !projectInfo.Code.Equals(CommonUtil.CompanyProjectCode))
+            {
+                txtOperationOrg.Text = ConstObject.TheOperationOrg.Name;
+                txtOperationOrg.Tag = ConstObject.TheOperationOrg;
+                btnOperationOrg.Visible = false;
+            }
+
+            requestTypeCBox.SelectedIndex = 0;
+
+            InitGrid();
+        }
+
+        private void InitGrid()
+        {
+            FundPlanOperate.LoadFlexFile(string.Concat("资金支付申请单.flx"), gdFundPayApply);
+        }
+
+        public void InitEvents()
+        {
+            this.queryBtn.Click += new EventHandler(queryBtn_Click);
+            this.dgMaster.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgMaster.CellDoubleClick += new DataGridViewCellEventHandler(dgMaster_CellDoubleClick);
+        }
+
+        private void queryBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ObjectQuery objectQuery = new ObjectQuery();
+
+                //业务时间
+                objectQuery.AddCriterion(Expression.Ge("CreateDate", this.dtpBeginCreateDate.Value.Date));
+                objectQuery.AddCriterion(Expression.Lt("CreateDate", this.dtpEndCreateDate.Value.AddDays(1).Date));
+
+                objectQuery.AddCriterion(Expression.Eq("RequestType", (string)this.requestTypeCBox.SelectedItem));
+
+                if (mOperate.FinanceMultDataSrv.GetPaymentRequest(objectQuery) == null)
+                {
+                    return;
+                }
+
+                paymentRequestList = mOperate.FinanceMultDataSrv.GetPaymentRequest(objectQuery);
+
+                dgMaster.Rows.Clear();
+                foreach (PaymentRequest paymentRequest in paymentRequestList)
+                {
+                    int rowIndex = dgMaster.Rows.Add();
+                    dgMaster.Rows[rowIndex].Tag = paymentRequest;
+                    dgMaster[colCode.Name, rowIndex].Value = paymentRequest.Code;
+
+                    dgMaster[colCurrentPlanGether.Name, rowIndex].Value = paymentRequest.CurrentPlanGether.ToString();
+                    dgMaster[colCurrentRealGether.Name, rowIndex].Value = paymentRequest.CurrentRealGether.ToString();
+                    dgMaster[colCurrentPlanPay.Name, rowIndex].Value = paymentRequest.CurrentPlanPay.ToString();
+                    dgMaster[colCurrentRealPay.Name, rowIndex].Value = paymentRequest.CurrentRealPay.ToString();
+
+                    dgMaster[colUnit.Name, rowIndex].Value = paymentRequest.OperOrgInfoName;
+                    dgMaster[colDeclareDate.Name, rowIndex].Value = paymentRequest.CreateDate.ToShortDateString();
+                    dgMaster[colState.Name, rowIndex].Value = ClientUtil.GetDocStateName(paymentRequest.DocState);
+                    dgMaster[colCreateDate.Name, rowIndex].Value = paymentRequest.RealOperationDate.ToShortDateString();
+                    dgMaster[colCreatePersonName.Name, rowIndex].Value = paymentRequest.CreatePersonName;
+
+                    objectQuery.AddCriterion(Expression.Like("RequestType", this.txtAccountTitleNameLbl.Text));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("数据查询出错。\n" + ex.Message);
+            }
+            finally
+            {
+                //FlashScreen.Close();
+            }
+        }
+
+        private void dgMaster_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgMaster.CurrentRow.Tag == null)
+            {
+                return;
+            }
+
+            PaymentRequest paymentRequest = dgMaster.CurrentRow.Tag as PaymentRequest;
+
+            paymentMasterList.Clear();
+            paymentMasterList = mOperate.FinanceMultDataSrv.GetPaymentMasterByRequestBill(paymentRequest);
+
+            List<PaymentMaster> paymentMasterDataList = paymentMasterList.OfType<PaymentMaster>().ToList();
+            List<PaymentMaster> filteredPaymentList = paymentMasterDataList.FindAll
+                (a => a.AccountTitleName.Contains(this.txtAccountTitleNameLbl.Text));
+
+            VFundPayApplyFormation payApplyFormation = new VFundPayApplyFormation();
+            FundPlanOperate.LoadFlexFile(string.Concat("资金支付申请单.flx"), gdFundPayApply);
+            payApplyFormation.DisplayFundPayApplyFormation(gdFundPayApply, filteredPaymentList);
+            gdFundPayApply.Cell(2, 12).Text = string.Format("申请单号:{0}", paymentRequest.Code);
+
+            var totalRange = gdFundPayApply.Range(3, 1, gdFundPayApply.Rows - 1, gdFundPayApply.Cols - 1);
+            CommonUtil.SetGridRangeLockState(totalRange, true);
+        }
+
+        private void btnOperationOrg_Click(object sender, EventArgs e)
+        {
+            VCommonOperationOrgSelect frm = new VCommonOperationOrgSelect(true);
+            frm.ShowDialog();
+            if (frm.Result != null && frm.Result.Count > 0)
+            {
+                var selOrg = frm.Result[0] as OperationOrgInfo;
+                txtOperationOrg.Tag = selOrg;
+                txtOperationOrg.Text = selOrg.Name;
+            }
+        }
+    }
+}

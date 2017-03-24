@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain" table="THD_GWBSTree" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <!--基类的属性-->
+    <property name="CategoryNodeType" />
+    <property name="Name" />
+    <property name="Code" />
+    <property name="CreateDate" type="Date" />
+    <property name="SysCode" />
+    <property name="State" />
+    <property name="Level" column="TLevel"/>
+    <property name="Describe"  />
+    <many-to-one name="ParentNode" column="ParentNodeID" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain" />
+    <many-to-one name="Author" class="VirtualMachine.Patterns.BusinessEssence.Domain.BusinessOperators, VirtualMachine" />
+    <many-to-one name="TheTree" class="VirtualMachine.Patterns.CategoryTreePattern.Domain.CategoryTree,VirtualMachine" />
+    <property name="OrderNo" />
+    <bag name="ChildNodes" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write" />
+      <key column="ParentNodeID" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain" />
+    </bag>
+
+    <!--自身的属性-->
+    <many-to-one name="ProjectTaskTypeGUID" column="ProjectTaskTypeGUID" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.ProjectTaskTypeTree,SupplyChain" />
+    <property name="ProjectTaskTypeName" />
+    <property name="Summary"  />
+    <property name="TaskState"/>
+    <property name="TaskStateTime" type="DateTime"/>
+    <property name="ContractTotalPrice" />
+    <property name="OwnerGUID" length="64"/>
+    <property name="OwnerName"/>
+    <property name="OwnerOrgSysCode" />
+
+    <many-to-one name="PriceAmountUnitGUID" column="PriceAmountUnitGUID"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="PriceAmountUnitName"/>
+    <property name="ResponsibilityTotalPrice" />
+    <property name="PlanTotalPrice" />
+    <property name="TaskPlanStartTime" type="DateTime"/>
+    <property name="TaskPlanEndTime" type="DateTime"/>
+    <property name="CheckRequire"/>
+    <property name="NodeType"/>
+    <!--计划工期-->
+    <property name="PalnTime"/>
+    <!--实际工期-->
+    <property name="RealTime"/>
+    <!--实际开始时间-->
+    <property name="RealStartDate" type="DateTime"/>
+    <!--实际开始时间-->
+    <property name="RealEndDate" type="DateTime"/>
+    <!--完成情况说明-->
+    <property name="CompleteDescription"/>
+    <property name="TheProjectGUID"/>
+    <property name="TheProjectName"/>
+    <property name="UpdatedDate"/>
+
+    <!--<property name="IsAccountNode"/>-->
+
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSDetail,SupplyChain"/>
+    </set>
+
+    <set name="ListRelaPBS" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSRelaPBS,SupplyChain"/>
+    </set>
+
+    <set name="ListDocVerify" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ProjectTask" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.ProjectDocumentVerify,SupplyChain"/>
+    </set>
+
+    <!--<set name="ListGWBSDetailImport" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSDetailImport,SupplyChain"/>
+    </set>-->
+    <!--<property name="ManagementMode"/>
+    <property name="ContractWorkAmount" length="3"/>
+    <property name="ContractPrice" length="3"/>
+    <many-to-one name="WorkAmountUnitGUID" column="WorkAmountUnitGUID"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="WorkAmountUnitName"/>
+    <property name="ManagementFeatureCode"/>
+    <property name="ProjectDeptDefiniteTotalPrice" length="3"/>
+    <many-to-one name="BearOrgGUID" column="BearOrgGUID" class="Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass.SupplierRelationInfo,ResourceManager"/>
+    <property name="BearOrgName"/>
+    <many-to-one name="ContractGroupGUID" column="ContractGroupGUID"  class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.ContractGroup,SupplyChain"></many-to-one>
+    <property name="ContractGroupCode"/>-->
+
+
+    <property name="NGUID"/>
+    <property name="AddUpFigureProgress" />
+    <property name="ResponsibleAccFlag"/>
+    <property name="CostAccFlag"/>
+    <property name="ProductConfirmFlag"/>
+    <property name="SubContractFeeFlag"/>
+    <property name="CheckBatchNumber"/>
+
+    <property name="OverOrUndergroundFlag"/>
+    <property name="WarehouseFlag"/>
+    <property name="AcceptanceCheckState"/>
+    <property name="SuperiorCheckState"/>
+    <property name="DailyCheckState"/>
+    <property name="FullPath"/>
+    <!--专业分类-->
+    <property name="SpecialType"/>
+    <property name="IsSetup"/>
+
+    <property name="IsFixed"/>
+    <property name="StartPlanBeginDate"/>
+    <property name="StartPlanEndDate"/>
+    <property name="ProductionCuringNode"/>
+    <property name="ProCurBeginDate"/>
+    <property name="ProCurEndDate"/>
+    
+  </class>
+</hibernate-mapping>
+
+

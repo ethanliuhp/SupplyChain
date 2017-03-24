@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.WasteMaterialManage.WasteMatApplyMng.Domain.WasteMatApplyDetail,SupplyChain" table="THD_WasteMatApplyDetail" lazy="true" discriminator-value="-1">
+    <!--<id name="Id" column="Id" unsaved-value="null">
+      <generator class="uuid.hex" />
+    </id>-->
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <!--物资-->
+    <many-to-one name="MaterialResource" column="Material"  class="Application.Resource.MaterialResource.Domain.Material,ResourceManager"/>
+    <property name="MaterialCode"/>
+    <property name="MaterialName"/>
+    <property name="MaterialSpec"/>
+    <property name="MaterialStuff"/>
+    <property name="DiagramNumber" />
+    <!--浇筑部位-->
+    <many-to-one name="UsedPart" column="UsedPart" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree, SupplyChain"/>
+    <property name="UsedPartName" />
+    <property name="UsedPartSysCode" />
+    
+    <!--计量单位-->
+    <many-to-one name="MatStandardUnit" column="MatStandardUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="MatStandardUnitName"/>
+
+    <property name="Quantity" length="4" />
+    <property name="LeftQuantity" length="4"/>
+    <property name="ApplyDate" column="ApplyDate"/>
+    <property name="Grade"/>
+    <property name="Descript" column="Descript"/>
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.WasteMaterialManage.WasteMatApplyMng.Domain.WasteMatApplyMaster,SupplyChain"></many-to-one>
+
+  </class>
+</hibernate-mapping>
+
+

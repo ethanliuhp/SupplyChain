@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+   <class name="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.PaymentRequest,SupplyChain" table="THD_PaymentRequest" lazy="true" discriminator-value="-1">
+        <id name="Id" column="Id" unsaved-value="null">
+           <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+        </id>
+     <property name= "Code" />
+      <property name="RequestType" />
+      <property name="RequestUnit" />
+      <property name="RequestUnitName" />
+      <property name="RequestUnitSysCode" />
+      <property name="RequestDate" />
+      <property name="CurrentPlanGether" />
+      <property name="CurrentRealGether" />
+      <property name="CurrentPlanPay" />
+      <property name="CurrentRealPay" />
+      <property name="State" />
+      <many-to-one name="CreatePerson"  column="CreatePerson" fetch="join" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+      <property name="CreatePersonName" />
+     <set name="Payments" cascade="all-delete-orphan" inverse="true" lazy="true">
+       <cache usage="read-write"/>
+       <key column="RequestBill" />
+       <one-to-many class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.PaymentMaster, SupplyChain"/>
+     </set>
+    </class>
+</hibernate-mapping>

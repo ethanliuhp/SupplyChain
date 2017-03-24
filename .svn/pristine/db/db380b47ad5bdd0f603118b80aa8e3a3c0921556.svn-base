@@ -1,0 +1,55 @@
+﻿.buttonBar {
+	margin: 5px 0;
+	padding: 0;
+	border: none;
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+}
+
+.buttonBar >ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	font-size: 0;
+	/*chrome webkit 閰嶅悎font-size: 0 鍙互灏濊瘯鍔� 
+	-webkit-text-size-adjust: none;
+	*/
+}
+
+.buttonBar >ul >li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	font-size: 12px;
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+	border: none;
+	vertical-align: middle;
+}
+
+.buttonBar .space {
+	font-size: 13px;
+	margin: 0 8px;
+	color: #CCC;	
+}
+.buttonBar .space.nosep {
+	font-size: 0;
+	text-indent: -9999px;
+}
+
+/*firefox*/
+@-moz-document url-prefix() { 
+	.buttonBar .space.nosep {
+		width: 0.01px;
+	}
+}
+
+.buttonBar >.sep-line >.space{
+	font-size: 13px;
+}
+
+.buttonBar td.xxf-value {
+	text-align: center;
+}

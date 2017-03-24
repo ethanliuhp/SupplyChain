@@ -1,0 +1,388 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Application.Business.Erp.SupplyChain.Basic.Domain;
+using Application.Business.Erp.SupplyChain.Client.Basic.CommonClass;
+using Application.Business.Erp.SupplyChain.Client.Basic.Template;
+using Application.Business.Erp.SupplyChain.Client.CostManagement.WBS.GWBS;
+using Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain;
+using Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain;
+using VirtualMachine.Component.WinControls.CommonForm.FlashScreenMng;
+
+namespace Application.Business.Erp.SupplyChain.Client.MoneyManage.FinanceMultData
+{
+    public partial class VConstructNode : TBasicDataView
+    {
+        private CurrentProjectInfo projectInfo;
+        private MFinanceMultData mOperate = new MFinanceMultData();
+
+        public VConstructNode()
+        {
+            InitializeComponent();
+            
+            InitEvents();
+
+            InitData();
+        }
+
+        private void InitData()
+        {
+            projectInfo = StaticMethod.GetProjectInfo();
+            if (projectInfo != null && projectInfo.Code != CommonUtil.CompanyProjectCode)
+            {
+                txtProject.Text = projectInfo.Name;
+
+                LoadConstructNode();
+            }
+            else
+            {
+                txtProject.Text = string.Empty;
+            }
+
+            radWbs.Checked = true;
+        }
+
+        private void LoadConstructNode()
+        {
+            var list = mOperate.FinanceMultDataSrv.GetConstructNodeByProject(projectInfo.Id);
+            if (list != null)
+            {
+                dgMaster.DataSource = list.OfType<ConstructNode>().ToArray();
+
+                radWbs_CheckedChanged(null, null);
+            }
+        }
+
+        private void InitEvents()
+        {
+            dgMaster.BorderStyle = BorderStyle.FixedSingle;
+            dgMaster.AutoGenerateColumns = false;
+            dgMaster.CellDoubleClick += dgMaster_CellDoubleClick;
+            dgMaster.RowPostPaint+=new DataGridViewRowPostPaintEventHandler(dgMaster_RowPostPaint);
+
+            chkSelectAll.CheckedChanged += chkSelectAll_CheckedChanged;
+            radWbs.CheckedChanged += radWbs_CheckedChanged;
+
+            btnWbs.Click += btnWbs_Click;
+            btnBatchSet.Click += btnBatchSet_Click;
+            btnSave.Click += btnSave_Click;
+            btnDelete.Click += btnDelete_Click;
+            btnBatchSetRate.Click += btnBatchSetRate_Click;
+        }
+
+        private ConstructNode NewConstructNode()
+        {
+            var cNode = new ConstructNode();
+            cNode.CreateDate = DateTime.Now;
+            cNode.CreatePerson = ConstObject.TheLogin.ThePerson;
+            cNode.CreatePersonName = cNode.CreatePerson.Name;
+
+            cNode.OperOrgInfo = ConstObject.TheLogin.TheOperationOrgInfo;
+            cNode.OperOrgInfoName = cNode.OperOrgInfo.Name;
+            cNode.OpgSysCode = cNode.OperOrgInfo.SysCode;
+
+            cNode.ProjectId = projectInfo.Id;
+            cNode.ProjectName = projectInfo.Name;
+
+            return cNode;
+        }
+
+        private void AddWbs(List<TreeNode> nodes)
+        {
+            if (nodes == null || nodes.Count == 0)
+            {
+                return;
+            }
+
+            var list = new List<ConstructNode>();
+            var items = dgMaster.DataSource as ConstructNode[];
+            if (items != null)
+            {
+                list.AddRange(items);
+            }
+
+            foreach (TreeNode nd in nodes)
+            {
+                var wbs = nd.Tag as GWBSTree;
+                if (wbs == null || list.Any(n => n.WBSTree.Id.Equals(wbs.Id)))
+                {
+                    continue;
+                }
+
+                var cNode = NewConstructNode();
+                cNode.WBSTree = wbs;
+                cNode.WBSName = wbs.Name;
+
+                list.Add(cNode);
+            }
+
+            dgMaster.DataSource = list.ToArray();
+
+            radWbs_CheckedChanged(null, null);
+        }
+
+        private void AddPeriod(int rowIndex, List<DatePeriodDefine> periodDefines)
+        {
+            if (rowIndex < 0 || periodDefines == null || periodDefines.Count == 0)
+            {
+                return;
+            }
+
+            var items = dgMaster.DataSource as ConstructNode[];
+            if (items == null || items.Count() == 0)
+            {
+                return;
+            }
+
+            var list = items.ToList();
+            var dt = list[rowIndex];
+            if (!list.Exists(d => d.WBSTree.Id.Equals(dt.WBSTree.Id) && d.DatePeriod != null && d.DatePeriod.PeriodCode.Equals(periodDefines[0].PeriodCode)))
+            {
+                dt.DatePeriod = periodDefines[0];
+                dt.BeginDate = periodDefines[0].BeginDate;
+                dt.EndDate = periodDefines[0].EndDate;
+                dt.Year = periodDefines[0].BeginDate.Year;
+                dt.Month = periodDefines[0].BeginDate.Month;
+            }
+
+            var copyList = new List<ConstructNode>();
+            for (int i = 1; i < periodDefines.Count; i++)
+            {
+                var cp = NewConstructNode();
+                cp.WBSTree = dt.WBSTree;
+                cp.WBSName = dt.WBSName;
+                cp.Rate = dt.Rate;
+                cp.DatePeriod = periodDefines[i];
+                cp.BeginDate = periodDefines[i].BeginDate;
+                cp.EndDate = periodDefines[i].EndDate;
+                cp.Year = periodDefines[i].BeginDate.Year;
+                cp.Month = periodDefines[i].BeginDate.Month;
+
+                if (!list.Exists(d => d.WBSTree.Id.Equals(cp.WBSTree.Id) && d.DatePeriod.PeriodCode.Equals(cp.DatePeriod.PeriodCode)))
+                {
+                    copyList.Add(cp);
+                }
+            }
+            list.InsertRange(rowIndex + 1, copyList);
+
+            dgMaster.DataSource = list.ToArray();
+        }
+
+        private void SetConstructNodeRate(int startRow, int endRow, decimal rate, decimal change)
+        {
+            var lastRow = Math.Min(endRow, dgMaster.Rows.Count);
+            for (int i = startRow; i <= lastRow; i++)
+            {
+                var item = dgMaster.Rows[i - 1].DataBoundItem as ConstructNode;
+                if (item != null)
+                {
+                    if (i == lastRow)
+                    {
+                        item.Rate = 100;
+                    }
+                    else
+                    {
+                        item.Rate = rate;
+                    }
+                }
+
+                rate = rate + change;
+            }
+
+            dgMaster.Refresh();
+        }
+
+        private ConstructNode FindPreviewNode(ConstructNode cNode)
+        {
+            var list = dgMaster.DataSource as ConstructNode[];
+            if (cNode == null || list == null)
+            {
+                return null;
+            }
+
+            var fList = list.ToList().FindAll(f => f.WBSName == cNode.WBSName);
+            if (cNode.Month == 1)
+            {
+                return fList.Find(f => f.Year == cNode.Year - 1 && f.Month == 12);
+            }
+            else
+            {
+                return fList.Find(f => f.Year == cNode.Year && f.Month == cNode.Month - 1);
+            }
+        }
+
+        private void btnWbs_Click(object sender, EventArgs e)
+        {
+            VSelectGWBSTree_OnlyOne frm = new VSelectGWBSTree_OnlyOne(new MGWBSTree());
+            frm.IsCheck = true;//是否有checkbox
+            frm.IsRootNode = false;//这个参数是否只选择隶属关系的根节点
+            frm.ShowDialog();
+            if (frm.SelectResult.Count > 0)
+            {
+                AddWbs(frm.SelectResult);
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            var list = dgMaster.DataSource as ConstructNode[];
+            if (list == null || list.Count() == 0)
+            {
+                MessageBox.Show("没有数据可供保存");
+                return;
+            }
+            foreach (var cNode in list)
+            {
+                var preNode = FindPreviewNode(cNode);
+                cNode.CurrentRate = cNode.Rate - (preNode == null ? 0 : preNode.Rate);
+            }
+
+            if (mOperate.FinanceMultDataSrv.SaveOrUpdateList(list))
+            {
+                LoadConstructNode();
+                MessageBox.Show("保存成功");
+            }
+            else
+            {
+                MessageBox.Show("保存失败");
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            var list = dgMaster.DataSource as ConstructNode[];
+            if (list == null || list.Count() == 0)
+            {
+                MessageBox.Show("请选择要删除的记录");
+                return;
+            }
+
+            if (MessageBox.Show("您确认要删除所选的记录？", "删除确认", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                return;
+            }
+
+            FlashScreen.Show("数据删除中，请稍等…");
+
+            var dbList = list.ToList().FindAll(d => d.IsChecked && !string.IsNullOrEmpty(d.Id));
+            if(!mOperate.FinanceMultDataSrv.DeleteObjects(dbList))
+            {
+                FlashScreen.Close();
+                MessageBox.Show("删除数据失败");
+                return;
+            }
+
+            dgMaster.DataSource = list.ToList().FindAll(d => !d.IsChecked).ToArray();
+
+            chkSelectAll.Checked = false;
+
+            FlashScreen.Close();
+        }
+
+        private void btnBatchSet_Click(object sender, EventArgs e)
+        {
+            var list = dgMaster.DataSource as ConstructNode[];
+            if (list == null || !list.Any(d => d.IsChecked))
+            {
+                MessageBox.Show("请勾选记录");
+                return;
+            }
+
+            VDatePeriodDefineSelector periodDefineSelector = new VDatePeriodDefineSelector();
+            periodDefineSelector.Owner = this;
+            if (periodDefineSelector.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            for (int i = 0; i < dgMaster.Rows.Count; i++)
+            {
+                var dt = dgMaster.Rows[i].DataBoundItem as ConstructNode;
+                if (!dt.IsChecked)
+                {
+                    continue;
+                }
+
+                var vl = (bool)dgMaster.Rows[i].Cells[colCheck.Name].Value;
+                if (vl)
+                {
+                    AddPeriod(i, periodDefineSelector.SelectedPeriods);
+                }
+            }
+        }
+
+        private void btnBatchSetRate_Click(object sender, EventArgs e)
+        {
+            VBatchSetConstructNodeRate dlg = new VBatchSetConstructNodeRate();
+            dlg.Owner = this;
+            dlg.TopMost = true;
+            dlg.AfterClickOkEvent += SetConstructNodeRate;
+            dlg.Show();
+        }
+
+        private void chkSelectAll_CheckedChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < dgMaster.Rows.Count; i++)
+            {
+                dgMaster.Rows[i].Cells[colCheck.Name].Value = chkSelectAll.Checked;
+            }
+        }
+
+        private void radWbs_CheckedChanged(object sender, EventArgs e)
+        {
+            var list = dgMaster.DataSource as ConstructNode[];
+            if (list == null)
+            {
+                return;
+            }
+            if (radWbs.Checked)
+            {
+                colWbsName.DisplayIndex = 2;
+                colPeriodCode.DisplayIndex = 3;
+                colPeriodName.DisplayIndex = 4;
+
+                var setList =
+                    list.ToList().FindAll(d => d.DatePeriod != null).OrderBy(d => d.WBSTree.Code).ThenBy(d => d.DatePeriod.PeriodCode).ToList();
+                setList.AddRange(list.ToList().FindAll(d => d.DatePeriod == null));
+
+                dgMaster.DataSource = setList.ToArray();
+            }
+            else
+            {
+                colPeriodCode.DisplayIndex = 2;
+                colPeriodName.DisplayIndex = 3;
+                colWbsName.DisplayIndex = 4;
+
+                var setList =
+                    list.ToList().FindAll(d => d.DatePeriod != null).OrderBy(d => d.DatePeriod.PeriodCode).ThenBy(
+                        d => d.WBSTree.Code).ToList();
+                setList.AddRange(list.ToList().FindAll(d => d.DatePeriod == null));
+
+                dgMaster.DataSource = setList.ToArray();
+            }
+        }
+
+        private void dgMaster_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == colPeriodCode.Index || e.ColumnIndex == colPeriodName.Index)
+            {
+                VDatePeriodDefineSelector periodDefineSelector = new VDatePeriodDefineSelector();
+                periodDefineSelector.Owner = this;
+                if (periodDefineSelector.ShowDialog() == DialogResult.OK)
+                {
+                    AddPeriod(e.RowIndex, periodDefineSelector.SelectedPeriods);
+                }
+            }
+        }
+
+        private void dgMaster_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            dgMaster.Rows[e.RowIndex].Cells[colRowNo.Name].Value = e.RowIndex + 1;
+        }
+    }
+}

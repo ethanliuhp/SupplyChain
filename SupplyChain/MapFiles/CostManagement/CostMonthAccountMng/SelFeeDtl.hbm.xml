@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.SelFeeDtl,SupplyChain" table="thd_SelFeeDtl" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <many-to-one name="ProjectInfo" column="ProjectId" not-null="true"   class="Application.Business.Erp.SupplyChain.Basic.Domain.CurrentProjectInfo,SupplyChain"></many-to-one>
+    <property name="SpecialType"></property>
+    <property name="SpecialTypeName"></property>
+    <many-to-one name="AccountSubject" column="AccountSubject"  class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostAccountSubject,SupplyChain"></many-to-one>
+    <property name="AccountSubjectName"></property>
+    <property name="AccountSubjectCode"></property>
+    <property name="Rate" />
+    <property name="Descript" />
+    <property name="BeginMoney" />
+    <property name="EndMoney" />
+    <many-to-one name="MainAccSubject"  column="MainAccSubject"  class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostAccountSubject,SupplyChain"></many-to-one>
+    <property name="MainAccSubjectName"></property>
+    <property name="MainAccSubjectCode"></property>
+  </class>
+</hibernate-mapping>

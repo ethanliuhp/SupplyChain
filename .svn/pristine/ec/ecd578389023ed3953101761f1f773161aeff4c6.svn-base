@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.InspectionRecordManage.Domain.SitePictureVideo,SupplyChain" table="THD_SitePictureVideo" lazy="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.ProductionManagement.InspectionRecordManage.Domain.InspectionRecord,SupplyChain"/>
+
+    <many-to-one name="ShootingPerson" column="ShootingPerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="ShootingPersonName"/>
+
+    <property name="ContentNotes" />
+    <property name="Type" />
+    <property name="ShootingDate" />
+    <property name="DocumentName" />
+    <property name="DocumentURL" />
+    <property name="DocumentId" />
+
+  </class>
+</hibernate-mapping>

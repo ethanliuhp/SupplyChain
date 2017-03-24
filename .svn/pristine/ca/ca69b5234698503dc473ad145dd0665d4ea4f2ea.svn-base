@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.OwnerQuantityMng.Domain.OwnerQuantityMaster,SupplyChain" table="THD_OwnerQuantityMaster" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="Code" column="Code"  />
+    <property name="DocState" column="State" />
+    <property name="Descript" column="Descript"/>
+    <property name="CreateYear" column="CreateYear"/>
+    <property name="CreateMonth" column="CreateMonth"/>
+    <property name="SubmitDate" column="SubmitDate"/>
+	<property name="QuantityType"/>
+    <!--报送日期-->
+    <property name="CreateDate" column="CreateDate"/>
+    <!--制单日期-->
+    <property name="RealOperationDate" column="RealOperationDate"/>
+
+    <many-to-one name="CreatePerson" column="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="CreatePersonName"/>
+    <!--应付总金额-->
+    <property name="SumPayforMoney" column="SumPayforMoney"/>
+    <!--报送总金额-->
+    <property name="SubmitSumQuantity" column="SubmitSumQuantity"/>
+    <!--登帐标志-->
+    <property name="AccountSign" column="AccountSign"/>
+    <!--收款总金额-->
+    <property name="CollectionSumMoney" column="CollectionSumMoney"/>
+    <!--业务确认总金额-->
+    <property name="ConfirmSumMoney" column="ConfirmSumMoney"/>
+    <!--项目报量审核情况-->
+    <property name="AuditManage" column="AuditManage"/>
+    <!--工程款回收情况-->
+    <property name="ProjectRecovery" column="ProjectRecovery"/>
+    <!--业主违约情况-->
+    <property name="OwnerBreach" column="OwnerBreach"/>
+    <!--责任人-->
+    <many-to-one name="HandlePerson" column="HandlePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="HandlePersonName"/>
+    <!--业务组织-->
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperOrgInfoName" column="OperOrgName"/>
+    <property name="HandOrgLevel" column="HandOrgLevel"/>
+    <property name="OpgSysCode" column="OpgSysCode"/>
+
+    <!--归属项目-->
+    <property name="ProjectId"/>
+    <property name="ProjectName"/>
+
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.OwnerQuantityMng.Domain.OwnerQuantityDetail, SupplyChain"/>
+    </set>
+
+  </class>
+</hibernate-mapping>
+
+

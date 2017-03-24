@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.OBS.Domain.OBSService,SupplyChain" table="THD_OBSService" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="CreateDate" column="CreateDate"/>
+    <property name="CreateYear" column="CreateYear"/>
+    <property name="CreateMonth" column="CreateMonth"/>
+    <many-to-one name="CreatePerson" column="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="CreatePersonName"/>
+    <!--业务组织-->
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperOrgInfoName" column="OperOrgName"/>
+    <property name="OpgSysCode" column="OpgSysCode"/>
+
+    <!--服务供应商-->
+    <many-to-one name="SupplierId" column="SupplierId" class="Application.Business.Erp.SupplyChain.CostManagement.ContractExcuteMng.Domain.SubContractProject,SupplyChain"/>
+    <property name="SupplierName"/>
+
+    <!--工程任务-->
+    <many-to-one name="ProjectTask" column="ProjectTask"  class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain"/>
+    <property name="ProjectTaskName" column="ProjectTaskName"/>
+    <property name="ProjectTaskCode" column="ProjectTaskCode"/>
+
+    <property name="ServiceState" column="ServiceState"/>
+    <!--服务类型-->
+    <property name="ServiceType" column="ServiceType"/>
+    
+    <!--起始时间-->
+    <property name="BeginDate" column="BeginDate"/>
+    <!--终止时间-->
+    <property name="EndDate" column="EndDate"/>
+    <!--归属项目-->
+    <property name="ProjectId"/>
+    <property name="ProjectName"/>
+    <!--明细信息-->
+    <property name="PlanNedQuantity"/>
+    <property name="MaterialFeeSettlementFlag"/>
+    <property name="GWBSDetailName"/>
+    <property name="QuotaCode"/>
+    <property name="FullPath"/>
+    <many-to-one name="WBSDetail" column="GWBSDetail" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSDetail,SupplyChain"/>
+
+  </class>
+</hibernate-mapping>
+
+

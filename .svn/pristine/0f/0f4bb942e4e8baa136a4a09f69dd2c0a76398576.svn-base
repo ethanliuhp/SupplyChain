@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSDetailLedger,SupplyChain" table="THD_GWBSDetailLedger" lazy="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+
+    <property name="ProjectTaskID"/>
+    <property name="ProjectTaskName"/>
+    <property name="TheProjectTaskSysCode"/>
+
+    <property name="ProjectTaskDtlID"/>
+    <property name="ProjectTaskDtlName"/>
+
+    <property name="ContractWorkAmount" />
+    <property name="ContractPrice" />
+    <property name="ContractTotalPrice"/>
+
+    <property name="ResponsibleWorkAmount" />
+    <property name="ResponsiblePrice" />
+    <property name="ResponsibleTotalPrice" />
+
+    <property name="PlanWorkAmount" />
+    <property name="PlanPrice" />
+    <property name="PlanTotalPrice" />
+
+    <many-to-one name="WorkAmountUnit" column="WorkAmountUnitID"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="WorkAmountUnitName"/>
+
+    <many-to-one name="PriceUnit" column="PriceUnitID"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="PriceUnitName"/>
+
+    <property name="TheProjectGUID" />
+    <property name="TheProjectName"/>
+
+    <property name="CreateTime"/>
+
+    <many-to-one name="TheContractGroup" column="ContractGroupID"  class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.ContractGroup,SupplyChain"></many-to-one>
+
+    <property name="ContractChangeMode"/>
+    <property name="PlanCostChangeMode"/>
+    <property name="ResponsibleCostChangeMode"/>
+  </class>
+</hibernate-mapping>
+
+

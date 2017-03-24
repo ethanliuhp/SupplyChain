@@ -1,0 +1,92 @@
+﻿body
+{
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    height: 100%;
+    /*background-color: #F0F8FF;*/
+    font-size: 9pt;
+    font-family: Courier New;
+}
+table
+{
+    border: none 0px none;
+    border-collapse: collapse;
+    height:100px;
+
+}
+th
+{
+    border: none 0px none;
+    border-collapse: collapse;
+    padding: 0px 0px 0px 0px;
+    font-family: "arial";
+    line-height: 1.5;
+}
+td
+{
+    border: none 0px none;
+    border-collapse: collapse;
+    padding: 0px 0px 0px 0px;
+}
+/*-site header style,站点抬头用到的所有样式-*/
+.header_td_logo
+{
+    vertical-align: top;
+    background-image: url(../Images/FrameConfig/header_bg.png);
+    height:60px;
+    width: 208px;
+      background-color:#CCE6F3;
+}
+.header_td_bg
+{
+    /*vertical-align: top;
+    background-image: url(../Img/FrameConfig/header_bg.gif);*/
+    background-color:#CCE6F3;
+    white-space: nowrap;
+    text-align: left;
+    padding: 15px 40px 0px 20px;
+}
+.header_td_Date
+{
+    vertical-align: top;
+    background-color:#CCE6F3;
+    white-space: nowrap;
+    text-align: left;
+    padding: 0px 40px 10px 20px;
+}
+.header_font
+{
+    font-family: Arial;
+    font-size: 12px;
+    color: #eef8fe;
+    text-decoration: none;
+}
+.header_link_font
+{
+    font-family: Arial;
+    font-size: 12x;
+    color: black;
+    text-decoration: none;
+}
+.header_link_font:hover
+{
+    font-family: Arial;
+    font-size: 12px;
+    color: #eef8fe;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.header_link_font:link
+{
+    font-family: Arial;
+    font-size: 12px;
+    color: #eef8fe;
+    text-decoration: none;
+}
+.header_link_font:visited
+{
+    font-family: Arial;
+    font-size: 12px;
+    color: #ffffff;
+    text-decoration: none;
+}

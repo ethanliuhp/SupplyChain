@@ -1,0 +1,588 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Application.Business.Erp.SupplyChain.Client.Basic.Template;
+using Application.Business.Erp.SupplyChain.Basic.Domain;
+using Application.Business.Erp.SupplyChain.Client.Basic.CommonClass;
+using VirtualMachine.Component.WinMVC.generic;
+using Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain;
+using Application.Business.Erp.SupplyChain.Client.Basic;
+using VirtualMachine.Patterns.BusinessEssence.Domain;
+using VirtualMachine.Component.Util;
+using Application.Business.Erp.SupplyChain.Client.CostManagement.CostItemMng.CostAccountSubjectMng;
+using Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain;
+using VirtualMachine.Component.WinControls.Controls;
+
+namespace Application.Business.Erp.SupplyChain.Client.CostManagement.CostMonthAccount
+{
+    public partial class VSelFeeTemplate : TMasterDetailView
+    {
+        #region private fields
+        CurrentProjectInfo projectInfo;
+        private SelFeeTemplateMaster curBillMaster;
+        MCostMonthAccount model = new MCostMonthAccount();
+        #endregion
+
+        #region property
+        public SelFeeTemplateMaster CurBillMaster
+        {
+            get { return curBillMaster; }
+            set { curBillMaster = value; }
+        }
+        #endregion
+
+        #region ctor
+        public VSelFeeTemplate()
+        {
+            InitializeComponent();
+            InitData();
+            InitEvent();
+
+        }
+        
+
+        private void InitData()
+        {
+            #region Init Controls DataSource
+            List<BasicDataOptr> lst = VBasicDataOptr.GetSelFeeTemplateSpecialType();
+            this.colSpecialType.DataSource = lst;
+
+            if (this.comDocState.Items.Count == 0)
+            {
+                Array tem = Enum.GetValues(typeof(DocumentState));
+                for (int i = 0; i < tem.Length; i++)
+                {
+                    DocumentState s = (DocumentState)tem.GetValue(i);
+                    int k = (int)s;
+                    if (k != 0)
+                    {
+                        string strNewName = ClientUtil.GetDocStateName(k);
+                        System.Web.UI.WebControls.ListItem li = new System.Web.UI.WebControls.ListItem();
+                        li.Text = strNewName;
+                        li.Value = k.ToString();
+                        comDocState.Items.Add(li);
+                    }
+                }
+            }
+
+            #endregion
+            
+            #region Set Value to The Private Fields
+            projectInfo = StaticMethod.GetProjectInfo();
+            #endregion
+        }
+        private void InitEvent()
+        {
+            this.dgDetail.CellDoubleClick += new DataGridViewCellEventHandler(dgDetail_CellDoubleClick);
+            this.dgDetail.CellEndEdit += new DataGridViewCellEventHandler(dgDetail_CellEndEdit);
+            this.dgRules.CellDoubleClick += new DataGridViewCellEventHandler(dgRules_CellDoubleClick);
+        }
+
+        
+
+       
+        #endregion
+
+        #region Control Events
+        void dgRules_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex < 0 || e.RowIndex < 0) return;
+            if (ViewState == MainViewState.Browser || ViewState == MainViewState.Initialize) return;
+            bool isNotNewRow = CheckCurrentRowIsNew(true);
+
+            switch (this.dgDetail.Columns[e.ColumnIndex].Name)
+            {
+                case "colSpecialType"://专业类型
+                    break;
+                case "colMainAccSubjectName"://科目大类
+                case "colAccountSubjectName": //科目名称
+                    VSelectCostAccountSubject frm = new VSelectCostAccountSubject(new MCostAccountSubject());
+                    frm.IsLeafSelect = false;
+                    frm.ShowDialog();
+                    CostAccountSubject cost = frm.SelectAccountSubject;
+                    if (cost != null)
+                    {
+                        if (isNotNewRow)
+                        {
+                            this.dgDetail.CurrentRow.Cells[this.dgDetail.Columns[e.ColumnIndex].Name].Value = cost.Name;
+                            this.dgDetail.CurrentRow.Cells[this.dgDetail.Columns[e.ColumnIndex].Name].Tag = cost;
+                            if (this.dgDetail.Columns[e.ColumnIndex].Name == "colMainAccSubjectName")
+                                this.dgDetail.CurrentRow.Cells[this.colMainAccSubjectCode.Name].Value = cost.Code;
+                            else
+                                this.dgDetail.CurrentRow.Cells[this.colAccountSubjectCode.Name].Value = cost.Code;
+
+                        }
+                        else
+                        {
+                            int i = this.dgDetail.Rows.Add();
+                            this.dgDetail[this.dgDetail.Columns[e.ColumnIndex].Name, i].Value = cost.Name;
+                            this.dgDetail[this.dgDetail.Columns[e.ColumnIndex].Name, i].Tag = cost;
+                            if (this.dgDetail.Columns[e.ColumnIndex].Name == "colMainAccSubjectName")
+                                this.dgDetail[this.dgDetail.Columns[this.colMainAccSubjectCode.Name].Name, i].Tag = cost;
+                            else
+                                this.dgDetail[this.dgDetail.Columns[this.colAccountSubjectCode.Name].Name, i].Tag = cost;
+
+                        }
+                    }
+                    break;
+                case "colRate":
+                case "colBeginMoney":
+                case "colEndMoney":
+                    if (isNotNewRow)
+                    {
+
+                    }
+                    else 
+                    {
+                    
+                    }
+                    
+                    break;
+                case "colDescript":
+                    break;
+                default:
+                    break;
+            }
+        }
+        void dgDetail_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            string colName = string.Empty;
+            colName = this.dgDetail.Columns[e.ColumnIndex].Name;
+            string msg = "";
+
+            switch (colName)
+            {
+                case "colRate":
+                case "colBeginMoney":
+                case "colEndMoney":
+                    string sTemp = ClientUtil.ToString(this.dgDetail.Rows[e.RowIndex].Cells[colName].Value);
+                    if (string.IsNullOrEmpty(sTemp))
+                    {
+                        msg = "不能为空，请输入数值型";
+                    }
+                    if (msg == "" && !CommonMethod.VeryValid(sTemp))
+                    {
+                        msg = "请输入数值型";
+                    }
+
+                
+                    break;
+            }
+            if (msg == "")
+            {
+                this.dgDetail.Rows[e.RowIndex].Cells[colName].Tag = this.dgDetail.Rows[e.RowIndex].Cells[colName].Value;
+            }
+            else
+            {
+                this.dgDetail.Rows[e.RowIndex].Cells[colName].Value = this.dgDetail.Rows[e.RowIndex].Cells[colName].Tag;
+                MessageBox.Show(msg);
+                this.dgDetail.Rows[e.RowIndex].Cells[colName].Selected = true;
+            }
+
+
+        }
+        void dgDetail_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex < 0 || e.RowIndex < 0) return;
+            if (ViewState == MainViewState.Browser || ViewState == MainViewState.Initialize) return;
+        }
+        private bool CheckCurrentRowIsNew(bool isDetail)
+        {
+            bool isNotNewRow = false;
+            if(isDetail)
+                isNotNewRow = this.dgDetail.CurrentRow.Cells[this.colSpecialType.Name].Value != null         //专业类型
+
+                                || (this.dgDetail.CurrentRow.Cells[this.colMainAccSubjectName.Name].Value != null             //科目大类
+                                    && ClientUtil.ToString(this.dgDetail.CurrentRow.Cells[this.colMainAccSubjectName.Name].Value).Trim().Length > 0)
+
+                                || (this.dgDetail.CurrentRow.Cells[this.colAccountSubjectName.Name].Value != null            //科目名称
+                                    && ClientUtil.ToString(this.dgDetail.CurrentRow.Cells[this.colAccountSubjectName.Name].Value).Trim().Length > 0)
+
+                                || (this.dgDetail.CurrentRow.Cells[this.colRate.Name].Value != null            //费率
+                                    && ClientUtil.ToString(this.dgDetail.CurrentRow.Cells[this.colRate.Name].Value).Trim().Length > 0)
+
+                                || (this.dgDetail.CurrentRow.Cells[this.colBeginMoney.Name].Value != null            //开始金额
+                                    && ClientUtil.ToString(this.dgDetail.CurrentRow.Cells[this.colBeginMoney.Name].Value).Trim().Length > 0)
+
+                                || (this.dgDetail.CurrentRow.Cells[this.colEndMoney.Name].Value != null            //结束金额
+                                    && ClientUtil.ToString(this.dgDetail.CurrentRow.Cells[this.colEndMoney.Name].Value).Trim().Length > 0)
+
+                                || (this.dgDetail.CurrentRow.Cells[this.colDescript.Name].Value != null            //备注
+                                    && ClientUtil.ToString(this.dgDetail.CurrentRow.Cells[this.colDescript.Name].Value).Trim().Length > 0)
+                                ;
+            else
+                isNotNewRow = (this.dgRules.CurrentRow.Cells[this.colAccountSubject_rules.Name].Value != null       //科目
+                                    && ClientUtil.ToString(this.dgRules.CurrentRow.Cells[this.colAccountSubject_rules.Name].Value).Trim().Length > 0)
+
+                                || (this.dgRules.CurrentRow.Cells[this.colFormula_rules.Name].Value != null       //公式
+                                    && ClientUtil.ToString(this.dgRules.CurrentRow.Cells[this.colFormula_rules.Name].Value).Trim().Length > 0)
+                                ;
+            return isNotNewRow;
+            
+        }
+        #endregion
+
+        #region Model and View exchange
+        private bool ValidView()
+        { 
+            bool b_rtn = true;
+            return b_rtn;
+        }
+        private bool ViewToModel()
+        {
+            if (!ValidView()) return false;
+            try
+            {
+                curBillMaster.Name = this.txtName.Text;
+                curBillMaster.Code = "";
+                curBillMaster.Descript = this.txtRemark.Text;
+                curBillMaster.Details.Clear();
+                foreach (DataGridViewRow var in this.dgDetail.Rows)
+                {
+                    if (var.IsNewRow) break;
+                    SelFeeTemplateDtl curBillDtl = new SelFeeTemplateDtl();
+                    if (var.Tag != null)
+                    {
+                        curBillDtl = var.Tag as SelFeeTemplateDtl;
+                        if (curBillDtl.Id == null)
+                        {
+                            curBillMaster.Details.Remove(curBillDtl);
+                        }
+                    }
+                    curBillDtl.SpecialType = ClientUtil.ToString(var.Cells[this.colSpecialType.Name].Value);
+                    curBillDtl.AccountSubject = var.Cells[this.colAccountSubjectName.Name].Tag as CostAccountSubject;
+                    curBillDtl.AccountSubjectCode = ClientUtil.ToString(var.Cells[this.colAccountSubjectCode.Name].Value);
+                    curBillDtl.AccountSubjectName = ClientUtil.ToString(var.Cells[this.colAccountSubjectName.Name].Value);
+                    curBillDtl.Rate = ClientUtil.ToDecimal(var.Cells[this.colRate.Name].Value);
+                    curBillDtl.BeginMoney = ClientUtil.ToDecimal(var.Cells[this.colBeginMoney.Name].Value);
+                    curBillDtl.EndMoney = ClientUtil.ToDecimal(var.Cells[this.colEndMoney.Name].Value);
+                    curBillDtl.Descript = ClientUtil.ToString(var.Cells[this.colDescript.Name].Value);
+                    curBillDtl.MainAccSubject = var.Cells[this.colMainAccSubjectName.Name].Tag as CostAccountSubject;
+                    curBillDtl.MainAccSubjectCode = ClientUtil.ToString(var.Cells[this.colMainAccSubjectCode.Name].Value);
+                    curBillDtl.MainAccSubjectName = ClientUtil.ToString(var.Cells[this.colMainAccSubjectName.Name].Value);
+                    var.Tag = curBillDtl;
+                    curBillMaster.AddDetail(curBillDtl);
+                    
+                }
+                curBillMaster.SelFeeTempFormulas.Clear();
+                foreach (DataGridViewRow var in this.dgRules.Rows)
+                {
+                    if (var.IsNewRow) break;
+                    SelFeeTempFormula curBillDtl = new SelFeeTempFormula();
+                    if (var.Tag != null)
+                    {
+                        curBillDtl = var.Tag as SelFeeTempFormula;
+                        if (curBillDtl.Id == null)
+                        {
+                            curBillMaster.SelFeeTempFormulas.Remove(curBillDtl);
+                        }
+                    }
+                    curBillDtl.AccountSubject = var.Cells[this.colAccountSubject_rules.Name].Tag as CostAccountSubject;
+                    curBillDtl.AccountSubjectCode = ClientUtil.ToString(var.Cells[this.colAccountSubjectCode_rules.Name].Value);
+                    curBillDtl.AccountSubjectName = ClientUtil.ToString(var.Cells[this.colAccountSubject_rules.Name].Value);
+                    curBillDtl.Formula = ClientUtil.ToString(var.Cells[this.colFormula_rules.Name].Value);
+                    var.Tag = curBillDtl;
+                    curBillMaster.AddFormula(curBillDtl);
+                }
+                
+                     
+                return true;
+            }
+            catch (Exception e)
+            {
+                
+                MessageBox.Show("数据错误：" + ExceptionUtil.ExceptionMessage(e));
+                return false;
+            } 
+
+        }
+        private bool ModelToView()
+        {
+            try
+            {
+                this.txtCode.Text = curBillMaster.Code;
+                this.txtName.Text = curBillMaster.Name;
+                this.txtRemark.Text = curBillMaster.Descript;
+                this.comDocState.Text = Enum.GetName(typeof(DocumentState), curBillMaster.DocState); //curBillMaster.DocState
+                foreach (SelFeeTemplateDtl item in curBillMaster.Details)
+                {
+                    int i = this.dgDetail.Rows.Add();
+                    this.dgDetail[this.colSpecialType.Name, i].Value = item.SpecialType;
+                    this.dgDetail[this.colAccountSubjectName.Name, i].Value = item.AccountSubjectName;
+                    this.dgDetail[this.colAccountSubjectName.Name, i].Tag = item.AccountSubject;
+                    this.dgDetail[this.colAccountSubjectCode.Name, i].Value = item.AccountSubjectCode;
+                    this.dgDetail[this.colRate.Name, i].Value = item.Rate;
+                    this.dgDetail[this.colBeginMoney.Name, i].Value = item.BeginMoney;
+                    this.dgDetail[this.colEndMoney.Name, i].Value = item.EndMoney;
+                    this.dgDetail[this.colDescript.Name, i].Value = item.Descript;
+                    this.dgDetail[this.colMainAccSubjectName.Name, i].Value = item.MainAccSubjectName;
+                    this.dgDetail[this.colMainAccSubjectName.Name, i].Tag = item.MainAccSubject;
+                    this.dgDetail[this.colMainAccSubjectCode.Name, i].Value = item.MainAccSubjectCode;
+                    this.dgDetail.Rows[i].Tag = item;
+                }
+                foreach (SelFeeTempFormula item in curBillMaster.SelFeeTempFormulas)
+                {
+                    int i = this.dgRules.Rows.Add();
+                    this.dgRules[this.colAccountSubject_rules.Name, i].Value = item.AccountSubjectName;
+                    this.dgRules[this.colAccountSubject_rules.Name, i].Tag = item.AccountSubject;
+                    this.dgRules[this.colAccountSubjectCode_rules.Name, i].Value = item.AccountSubjectCode;
+                    this.dgRules[this.colFormula_rules.Name, i].Tag = item.Formula;
+                    this.dgRules.Rows[i].Tag = item;
+
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                
+                throw e;
+            }
+        
+        }
+        #endregion
+
+        #region Override methods
+        /// <summary>
+        /// 刷新控件(窗体中的控件)
+        /// </summary>
+        /// <param name="state"></param>
+        public override void RefreshControls(MainViewState state)
+        {
+            base.RefreshControls(state);
+
+            //控制自身控件
+            if (ViewState == MainViewState.AddNew || ViewState == MainViewState.Modify)
+            {
+                ObjectLock.Unlock(pnlFloor, true);
+               
+            }
+            else
+            {
+                ObjectLock.Lock(pnlFloor, true);
+              
+            }
+
+            //永久锁定
+            object[] os = new object[] { txtCode, comDocState };
+            ObjectLock.Lock(os);
+
+            ////string[] lockCols = new string[] { colInspectionSupplier.Name, colInspectionPerson.Name, colRectification.Name, colInspectionConclusion.Name, colInspectionRequireDate.Name, colDangerType.Name, colDangerLevel.Name, colDangerPart.Name, colInspectionRequire.Name, colInspectionContent.Name, colDescription.Name };
+            //string[] lockCols = new string[] { colInspectionSupplier.Name, colDangerType.Name, colDangerPart.Name, colInspectionRequire.Name, colInspectionContent.Name, colDescription.Name };
+            //dgDetail.SetColumnsReadOnly(lockCols);
+        }
+
+        public override bool NewView()
+        {
+            try
+            {
+                base.NewView();
+                if (dgDetail.Rows.Count > 1 || this.dgRules.Rows.Count > 1)
+                {
+                    ClearView();
+                }
+                this.curBillMaster = new SelFeeTemplateMaster();
+                curBillMaster.CreateYear = DateTime.Now.Year;
+                curBillMaster.CreateMonth = DateTime.Now.Month;
+                curBillMaster.CreateDate = DateTime.Now;
+                curBillMaster.DocState = DocumentState.Edit;//状态
+                curBillMaster.CreatePerson = ConstObject.LoginPersonInfo;//负责人
+                curBillMaster.CreatePersonName = ConstObject.LoginPersonInfo.Name;//负责人名称
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(ExceptionUtil.ExceptionMessage(e), "提示", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                return false;
+            }
+            return true;
+        }
+        public override bool ModifyView()
+        {
+            if (curBillMaster.DocState == DocumentState.Edit || curBillMaster.DocState == DocumentState.Valid)
+            {
+                base.ModifyView();
+
+                curBillMaster = model.CostMonthAccSrv.GetSelFeeTemplateMasterById(curBillMaster.Id);
+                ModelToView();
+                return true;
+            }
+            string message = "此单状态为【{0}】，不能修改！";
+            message = string.Format(message, ClientUtil.GetDocStateName(curBillMaster.DocState));
+            MessageBox.Show(message);
+            return false;
+        }
+        public override bool SaveView()
+        {
+            try
+            {
+                if (!ViewToModel()) return false;
+         
+                bool flag = false;
+                if (string.IsNullOrEmpty(curBillMaster.Id))
+                {
+                    flag = true;
+                }
+                curBillMaster = model.CostMonthAccSrv.SaveOrUpdateSelFeeTemplateMaster(curBillMaster);
+
+                //插入日志
+                txtCode.Text = curBillMaster.Code;
+                //更新Caption
+                LogData log = new LogData();
+                log.BillId = curBillMaster.Id;
+                log.BillType = "取费模板定义";
+                log.Code = curBillMaster.Code;
+                log.Descript = "";
+                log.OperPerson = ConstObject.LoginPersonInfo.Name;
+                log.ProjectName = curBillMaster.ProjectName;
+                if (flag)
+                {
+                    log.OperType = "新增";
+                }
+                else
+                {
+                    log.OperType = "修改";
+                }
+                StaticMethod.InsertLogData(log);
+                this.ViewCaption = ViewName + "-" + txtCode.Text;
+                MessageBox.Show("保存成功！");
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("数据保存错误：" + ExceptionUtil.ExceptionMessage(e));
+            }
+            return false;
+        }
+        public override bool DeleteView()
+        {
+            try
+            {
+                if (curBillMaster.DocState == DocumentState.Edit || curBillMaster.DocState == DocumentState.Valid)
+                {
+
+                    curBillMaster = model.CostMonthAccSrv.GetSelFeeTemplateMasterById(curBillMaster.Id);
+                    if (curBillMaster.DocState == DocumentState.Valid || curBillMaster.DocState == DocumentState.Edit)
+                    {
+                        //if (!model.ProfessionInspectionSrv.DeleteByDao(curBillMaster)) return false;
+                        if (!model.CostMonthAccSrv.DeleteSelFeeTemplateMaster(curBillMaster)) return false;
+                        LogData log = new LogData();
+                        log.BillId = curBillMaster.Id;
+                        log.BillType = "取费模板定义";
+                        log.Code = curBillMaster.Code;
+                        log.OperType = "删除";
+                        log.Descript = "";
+                        log.OperPerson = ConstObject.LoginPersonInfo.Name;
+                        log.ProjectName = curBillMaster.ProjectName;
+                        StaticMethod.InsertLogData(log);
+                        ClearView();
+                        MessageBox.Show("删除成功！");
+                        return true;
+                    }
+                    MessageBox.Show("此单状态为【" + ClientUtil.GetDocStateName(curBillMaster.DocState) + "】，不能删除！");
+                    return false;
+                }
+                string message = "此单状态为【{0}】，不能删除！";
+                message = string.Format(message, ClientUtil.GetDocStateName(curBillMaster.DocState));
+                MessageBox.Show(message);
+                return false;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("数据删除错误：" + ExceptionUtil.ExceptionMessage(e));
+                return false;
+            };
+        }
+        public override bool CancelView()
+        {
+            try
+            {
+                switch (ViewState)
+                {
+                    case MainViewState.Modify:
+                        //重新查询数据
+                        curBillMaster = model.CostMonthAccSrv.GetSelFeeTemplateMasterById(curBillMaster.Id);
+                        ModelToView();
+                        break;
+                    default:
+                        if (dgDetail.Rows.Count > 1)
+                        {
+                            ClearView();
+                        }
+                        break;
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("数据撤销错误：" + ExceptionUtil.ExceptionMessage(e));
+                return false;
+            }
+           
+        }
+
+        public override void RefreshView()
+        {
+            try
+            {
+                //重新获得当前对象的值
+                curBillMaster = model.CostMonthAccSrv.GetSelFeeTemplateMasterById(curBillMaster.Id);
+                //给界面赋值
+                ModelToView();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("数据刷新错误：" + ExceptionUtil.ExceptionMessage(e));
+            }
+        }
+        #endregion
+
+        #region
+         //清空数据
+        private void ClearView()
+        {
+            ClearControl(pnlFloor);
+        }
+
+        private void ClearControl(Control c)
+        {
+            foreach (Control cd in c.Controls)
+            {
+                ClearControl(cd);
+            }
+            //自定义控件清空
+            if (c is CustomEdit)
+            {
+                c.Tag = null;
+                c.Text = "";
+            }
+            else if (c is CustomDataGridView)
+            {
+                (c as CustomDataGridView).Rows.Clear();
+            }
+        }
+        private void ClearCtlContent()
+        { 
+            ClearContent(pnlFloor);
+        }
+
+        private void ClearContent(Control c)
+        {
+            foreach (Control cd in c.Controls)
+            {
+                ClearContent(cd);
+            }
+            if (c is CustomEdit || c is TextBox)
+            {
+                c.Tag = null;
+                c.Text = "";
+            }
+        }
+
+        #endregion
+    }
+
+}

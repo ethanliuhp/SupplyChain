@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.Indicator.IndicatorUse.Domain.ViewMain,SupplyChain" table="THD_ViewMain" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="Version" type="long" unsaved-value="-1"/>
+    <property name="State" column="STATE"/>
+    <property name="SystemId" column="SystemId"/>
+    <property name="CreatedDate" column="CreateDate" type="Date"/>
+    <property name="DisplayDecimal" column="DisplayDecimal"/>
+    <property name="CollectRule" column="CollectRule"/>
+    <property name="CollectYwzz" column="CollectYwzz" length="1000"/>
+
+    <property name="ViewName" column="ViewName" length="40"/>
+    
+    <property name="ViewTypeCode" column="ViewTypeCode" length="10"/>
+    <property name="ViewTypeName" column="ViewTypeName" length="20"/>
+    <property name="CollectTypeCode" column="CollectTypeCode" length="40"/>
+    <property name="CollectTypeName" column="CollectTypeName" length="40"/>
+    <property name="IfDisplaySonMother" column="IfDisplaySonMother" length="40"/>
+    <property name="IfYwzz" column="IfYwzz" length="10"/>
+    <property name="IfTime" column="IfTime" length="10"/>
+    <many-to-one name="CubeRegId" column="CubeRegId" />
+
+    <many-to-one name="Author" column="PerId" />
+    <many-to-one name="TheOperOrg" column="OpeId" />
+    <many-to-one name="TheJob" column="JobId" />
+    
+    <property name="Remark" column="Remark" length="200"/>
+
+    <!--子类本身的属性-->
+    <bag name="ViewDetails" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="ViewMainId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.Indicator.IndicatorUse.Domain.ViewDetail,SupplyChain"/>
+    </bag>
+    <bag name="ViewStyles" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="ViewMainId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.Indicator.IndicatorUse.Domain.ViewStyle,SupplyChain"/>
+    </bag>
+    <bag name="ViewDistributes" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="ViewMainId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.Indicator.IndicatorUse.Domain.ViewDistribute,SupplyChain"/>
+    </bag>
+  </class>
+</hibernate-mapping>

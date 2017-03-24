@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.Basic.Domain.CurrentProjectInfo,SupplyChain" table="ResConfig" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <!--项目名称-->
+    <property name="Name" column="ProjectName"/>
+    <!--项目代码-->
+    <property name="Code" column="ProjectCode"/>
+    <!--配置文件路径-->
+    <property name="ConfigPath" />
+    <!--测量精度-->
+    <property name="MeasureAccuracy" length="4"/>
+    <!--长度-->
+    <property name="Length" length="4"/>
+    <!--承包范围-->
+    <property name="ContractArea" />
+    <!--承包方式-->
+    <property name="ContractType" />
+    <property name="CreateDate" />
+    <!--地上层数-->
+    <property name="GroundLayers" />
+    <!--大包模板木枋地上单价-->
+    <property name="BigModualGroundUpPrice" length="4"/>
+    <!--大包模板木枋地下单价-->
+    <property name="BigModualGroundDownPrice" length="4"/>
+    <!--地下层数-->
+    <property name="UnderGroundLayers" />
+	<property name="ProjectCurrState" />
+    <!--工程地点 省-->
+    <property name="ProjectLocationProvince" />
+    <!--工程地点 市-->
+    <property name="ProjectLocationCity" />
+    <!--工程地点 说明-->
+    <property name="ProjectLocationDescript" />
+	<!--项目规模-->
+	<property name="OtherProjectName" />
+    <!--工程造价（万元）-->
+    <property name="ProjectCost" length="2"/>
+    <!--甲指分包工程说明-->
+    <property name="SubProjectDescript" />
+    <!--建筑高度-->
+    <property name="BuildingHeight" length="4"/>
+    <!--建筑面积-->
+    <property name="BuildingArea" length="4"/>
+    <!--结构类型-->
+    <property name="StructureType" />
+    <!--结构类型说明-->
+    <property name="StructureTypeDescript" />
+    <many-to-one name="HandlePerson" />
+    <!--立项责任人名称-->
+    <property name="HandlePersonName" />
+    <!--立项责任人组织层次码-->
+    <property name="HandlePersonOrgSysCode" />
+    <many-to-one name="DefaultLengthUnit"/>
+    <!--缺省长度计量单位名称-->
+    <property name="DefaultLengthUnitName" />
+    <many-to-one name="DefaultPriceUnit"/>
+    <!--缺省价格计量单位名称-->
+    <property name="DefaultPriceUnitName" />
+    <many-to-one name="DefaultAreaUnit"/>
+    <!--缺省面积计量单位名称-->
+    <property name="DefaultAreaUnitName" />
+    <many-to-one name="DefaultVolumeUnit"/>
+    <!--缺省体积计量单位名称-->
+    <property name="DefaultVolumeUnitName" />
+    <many-to-one name="DefaultWeightUnit"/>
+    <!--缺省重量计量单位名称-->
+    <property name="DefaultWeightUnitName" />
+    <!--项目生命周期-->
+    <property name="ProjectLifeCycle" />
+    <!--所属项目部-->
+    <many-to-one name="OwnerOrg"/>
+    <!--所属项目部名称-->
+    <property name="OwnerOrgName" />
+    <!--所属项目部-->
+    <property name="OwnerOrgSysCode" />
+    <!--项目类型-->
+    <property name="ProjectType" />
+    <!--项目类型说明-->
+    <property name="ProjectTypeDescript" />
+    <!--项目说明-->
+    <property name="Descript" />
+    <!--项目对象信息所处的状态-->
+    <property name="ProjectInfoState" />
+    <!--资金到位情况-->
+    <property name="IsFundsAvailabed" />
+    <!--资金来源-->
+    <property name="SourcesOfFunding" />
+    <!--最后更新时间-->
+    <property name="LastUpdateDate" />
+    <!--开工日期-->
+    <property name="BeginDate" />
+    <!--竣工日期-->
+    <property name="EndDate" />
+    <!--实际开工时间-->
+    <property name="RealKGDate" />
+    <!--施工阶段-->
+    <property name="ConstractStage" />
+    <!--地上建筑面积-->
+    <property name="TheGroundArea" length="4"/>
+    <!--地下建筑面积-->
+    <property name="UnderGroundArea" length="4"/>
+    <!--合同收款比例-->
+    <property name="ContractCollectRatio" length="4"/>
+    <!--基础形式-->
+    <property name="BaseForm" />
+    <!--土建合同金额-->
+    <property name="CivilContractMoney" length="4"/>
+    <!--安装合同金额-->
+    <property name="InstallOrderMoney" length="4"/>
+    <!--墙外投影面积-->
+    <property name="WallProjectArea" length="4"/>
+    <!--责任上缴比例-->
+    <property name="ResProportion" length="4"/>
+    <!--项目经理部-->
+    <property name="ManagerDepart" />
+    <!--安全奖惩-->
+    <property name="SaftyReword" />
+    <!--安全目标-->
+    <property name="SaftyTarget" />
+    <!--工期奖惩-->
+    <property name="ProjecRewordt" />
+    <!--质量奖惩-->
+    <property name="QualityReword" />
+    <!--质量目标-->
+    <property name="QuanlityTarget" />
+    <!--实际预算总金额-->
+    <property name="RealPerMoney" length="4"/>
+    <!--进场日期-->
+    <property name="AprroachDate" />
+
+    <!--自营责任成本-->
+    <property name="ResponsCost" />
+    <!--自营合同收入-->
+    <property name="ContractIncome" />
+    <!--自营风险额度-->
+    <property name="RiskLimits" />
+    <!--自营责任上缴比列-->
+    <property name="Inproportion" />
+    
+    <!--效果图路径-->
+    <property name="EffectPicPath" />
+    <!--平面图路径-->
+    <property name="FlatPicPath" />
+
+    <!--效果图文件柜id-->
+    <property name="EffectPicFileCabinetId" />
+    <!--平面图文件柜id-->
+    <property name="FlatPicFileCabinetId" />
+    <!--项目物资说明id-->
+    <property name="MaterialNote" />
+
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.Basic.Domain.PeriodNode,SupplyChain"/>
+    </set>
+
+
+    <set name="ProRelationUnitdetails" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.Basic.Domain.ProRelationUnit,SupplyChain"/>
+    </set>
+
+    <!--地图坐标-->
+    <property name="MapPoint" />
+	  <property name="AccountLeftMoney" />
+	  <property name="IfSync" />
+    <many-to-one name="SubmitPerson" />
+    <property name="SubmitPersonName" />
+    <property name="SubmitTime" />
+    <property name="TaxType" />
+  </class>
+</hibernate-mapping>

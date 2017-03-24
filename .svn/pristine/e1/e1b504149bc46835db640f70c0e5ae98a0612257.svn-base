@@ -1,0 +1,979 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://think3.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://think3.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://think3.com/">
+      <s:element name="AddOrg">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="parentOrgCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="org" type="tns:OpeOrg" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OpeOrg">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="OrgCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrgName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrgType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ParentOrgCode" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddOrgResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddOrgResult" type="tns:RetOb" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RetOb">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Out0" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UpdateOrg">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="org" type="tns:OpeOrg" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateOrgResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateOrgResult" type="tns:RetOb" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteOrg">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="org" type="tns:OpeOrg" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteOrgResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteOrgResult" type="tns:RetOb" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetOrgInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="orgCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="flag" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetOrgInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetOrgInfoResult" type="tns:RetOb" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrgByCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="orgCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrgByCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrgByCodeResult" type="tns:OpeOrg" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="tns:User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="User">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddUserResult" type="tns:RetOb" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="tns:User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateUserResult" type="tns:RetOb" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteUserResult" type="tns:RetOb" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserByCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserByCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserByCodeResult" type="tns:User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateEmpPost">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="emps" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateEmpPostResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateEmpPostResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddPost">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="orgCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="post" type="tns:Post" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Post">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PosiCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PosiName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrgCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderNo" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddPostResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddPostResult" type="tns:RetOb" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePost">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="post" type="tns:Post" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePostResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdatePostResult" type="tns:RetOb" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeletePost">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="post" type="tns:Post" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeletePostResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeletePostResult" type="tns:RetOb" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPostByCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="postCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPostByCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPostByCodeResult" type="tns:Post" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateEmpRole">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="emps" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="posiCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateEmpRoleResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateEmpRoleResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddRole">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="role" type="tns:Role" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Role">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="RoleCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoleName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddRoleResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddRoleResult" type="tns:RetOb" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteRole">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="role" type="tns:Role" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteRoleResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteRoleResult" type="tns:RetOb" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRoleByCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="roleCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRoleByCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRoleByCodeResult" type="tns:Role" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRoleByName">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="roleName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRoleByNameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRoleByNameResult" type="tns:Role" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SyncXMLData">
+        <s:complexType />
+      </s:element>
+      <s:element name="SyncXMLDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SyncXMLDataResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetIsAutoSyncXMLData">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetIsAutoSyncXMLDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetIsAutoSyncXMLDataResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetAutoSyncXMLDataFlag">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsAutoSyncFlag" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetAutoSyncXMLDataFlagResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetAutoSyncXMLDataFlagResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AddOrgSoapIn">
+    <wsdl:part name="parameters" element="tns:AddOrg" />
+  </wsdl:message>
+  <wsdl:message name="AddOrgSoapOut">
+    <wsdl:part name="parameters" element="tns:AddOrgResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateOrgSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateOrg" />
+  </wsdl:message>
+  <wsdl:message name="UpdateOrgSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateOrgResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteOrgSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteOrg" />
+  </wsdl:message>
+  <wsdl:message name="DeleteOrgSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteOrgResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetOrgInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:SetOrgInfo" />
+  </wsdl:message>
+  <wsdl:message name="SetOrgInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:SetOrgInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrgByCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrgByCode" />
+  </wsdl:message>
+  <wsdl:message name="GetOrgByCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrgByCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddUserSoapIn">
+    <wsdl:part name="parameters" element="tns:AddUser" />
+  </wsdl:message>
+  <wsdl:message name="AddUserSoapOut">
+    <wsdl:part name="parameters" element="tns:AddUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateUser" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteUserSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteUser" />
+  </wsdl:message>
+  <wsdl:message name="DeleteUserSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserByCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserByCode" />
+  </wsdl:message>
+  <wsdl:message name="GetUserByCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserByCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateEmpPostSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateEmpPost" />
+  </wsdl:message>
+  <wsdl:message name="UpdateEmpPostSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateEmpPostResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddPostSoapIn">
+    <wsdl:part name="parameters" element="tns:AddPost" />
+  </wsdl:message>
+  <wsdl:message name="AddPostSoapOut">
+    <wsdl:part name="parameters" element="tns:AddPostResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePostSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdatePost" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePostSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdatePostResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeletePostSoapIn">
+    <wsdl:part name="parameters" element="tns:DeletePost" />
+  </wsdl:message>
+  <wsdl:message name="DeletePostSoapOut">
+    <wsdl:part name="parameters" element="tns:DeletePostResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPostByCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPostByCode" />
+  </wsdl:message>
+  <wsdl:message name="GetPostByCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPostByCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateEmpRoleSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateEmpRole" />
+  </wsdl:message>
+  <wsdl:message name="UpdateEmpRoleSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateEmpRoleResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddRoleSoapIn">
+    <wsdl:part name="parameters" element="tns:AddRole" />
+  </wsdl:message>
+  <wsdl:message name="AddRoleSoapOut">
+    <wsdl:part name="parameters" element="tns:AddRoleResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteRoleSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteRole" />
+  </wsdl:message>
+  <wsdl:message name="DeleteRoleSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteRoleResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRoleByCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRoleByCode" />
+  </wsdl:message>
+  <wsdl:message name="GetRoleByCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRoleByCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRoleByNameSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRoleByName" />
+  </wsdl:message>
+  <wsdl:message name="GetRoleByNameSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRoleByNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="SyncXMLDataSoapIn">
+    <wsdl:part name="parameters" element="tns:SyncXMLData" />
+  </wsdl:message>
+  <wsdl:message name="SyncXMLDataSoapOut">
+    <wsdl:part name="parameters" element="tns:SyncXMLDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetIsAutoSyncXMLDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetIsAutoSyncXMLData" />
+  </wsdl:message>
+  <wsdl:message name="GetIsAutoSyncXMLDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetIsAutoSyncXMLDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetAutoSyncXMLDataFlagSoapIn">
+    <wsdl:part name="parameters" element="tns:SetAutoSyncXMLDataFlag" />
+  </wsdl:message>
+  <wsdl:message name="SetAutoSyncXMLDataFlagSoapOut">
+    <wsdl:part name="parameters" element="tns:SetAutoSyncXMLDataFlagResponse" />
+  </wsdl:message>
+  <wsdl:portType name="OrgUserSyncDataSrvSoap">
+    <wsdl:operation name="AddOrg">
+      <wsdl:input message="tns:AddOrgSoapIn" />
+      <wsdl:output message="tns:AddOrgSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrg">
+      <wsdl:input message="tns:UpdateOrgSoapIn" />
+      <wsdl:output message="tns:UpdateOrgSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteOrg">
+      <wsdl:input message="tns:DeleteOrgSoapIn" />
+      <wsdl:output message="tns:DeleteOrgSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetOrgInfo">
+      <wsdl:input message="tns:SetOrgInfoSoapIn" />
+      <wsdl:output message="tns:SetOrgInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrgByCode">
+      <wsdl:input message="tns:GetOrgByCodeSoapIn" />
+      <wsdl:output message="tns:GetOrgByCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddUser">
+      <wsdl:input message="tns:AddUserSoapIn" />
+      <wsdl:output message="tns:AddUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUser">
+      <wsdl:input message="tns:UpdateUserSoapIn" />
+      <wsdl:output message="tns:UpdateUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUser">
+      <wsdl:input message="tns:DeleteUserSoapIn" />
+      <wsdl:output message="tns:DeleteUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserByCode">
+      <wsdl:input message="tns:GetUserByCodeSoapIn" />
+      <wsdl:output message="tns:GetUserByCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEmpPost">
+      <wsdl:input message="tns:UpdateEmpPostSoapIn" />
+      <wsdl:output message="tns:UpdateEmpPostSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddPost">
+      <wsdl:input message="tns:AddPostSoapIn" />
+      <wsdl:output message="tns:AddPostSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePost">
+      <wsdl:input message="tns:UpdatePostSoapIn" />
+      <wsdl:output message="tns:UpdatePostSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePost">
+      <wsdl:input message="tns:DeletePostSoapIn" />
+      <wsdl:output message="tns:DeletePostSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPostByCode">
+      <wsdl:input message="tns:GetPostByCodeSoapIn" />
+      <wsdl:output message="tns:GetPostByCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEmpRole">
+      <wsdl:input message="tns:UpdateEmpRoleSoapIn" />
+      <wsdl:output message="tns:UpdateEmpRoleSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddRole">
+      <wsdl:input message="tns:AddRoleSoapIn" />
+      <wsdl:output message="tns:AddRoleSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteRole">
+      <wsdl:input message="tns:DeleteRoleSoapIn" />
+      <wsdl:output message="tns:DeleteRoleSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRoleByCode">
+      <wsdl:input message="tns:GetRoleByCodeSoapIn" />
+      <wsdl:output message="tns:GetRoleByCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRoleByName">
+      <wsdl:input message="tns:GetRoleByNameSoapIn" />
+      <wsdl:output message="tns:GetRoleByNameSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SyncXMLData">
+      <wsdl:input message="tns:SyncXMLDataSoapIn" />
+      <wsdl:output message="tns:SyncXMLDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIsAutoSyncXMLData">
+      <wsdl:input message="tns:GetIsAutoSyncXMLDataSoapIn" />
+      <wsdl:output message="tns:GetIsAutoSyncXMLDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetAutoSyncXMLDataFlag">
+      <wsdl:input message="tns:SetAutoSyncXMLDataFlagSoapIn" />
+      <wsdl:output message="tns:SetAutoSyncXMLDataFlagSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="OrgUserSyncDataSrvSoap" type="tns:OrgUserSyncDataSrvSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddOrg">
+      <soap:operation soapAction="http://think3.com/AddOrg" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrg">
+      <soap:operation soapAction="http://think3.com/UpdateOrg" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteOrg">
+      <soap:operation soapAction="http://think3.com/DeleteOrg" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetOrgInfo">
+      <soap:operation soapAction="http://think3.com/SetOrgInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrgByCode">
+      <soap:operation soapAction="http://think3.com/GetOrgByCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddUser">
+      <soap:operation soapAction="http://think3.com/AddUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUser">
+      <soap:operation soapAction="http://think3.com/UpdateUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUser">
+      <soap:operation soapAction="http://think3.com/DeleteUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserByCode">
+      <soap:operation soapAction="http://think3.com/GetUserByCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEmpPost">
+      <soap:operation soapAction="http://think3.com/UpdateEmpPost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddPost">
+      <soap:operation soapAction="http://think3.com/AddPost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePost">
+      <soap:operation soapAction="http://think3.com/UpdatePost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePost">
+      <soap:operation soapAction="http://think3.com/DeletePost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostByCode">
+      <soap:operation soapAction="http://think3.com/GetPostByCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEmpRole">
+      <soap:operation soapAction="http://think3.com/UpdateEmpRole" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddRole">
+      <soap:operation soapAction="http://think3.com/AddRole" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteRole">
+      <soap:operation soapAction="http://think3.com/DeleteRole" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRoleByCode">
+      <soap:operation soapAction="http://think3.com/GetRoleByCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRoleByName">
+      <soap:operation soapAction="http://think3.com/GetRoleByName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SyncXMLData">
+      <soap:operation soapAction="http://think3.com/SyncXMLData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIsAutoSyncXMLData">
+      <soap:operation soapAction="http://think3.com/GetIsAutoSyncXMLData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetAutoSyncXMLDataFlag">
+      <soap:operation soapAction="http://think3.com/SetAutoSyncXMLDataFlag" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="OrgUserSyncDataSrvSoap12" type="tns:OrgUserSyncDataSrvSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddOrg">
+      <soap12:operation soapAction="http://think3.com/AddOrg" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrg">
+      <soap12:operation soapAction="http://think3.com/UpdateOrg" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteOrg">
+      <soap12:operation soapAction="http://think3.com/DeleteOrg" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetOrgInfo">
+      <soap12:operation soapAction="http://think3.com/SetOrgInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrgByCode">
+      <soap12:operation soapAction="http://think3.com/GetOrgByCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddUser">
+      <soap12:operation soapAction="http://think3.com/AddUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUser">
+      <soap12:operation soapAction="http://think3.com/UpdateUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUser">
+      <soap12:operation soapAction="http://think3.com/DeleteUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserByCode">
+      <soap12:operation soapAction="http://think3.com/GetUserByCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEmpPost">
+      <soap12:operation soapAction="http://think3.com/UpdateEmpPost" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddPost">
+      <soap12:operation soapAction="http://think3.com/AddPost" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePost">
+      <soap12:operation soapAction="http://think3.com/UpdatePost" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePost">
+      <soap12:operation soapAction="http://think3.com/DeletePost" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostByCode">
+      <soap12:operation soapAction="http://think3.com/GetPostByCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEmpRole">
+      <soap12:operation soapAction="http://think3.com/UpdateEmpRole" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddRole">
+      <soap12:operation soapAction="http://think3.com/AddRole" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteRole">
+      <soap12:operation soapAction="http://think3.com/DeleteRole" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRoleByCode">
+      <soap12:operation soapAction="http://think3.com/GetRoleByCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRoleByName">
+      <soap12:operation soapAction="http://think3.com/GetRoleByName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SyncXMLData">
+      <soap12:operation soapAction="http://think3.com/SyncXMLData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIsAutoSyncXMLData">
+      <soap12:operation soapAction="http://think3.com/GetIsAutoSyncXMLData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetAutoSyncXMLDataFlag">
+      <soap12:operation soapAction="http://think3.com/SetAutoSyncXMLDataFlag" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="OrgUserSyncDataSrv">
+    <wsdl:port name="OrgUserSyncDataSrvSoap" binding="tns:OrgUserSyncDataSrvSoap">
+      <soap:address location="http://localhost:3561/MainWeb/OrgUserSyncDataSrv.asmx" />
+    </wsdl:port>
+    <wsdl:port name="OrgUserSyncDataSrvSoap12" binding="tns:OrgUserSyncDataSrvSoap12">
+      <soap12:address location="http://localhost:3561/MainWeb/OrgUserSyncDataSrv.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="IRPServiceModel.Domain.PaymentOrder.PaymentOrderDetial,IRPServiceModel" table="IRP_PaymentOrderDetial" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="PaymentItemName"></property>
+    <property name="Describe"></property>
+    <property name="Money" length="2"></property>
+    <many-to-one name="Master" column="parentID" class="IRPServiceModel.Domain.PaymentOrder.PaymentOrderMaster,IRPServiceModel" />
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.StockManage.StockInventory.Domain.StockInventoryDetail,SupplyChain" table="THD_StockInventoryDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+
+    <!--物资-->
+    <many-to-one name="MaterialResource" column="Material"  class="Application.Resource.MaterialResource.Domain.Material,ResourceManager"/>
+    <property name="MaterialCode"/>
+    <property name="MaterialName"/>
+    <property name="MaterialSpec"/>
+    <property name="MaterialStuff"/>
+    <property name="DiagramNumber" />
+    <!--计量单位-->
+    <many-to-one name="MatStandardUnit" column="MatStandardUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="MatStandardUnitName"/>
+    <property name="StockQuantity"/>
+    <property name="InventoryQuantity"/>
+    <!--专业分类-->
+    <property name="SpecialType"/>
+    
+    <property name="Price"/>
+    <property name="Money"/>
+    <property name="ConfirmPrice"/>
+    <property name="ConfirmMoney"/>
+
+    <property name="SubjectGuid"/>
+    <property name="SubjectName"/>
+    <property name="SubjectSysCode"/>
+    
+    
+    <property name="MaterialClassify"/>
+    <property name="Descript" column="Descript"/>
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.StockManage.StockInventory.Domain.StockInventoryMaster, SupplyChain"></many-to-one>
+
+  </class>
+</hibernate-mapping>

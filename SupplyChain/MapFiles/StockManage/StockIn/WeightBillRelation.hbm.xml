@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.StockManage.StockInManage.Domain.WeightBillRelation, SupplyChain" table="THD_WeightBillRelation" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="Version" type="long" unsaved-value="-1"/>
+    <property name="ProjectId"></property>
+    <property name="ProjectCode"></property>
+    <property name="WeightId"></property>
+    <property name="RefBillType"></property>
+  </class>
+</hibernate-mapping>

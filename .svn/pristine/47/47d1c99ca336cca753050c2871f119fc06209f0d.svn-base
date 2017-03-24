@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <!--Map文件-->
+  <import resource="appContextMap.xml"/>
+  
+  <!--虚拟机服务-->
+  <import resource="appContextVM.xml"/>
+
+  <!--资源服务-->
+  <import resource="appContextRes.xml"/>
+
+  <import resource="appContextSecure.xml"/>
+  
+  <!--第三方物流-->
+  <import resource="appContextStock.xml"/>
+
+  <import resource="appContextAuth.xml"/>
+  
+  <import resource="appContextApproval.xml"/>
+
+  <!--成本核算服务-->
+  <import resource="appContextCost.xml"/>
+
+  <!--工程对象文档服务-->
+  <import resource="appContextDoc.xml"/>
+  
+  <!--资金管理服务服务-->
+  <import resource="appContextMoney.xml"/>
+  
+  <!--功能控件相关服务-->
+  <!--<import resource="appContextUtilityCon.xml"/>-->  
+  
+  <!--管控和预警服务-->
+  <!--<import resource="appContextPMCAndWarning.xml"/>-->
+</objects>

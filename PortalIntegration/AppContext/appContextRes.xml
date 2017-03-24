@@ -1,0 +1,1079 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <!--消息服务-->
+  <object id="MessageSrvTarget" type="Application.Resource.CommonClass.Service.MessageCom.MessageSrv,ResourceManager" autowire="byName">
+  </object>
+
+  <object	id="TheMessageSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MessageSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+      </list>
+    </property>
+  </object>
+
+  <!--表单号设置-->
+  <object id="BillNoRuleSrvTarget" type="Application.Resource.CommonClass.Service.BillNoCom.BillNoRuleSrv,ResourceManager" autowire="byName">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="TheBillNoRuleSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="BillNoRuleSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--复合关键字切片-->
+  <object id="CombinedKeyAopTarget" type="Application.Resource.CommonClass.Aop.CombinedKey.CombinedKeyAop,ResourceManager" autowire="byName">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="TheCombinedKeyAop" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="CombinedKeyAopTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--日志切片-->
+  <object id="LogComAopTarget" type="Application.Resource.CommonClass.Aop.LogCom.LogComAop,ResourceManager" autowire="byName">
+  </object>
+
+  <object	id="TheLogComAop" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="LogComAopTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--日志服务-->
+  <object id="LogDataSrvTarget" type="Application.Resource.CommonClass.Service.LogCom.LogDataSrv,ResourceManager" autowire="byName">
+
+  </object>
+
+  <object	id="TheLogDataSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="LogDataSrvTarget"/>
+
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--日志客户端服务-->
+  <object id="LogClientDataSrvTarget" type="Application.Resource.CommonClass.Service.LogClientCom.LogClientDataSrv,ResourceManager" autowire="byName">
+
+  </object>
+
+  <object	id="TheLogClientDataSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="LogClientDataSrvTarget"/>
+
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+
+  <!--表单号数据-->
+  <object id="BillNoDataSrvTarget" type="Application.Resource.CommonClass.Service.BillNoCom.BillNoDataSrv,ResourceManager" autowire="byName">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="TheBillNoDataSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="BillNoDataSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--<object id="BillCodeGeneratorAop" type="Application.Resource.CommonClass.Aop.CodeGenerator.BillCodeGeneratorAop,ResourceManager" autowire="byName">-->
+
+  <!--</object>-->
+  <!--登录服务-->
+  <!--autowire="byType" dependency-check="all"-->
+  <object id="LoginSrvTarget" type="Application.Resource.CommonClass.Service.LoginSrv,ResourceManager" >
+    <property name="Dao" ref="dao"/>
+    <property name="TheSysAuthentic" ref="SysAuthentic"/>
+    <property name="TheOrganizationResSrv" ref="OrganizationResSrv"/>
+    <property name="TheHumanResSrv" ref="HumanResSrv"/>
+    <property name="TheCurrencyInfoSrv" ref="CurrencyInfoSrv"/>
+    <property name="TheFinanceResSrv" ref="FinanceResSrv"/>
+    <property name="TheOperationJobManager" ref="OperationJobManager"/>
+  </object>
+
+  <object	id="LoginSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="LoginSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--牌号(厂家)-->
+  <object id="FactorySrvTarget" type="Application.Resource.MaterialResource.Service.FactorySrv,ResourceManager">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="FactorySrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="FactorySrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--财务资源-->
+  <!--会计期设置-->
+  <object id="FiscalPeriodServiceTarget" type="Application.Resource.FinancialResource.Service.FiscalPeriodService,ResourceManager">
+    <property name="Dao" ref="dao"/>
+    <property name="TheBusinessBasicService" ref="BusinessBasicService"/>
+
+  </object>
+
+  <object	id="FiscalPeriodService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="FiscalPeriodServiceTarget"/>
+
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--会计期接口-->
+  <object id="FinanceResSrvTarget" type="Application.Resource.FinancialResource.Service.FinanceResSrv,ResourceManager">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="FinanceResSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="FinanceResSrvTarget"/>
+
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--货币管理-->
+  <object id="CurrencyManagerTarget" type="Application.Resource.FinancialResource.Service.CurrencyManager,ResourceManager">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="CurrencyManager" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="CurrencyManagerTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--货币信息-->
+  <object id="CurrencyInfoSrvTarget" type="Application.Resource.FinancialResource.Service.CurrencyInfoSrv,ResourceManager">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="CurrencyInfoSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="CurrencyInfoSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--银行信息-->
+  <object id="BankInfoServiceTarget" type="Application.Resource.FinancialResource.Service.BankInfoService,ResourceManager">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="BankInfoService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="BankInfoServiceTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheCombinedKeyAop</value>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--业务类型-->
+  <object id="BusTypeServiceTarget" type="Application.Resource.FinancialResource.Service.BusTypeService,ResourceManager" autowire="byName"  >
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="BusTypeService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="BusTypeServiceTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!-- 对照表-->
+  <object id="VsAccTitleServiceTarget" type="Application.Resource.FinancialResource.Service.VsAccTitleService,ResourceManager" autowire="byName" >
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="VsAccTitleService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="VsAccTitleServiceTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!-- 对照表-->
+  <object id="LcAccTitVsServiceTarget" type="Application.Resource.FinancialResource.Service.LcAccTitVsService,ResourceManager">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="LcAccTitVsService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="LcAccTitVsServiceTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--结算方式控件接口-->
+  <object id="BalMethodComSrvTarget" type="Application.Resource.FinancialResource.Service.BalMethodComSrv,ResourceManager" autowire="byName" >
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="BalMethodComSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="BalMethodComSrvTarget"/>
+
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!---->
+  <!--物料资源-->
+
+  <!--物料分类管理-->
+  <object id="MaterialCategoryServiceTarget" type="Application.Resource.MaterialResource.Service.MaterialCategoryService,ResourceManager">
+    <property name="Dao" ref="dao"/>
+    <property name="NodeSrv" ref="CategoryNodeService" />
+    <property name="RuleSrv" ref="CategoryRuleService" />
+    <property name="TreeService" ref="CategoryTreeService" />
+    <property name="ThePracticalityStateControlRuleService" ref="PracticalityStateControlRuleService"/>
+    <property name="TheManageStateControlRuleService" ref="ManageStateControlRuleService"/>
+    <property name="MaterialSrv" ref="MaterialService" />
+
+  </object>
+
+  <object	id="MaterialCategoryService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MaterialCategoryServiceTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+        <!--<value>TheLogComAop</value>-->
+      </list>
+    </property>
+  </object>
+  <!--物料管理-->
+  <object id="MaterialServiceTarget" type="Application.Resource.MaterialResource.Service.MaterialService,ResourceManager">
+    <property name="Dao" ref="dao"/>
+    <property name="TheMaterialCategoryService" ref="MaterialCategoryService"/>
+    <property name="ThePracticalityStateControlRuleService" ref="PracticalityStateControlRuleService"/>
+    <property name="TheManageStateControlRuleService" ref="ManageStateControlRuleService"/>
+    <property name="TheStandardUnitManager" ref="StandardUnitManager"/>
+
+  </object>
+
+  <object	id="MaterialService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MaterialServiceTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <!--<value>TheCombinedKeyAop</value>-->
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--物料核算角色-->
+  <object id="MaterialAccountRoleSrvTarget" type="Application.Resource.MaterialResource.Service.MaterialAccountRoleSrv,ResourceManager">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="MaterialAccountRoleSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MaterialAccountRoleSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--管理状态控制规则管理-->
+  <object id="ManageStateControlRuleServiceTarget" type="Application.Resource.MaterialResource.Service.ManageStateControlRuleService,ResourceManager">
+    <property name="Dao" ref="dao"/>
+
+  </object>
+
+  <object	id="ManageStateControlRuleService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ManageStateControlRuleServiceTarget"/>
+
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--实物状态控制规则管理-->
+  <object id="PracticalityStateControlRuleServiceTarget" type="Application.Resource.MaterialResource.Service.PracticalityStateControlRuleService,ResourceManager">
+    <property name="Dao" ref="dao"/>
+
+  </object>
+
+  <object	id="PracticalityStateControlRuleService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="PracticalityStateControlRuleServiceTarget"/>
+
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--物料其它状态-->
+  <!--<object id="MaterialOtherStateServiceTarget" type="Application.Resource.MaterialResource.Service.MaterialOtherStateService,ResourceManager">
+    <property name="Dao" ref="dao"/>
+
+  </object>
+
+  <object	id="MaterialOtherStateService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MaterialOtherStateServiceTarget"/>
+
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>-->
+  <!--管理实例-->
+  <object id="ManageStateServiceTarget" type="Application.Resource.MaterialResource.Service.ManageStateService,ResourceManager">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="ManageStateService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ManageStateServiceTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--实物实例-->
+  <object id="PracticalityStateServiceTarget" type="Application.Resource.MaterialResource.Service.PracticalityStateService,ResourceManager">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="PracticalityStateService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="PracticalityStateServiceTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--计量单位管理-->
+  <object id="StandardUnitManagerTarget" type="Application.Resource.MaterialResource.Service.StandardUnitManager,ResourceManager">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="StandardUnitManager" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="StandardUnitManagerTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--计量单位Info-->
+  <object id="StandardUnitInfoServiceTarget" type="Application.Resource.MaterialResource.Service.StandardUnitInfoService,ResourceManager">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="StandardUnitInfoService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="StandardUnitInfoServiceTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--物料计件单位管理-->
+  <object id="PieceUnitMaterialServiceTarget" type="Application.Resource.MaterialResource.Service.PieceUnitMaterialService,ResourceManager">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="PieceUnitMaterialService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="PieceUnitMaterialServiceTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!---->
+  <!--人力与组织资源-->
+  <!--人员接口-->
+  <object id="HumanResSrvTarget" type="Application.Resource.PersonAndOrganization.HumanResource.Service.HumanResSrv,ResourceManager">
+    <property name="Dao" ref="dao"/>
+  </object>
+  <object id="HumanResSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="HumanResSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--人员维护-->
+  <object id="PersonManagerTarget" type="Application.Resource.PersonAndOrganization.HumanResource.Service.PersonManager,ResourceManager">
+    <property name="Dao" ref="dao"/>
+    <property name="TheHumanResSrv" ref="HumanResSrv"/>
+    <property name="TheUsersXmlSrv" ref="UsersXmlSrv"/>
+  </object>
+  <object id="PersonManager" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="PersonManagerTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--供应关系分类树-->
+  <object id="SupplierRelationCategoryServiceTarget" type="Application.Resource.PersonAndOrganization.SupplierManagement.Service.SupplierRelationCategoryService,ResourceManager">
+    <property name="Dao" ref="dao"/>
+    <property name="NodeSrv" ref="CategoryNodeService" />
+    <property name="RuleSrv" ref="CategoryRuleService" />
+    <property name="TreeService" ref="CategoryTreeService" />
+  </object>
+
+  <object	id="SupplierRelationCategoryService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="SupplierRelationCategoryServiceTarget"/>
+
+    <property name="interceptorNames">
+      <list>
+
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--供应关系-->
+  <object id="SupplierRelationServiceTarget" type="Application.Resource.PersonAndOrganization.SupplierManagement.Service.SupplierRelationManager,ResourceManager">
+    <property name="Dao" ref="dao"/>
+    <property name="CategoryService" ref="SupplierRelationCategoryService"/>
+  </object>
+
+  <object	id="SupplierRelationService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="SupplierRelationServiceTarget"/>
+
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <object id="SupplierResSrvTarget" type="Application.Resource.PersonAndOrganization.SupplierManagement.Service.SupplierResSrv,ResourceManager">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="SupplierResSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="SupplierResSrvTarget"/>
+
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--客户关系分类树-->
+  <object id="ClientRelationCategoryServiceTarget" type="Application.Resource.PersonAndOrganization.ClientManagement.Service.ClientRelationCategoryService,ResourceManager">
+    <property name="Dao" ref="dao"/>
+    <property name="NodeSrv" ref="CategoryNodeService" />
+    <property name="RuleSrv" ref="CategoryRuleService" />
+    <property name="TreeService" ref="CategoryTreeService" />
+  </object>
+
+  <object	id="ClientRelationCategoryService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ClientRelationCategoryServiceTarget"/>
+
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--客户关系-->
+  <object id="CustomerRelationServiceTarget" type="Application.Resource.PersonAndOrganization.ClientManagement.Service.CustomerRelationService,ResourceManager">
+    <property name="Dao" ref="dao"/>
+    <property name="TheClientRelationCategoryService" ref="ClientRelationCategoryService"/>
+
+  </object>
+
+  <object	id="CustomerRelationService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="CustomerRelationServiceTarget"/>
+
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <object id="ClientResSrvTarget" type="Application.Resource.PersonAndOrganization.ClientManagement.Service.ClientResSrv,ResourceManager">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="ClientResSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ClientResSrvTarget"/>
+
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--行政组织-->
+  <object id="OrganizationServiceTarget" type="Application.Resource.PersonAndOrganization.OrganizationResource.Service.OrganizationService,ResourceManager">
+    <property name="Dao" ref="dao"/>
+    <property name="NodeSrv" ref="CategoryNodeService" />
+    <property name="RuleSrv" ref="CategoryRuleService" />
+    <property name="TreeService" ref="CategoryTreeService" />
+  </object>
+  <object id="OrganizationService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="OrganizationServiceTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--业务组织-->
+  <object id="OperationOrgServiceTarget" type="Application.Resource.PersonAndOrganization.OrganizationResource.Service.OperationOrgService,ResourceManager">
+    <property name="Dao" ref="dao" />
+    <property name="NodeSrv" ref="CategoryNodeService" />
+    <property name="RuleSrv" ref="CategoryRuleService" />
+    <property name="TreeService" ref="CategoryTreeService" />
+    <property name="TheOpgManage" ref="OPGManagementManager" />
+    <property name="TheUsersXmlSrv" ref="UsersXmlSrv"/>
+  </object>
+
+  <object id="OperationOrgService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="OperationOrgServiceTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--组织的业务管理-->
+  <object id="OPGManagementManagerTarget" type="Application.Resource.PersonAndOrganization.OrganizationResource.Service.OPGManagementManager,ResourceManager">
+    <property name="Dao" ref="dao" />
+
+  </object>
+
+  <object id="OPGManagementManager" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="OPGManagementManagerTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--组织信息接口-->
+  <object id="OrganizationResSrvTarget" type="Application.Resource.PersonAndOrganization.OrganizationResource.Service.OrganizationResSrv,ResourceManager">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object id="OrganizationResSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="OrganizationResSrvTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--核算组织结构树-->
+  <!--<object id="AccountOrgTreeManagerTarget" type="Application.Resource.PersonAndOrganization.HumanResource.Service.AccountOrgTreeManager,ResourceManager">
+		<property name="Dao" ref="dao"/>
+	</object>
+	<object id="AccountOrgTreeManager" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+		<property name="target" ref="AccountOrgTreeManagerTarget"/>
+		<property name="interceptorNames">
+			<list>
+				<value>sessionManageAspect</value>
+				<value>transactionAspect</value>
+			</list>
+		</property>
+	</object>-->
+  <!--核算组织成员组成-->
+  <!--<object id="AOGMemberManagerTarget" type="Application.Resource.PersonAndOrganization.HumanResource.Service.AOGMemberManager,ResourceManager">
+    <property name="Dao" ref="dao"/>
+  </object>
+  <object id="AOGMemberManager" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="AOGMemberManagerTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>-->
+
+  <!--行政组织职位-->
+  <object id="PoliticalPostManagerTarget" type="Application.Resource.PersonAndOrganization.OrganizationResource.Service.PoliticalPostManager,ResourceManager">
+    <property name="Dao" ref="dao"/>
+    <property name="TheOrganizationSrv" ref="OrganizationService"/>
+
+  </object>
+  <object id="PoliticalPostManager" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="PoliticalPostManagerTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--业务组织岗位-->
+  <object id="OperationJobManagerTarget" type="Application.Resource.PersonAndOrganization.OrganizationResource.Service.OperationJobManager,ResourceManager">
+    <property name="Dao" ref="dao"/>
+    <property name="TheOperationOrgService" ref="OperationOrgService"/>
+    <property name="TheUsersXmlSrv" ref="UsersXmlSrv"/>
+  </object>
+  <object id="OperationJobManager" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="OperationJobManagerTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--员工任职维护-->
+  <object id="EmployeeOnPostManagerTarget" type="Application.Resource.PersonAndOrganization.HumanResource.Service.EmployeeOnPostManager,ResourceManager">
+    <property name="Dao" ref="dao"/>
+    <property name="PPM" ref="PoliticalPostManager"/>
+    <property name="TheOrganizationSrv" ref="OrganizationService"/>
+  </object>
+
+  <object id="EmployeeOnPostManager" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="EmployeeOnPostManagerTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--人员上岗维护-->
+  <object id="PersonOnJobManagerTarget" type="Application.Resource.PersonAndOrganization.HumanResource.Service.PersonOnJobManager,ResourceManager">
+    <property name="Dao" ref="dao"/>
+    <property name="OJM" ref="OperationJobManager"/>
+    <property name="PerService" ref="PersonManager"/>
+    <property name="TheOperationOrgService" ref="OperationOrgService"/>
+    <property name="TheUsersXmlSrv" ref="UsersXmlSrv"/>
+  </object>
+
+  <object id="PersonOnJobManager" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="PersonOnJobManagerTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--人员，组织，角色同步-->
+  <object id="UsersXmlSrvTarget" type="Application.Resource.IRPUserRoleGroup.UsersXmlSrv,ResourceManager">
+    <property name="Dao" ref="dao"/>
+  </object>
+  <object	id="UsersXmlSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="UsersXmlSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--单据跟踪服务-->
+  <object id="BillTrackSrvTarget" type="Application.Resource.CommonClass.Service.BillTrackCom.BillTrackSrv,ResourceManager">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="TheBillTrackSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="BillTrackSrvTarget"/>
+
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <object id="BillTrackAop" type="Application.Resource.CommonClass.Aop.BillTrackCom.BillTrackAop,ResourceManager" autowire="byName">
+
+  </object>
+  <!--班组维护-->
+  <object id="ClassTeamSrvTarget" type="Application.Resource.BasicData.Service.ClassTeamSrv,ResourceManager" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="ClassTeamSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ClassTeamSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheCombinedKeyAop</value>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--班别维护-->
+  <object id="ClassesSrvTarget" type="Application.Resource.BasicData.Service.ClassesSrv,ResourceManager" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="ClassesSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ClassesSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheCombinedKeyAop</value>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--质量状态维护-->
+  <object id="QuanlityStateSrvTarget" type="Application.Resource.BasicData.Service.QuanlityStateSrv,ResourceManager" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="QuanlityStateSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="QuanlityStateSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheCombinedKeyAop</value>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--工序类型维护-->
+  <object id="WorkstageKindSrvTarget" type="Application.Resource.BasicData.Service.WorkstageKindSrv,ResourceManager" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="WorkstageKindSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="WorkstageKindSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheCombinedKeyAop</value>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--包装方式维护-->
+  <object id="PackMannerSrvTarget" type="Application.Resource.BasicData.Service.PackMannerSrv,ResourceManager" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="PackMannerSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="PackMannerSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheCombinedKeyAop</value>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--机组信息维护-->
+  <object id="MachineClassSrvTarget" type="Application.Resource.BasicData.Service.MachineClassSrv,ResourceManager" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="MachineClassSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MachineClassSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheCombinedKeyAop</value>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--质量等级维护-->
+  <object id="QuanlityGradeSrvTarget" type="Application.Resource.BasicData.Service.QuanlityGradeSrv,ResourceManager" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="QuanlityGradeSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="QuanlityGradeSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheCombinedKeyAop</value>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--表面质量维护-->
+  <object id="SeemingQlySrvTarget" type="Application.Resource.BasicData.Service.SeemingQlySrv,ResourceManager" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="SeemingQlySrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="SeemingQlySrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheCombinedKeyAop</value>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--交货方式维护-->
+  <object id="DeliverMannerSrvTarget" type="Application.Resource.BasicData.Service.DeliverMannerSrv,ResourceManager" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="DeliverMannerSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="DeliverMannerSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheCombinedKeyAop</value>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--付款方式维护-->
+  <object id="PayMannerSrvTarget" type="Application.Resource.BasicData.Service.PayMannerSrv,ResourceManager" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="PayMannerSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="PayMannerSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheCombinedKeyAop</value>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--运输方式维护-->
+  <object id="CarryMannerSrvTarget" type="Application.Resource.BasicData.Service.CarryMannerSrv,ResourceManager" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="CarryMannerSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="CarryMannerSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheCombinedKeyAop</value>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--工艺类型维护-->
+  <object id="TechnologyKindSrvTarget" type="Application.Resource.BasicData.Service.TechnologyKindSrv,ResourceManager" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="TechnologyKindSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="TechnologyKindSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheCombinedKeyAop</value>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--表面结构维护-->
+  <object id="SeemingStructSrvTarget" type="Application.Resource.BasicData.Service.SeemingStructSrv,ResourceManager" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="SeemingStructSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="SeemingStructSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheCombinedKeyAop</value>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--颜色维护-->
+  <object id="CoilColorSrvTarget" type="Application.Resource.BasicData.Service.CoilColorSrv,ResourceManager" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="CoilColorSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="CoilColorSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheCombinedKeyAop</value>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--人员班组维护-->
+  <object id="PersonOnTeamSrvTarget" type="Application.Resource.BasicData.Service.PersonOnTeamSrv,ResourceManager" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="PersonOnTeamSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="PersonOnTeamSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheCombinedKeyAop</value>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--人员机组维护-->
+  <object id="PersonOnMachineSrvTarget" type="Application.Resource.BasicData.Service.PersonOnMachineSrv,ResourceManager" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="PersonOnMachineSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="PersonOnMachineSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheCombinedKeyAop</value>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--缺陷类型-->
+  <object id="BugKindSrvTarget" type="Application.Resource.BasicData.Service.BugKindSrv,ResourceManager" autowire="byName" lazy-init="true">
+  </object>
+  <object	id="BugKindSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="BugKindSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheCombinedKeyAop</value>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--系统参数-->
+  <object id="SystemParamSrvTarget" type=" Application.Business.Erp.SupplyChain.BasicData.SystemParamMng.Service.SystemParamSrv,SupplyChain" autowire="byName" lazy-init="true">
+  </object>
+  <object	id="SystemParamSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="SystemParamSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheCombinedKeyAop</value>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--单据消息维护-->
+  <object id="BillUserSrvTarget" type=" Application.Business.Erp.SupplyChain.BasicData.BillUserMng.Service.BillUserSrv,SupplyChain" autowire="byName" lazy-init="true">
+  </object>
+  <object	id="BillUserSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="BillUserSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheCombinedKeyAop</value>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--科目控件接口-->
+  <object id="AccTitleComSrvTarget" type="Application.Resource.FinancialResource.Service.AccTitleComSrv,ResourceManager">
+    <property name="Dao" ref="dao"/>
+    <property name="NakedDao" ref="nakedDao" />
+    <property name="NodeSrv" ref="CategoryNodeService"/>
+  </object>
+
+  <object	id="AccTitleComSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="AccTitleComSrvTarget"/>
+
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <object id="CommonServiceTarget" type="Application.Resource.CommonClass.Service.CommonService, ResourceManager">
+    <property name="Dao" ref="nakedDao" />
+  </object>
+
+  <object id="CommonService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="CommonServiceTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+</objects>

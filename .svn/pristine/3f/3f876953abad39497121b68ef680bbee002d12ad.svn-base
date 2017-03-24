@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.VisaClamisDtl,SupplyChain" table="THD_VISACLAMIS" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    
+    <many-to-one name="Master" column="ParentId"  class="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.CommercialReportMaster,SupplyChain"></many-to-one>
+    <property name="Descript" />
+    <property name="ProjectDeclareCount"/>
+    <property name="ProjectRiskSolution"/>
+    <property name="ProjectAddBenefit"/>
+    <property name="RewardDeclareCount"/>
+    <property name="RewardRiskSolution"/>
+    <property name="RewardAddBenefit"/>
+    <property name="OutPutMoney"/>
+    <property name="SelfMoneyRate"/>
+    
+    
+    <property name="YBSQZFS"/>
+    <property name="YQRQZFS"/>
+    <property name="QZLJBSJE" length="2"/>
+    <property name="LJQRSR" length="2"/>
+    <property name="LSSJSR" length="2"/>
+    <property name="LJQRQZBFSYL"/>
+    <property name="LJBSJE" length="2"/>
+    <property name="LJSJCB" length="2"/>
+    <property name="QZLJSJCB" length="2"/>
+    <property name="QZXYL" length="2"/>
+    <property name="JZLJZXSGCZ" length="2"/>
+    <property name="QZZEDCZGXL"/>
+    <property name="QZXYCZGXL"/>
+    
+  </class>
+</hibernate-mapping>
+
+

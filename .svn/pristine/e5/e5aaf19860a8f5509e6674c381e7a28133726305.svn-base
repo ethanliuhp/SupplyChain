@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.CostMonthAccDtlConsume,SupplyChain" table="thd_costmonthaccdtlconsume" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+
+    <many-to-one name="RationUnitGUID" column="RationUnitGUID"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="RationUnitName"/>
+    <many-to-one name="CostingSubjectGUID" column="CostingSubjectGUID" class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostAccountSubject,SupplyChain"/>
+    <property name="CostSubjectCode"/>
+    <property name="CostingSubjectName"/>
+    <property name="CostSubjectSyscode" length="1000"/>
+    <property name="ProjectTaskDtlGUID"/>
+    <property name="ResourceTypeGUID"/>
+    <property name="ResourceTypeName"/>
+    <property name="ResourceTypeCode"/>
+    <property name="ResourceTypeStuff"/>
+    <property name="ResourceTypeSpec"/>
+    <property name="ResourceSyscode" length="1000"/>
+	  <property name="AccountTaskNodeGUID"  />
+	  <property name="AccountTaskNodeName"  />
+	  <property name="AccountTaskNodeSyscode"/>
+	  <property name="CalType"/> 
+	  
+    <property name="CurrRealConsumeQuantity"/>
+    <property name="CurrRealConsumePrice"/>
+    <property name="CurrRealConsumeTotalPrice"/>
+    <property name="CurrRealConsumePlanQuantity"/>
+    <property name="CurrRealConsumePlanTotalPrice"/>
+    <property name="CurrIncomeQuantity"/>
+    <property name="CurrIncomeTotalPrice"/>
+    <property name="CurrResponsiConsumeQuantity"/>
+    <property name="CurrResponsiConsumeTotalPrice"/>
+    <property name="SumRealConsumeQuantity"/>
+    <property name="SumRealConsumeTotalPrice"/>
+    <property name="SumRealConsumePlanQuantity"/>
+    <property name="SumRealConsumePlanTotalPrice"/>
+    <property name="SumIncomeQuantity"/>
+    <property name="SumIncomeTotalPrice"/>
+    <property name="SumResponsiConsumeQuantity"/>
+    <property name="SumResponsiConsumeTotalPrice"/>
+
+    <property name="DudgetContractQuantity"/>
+    <property name="DudgetContractTotalPrice"/>
+    <property name="DudgetRespQuantity"/>
+    <property name="DudgetRespTotalPrice"/>
+    <property name="DudgetPlanQuantity"/>
+    <property name="DudgetPlanTotalPrice"/>
+    <many-to-one name="TheAccountDetail" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.CostMonthAccountDtl,SupplyChain"></many-to-one>
+
+    <property name="DiagramNumber"/>
+    <property name="SourceType"/>
+    <property name="SourceId"/>
+  </class>
+</hibernate-mapping>
+
+

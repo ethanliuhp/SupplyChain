@@ -1,0 +1,347 @@
+﻿/*-default style,站点默认样式-*/
+body
+{
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    height: 100%;
+    background-color: #F0F8FF;
+    font-size: 9pt;
+    font-family: Courier New;
+}
+body.popPage
+{
+    margin: 0px;
+    padding: 0px; /*background-image: url(../images/masterpage/body_bg.jpg);		*/
+    background-repeat: repeat-x;
+    background-color: #deeff9;
+}
+
+table
+{
+    margin: 0px auto;
+    border: none 0px none;
+    border-collapse: collapse;
+}
+th
+{
+    border: none 0px none;
+    border-collapse: collapse;
+    padding: 2px;
+    font-family: "arial";
+    line-height: 1.5;
+}
+td
+{
+    border: none 0px none;
+    border-collapse: collapse;
+    padding: 2px;
+}
+
+A:LINK
+{
+    text-decoration: none;
+    color: #064687;
+}
+A:VISITED
+{
+    text-decoration: none;
+    color: #064687;
+}
+A:HOVER
+{
+    text-decoration: none;
+    color: red;
+}
+
+fieldset
+{
+    border: solid 1px blue;
+}
+
+/*site tabstrip style, 站点标签页用到的所有样式 */
+.TopTabGroup
+{
+    z-index: 99;
+    position: relative;
+    clear: both; /*background-color: #deeff9;*/
+}
+
+.DefaultTab
+{
+    color: #064687;
+    background-image: url(../Img/tabstrip/tabs_hover_center.png); /*background-image: url(../images/tabstrip/tab_middle.gif);*/
+    font-family: Arial;
+    font-size: 12px;
+    cursor: pointer;
+    border-left: 1px solid #B0D7FF;
+    border-right: 1px solid #B0D7FF;
+    border-top: 0px solid #B0D7FF;
+    border-bottom: 1px solid #B0D7FF;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.DefaultTabHover
+{
+    color: #064687;
+    background-image: url(../Img/tabstrip/tabs_hover_center.png);
+    font-family: Arial;
+    font-size: 12px;
+    cursor: pointer;
+    border-left: 1px solid #B0D7FF;
+    border-right: 1px solid #B0D7FF;
+    border-top: 0px solid #B0D7FF;
+    border-bottom: 1px solid #B0D7FF;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.SelectedTab
+{
+    background-image: url(../Img/tabstrip/tab_selected_middle.gif);
+    font-family: Arial;
+    font-size: 12px;
+    cursor: default;
+    color: #00368F;
+}
+
+.MultiPage
+{
+    border-style: solid;
+    border-width: 0px 0px 0px 0px;
+    border-color: #94CCFF #deeff9 #deeff9 #deeff9;
+    background-color: #deeff9;
+    width: 100%;
+    height: 100%;
+    position: relative; /*-top:-1px;-*/
+    z-index: 98;
+    padding: 2px;
+}
+
+/*-site common controls style,站点常用控件的样式，如button等。-*/
+.CommonButton
+{
+    background-image: url(../img/common_button.gif);
+    background-repeat: repeat-x;
+    height: 23px;
+    border: solid 1px #465670;
+    color: White;
+    background-color: #465670;
+}
+.LocalizedButton
+{
+    height: 20px;
+    border-right: #70b6e3 1px solid;
+    padding-right: 0px;
+    border-top: #70b6e3 1px solid;
+    padding-left: 0px;
+    font-size: 12px;
+    filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#ffffff, EndColorStr=#bedbf8);
+    border-left: #70b6e3 1px solid;
+    cursor: hand;
+    color: #044082;
+    padding-top: 2px;
+    border-bottom: #70b6e3 1px solid;
+}
+.CenterAutoSizeLocalizedButton
+{
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: hand;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    font-size: 12px;
+    text-align: center;
+    letter-spacing: 2px;
+    color: #FFFFFF;
+    background-image: url(../images/controls/button_bg.gif);
+    border: 1px solid #7A889F;
+    width: auto;
+    height: 22px;
+}
+.AutoSizeLocalizedButton
+{
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: hand;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 15px;
+    font-size: 12px;
+    text-align: left;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    background-image: url(../images/controls/button_bg.gif);
+    border: 1px solid #7A889F;
+    width: auto;
+    height: 22px;
+}
+.LocalizedLabel
+{
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #000000;
+}
+/*Left Tree Frame ,Used for Tree Frame of Home page */
+.LeftTreeFrame
+{
+    overflow: auto;
+    border: 1px solid #808080;
+    width: 255px;
+    height: 450px;
+    background-color: #FFFFFF;
+}
+.LeftTreeFramePopup
+{
+    overflow: auto;
+    border: 1px solid #808080;
+    width: 180px;
+    height: 470px;
+    background-color: #FFFFFF;
+}
+.LeftTreeFramePolicy
+{
+    overflow: auto;
+    border: 1px solid #808080;
+    width: 188px;
+    height: 450px;
+    background-color: #FFFFFF;
+}
+.golist_button
+{
+    cursor: hand;
+    background-image: url('images/common/go_dot.gif');
+    border-style: none;
+    width: 24px;
+    height: 16px;
+    border: 0px;
+    margin: 4 4 0 4;
+}
+.ListSortButton
+{
+    cursor: hand;
+    background-image: url('images/common/ListSort.png');
+    border-style: none;
+    width: 26px;
+    height: 16px;
+    border: 0px;
+    position: relative;
+    left: 10px;
+    top: -2px;
+}
+.ExportToExcellButton
+{
+    cursor: hand;
+    background-image: url('images/common/ExportToExcel.png');
+    border-style: none;
+    width: 27px;
+    height: 16px;
+    border: 0px;
+    position: relative;
+    left: 80px;
+    top: -2px;
+}
+.allpageleft_button
+{
+    cursor: hand;
+    background-image: url('images/common/all_page_left_dot.gif');
+    border: 0px;
+    border-style: none;
+    width: 20px;
+    height: 16px;
+    margin: 4px 4px 4px 4px;
+}
+.allpageright_button
+{
+    cursor: hand;
+    background-image: url('images/common/all_page_right_dot.gif');
+    border: 0px;
+    border-style: none;
+    width: 20px;
+    height: 16px;
+    margin: 4px 4px 4px 4px;
+}
+.pageleft_button
+{
+    cursor: hand;
+    background-image: url('images/common/page_left_dot.gif');
+    border: 0px;
+    border-style: none;
+    width: 16px;
+    height: 16px;
+    margin: 4px 4px 4px 4px;
+}
+.pageright_button
+{
+    cursor: hand;
+    background-image: url('images/common/page_right_dot.gif');
+    border: 0px;
+    border-style: none;
+    width: 16px;
+    height: 16px;
+    margin: 4px 4px 4px 4px;
+}
+.Confirm
+{
+    background-color: #deeff9;
+    border: 0px solid #deeff9;
+    width: 100%; /*-top:-1px;-*/
+    z-index: 98;
+    padding: 2px;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: 新宋体;
+}
+.UserList
+{
+    font-size: 10pt;
+}
+.ddSelector
+{
+    border: 1px solid #7F9DB9;
+}
+.td
+{
+    border: none 0px none;
+    border-collapse: collapse;
+    padding: 0px 0px 0px 0px;
+    font-size: 10pt;
+}
+.Header_Job
+{
+    font-size: 12px;
+    color: #044082;
+    padding: 3px;
+    padding-right: 30px;
+}
+.FileUpload
+{
+    height: 20px;
+    border-right: #70b6e3 1px solid;
+    padding-right: 0px;
+    border-top: #70b6e3 1px solid;
+    padding-left: 0px;
+    font-size: 12px;
+    border-left: #70b6e3 1px solid;
+    cursor: hand;
+    color: #044082;
+    padding-top: 2px;
+    border-bottom: #70b6e3 1px solid;
+}
+.tdBaseLeft
+{
+    text-align: right;
+    width: 90px;
+}
+.tdBaseRight
+{
+    text-align: left; /*font-family: Trebuchet MS;*/
+    color: #1A3B69;
+    font-weight: bold;
+    border-bottom: solid 1px #AAAAAA; /*text-decoration: underline;*/
+}

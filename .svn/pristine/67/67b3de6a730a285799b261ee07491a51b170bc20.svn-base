@@ -1,0 +1,981 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using VirtualMachine.Component.WinControls.Controls;
+using System.Collections;
+using VirtualMachine.Component.WinMVC.generic;
+using VirtualMachine.Component.WinMVC.core;
+using IFramework = VirtualMachine.Component.WinMVC.generic.IFramework;
+using VirtualMachine.Patterns.DataDictionary.Domain;
+using Application.Business.Erp.Secure.GlobalInfo;
+using Application.Business.Erp.SupplyChain.Client.Basic.CommonClass;
+using Application.Business.Erp.ResourceManager.Client.Basic.Controls;
+using System.Configuration;
+using System.Threading;
+using Application.Business.Erp.ResourceManager.Client.Basic.MessageCom;
+using SupplyChainClient;
+using System.Diagnostics;
+using encrypt.Notify;
+using VirtualMachine.Component.Util;
+using VirtualMachine.Core;
+using VirtualMachine.Core.Expression;
+using VirtualMachine.Notice.Domain;
+using Application.Business.Erp.SupplyChain.NoiceMng.Service;
+using Application.Business.Erp.SupplyChain.Client.Basic.CommonForm;
+using System.Timers;
+using Application.Resource.PersonAndOrganization.HumanResource.RelateClass;
+using Application.Business.Erp.SupplyChain.Base.Domain;
+using FirstWordAddIn;
+using CustomServiceClient.QuestionMng;
+using Application.Business.Erp.SupplyChain.Basic.Domain;
+using System.Net.NetworkInformation;
+using AuthManagerLib.AuthMng.MenusMng.Domain;
+using Application.Business.Erp.SupplyChain.HelpOnlineManage.Domain;
+using Application.Business.Erp.SupplyChain.Client.HelpOnline;
+using System.Runtime.InteropServices;
+using Application.Business.Erp.ResourceManager.Client.ResourceUI.PersonAndOrganization.HumanResource;
+using Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass;
+
+namespace Application.Business.Erp.SupplyChain.Client.Main
+{
+    public partial class Framework : Form, IFramework
+    {
+        Font f = new Font("宋体", 10);
+        Color c = Color.White;
+        bool IsClusterLogin = false;//是不是集成登录
+        public Framework(string[] arg)
+        {
+            //0 Left 1 Top 2 Width 3 Height 4 Name 5 PerCode
+            this.KeyPreview = true;
+
+            InitializeComponent();
+
+            if (ClientUtil.ToString(ConstObject.IRPMenuName) != "")
+            {
+                this.Text = ConstObject.IRPMenuName;
+            }
+            else
+            {
+                if (ConstObject.TheLogin.ModuleName != null && ConstObject.TheLogin.ModuleName != "")
+                    this.Text = System.Configuration.ConfigurationManager.AppSettings["AppName"] + "-[" + ConstObject.TheLogin.ModuleName + "]";
+                else
+                    this.Text = System.Configuration.ConfigurationManager.AppSettings["AppName"];
+            }
+
+            UCL.Framework = this;
+
+            InitToolMenu();
+            OpenNavigate();
+            OpenAssociateView();
+            OpenSearchView(WindowPanelStyle.Closed);
+            OpenSearchListView();
+            OpenApproveListView();
+            OpenObjectPreview();
+            InitStateTool();
+            InitStartPage();
+            this.FormClosing += new FormClosingEventHandler(Framework_FormClosing);
+            this.Resize += new EventHandler(Framework_Resize);
+            this.Load += new EventHandler(Framework_Load);
+            this.KeyDown += new KeyEventHandler(Framework_KeyDown);
+            this.Shown += new EventHandler(Framework_Shown);
+            //LoadScrollingMessage();
+            //写入登陆日志
+            LogData log = new LogData();
+            log.BillId = "";
+            log.BillType = "项目系统登陆";
+            log.Code = "";
+            log.OperType = "登陆";
+            log.Descript = "";
+            log.OperPerson = ConstObject.LoginPersonInfo.Name;
+            log.ProjectName = StaticMethod.GetProjectInfo().Name;
+            //StaticMethod.InsertLogData(log);
+            IndexSize(arg);
+        }
+        #region 集成
+
+        //0 Left 1 Top 2 Width 3 Height 4 Name 5 PerCode
+        void IndexSize(string[] ArrPara)
+        {
+            if (ArrPara != null && ArrPara.Length == 7)
+            {
+                // this.WindowState = System.Windows.Forms.FormWindowState.Normal;
+
+                int iLeft = ClientUtil.ToInt(ArrPara[0]);
+                int iTop = ClientUtil.ToInt(ArrPara[1]);
+                int iWidth = ClientUtil.ToInt(ArrPara[2]);
+                int iHeight = ClientUtil.ToInt(ArrPara[3]);
+                string sName = ArrPara[4];
+                string sPerCode = ArrPara[5];
+                string sMenuName = ArrPara[6];
+                this.Top = iTop;
+                this.Left = iLeft;
+                this.Width = iWidth;
+                this.Height = iHeight;
+                this.Text = sName;
+                this.WindowState = System.Windows.Forms.FormWindowState.Normal;
+                this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+                this.ShowInTaskbar = false;
+                IsClusterLogin = true;
+                //this.Location = new Point(iLeft, iTop);
+                //this.MaximizeBox = false;
+                //this.MinimizeBox = false;
+                // MessageBox.Show(string.Format(" top={0}  left={1} width={2} heigth={3}", iTop, iLeft, iWidth, iHeight));
+
+
+                //this.ResizeRedraw = true;
+            }
+            else
+            {
+                this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+                this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+                this.ShowInTaskbar = true;
+            }
+        }
+
+        protected override void DefWndProc(ref System.Windows.Forms.Message m)
+        {
+            //接收进程间传递过来的参数
+            if (m.Msg == WM_COPYDATA)
+            {
+                COPYDATASTRUCT mystr = new COPYDATASTRUCT();
+                Type mytype = mystr.GetType();
+                mystr = (COPYDATASTRUCT)m.GetLParam(mytype);
+                //解析命令
+                //命令格式 命令名称:参数名称=参数值参数名称=参数值
+                string strCommand = mystr.lpData.Split(':')[0];
+                //string strCommandArg = mystr.lpData.Split(':')[1];
+                switch (strCommand)
+                {
+                    case "ToTop": //置顶命令
+                        this.TopMost = true;
+                        this.BringToFront();
+                        this.Activate();
+                        this.Focus();
+                        break;
+                    case "ReSize": //调整窗体位置和大小命令
+                        string strCommandArg = mystr.lpData.Split(':')[1];
+                        foreach (string par in strCommandArg.Split(' '))
+                        {
+                            string parValue = par.Split('=')[1];
+                            switch (par.Split('=')[0].ToUpper())
+                            {
+                                case "L":
+                                    this.Left = int.Parse(parValue);
+                                    break;
+                                case "T":
+                                    this.Top = int.Parse(parValue);
+                                    break;
+                                case "W":
+                                    this.Width = int.Parse(parValue);
+                                    break;
+                                case "H":
+                                    this.Height = int.Parse(parValue);
+                                    break;
+                                default: break;
+                            }
+                        }
+                        break;
+                    default: break;
+                }
+            }
+            base.DefWndProc(ref m);
+        }
+
+        //进程通讯相关数据结构
+        public struct COPYDATASTRUCT
+        {
+            public IntPtr dwData;
+            public int cbData;
+            [MarshalAs(UnmanagedType.LPStr)]
+            public string lpData;
+        }
+        //进程通讯命令
+        const int WM_COPYDATA = 0x004A;
+
+        #endregion
+        void Framework_Shown(object sender, EventArgs e)
+        {
+            this.TopMost = false;
+        }
+
+        private bool isShift = false;
+        private bool isIns = false;
+        private bool ifExistNavigateView = true;
+        private bool ifExistResultView = true;
+        void Framework_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.Modifiers & Keys.Control) == Keys.Control && (e.Modifiers & Keys.Alt) == Keys.Alt && (e.KeyData & Keys.X) == Keys.X)
+            {
+                PersonInfo LoginPerson = ConstObject.TheLogin.ThePerson;
+
+                VQuestion vQuestion = new VQuestion(35, null, LoginPerson.Name);
+                vQuestion.CutScreen(this, 35);
+            }
+
+            if (e.KeyCode == Keys.Insert)
+            {
+                isIns = true;
+            }
+            else if (isIns && (e.KeyCode == Keys.ShiftKey))
+            {
+                isShift = true;
+            }
+            else
+            {
+                isIns = false;
+                isShift = false;
+            }
+            if (isIns && isShift)
+            {
+                isIns = false;
+                isShift = false;
+                MessageBody theMessageBody = new MessageBody();
+                theMessageBody.ShowDialog(this);
+            }
+            if (e.KeyCode == Keys.Escape)
+                this.Close();
+        }
+
+        void Framework_Load(object sender, EventArgs e)
+        {
+            //CMessage dd = new CMessage();
+            //dd.Excute(MessageExcKind.showMessage);
+
+            ////系统定时扫描
+            //System.Timers.Timer mytimer = new System.Timers.Timer();
+            //mytimer.Elapsed += new System.Timers.ElapsedEventHandler(HandleMyTimer);
+            //mytimer.Interval = 100000;
+            //mytimer.AutoReset = true;
+
+            this.TopMost = true;
+        }
+
+        void Framework_Resize(object sender, EventArgs e)
+        {
+            this.StateTool.Items["SupplyCompany"].Margin = new Padding(this.Width - 600, 0, 0, 0);
+        }
+        void Framework_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!LoginExit)
+            {
+                DialogResult dr = MessageBox.Show("是否退出本模块？", "询问", MessageBoxButtons.YesNo);
+                if (dr == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+                else
+                {
+                    try
+                    {
+                        Process.GetCurrentProcess().Kill();
+                        //VStartPage.MsgMainForm.ExitMain();
+                    }
+                    catch { }
+                }
+            }
+        }
+
+        private void HandleMyTimer(object source, ElapsedEventArgs e)
+        {
+            Control.CheckForIllegalCrossThreadCalls = false;
+        }
+
+        private void InitStateTool()
+        {
+            CurrentProjectInfo projectInfo = StaticMethod.GetProjectInfo();
+            if (projectInfo.Code == CommonUtil.CompanyProjectCode)
+            {
+                OperationOrgInfo subOrgInfo = StaticMethod.GetSubCompanyOrgInfo();
+                if (ClientUtil.ToString(subOrgInfo.Id) != "")
+                {
+                    this.StateTool.Items["ProjectName"].Text = "登录位置:[" + subOrgInfo.Name+ "]";
+                    this.StateTool.Items["ProjectName"].ForeColor = Color.Blue;
+                }
+                else
+                {
+                    this.StateTool.Items["ProjectName"].Text = "登录位置:[公司总部]";
+                    this.StateTool.Items["ProjectName"].ForeColor = Color.Blue;
+                }
+            }
+            else
+            {
+                this.StateTool.Items["ProjectName"].Text = "登录项目:[" + projectInfo.Name + "]";
+            }
+            
+            if (ClientUtil.ToString(ConstObject.TheLogin.ThePerson.Photo) == "")
+            {
+                this.StateTool.Items["personSign"].Text = "签名图片[无]";
+                this.StateTool.Items["personSign"].ForeColor = Color.Red;
+            }
+            else {
+                this.StateTool.Items["personSign"].Text = "签名图片[有]";
+            }
+            this.StateTool.Items["lblJobName"].Text = "岗位:[" + ConstObject.TheLogin.TheSysRole.RoleName + "]";
+            this.StateTool.Items["LoginUser"].Text = "登录人:[" + ConstObject.TheLogin.ThePerson.Name + "]";
+            this.StateTool.Items["LoginDate"].Text = "登录日期:[" + ConstObject.TheLogin.LoginDate.ToShortDateString() + "]";
+            this.StateTool.Items["LoginYear"].Text = "登录会计年:[" + ConstObject.TheLogin.TheComponentPeriod.NowYear.ToString() + "]";
+            this.StateTool.Items["LoginMonth"].Text = "登录会计月:[" + ConstObject.TheLogin.TheComponentPeriod.NowMonth.ToString() + "]";
+
+            this.StateTool.Items["SupplyCompany"].ForeColor = Color.Red;
+            this.StateTool.Items["SupplyCompany"].Text = ConfigurationManager.AppSettings["SupplyCompany"];
+            //if (ConstObject.TheLogin.TheAccountOrgInfo == null || ClientUtil.ToString(ConstObject.TheLogin.TheAccountOrgInfo.Id) == "")
+            //{
+            //    this.StateTool.Items["lblOrgName"].Text = "";
+            //}
+            //else
+            //{
+            //    this.StateTool.Items["lblOrgName"].Text = "核算组织:[" + ConstObject.TheLogin.TheAccountOrgInfo.Name + "]";
+            //}
+            this.StateTool.Items["lblOrgName"].Text = "版本[V20170120]";
+            Thread t = new Thread(Connection);
+            t.Start();
+        }
+        #region 菜单和工具条
+        GenericToolMenu gToolMenu = new GenericToolMenu();
+        IToolMenu toolMenu = null;
+        private void InitToolMenu()
+        {
+            gToolMenu.miView.DropDownItemClicked += new ToolStripItemClickedEventHandler(miView_DropDownItemClicked);
+            gToolMenu.tsiHome.Click += new EventHandler(tsiHome_Click);
+            gToolMenu.tsiSearch.Click += new EventHandler(tsiSearch_Click);
+            gToolMenu.tsiLogin.Click += new EventHandler(tsiLogin_Click);
+            gToolMenu.tsmiLogin.Click += new EventHandler(tsmiLogin_Click);
+            gToolMenu.tsmiFind.Click += new EventHandler(tsmiFind_Click);
+            gToolMenu.tsmiExit.Click += new EventHandler(tsmiExit_Click);
+            gToolMenu.tsiExit.Click += new EventHandler(tsiExit_Click);
+            gToolMenu.tsiHelpContent.Click += new EventHandler(tsiHelpContent_Click);
+            gToolMenu.tsiMsg.Click += new EventHandler(tsiMsg_Click);
+            gToolMenu.tsmiMsg.Click += new EventHandler(tsmiMsg_Click);
+            gToolMenu.tsiNavigate.Click += new EventHandler(tsmiNavigate_Click);
+            //if (IsClusterLogin == true)
+                gToolMenu.tsiExit.Visible = false;
+            toolMenu = gToolMenu as IToolMenu;
+            #region 正常运行显示
+            //wm.TopPanel.Visible = false;
+            //wm.AddMenu(toolMenu.MenuStrip);
+            //wm.AddToolBar(toolMenu.ToolStrip);
+            #endregion
+            #region 与IRP集成显示方式
+            //菜单不显示
+            wm.pnlMenu.Visible = false;
+            wm.AddMenu(toolMenu.MenuStrip);
+            wm.AddToolBar4IRP(toolMenu.ToolStrip);
+            #endregion
+
+            foreach (ToolStripItem var in toolMenu.ToolStrip.Items)
+            {
+                switch (var.Text)
+                {
+                    case "首页":
+                    case "任务":
+                        //var.Visible = false;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        /// <summary>
+        /// 帮助文档
+        /// </summary>
+        private HelpOnlineMng hOMng;
+        public HelpOnlineMng HOMng
+        {
+            get { return hOMng; }
+            set { hOMng = value; }
+        }
+        private MHelpOnline model = new MHelpOnline();
+        void tsiHelpContent_Click(object sender, EventArgs e)
+        {
+            Menus currMenus = this.navigate.selectedMenus;
+            if (currMenus == null) return;
+            ObjectQuery oq = new ObjectQuery();
+            oq.AddCriterion(Expression.Eq("MenuId", currMenus.Id));
+            IList listMenu = model.IHelpOnlineSrv.ObjectQuery(typeof(HelpOnlineMng), oq);
+            if (listMenu != null && listMenu.Count > 0)
+            {
+                foreach (HelpOnlineMng ho in listMenu)
+                {
+                    VHelpInfo VI = new VHelpInfo(ho);
+                    //VI.ShowDialog();
+                }
+            }
+            else
+            {
+                hOMng = new HelpOnlineMng();
+            }
+        }
+
+        void tsmiNavigate_Click(object sender, EventArgs e)
+        {
+            if (ifExistNavigateView == false)
+            {
+                OpenNavigate();
+                ifExistNavigateView = true;
+            }
+            if (this.ifExistResultView == false)
+            {
+                OpenSearchListView();
+                ifExistResultView = true;
+            }
+        }
+        void tsmiMsg_Click(object sender, EventArgs e)
+        {
+            ConstObject.SendMsg();
+        }
+
+        void tsiMsg_Click(object sender, EventArgs e)
+        {
+            ConstObject.SendMsg();
+        }
+
+        void tsmiPrint_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        void tsiExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        void tsmiExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        void tsmiFind_Click(object sender, EventArgs e)
+        {
+            tsiSearch_Click(sender, null);
+        }
+
+        void tsmiLogin_Click(object sender, EventArgs e)
+        {
+            tsiLogin_Click(sender, null);
+        }
+        private bool LoginExit = false;
+
+        void tsiLogin_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("是否重新登录?", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if (dr == DialogResult.No) return;
+            LoginExit = true;
+            this.Close();
+            Process.Start(AppDomain.CurrentDomain.BaseDirectory + "SupplyChainClient.exe");
+        }
+
+        void tsiSearch_Click(object sender, EventArgs e)
+        {
+            OpenSearchView(WindowPanelStyle.Floating);
+        }
+
+        void tsiHome_Click(object sender, EventArgs e)
+        {
+            InitStartPage();
+        }
+
+        void miView_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            ToolStripMenuItem tsmi = e.ClickedItem as ToolStripMenuItem;
+
+            bool checkState = tsmi.Checked;   //保存原状态
+
+            switch (tsmi.Name)
+            {
+                case "tsmiNavigate":
+                    if (!tsmi.Checked)
+                        OpenNavigate();
+                    else
+                        if (wpNavigate != null)
+                            wpNavigate.ShowWindowPanel(WindowPanelStyle.Closed);
+                    break;
+                case "tsiLogin":
+
+                    break;
+                case "tsmiObjectPreview":
+                    if (!tsmi.Checked)
+                        OpenObjectPreview();
+                    else
+                        if (wpObjectPreview != null)
+                            wpObjectPreview.ShowWindowPanel(WindowPanelStyle.Closed);
+                    break;
+                case "tsmiSearch":
+                    if (!tsmi.Checked)
+                        OpenSearchView(WindowPanelStyle.Closed);
+                    else
+                        if (wpSearchView != null)
+                            wpSearchView.ShowWindowPanel(WindowPanelStyle.Closed);
+                    break;
+                case "tsmiSearchList":
+                    if (!tsmi.Checked)
+                        OpenSearchListView();
+                    else
+                        if (wpSearchListView != null)
+                            wpSearchListView.ShowWindowPanel(WindowPanelStyle.Closed);
+                    break;
+                case "tsmiAssociate":
+                    if (!tsmi.Checked)
+                        OpenAssociateView();
+                    else
+                        if (wpAssociateView != null)
+                            wpAssociateView.ShowWindowPanel(WindowPanelStyle.Closed);
+                    break;
+                case "tsmiApproveList":
+                    if (!tsmi.Checked)
+                        OpenApproveListView();
+                    else
+                        if (wpApproveListView != null)
+                            wpApproveListView.ShowWindowPanel(WindowPanelStyle.Closed);
+                    break;
+            }
+
+            tsmi.Checked = checkState;   //恢复原状态
+        }
+
+        void ViewWindowPanel_ClosedEvent(WindowPanel wp, IView v)
+        {
+            if (wp.Equals(wpNavigate))
+            {
+                gToolMenu.tsmiNavigate.Checked = false;
+                ifExistNavigateView = false;
+            }
+            if (wp.Equals(wpObjectPreview))
+                gToolMenu.tsmiObjectPreview.Checked = false;
+            if (wp.Equals(wpSearchView))
+                gToolMenu.tsmiSearch.Checked = false;
+            if (wp.Equals(wpSearchListView))
+            {
+                gToolMenu.tsmiSearchList.Checked = false;
+                this.ifExistResultView = false;
+            }
+            if (wp.Equals(wpApproveListView))
+                gToolMenu.tsmiApproveList.Checked = false;
+            if (wp.Equals(wpAssociateView))
+                gToolMenu.tsmiAssociate.Checked = false;
+        }
+        #endregion
+
+        #region 功能向导
+        WindowPanel wpNavigate = null;
+        Navigate navigate;
+        private void OpenNavigate()
+        {
+            wpNavigate = new WindowPanel();
+            wpNavigate.Width = 600;
+            wpNavigate.WindowPanelClosedEvent += new WindowPanelClosedHandle(ViewWindowPanel_ClosedEvent);
+            if (navigate == null)
+            {
+                navigate = new Navigate(this);
+
+                wpNavigate.Station = WindowPanelStation.Left;
+                wpNavigate.Style = WindowPanelStyle.Dockable;
+                wpNavigate.Caption = "功能向导";
+                wpNavigate.AddView(navigate);
+            }
+            else
+            {
+                //wpNavigate.Station = WindowPanelStation.Left; 
+                wpNavigate.Style = WindowPanelStyle.Dockable;
+                //wpNavigate.Caption = "功能向导"; 
+                wpNavigate.AddView(navigate);
+            }
+            wm.AddWindow(wpNavigate);
+        }
+
+        /// <summary>
+        /// 外部系统定义构件装载
+        /// <returns>true:有定义(覆盖原定义),false:无自定义，查找原构件定义</returns>
+        /// </summary>
+        /// 
+        public virtual bool LoadCustomNode(string node)
+        {
+            return false;
+        }
+
+        void trvNavigate_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            switch (e.Node.Text)
+            {
+                case "主从表模板":
+                    break;
+                default:
+                    if (e.Node.Tag != null)
+                        UCL.Locate(e.Node.Tag.ToString());
+                    break;
+            }
+        }
+        #endregion
+
+        #region 数据检索视图
+        WindowPanel wpSearchView = null;
+        public void OpenSearchView(WindowPanelStyle style)
+        {
+            wpSearchView = new WindowPanel();
+            wpSearchView.WindowPanelClosedEvent += new WindowPanelClosedHandle(ViewWindowPanel_ClosedEvent);
+
+            wpSearchView.Station = WindowPanelStation.Right;
+            wpSearchView.Style = style;
+            wpSearchView.Caption = "数据检索";
+
+
+            if (activedMainView != null)
+                AddAssistView(activedMainView, ViewType.Search);
+            wm.AddWindow(wpSearchView);
+            wpSearchView.Focus();
+        }
+        #endregion
+
+        #region 关联视图
+        WindowPanel wpAssociateView = null;
+        private void OpenAssociateView()
+        {
+            wpAssociateView = new WindowPanel();
+            wpAssociateView.WindowPanelClosedEvent += new WindowPanelClosedHandle(ViewWindowPanel_ClosedEvent);
+
+            wpAssociateView.Station = WindowPanelStation.Right;
+            wpAssociateView.Style = WindowPanelStyle.Closed;
+            wpAssociateView.Caption = "关联视图";
+            wm.AddWindow(wpAssociateView);
+
+            if (activedMainView != null)
+                AddAssistView(activedMainView, ViewType.Associate);
+        }
+
+        public void OpenAssociateView(WindowPanelStyle style)
+        {
+            wpAssociateView = new WindowPanel();
+            wpAssociateView.WindowPanelClosedEvent += new WindowPanelClosedHandle(ViewWindowPanel_ClosedEvent);
+
+            wpAssociateView.Station = WindowPanelStation.Right;
+            wpAssociateView.Style = style;
+            wpAssociateView.Caption = "关联视图";
+            wm.AddWindow(wpAssociateView);
+
+            if (activedMainView != null)
+                AddAssistView(activedMainView, ViewType.Associate);
+
+            //如果是飘浮状态
+            //调整窗体尺寸到用户设定低板的最小尺寸
+            if (wpAssociateView.Style == WindowPanelStyle.Floating)
+            {
+                Form f = wpAssociateView.FindForm();
+                IView v = wpAssociateView.GetView();
+                if (f != null && !f.Equals(this) && v != null)
+                {
+                    f.SuspendLayout();
+
+                    if (v.Floor.MinimumSize.Width > 100)
+                        f.ClientSize = v.Floor.MinimumSize;
+
+                    f.ResumeLayout();
+                }
+            }
+        }
+        #endregion
+
+        #region 审批列表视图
+        WindowPanel wpApproveListView = null;
+        private void OpenApproveListView()
+        {
+            wpApproveListView = new WindowPanel();
+            wpApproveListView.WindowPanelClosedEvent += new WindowPanelClosedHandle(ViewWindowPanel_ClosedEvent);
+
+            wpApproveListView.Station = WindowPanelStation.Right;
+            wpApproveListView.Style = WindowPanelStyle.Closed;
+            wpApproveListView.Caption = "审批列表";
+            wpApproveListView.Visible = false;
+            wm.AddWindow(wpApproveListView);
+
+            if (activedMainView != null)
+                AddAssistView(activedMainView, ViewType.ApproveList);
+        }
+        #endregion
+
+        #region 数据检索结果视图
+        WindowPanel wpSearchListView = null;
+        private void OpenSearchListView()
+        {
+            wpSearchListView = new WindowPanel();
+            wpSearchListView.WindowPanelClosedEvent += new WindowPanelClosedHandle(ViewWindowPanel_ClosedEvent);
+
+            wpSearchListView.Station = WindowPanelStation.Bottom;
+            wpSearchListView.Style = WindowPanelStyle.AutoHide;
+            wpSearchListView.Caption = "检索结果";
+            wm.AddWindow(wpSearchListView);
+
+            if (activedMainView != null)
+                AddAssistView(activedMainView, ViewType.SearchList);
+
+        }
+        #endregion
+
+        #region 对象浏览视图
+        WindowPanel wpObjectPreview = null;
+        private void OpenObjectPreview()
+        {
+            wpObjectPreview = new WindowPanel();
+            wpObjectPreview.WindowPanelClosedEvent += new WindowPanelClosedHandle(ViewWindowPanel_ClosedEvent);
+
+            wpObjectPreview.Station = WindowPanelStation.Right;
+            wpObjectPreview.Style = WindowPanelStyle.Closed;
+
+            wpObjectPreview.Caption = "对象预览";
+            wm.AddWindow(wpObjectPreview);
+        }
+        public void UpdateObjectPreview(IView v)
+        {
+            if (wpObjectPreview != null)
+            {
+                wpObjectPreview.SuspendLayout();
+
+                if (v == null)
+                    wpObjectPreview.ClearView();
+                else
+                    wpObjectPreview.AddView(v);
+                wpObjectPreview.ResumeLayout();
+            }
+        }
+        #endregion
+
+        #region 软件起始页
+        void InitStartPage()
+        {
+            UCL.Locate("起始页");
+        }
+        #endregion
+
+        //装载主视图
+        /// <summary>
+        /// 主视图List
+        /// </summary>
+        static IList<WindowPanel> windowPanels = new List<WindowPanel>();
+        /// <summary>
+        /// 当前激活主视图
+        /// </summary>
+        private IMainView activedMainView = null;
+        /// <summary>
+        /// 增加主视图
+        /// </summary>
+        /// <param name="mv">主视图</param>
+        public void AddMainView(IMainView mv)
+        {
+            //注射菜单和工具条
+            mv.ToolMenu = this.toolMenu;
+
+            //载入主视图
+            WindowPanel wp = new WindowPanel();//分配主视图Panel
+            windowPanels.Add(wp);
+
+            wp.WindowPanelActivedEvent += new WindowPanelActivedHandle(WindowPanel_ActivedEvent);
+            wp.WindowPanelClosedEvent += new WindowPanelClosedHandle(WindowPanel_ClosedEvent);
+            wp.Station = WindowPanelStation.Left;
+            wp.Style = WindowPanelStyle.TabDocument;
+            wp.Caption = mv.ViewCaption;
+            wp.AddView(mv);
+            wm.AddWindow(wp);
+
+            //载入辅视图
+            AddAssistView(mv);
+
+        }
+        /// <summary>
+        /// 按类型加载主视图的辅助视图
+        /// </summary>
+        /// <param name="mv">主视图</param>
+        /// <param name="vtype">辅助视图类型</param>
+        void AddAssistView(IMainView mv, ViewType vtype)
+        {
+            WindowPanel wp = null;
+
+            switch (vtype)
+            {
+                case ViewType.Search:
+                    wp = wpSearchView;
+                    break;
+                case ViewType.SearchList:
+                    wp = wpSearchListView;
+                    break;
+                case ViewType.ApproveList:
+                    wp = wpApproveListView;
+                    break;
+                case ViewType.Associate:
+                    wp = wpAssociateView;
+                    break;
+            }
+
+            if (wp == null) return;
+
+            wp.ClearView();
+
+            foreach (IView v in mv.AssistViews)
+            {
+                if (v.ViewType == vtype)
+                {
+                    wp.AddView(v);
+                    break;
+                }
+            }
+        }
+        /// <summary>
+        /// 加载主视图的辅助视图
+        /// </summary>
+        /// <param name="mv">主视图</param>
+        void AddAssistView(IMainView mv)
+        {
+            //载入辅视图
+            wpSearchView.ClearView();
+            wpAssociateView.ClearView();
+            wpApproveListView.ClearView();
+            wpSearchListView.ClearView();
+
+            foreach (IView v in mv.AssistViews)
+            {
+                switch (v.ViewType)
+                {
+                    case ViewType.Search:
+                        wpSearchView.AddView(v);
+                        break;
+                    case ViewType.SearchList:
+                        wpSearchListView.AddView(v);
+                        break;
+                    case ViewType.ApproveList:
+                        wpApproveListView.AddView(v);
+                        break;
+                    case ViewType.Associate:
+                        wpAssociateView.AddView(v);
+                        break;
+                }
+            }
+        }
+        /// <summary>
+        /// 激活辅助视图
+        /// </summary>
+        /// <param name="wp"></param>
+        /// <param name="v">辅助视图</param>
+        void WindowPanel_ActivedEvent(WindowPanel wp, IView v)
+        {
+            //更新辅视图
+            IMainView mv = v as IMainView;
+            if (mv != null)
+            {
+                activedMainView = mv;
+                AddAssistView(mv);
+            }
+        }
+
+        /// <summary>
+        /// 关闭辅助视图(即从windowPanel中移除)
+        /// </summary>
+        /// <param name="wp"></param>
+        /// <param name="v"></param>
+        void WindowPanel_ClosedEvent(WindowPanel wp, IView v)
+        {
+            windowPanels.Remove(wp);
+
+            if (windowPanels.Count == 0)
+                activedMainView = null;
+        }
+        /// <summary>
+        /// 关闭主视图
+        /// </summary>
+        /// <param name="mv"></param>
+        public void CloseMainView(IMainView mv)
+        {
+            WindowPanel wp = GetWindowPanel(mv.ViewCaption);
+
+            if (wp != null)
+                wp.ShowWindowPanel(WindowPanelStyle.Closed);
+        }
+        /// <summary>
+        /// 根据主视图的caption获得主视图
+        /// </summary>
+        /// <param name="caption">主视图Caption</param>
+        /// <returns>主视图</returns>
+        public IMainView GetMainView(string caption)
+        {
+            WindowPanel wp = GetWindowPanel(caption);
+            if (wp != null)
+            {
+                IView v = wp.GetView();
+                return v as IMainView;
+
+            }
+            else
+                return null;
+        }
+
+        public IList GetMainViews(string viewName)
+        {
+            IList lst = new ArrayList();
+            for (int i = 0; i < windowPanels.Count; i++)
+            {
+                IView v = windowPanels[i].GetView();
+                if (v != null && v.ViewName == viewName)
+                {
+                    lst.Add(windowPanels[i]);
+                }
+            }
+            return lst;
+        }
+
+        /// <summary>
+        /// 判断制定Caption的主视图是否存在
+        /// </summary>
+        /// <param name="caption">主视图Caption</param>
+        /// <returns>True 存在，False 不存在</returns>
+        public bool ExistMainView(string caption)
+        {
+            if (GetWindowPanel(caption) != null)
+                return true;
+            else
+                return false;
+        }
+        /// <summary>
+        /// 根据Caption获得WindowPanel
+        /// </summary>
+        /// <param name="caption">主视图Caption</param>
+        /// <returns>主视图</returns>
+        public WindowPanel GetWindowPanel(string caption)
+        {
+            for (int i = 0; i < windowPanels.Count; i++)
+            {
+                if (windowPanels[i].Caption == caption)
+                    return windowPanels[i];
+            }
+
+            return null;
+        }
+        public IMainView GetMainViewByViewName(string a)
+        {
+            return null;
+        }
+
+        public void Connection()
+        {
+            while (true)
+            {
+                try
+                {
+                    this.StateTool.Items["lblConnection"].Text = "连接状态:[" + ConstObject.CmdPing() + "]";
+                    Thread.Sleep(10000);
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+        }
+
+        private void personSign_DoubleClick(object sender, EventArgs e)
+        {
+            VPersonSign v_sign = new VPersonSign();
+            v_sign.OpenPerson(ConstObject.TheLogin.ThePerson.Id);
+        }
+    }
+}

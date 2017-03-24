@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.InspectionRecordManage.Domain.RectificationNotice,SupplyChain" table="THD_RectificationNotice" lazy="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.ProductionManagement.InspectionRecordManage.Domain.InspectionRecord,SupplyChain"/>
+
+    <!--受检组织-->
+    <many-to-one name="SubjectOrganization" column="SubjectOrganization" class="Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass.SupplierRelationInfo,ResourceManager"/>
+    <property name="SubjectOrganizationName" column="SubjectOrganizationName"/>
+
+    <!--受检组织负责人-->
+    <many-to-one name="SupjectOrgPerson" column="SupjectOrgPerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="SupjectOrgPersonName"/>
+
+    <property name="RectificationRequirement" />
+    <property name="ExistingProblem" />
+    <property name="RectificationNoticeDate" />
+    <property name="RectificationMethod" />
+    <property name="RectificationConclusion" />
+    <property name="RectificationConclusionDate" />
+
+  </class>
+</hibernate-mapping>

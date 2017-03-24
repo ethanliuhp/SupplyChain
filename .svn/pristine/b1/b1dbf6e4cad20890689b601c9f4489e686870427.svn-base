@@ -1,0 +1,943 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <alias name="dao" alias="Dao"/>
+  <alias name="BusinessEssenceSrv" alias="RefBusinessEssenceService"/>
+  <alias name="CategoryNodeService" alias="NodeSrv"/>
+  <alias name="CategoryRuleService" alias="RuleSrv"/>
+  <alias name="CategoryTreeService" alias="TreeService"/>
+  <alias name="BusinessEssenceQuerySrv" alias="RefBusinessEssenceQuerySrv"/>
+  <alias name="ManageStateService" alias="RefManageStateService"/>
+  <alias name="MaterialService" alias="RefMaterialService"/>
+  <!--<alias name="RefStockRelationSrv" alias="StockRelationSrv"/>-->
+
+  <!--入库单-->
+  <object id="StockInSrvTarget" type="Application.Business.Erp.SupplyChain.StockManage.StockInManage.Service.StockInSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+    <property name="StockInOutSrv" ref="StockInOutSrv"/>
+    <property name="StockOutSrv" ref="StockOutSrv"/> 
+    <property name="StockMoveSrv" ref="StockMoveSrv"/>
+    <property name="StockRelationSrv" ref="StockRelationSrv"/>
+    <property name="Dao" ref="dao"/>
+  </object>
+  <object	id="StockInSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="StockInSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--领料出库单-->
+  <object id="StockOutSrvTarget" type="Application.Business.Erp.SupplyChain.StockManage.StockOutManage.Service.StockOutSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+    <property name="StockInOutSrv" ref="StockInOutSrv"/>
+  </object>
+  <object	id="StockOutSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="StockOutSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--调拨单-->
+  <object id="StockMoveSrvTarget" type="Application.Business.Erp.SupplyChain.StockManage.StockMoveManage.Service.StockMoveSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="StockMoveSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="StockMoveSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--盘盈单-->
+  <object id="ProfitInSrvTarget" type="Application.Business.Erp.SupplyChain.StockManage.StockProfitIn.Service.ProfitInSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="RefStockInOutSrv" ref="StockInOutSrv"/>
+  </object>
+  <object	id="ProfitInSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ProfitInSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--盘亏单-->
+  <object id="LossOutSrvTarget" type="Application.Business.Erp.SupplyChain.StockManage.StockLossOut.Service.LossOutSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="RefStockInOutSrv" ref="StockInOutSrv"/>
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="LossOutSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="LossOutSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--库存关系查询-->
+  <object id="StockRelationSrvTarget" type="Application.Business.Erp.SupplyChain.StockManage.Stock.Service.StockRelationSrv,SupplyChain" autowire="byName" lazy-init="true">
+  </object>
+  <object	id="StockRelationSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="StockRelationSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--库存收支存-->
+  <object id="StockInOutSrvTarget" type="Application.Business.Erp.SupplyChain.StockManage.Stock.Service.StockInOutSrv,SupplyChain" autowire="byName" lazy-init="true">
+  </object>
+
+  <object	id="StockInOutSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="StockInOutSrvTarget"/>
+ 
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--库存实例表-->
+  <object id="StockQuantitySrvTarget" type="Application.Business.Erp.SupplyChain.StockManage.Stock.Service.StockRelationSrv,SupplyChain" autowire="byName" lazy-init="true">
+  </object>
+  <object	id="StockQuantitySrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="StockQuantitySrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--仓库编码维护-->
+  <object id="StationCategorySrvTarget" type="Application.Business.Erp.SupplyChain.StockManage.Base.Service.StationCategorySrv,SupplyChain" autowire="byName" lazy-init="true">
+  </object>
+  <object	id="StationCategorySrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="StationCategorySrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>TheCombinedKeyAop</value>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+        <!--<value>TheLogComAop</value>-->
+      </list>
+    </property>
+  </object>
+
+  <!--料具租赁管理服务-->
+  <!--设备租赁结算单服务-->
+  <object id="MatMngSrvTarget" type="Application.Business.Erp.SupplyChain.MaterialManage.Service.MatMngSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="MatMngSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MatMngSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <!--<value>BillCodeGeneratorAop</value>-->
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+
+  <!--废旧物资管理服务-->
+  <object id="WasteMatSrvTarget" type="Application.Business.Erp.SupplyChain.WasteMaterialManage.Service.WasteMatSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="WasteMatSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="WasteMatSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--基础数据导入服务-->
+  <object id="ExcelImportSrvTarget" type="Application.Business.Erp.SupplyChain.ExcelImportMng.Service.ExcelImportSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+    <property name="CostTypeSrv" ref="CostItemCategorySrv"/>
+    <property name="CostItemSrv" ref="CostItemSrv"/>
+    <property name="CostSubjectSrv" ref="CostAccountSubjectSrv"/>
+  </object>
+  <object	id="ExcelImportSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ExcelImportSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--商品砼管理服务-->
+  <object id="ConcreteMngSrvTarget" type="Application.Business.Erp.SupplyChain.ConcreteManage.Service.ConcreteManSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+    <property name="RefStockInSrv" ref="StockInSrv"/>
+    <property name="RefStockOutSrv" ref="StockOutSrv"/>
+  </object>
+  <object	id="ConcreteMngSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ConcreteMngSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--需求总计划服务-->
+  <object id="DemandPlanSrvTarget" type="Application.Business.Erp.SupplyChain.SupplyManage.Service.DemandPlanSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="DemandPlanSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="DemandPlanSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--月度需求计划服务-->
+  <object id="MonthlyPlanSrvTarget" type="Application.Business.Erp.SupplyChain.SupplyManage.Service.MonthlyPlanSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="MonthlyPlanSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MonthlyPlanSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--日常需求计划服务-->
+  <object id="DailyPlanSrvTarget" type="Application.Business.Erp.SupplyChain.SupplyManage.Service.DailyPlanSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="DailyPlanSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="DailyPlanSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--采购计划服务-->
+  <object id="SupplyPlanSrvTarget" type="Application.Business.Erp.SupplyChain.SupplyManage.Service.SupplyPlanSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="SupplyPlanSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="SupplyPlanSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--采购合同服务-->
+  <object id="SupplyOrderSrvTarget" type="Application.Business.Erp.SupplyChain.SupplyManage.Service.SupplyOrderSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="SupplyOrderSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="SupplyOrderSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--采购合同调价服务-->
+  <object id="ContractAdjustPriceSrvTarget" type="Application.Business.Erp.SupplyChain.SupplyManage.Service.ContractAdjustPriceSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="ContractAdjustPriceSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ContractAdjustPriceSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--工程更改管理服务-->
+  <object id="EngineerChangeSrvTarget" type="Application.Business.Erp.SupplyChain.CostManagement.Service.EngineerChangeSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="EngineerChangeSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="EngineerChangeSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--罚扣款单服务-->
+  <object id="PenaltyDeductionSrvTarget" type="Application.Business.Erp.SupplyChain.ProductionManagement.Service.PenaltyDeductionSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="PenaltyDeductionSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="PenaltyDeductionSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+
+  <!--劳务需求计划服务-->
+  <object id="LaborDemandPlanSrvTarget" type="Application.Business.Erp.SupplyChain.ProductionManagement.Service.LaborDemandPlanSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="LaborDemandPlanSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="LaborDemandPlanSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+
+  <!--月度盘点服务-->
+  <object id="StockInventorySrvTarget" type="Application.Business.Erp.SupplyChain.StockManage.StockInventory.Service.StockInventorySrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="StockInventorySrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="StockInventorySrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--零星用工派工服务-->
+  <object id="LaborSporadicSrvTarget" type="Application.Business.Erp.SupplyChain.ProductionManagement.Service.LaborSporadicSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="LaborSporadicSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="LaborSporadicSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--检测回执单服务-->
+  <object id="DetectionReceiptSrvTarget" type="Application.Business.Erp.SupplyChain.StockManage.DetectionReceiptManage.Service.DetectionReceiptSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="DetectionReceiptSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="DetectionReceiptSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--检验批服务-->
+  <object id="InspectionLotSrvTarget" type="Application.Business.Erp.SupplyChain.ProductionManagement.Service.InspectionLotSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="InspectionLotSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="InspectionLotSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--计量单位服务-->
+  <object id="UnitSrvTarget" type="Application.Business.Erp.SupplyChain.BasicData.Service.UnitSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="UnitSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="UnitSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--OBS服务-->
+  <object id="OBSSrvTarget" type="Application.Business.Erp.SupplyChain.CostManagement.OBS.Service.OBSSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="OBSSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="OBSSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--个人借款服务-->
+  <object id="DelimitIndividualBillSrvTarget" type="Application.Business.Erp.SupplyChain.FinanceMng.Service.DelimitIndividualBillSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="DelimitIndividualBillSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="DelimitIndividualBillSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--费用划账服务-->
+  <object id="ExpensesRowBillSrvTarget" type="Application.Business.Erp.SupplyChain.FinanceMng.Service.ExpensesRowBillSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="ExpensesRowBillSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ExpensesRowBillSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--费用报销单服务-->
+  <object id="ExpensesSingleBillSrvTarget" type="Application.Business.Erp.SupplyChain.FinanceMng.Service.ExpensesSingleBillSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="ExpensesSingleBillSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ExpensesSingleBillSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+
+  <!--临建摊销单服务-->
+  <object id="OverlayAmortizeSrvTarget" type="Application.Business.Erp.SupplyChain.FinanceMng.Service.OverlayAmortizeSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="OverlayAmortizeSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="OverlayAmortizeSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--当期收益结算单服务-->
+  <object id="IncomeSettlementSrvTarget" type="Application.Business.Erp.SupplyChain.FinanceMng.Service.IncomeSettlementSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="IncomeSettlementSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="IncomeSettlementSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <!--材料结算单服务-->
+  <object id="MaterialSettlementSrvTarget" type="Application.Business.Erp.SupplyChain.FinanceMng.Service.MaterialSettlementSrv,SupplyChain" autowire="byName" lazy-init="true">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="MaterialSettlementSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MaterialSettlementSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--指标管理-指标定义-->
+  <object id="IndicatorDefineServiceTarget" type="Application.Business.Erp.SupplyChain.Indicator.IndicatorDefine.Service.IndicatorDefineService,SupplyChain">
+    <property name="Dao" ref="dao"></property>
+    <property name="NodeSrv" ref="CategoryNodeService" />
+    <property name="TreeService" ref="CategoryTreeService"/>
+  </object>
+
+  <object id="IndicatorDefineService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="IndicatorDefineServiceTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--指标管理 维度定义-->
+  <object id="DimensionDefineServiceTarget" type="Application.Business.Erp.SupplyChain.Indicator.IndicatorUse.Service.DimensionDefineService,SupplyChain">
+    <property name="Dao" ref="dao"/>
+    <!--<property name="DBDao" ref="DBDao"></property>-->
+    <property name="NodeSrv" ref="CategoryNodeService" />
+    <property name="TreeService" ref="CategoryTreeService" />
+  </object>
+
+  <object	id="DimensionDefineService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="DimensionDefineServiceTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--指标管理 主题维护-->
+  <object id="CubeServiceTarget" type="Application.Business.Erp.SupplyChain.Indicator.IndicatorUse.Service.CubeService,SupplyChain">
+    <property name="Dao" ref="dao"/>
+    <!--<property name="DBDao" ref="DBDao"></property>-->
+  </object>
+
+  <object	id="CubeService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="CubeServiceTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--指标管理 视图维护-->
+  <object id="ViewServiceTarget" type="Application.Business.Erp.SupplyChain.Indicator.IndicatorUse.Service.ViewService,SupplyChain">
+    <property name="Dao" ref="dao"/>
+    <!--<property name="DBDao" ref="DBDao"></property>-->
+  </object>
+
+  <object	id="ViewService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ViewServiceTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--指标管理 基础数据维护-->
+  <object id="BasicDataServiceTarget" type="Application.Business.Erp.SupplyChain.BasicData.Service.BasicDataService,SupplyChain">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="BasicDataService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="BasicDataServiceTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--施工专业基础数据-->
+  <object id="ConstructionDataSrvTarget" type="Application.Business.Erp.SupplyChain.CostManagement.ConstructionDataMng.Service.ConstructionDataSrv,SupplyChain">
+    <property name="Dao" ref="dao"/>
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+
+  <object	id="ConstructionDataSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ConstructionDataSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+
+  <!--专业检查记录-->
+  <object id="ProfessionInspectionSrvTarget" type="Application.Business.Erp.SupplyChain.ProductionManagement.ProfessionInspectionRecord.Service.ProfessionInspectionSrv,SupplyChain">
+    <property name="Dao" ref="dao"/>
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+
+  <object	id="ProfessionInspectionSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ProfessionInspectionSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--验收检查记录-->
+  <object id="AcceptanceInspectionSrvTarget" type="Application.Business.Erp.SupplyChain.ProductionManagement.AcceptanceInspectionMng.Service.AcceptanceInspectionSrv,SupplyChain">
+    <property name="Dao" ref="dao"/>
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+
+  <object	id="AcceptanceInspectionSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="AcceptanceInspectionSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--整改通知单-->
+  <object id="RectificationNoticeSrvTarget" type="Application.Business.Erp.SupplyChain.ProductionManagement.RectificationNoticeMng.Service.RectificationNoticeSrv,SupplyChain">
+    <property name="Dao" ref="dao"/>
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+
+  <object	id="RectificationNoticeSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="RectificationNoticeSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--专项管理费用单-->
+  <object id="SpecialCostSrvTarget" type="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Service.SpecialCostSrv,SupplyChain">
+    <property name="Dao" ref="dao"/>
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+
+  <object	id="SpecialCostSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="SpecialCostSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+
+  <!--费用结算单-->
+  <object id="ExpensesSettleSrvTarget" type="Application.Business.Erp.SupplyChain.SettlementManagement.ExpensesSettleMng.Service.ExpensesSettleSrv,SupplyChain">
+    <property name="Dao" ref="dao"/>
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="ExpensesSettleSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ExpensesSettleSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--物资耗用结算单-->
+  <object id="MaterialSettleSrvTarget" type="Application.Business.Erp.SupplyChain.SettlementManagement.MaterialSettleMng.Service.MaterialSettleSrv,SupplyChain">
+    <property name="Dao" ref="dao"/>
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="MaterialSettleSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MaterialSettleSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--文档对象管理-->
+  <object id="DocumentManagementSrvTarget" type="Application.Business.Erp.SupplyChain.CostManagement.WBS.Service.DocumentManagementSrv,SupplyChain">
+    <property name="Dao" ref="dao"/>
+  </object>
+  <object	id="DocumentManagementSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="DocumentManagementSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--分包项目-->
+  <object id="ContractExcuteSrvTarget" type="Application.Business.Erp.SupplyChain.CostManagement.ContractExcuteMng.Service.ContractExcuteSrv,SupplyChain">
+    <property name="Dao" ref="dao"/>
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="ContractExcuteSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ContractExcuteSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--业务报量-->
+  <object id="OwnerQuantitySrvTarget" type="Application.Business.Erp.SupplyChain.CostManagement.OwnerQuantityMng.Service.OwnerQuantitySrv,SupplyChain">
+    <property name="Dao" ref="dao"/>
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="OwnerQuantitySrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="OwnerQuantitySrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--项目部信息管理-->
+  <object id="CurrentProjectSrvTarget" type="Application.Business.Erp.SupplyChain.Basic.Service.CurrentProjectSrv,SupplyChain">
+    <property name="Dao" ref="dao"/>
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="CurrentProjectSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="CurrentProjectSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--项目工程复制-->
+  <object id="ProjectCopySrvTarget" type="Application.Business.Erp.SupplyChain.CostManagement.ProjectCopyMng.Service.ProjectCopySrv,SupplyChain">
+    <property name="Dao" ref="dao"/>
+    <property name="NodeSrv" ref="CategoryNodeService" />
+    <property name="RuleSrv" ref="CategoryRuleService" />
+    <property name="TreeService" ref="CategoryTreeService" />
+    <property name="TheOpgManage" ref="OPGManagementManager" />
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="ProjectCopySrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ProjectCopySrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--晴雨表信息管理-->
+  <object id="WeatherSrvTarget" type="Application.Business.Erp.SupplyChain.ConstructionLogManage.WeatherManage.Service.WeatherSrv,SupplyChain">
+    <property name="Dao" ref="dao"/>
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="WeatherSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="WeatherSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--管理人员日志信息管理-->
+  <object id="PersonManageSrvTarget" type="Application.Business.Erp.SupplyChain.ConstructionLogManage.PersonManagement.Service.PersonManageSrv,SupplyChain">
+    <property name="Dao" ref="dao"/>
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="PersonManageSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="PersonManageSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--施工日志信息管理-->
+  <object id="ConstructionSrvTarget" type="Application.Business.Erp.SupplyChain.ConstructionLogManage.ConstructionManagement.Service.ConstructionSrv,SupplyChain">
+    <property name="Dao" ref="dao"/>
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="ConstructionSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ConstructionSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--竣工结算信息管理-->
+  <object id="CompleteSrvTarget" type="Application.Business.Erp.SupplyChain.CompleteSettlementBook.Service.CompleteSrv,SupplyChain">
+    <property name="Dao" ref="dao"/>
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="CompleteSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="CompleteSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  
+  <!--日施工情况报表管理-->
+  <object id="ConstructionReportSrvTarget" type="Application.Business.Erp.SupplyChain.ConstructionLogManage.ConstructionReport.Service.ConstructionReportSrv,SupplyChain">
+    <property name="Dao" ref="dao"/>
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+  </object>
+  <object	id="ConstructionReportSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ConstructionReportSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  
+  <!--目标责任书-->
+  <object id="TargetRespBookSrcTarget" type=" Application.Business.Erp.SupplyChain.EngineerManage.TargetRespBookManage.Service.TargetRespBookSrc,SupplyChain">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+    <property name="Dao" ref="dao"/>
+  </object>
+  <object	id="TargetRespBookSrc" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="TargetRespBookSrcTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--项目实施策划书-->
+  <object id="ImplementSrvTarget" type="Application.Business.Erp.SupplyChain.ImplementationPlan.Service.ImplementSrv,SupplyChain">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+    <property name="Dao" ref="dao"/>
+  </object>
+  <object	id="ImplementSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ImplementSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--收发函管理-->
+  <object id="CollectionMngSrvTarget" type="Application.Business.Erp.SupplyChain.CollectionManage.Service.CollectionMngSrv,SupplyChain">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+    <property name="Dao" ref="dao"/>
+  </object>
+  <object	id="CollectionMngSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="CollectionMngSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+
+  <!--会议纪要管理-->
+  <object id="MeetingMngSrvTarget" type="Application.Business.Erp.SupplyChain.EngineerManage.MeetingManage.Service.MeetingMngSrv,SupplyChain">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+    <property name="Dao" ref="dao"/>
+  </object>
+  <object	id="MeetingMngSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="MeetingMngSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--项目专业策划-->
+  <object id="ProjectPlanningSrvTarget" type="Application.Business.Erp.SupplyChain.ProjectPlanningMange.Service.ProjectPlanningSrv,SupplyChain">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+    <property name="Dao" ref="dao"/>
+  </object>
+  <object	id="ProjectPlanningSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ProjectPlanningSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--工程文档审批管理-->
+  <object id="DocApprovalMngSrvTarget" type="Application.Business.Erp.SupplyChain.EngineerManage.DocApprovalManage.Service.DocApprovalMngSrv,SupplyChain">
+    <property name="BillCodeRuleSrv" ref="BillCodeRuleSrv"/>
+    <property name="Dao" ref="dao"/>
+  </object>
+  <object	id="DocApprovalMngSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="DocApprovalMngSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+</objects>

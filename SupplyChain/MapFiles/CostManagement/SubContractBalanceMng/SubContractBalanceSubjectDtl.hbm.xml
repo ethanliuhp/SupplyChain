@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.SubContractBalanceMng.Domain.SubContractBalanceSubjectDtl,SupplyChain" table="THD_SubContractBalSubjectDtl" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="version" type="long" unsaved-value="-1"/>
+    <property name="CostName" />
+    <many-to-one name="PriceUnit" column="PriceUnitGUID" class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="PriceUnitName" />
+    <property name="BalancePrice" length="3" />
+    <property name="BalanceTotalPrice" length="3"/>
+    <property name="BalanceQuantity" length="3"/>
+    <property name="FrontBillGUID" />
+    <many-to-one name="QuantityUnit" column="QuantityUnitGUID" class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="QuantityUnitName"/>
+    <!--<property name="BalanceSubjectGUID"/>-->
+    <many-to-one name="BalanceSubjectGUID" column="BalanceSubjectGUID"  class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostAccountSubject,SupplyChain"></many-to-one>
+    <property name="BalanceSubjectName"/>
+    <property name="BalanceSubjectSyscode"/>
+    <property name="BalanceSubjectCode"/>
+    <property name="ResourceTypeGUID"/>
+    <property name="ResourceTypeName"/>
+    <property name="ResourceTypeStuff"/>
+    <property name="ResourceTypeSpec"/>
+    <property name="ResourceSyscode"/>
+    <property name="Remark"/>
+    <many-to-one name="TheBalanceDetail" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.CostManagement.SubContractBalanceMng.Domain.SubContractBalanceDetail,SupplyChain"></many-to-one>
+    <property name="MonthBalanceFlag"/>
+    <property name="DiagramNumber"/>
+  </class>
+</hibernate-mapping>
+
+
+

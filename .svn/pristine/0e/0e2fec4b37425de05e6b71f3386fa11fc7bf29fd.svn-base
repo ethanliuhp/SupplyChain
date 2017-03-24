@@ -1,0 +1,1335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{75388C09-4FDB-4278-8E73-C715A6ADFF70}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Application.Business.Erp.SupplyChain</RootNamespace>
+    <AssemblyName>SupplyChain</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <CodeAnalysisRules>
+    </CodeAnalysisRules>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AuthManagerLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\AuthManagerLib.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonSearchLib, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CommonSearchLib.dll</HintPath>
+    </Reference>
+    <Reference Include="GTP.Cloud.RestClient, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\GTP.Cloud.RestClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.0.3, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=1.0.2.0, Culture=neutral, PublicKeyToken=154fdcb44c4484fc">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.DataAccess, Version=10.2.0.100, Culture=neutral, PublicKeyToken=89b483f429c47342">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Oracle.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="ResourceManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ResourceManager.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Aop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=65e474d141e25e07">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Spring.Aop.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=65e474d141e25e07">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="VirtualMachine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\VirtualMachine.dll</HintPath>
+    </Reference>
+    <Reference Include="WinControls, Version=1.0.3187.20957, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WinControls.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\Domain\BaseBasicData.cs" />
+    <Compile Include="Base\Domain\BaseBillDetail.cs" />
+    <Compile Include="Base\Domain\BaseBillMaster.cs" />
+    <Compile Include="Base\Service\IBaseService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="appContext.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="appContextAuth.xml" />
+    <Content Include="appContextCost.xml" />
+    <Content Include="appContextMap.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="appContextRes.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="appContextSecure.xml" />
+    <Content Include="appContextStock.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="appContextVM.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <EmbeddedResource Include="ApprovalMng\AppProcessMng\Map\AppStatus.hbm.xml" />
+    <EmbeddedResource Include="ApprovalMng\AppProcessMng\Map\AppStepsInfo.hbm.xml" />
+    <EmbeddedResource Include="ApprovalMng\AppSolutionMng\Map\AppRoleSet.hbm.xml" />
+    <EmbeddedResource Include="ApprovalMng\AppSolutionMng\Map\AppSolutionSet.hbm.xml" />
+    <EmbeddedResource Include="ApprovalMng\AppSolutionMng\Map\AppStepsSet.hbm.xml" />
+    <EmbeddedResource Include="ApprovalMng\AppTableSetMng\Map\AppTableSet.hbm.xml" />
+    <EmbeddedResource Include="ApprovalMng\AppTableSetMng\Map\AppDetailPropertySet.hbm.xml" />
+    <EmbeddedResource Include="ApprovalMng\AppTableSetMng\Map\AppMasterPropertySet.hbm.xml" />
+    <EmbeddedResource Include="ApprovalMng\AppTableSetMng\Map\AppMasterData.hbm.xml" />
+    <EmbeddedResource Include="ApprovalMng\AppTableSetMng\Map\AppDetailData.hbm.xml" />
+    <EmbeddedResource Include="ApprovalMng\AppProcessMng\Map\ApproveBill.hbm.xml" />
+    <Content Include="ConfigureXml\ExceptionConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ConfigureXml\LoginCheck.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ConfigureXml\Navigate.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ConfigureXml\OprationTache.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ConfigureXml\ProjectTypeTable.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ConfigureXml\SysOperationCfg.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ConfigureXml\UpdateLog.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="appContextApproval.xml" />
+    <EmbeddedResource Include="MapFiles\Basic\Domain\BasicDataOptr.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Basic\Domain\LogData.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\BaseData\UnitMng\UnitDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\BaseData\UnitMng\UnitMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProjectDocumentManage\ProObjectRelaDocument.hbm.xml" />
+    <Content Include="appContextDoc.xml" />
+    <EmbeddedResource Include="MapFiles\FinanceMng\IncomeSettlementDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\FinanceMng\IncomeSettlementMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\FinanceMng\MaterialSettlementDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\FinanceMng\MaterialSettlementMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Indicator\FactDefine.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\FinanceMng\ExpensesRowBill.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\FinanceMng\DelimitIndividualBill.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\FinanceMng\ExpensesSingleBill.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\FinanceMng\OverlayAmortizeDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\FinanceMng\OverlayAmortizeMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\OBS\OBSManage.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\OBS\OBSService.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\WBS\PBSRelaTaskTypeRuleDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Indicator\CubeAttribute.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Indicator\CubeRegister.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Indicator\DimensionCategory.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Indicator\DimensionDefine.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Indicator\DimensionRegister.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Indicator\DimensionScope.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Indicator\IndicatorCategory.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Indicator\IndicatorDefinition.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Indicator\SystemRegister.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Indicator\ViewDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Indicator\ViewDistribute.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Indicator\ViewMain.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Indicator\ViewRuleDef.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Indicator\ViewStyle.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Indicator\ViewStyleDimension.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Indicator\ViewWriteInfo.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\InspectionLotMng\InspectionLotDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\InspectionLotMng\InspectionLotMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\WBS\GWBSRelaPBS.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\DetectionReceiptManage\DetectionReceiptDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\DetectionReceiptManage\DetectionReceptionMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialRentalSettelmentMng\MaterialRentalSettlementDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialRentalSettelmentMng\MaterialRentalSettlementMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialRentalSettelmentMng\MaterialSubjectDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockMoveManage\StockMoveIn.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockMoveManage\StockMoveInDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockMoveManage\StockMoveInRed.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockMoveManage\StockMoveInRedDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockMoveManage\StockMoveOut.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockMoveManage\StockMoveOutDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockMoveManage\StockMoveOutRed.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockMoveManage\StockMoveOutRedDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\SubContractBalanceMng\SubContractBalanceSubjectDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\SubContractBalanceMng\SubContractBalanceDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\SubContractBalanceMng\SubContractBalanceBill.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\ScheduleMangement\GWBSTaskConfirmMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\ProjectTaskAccountMng\ProjectTaskAccountBill.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\ProjectTaskAccountMng\ProjectTaskDetailAccount.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\ProjectTaskAccountMng\ProjectTaskDetailAccountSubject.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\ProjectTaskAccountMng\ProjectTaskDetailAccountSummary.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\InspectionRecordManage\InspectionRecord .hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\InspectionRecordManage\RectificationNotice.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\InspectionRecordManage\SitePictureVideo.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\LaborSporadicManagement\LaborSporadicDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\LaborSporadicManagement\LaborSporadicMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockInventory\StockInventoryMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockInventory\StockInventoryDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\RequirementPlan\ResourceRequirePlan.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\RequirementPlan\ResourceRequirePlanDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\WasteMaterialManage\WasteMatApplyMng\WasteMatApplyDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\WasteMaterialManage\WasteMatApplyMng\WasteMatApplyMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\WasteMaterialManage\WasteMatProcessMng\WasteMatProcessDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\WasteMaterialManage\WasteMatProcessMng\WasteMatProcessMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ConcreteMng\ConcreteBalanceMng\BaseConcreteBalanceDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ConcreteMng\ConcreteBalanceMng\BaseConcreteBalanceMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ConcreteMng\ConcreteBalanceMng\ConcreteBalanceRedDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\LaborDemandPlanManage\LaborDemandPlanWorkerType.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\LaborDemandPlanManage\LaborDemandPlanMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\LaborDemandPlanManage\LaborDemandPlanDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ConcreteMng\ConcreteBalanceMng\ConcreteBalanceRedMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\PenaltyDeductionManagement\PenaltyDeductionDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\PenaltyDeductionManagement\PenaltyDeductionMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\ScheduleMangement\GWBSTaskConfirm.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\ScheduleMangement\WeekScheduleDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\ScheduleMangement\WeekScheduleMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\EngineerChangeMng\EngineerChangeMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\EngineerChangeMng\EngineerChangeDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialManage\MaterialReturnMng\MaterialReturnCostDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialManage\MaterialReturnMng\MaterialReturnNotQtyCost.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialManage\MaterialReturnMng\MaterialRepair.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialManage\MaterilCollectionMng\MaterialNotQtyCost.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialManage\MaterilCollectionMng\MaterialCostDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialManage\MaterialRentalOrder\BasicCostSet.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialManage\MaterialRentalOrder\BasicDtlCostSet.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockIn\StockInDtlSeq.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostItemMng\CostAccountSubject.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostItemMng\SubjectCostQuota.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostItemMng\CostItem.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostItemMng\CostItemCategory.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\WBS\GWBSDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\WBS\GWBSTree.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockOut\StockOutDtlSeq.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ConcreteMng\PouringNoteMng\PouringNoteDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialManage\MaterialReturnMng\MaterialReturnDetailSeq.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockBalManage\BaseStockInBalDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockBalManage\BaseStockInBalMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\PBS\PBSTree.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\WBS\ContractGroup.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\WBS\ContractGroupDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\WBS\ProjectTaskTypeTree.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockBalManage\StockInBalRedDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockBalManage\StockInBalRedMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockBalManage\StockInBalDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockBalManage\StockInBalMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialManage\MaterialBalanceMng\MatBalOtherCostDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\WBS\GWBSDetailCostSubject.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\ScheduleMangement\ProductionScheduleDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\ScheduleMangement\ProductionScheduleMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialManage\MaterialRentalLedgerMng\MaterialRentalLedger.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialManage\MaterialBalanceMng\MaterialBalanceDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialManage\MaterialBalanceMng\MaterialBalanceMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialManage\MaterialDamageApplyMng\MaterialDamageApplyDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialManage\MaterialDamageApplyMng\MaterialDamageApplyMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialManage\MaterialReturnMng\MaterialReturnDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialManage\MaterialReturnMng\MaterialReturnMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialManage\MaterilCollectionMng\MaterialCollectionDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialManage\MaterilCollectionMng\MaterialCollectionMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ConcreteMng\ConcreteBalanceMng\ConcreteBalanceDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ConcreteMng\ConcreteBalanceMng\ConcreteBalanceMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ConcreteMng\ConcreteCheckingMng\ConcreteCheckingDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ConcreteMng\ConcreteCheckingMng\ConcreteCheckingMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ConcreteMng\PouringNoteMng\PouringNoteMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Basic\Domain\CurrentProjectInfo.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Basic\Domain\MaterialInterfacePrice.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Basic\Domain\ProgramReduceRate.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Basic\Domain\OftenWord.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CompleteSettlementBook\CompleteInfo.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ColletionManage\ColletionMng.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Basic\Domain\PeriodNode.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Basic\Domain\ProRelationUnit.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Basic\Domain\BillComments.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Basic\Domain\ProjectLedger.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Basic\Domain\MachineCostParame.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Basic\Domain\SumAreaParame.hbm.xml" />
+    <Content Include="MapFiles\ConcreteMng\PouringPlanMng\PouringPlanDetail.hbm.xml" />
+    <Content Include="MapFiles\ConcreteMng\PouringPlanMng\PouringPlanMaster.hbm.xml" />
+    <Content Include="appContextMoney.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostMonthAccountMng\CostMonthReportChangeDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostMonthAccountMng\CostMonthReportChangeMatser.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\PaymentRequest.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\WBS\GWBSDtlCostSubRate.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\InvoiceSettlementRelation.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostMonthAccountMng\SelFeeDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostMonthAccountMng\SelFeeFormula.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostMonthAccountMng\SelFeeTempFormula.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostMonthAccountMng\SelFeeTemplateDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostMonthAccountMng\SelFeeTemplateMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireTransportCost\MatHireTranCostDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireTransportCost\MatHireTranCostMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\FundSchemeEfficiencyDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\FundSchemeEfficiencyMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireOrder\MatHireStockBlockDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireOrder\MatHireStockBlockMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireBalance\MatlHireBalanceDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireBalance\MatHireBalanceMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireBalance\MatHireBalanceOtherCostDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireCollection\MatHireCollectionCostDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireCollection\MatHireCollectionDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireCollection\MatHireCollectionMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireCollection\MatHireCollectionNotQtyCost.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireLoss\MatHireLossDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireLoss\MatHireLossMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\FundSchemeContrast.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireLedger\MatHireLedgerMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\PBS\PBSTemplate.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostMonthAccountMng\VisaClamisDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\SubContractBalanceMng\EndAccountAuditBill.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\SubContractBalanceMng\EndAccountAuditDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\WBS\GWBSDetailImport.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\WBS\GWBSTreeDetailRelationship.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostItemMng\CostWorkForce.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\IndirectCost\FundAssessmentMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\IndirectCost\FundInterestDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\IndirectCost\FundAssessCashDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\ScheduleMangement\WeekScheduleTask.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialRentalContractMng\MaterialRentalContractDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialRentalContractMng\MaterialRentalContractMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\IndirectCost\OfficeFundPlanPayDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\ScheduleMangement\WeekScheduleRalation.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\IndirectCost\ProjectOtherPayPlanDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\ScheduleMangement\AssignWorkerOrderDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\ScheduleMangement\AssignWorkerOrderMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\ScheduleMangement\DurationDelayWarn.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\ConstructNodeSubject.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireReturn\MatHireRepair.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireReturn\MatHireReturnCostDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireReturn\MatHireReturnDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireReturn\MatHireReturnDetailSeq.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireReturn\MatHireReturnMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireReturn\MatHireReturnNotQtyCost.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\FundSchemeSummary.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\IndirectCost\FilialeFundPlanDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\IndirectCost\FilialeFundPlanMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\IndirectCost\ProjectFundPlanDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\IndirectCost\ProjectFundPlanMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\FundSchemeFinanceFee.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireOrder\MatHireOrderDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireOrder\MatHireOrderMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireOrder\OrderDetailCostSetItem.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialHireMng\MaterialHireOrder\OrderMasterCostSetItem.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\FundSchemeIndirectTaxRate.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\ProjectBalanceOfPayment.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\FundSchemeReportAmount.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\FundSchemeCashCostRate.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\FundSchemePayment.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\FundSchemeGathering.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\FundPlanningMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostMonthAccountMng\CommercialReportMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostMonthAccountMng\BearerIndicatorDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostMonthAccountMng\BureauCostDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostMonthAccountMng\SubcontractAuditDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostMonthAccountMng\DisputeTrackDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostMonthAccountMng\SettlementProgressReportDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostMonthAccountMng\CostCheckIndicatorDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockIn\WeightBillRelation.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostMonthAccountMng\DisclosureDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\ConstructNode.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\DatePeriodDefine.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostMonthAccountMng\DisclosureMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\LockAccountMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\IndirectCost\BorrowedOrderDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\IndirectCost\BorrowedOrderMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\GatheringAndQuantityRel.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\FactoringDataDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\FactoringDataMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\AcceptanceBill.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\GatheringDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\GatheringInvoice.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\GatheringMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\PaymentDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\PaymentInvoice.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\PaymentMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\FinanceMultDataDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\FinanceMultData\FinanceMultDataMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\IndirectCost\IndirectCostDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MoneyManage\IndirectCost\IndirectCostMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\FinanceMng\AccountTitleTree.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ConstructionLogMng\WeatherManage\QRCodeBill.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\PBS\ElementPBSRelation.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\PBS\ProductExample.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\PBS\ObjectFeatureValue.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\PBS\Versions.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\HelpOnlineManage\HelpOnline.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\ScheduleMangement\ProduceSelfValueDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\ScheduleMangement\ProduceSelfValueMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProjectPlanningMange\BusinessProposalItem.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProjectPlanningMange\BusinessProposal.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProjectPlanningMange\IrpBusinessPlanManageLog.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MeetingManage\MeetingMng.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\DocApprvalManage\DocApprvalMng.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\ScheduleMangement\SpeCostSettlementDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\ScheduleMangement\SpeCostSettlementMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\ScheduleMangement\SpecialCostDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\ScheduleMangement\SpecialCostMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\PMCAndWarning\StateCheckAction.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\PMCAndWarning\WarningInfo.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\PMCAndWarning\WarningPushMode.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\PMCAndWarning\WarningTarget.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\ContractExcuteMng\ProfessionalSubcontractPriceItem.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\ContractExcuteMng\LaborSubContractPriceItem.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\OBS\OBSPerson.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\RequirementPlan\ResourceRequireReceipt.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\RequirementPlan\ResourceRequireReceiptDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostMonthAccountMng\CostReporterConfig.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostItemMng\CostItemsZoning.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProjectDocumentManage\ObjTypeDefaultCateConfig.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProjectDocumentManage\DocCateCodeProfixMap.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\SupplyManage\SupplyOrderManage\SupplyOrderProjectDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProjectPlanningMange\SpecialityProposal.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\OwnerQuantityMng\OwnerQuantity.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\WBS\ProjectDocumentVerify.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\WBS\ProTaskTypeDocumentStencil.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Implementationment\Implementplan.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\Implementationment\ProjectUnit.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\TargetRespBook\IrpRiskDepositPayRecord.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\TargetRespBook\TargetProgressNode.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\TargetRespBook\TargetRespBook.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockBalManage\StockInBalDetail_ForwardDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ConstructionLogMng\ConstructionReport\ConstructionReport.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ConstructionLogMng\ConstructionManagement\ConstructionManage.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ConstructionLogMng\WeatherManage\WeatherManage.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ConstructionLogMng\PersonManagement\PersonManage.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\QWBS\QWBSManage.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\OwnerQuantityMng\OwnerQuantityDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\OwnerQuantityMng\OwnerQuantityMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\ContractExcuteMng\SubContractChangeItem.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\ContractExcuteMng\SubContractProject.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostItemMng\ResourceGroup.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostMonthAccountMng\CostMonthAccDtlConsume.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostMonthAccountMng\CostMonthAccountBill.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\CostMonthAccountMng\CostMonthAccountDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\WBS\GWBSDetailLedger.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\PBS\PBSStructTypeRuleDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\PBS\PBSStructTypeRuleMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\SettlementManagement\ExpensesSettleMng\ExpensesSettleDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\SettlementManagement\ExpensesSettleMng\ExpensesSettleMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\SettlementManagement\MaterialSettleMng\MaterialSettleDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\SettlementManagement\MaterialSettleMng\MaterialSettleMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\RectificationNoticeMng\RectificationNoticeDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\RectificationNoticeMng\RectificationNoticeMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\AcceptanceInspectionMng\AcceptanceInspection.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\InspectionLotMng\InspectionLot.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\ScheduleMangement\GWBSTaskConfirmNode.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\ProfessionInspectionRecord\ProfessionInspectionRecordDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ProductionManagement\ProfessionInspectionRecord\ProfessionInspectionRecordMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\ConstructionDataMng\ConstructionData.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ConcreteMng\PumpingPoundsMng\PumpingPoundsDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\ConcreteMng\PumpingPoundsMng\PumpingPoundsMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\SupplyManage\SupplyOrderManage\SupplyOrderDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\SupplyManage\SupplyOrderManage\SupplyOrderMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\SupplyManage\SupplyOrderManage\SupplyOrderPayment.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\SupplyManage\ContractAdjustPriceManage\ContractAdjustPrice.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\SupplyManage\DailyPlanManage\DailyPlanDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\SupplyManage\DailyPlanManage\DailyPlanMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\SupplyManage\MonthlyPlanManage\MonthlyPlanDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\SupplyManage\MonthlyPlanManage\MonthlyPlanMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\SupplyManage\DemandMasterPlanManage\DemandMasterPlanDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\SupplyManage\DemandMasterPlanManage\DemandMasterPlanMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\SupplyManage\SupplyPlanManage\SupplyPlanDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\SupplyManage\SupplyPlanManage\SupplyPlanMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialManage\MaterialRentalOrder\MaterialRentalOrderDetail.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\MaterialManage\MaterialRentalOrder\MaterialRentalOrderMaster.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockIn\BasicStockIn.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockIn\BasicStockInDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockIn\StockIn.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockIn\StockInDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockIn\StockInRed.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockIn\StockInRedDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockOut\BasicStockOut.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockOut\BasicStockOutDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockOut\StockOut.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockOut\StockOutDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockOut\StockOutRed.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockOut\StockOutRedDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockProfitIn\AcctLoseAndProfit.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockProfitIn\AcctLoseAndProfitDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockProfitIn\ProfitIn.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockProfitIn\ProfitInDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockLossOut\LossOut.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\StockLossOut\LossOutDtl.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\Stock\StockInOut.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\Stock\StockQuantity.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\Stock\StockRelation.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\Stock\StockRelationLock.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\Stock\StockSequence.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\Base\BaseStockInOut.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\Base\StationCategory.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\StockManage\Base\StockOutPurpose.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\BaseData\ExpenseItemMng\ExpenseItem.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\FinanceMng\CostProject.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\FinanceMng\AccountLevel.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\FinanceMng\AccountTitle.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\FinanceMng\DeskAccount.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\FinanceMng\LockNo.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApprovalMng\AppProcessMng\Domain\AppStatus.cs" />
+    <Compile Include="ApprovalMng\AppProcessMng\Domain\AppStepsInfo.cs" />
+    <Compile Include="ApprovalMng\AppProcessMng\Domain\ApproveBill.cs" />
+    <Compile Include="ApprovalMng\AppSolutionMng\Domain\AppRoleSet.cs" />
+    <Compile Include="ApprovalMng\AppSolutionMng\Domain\AppSolutionSet.cs" />
+    <Compile Include="ApprovalMng\AppSolutionMng\Domain\AppStepsSet.cs" />
+    <Compile Include="ApprovalMng\AppSolutionMng\Service\AppByBusinessSrv.cs" />
+    <Compile Include="ApprovalMng\AppSolutionMng\Service\AppSrv.cs" />
+    <Compile Include="ApprovalMng\AppSolutionMng\Service\IAppByBusinessSrv.cs" />
+    <Compile Include="ApprovalMng\AppSolutionMng\Service\IAppSrv.cs" />
+    <Compile Include="ApprovalMng\AppSolutionMng\Service\SqlScript.cs" />
+    <Compile Include="ApprovalMng\AppTableSetMng\Domain\AppDetailData.cs" />
+    <Compile Include="ApprovalMng\AppTableSetMng\Domain\AppDetailPropertySet.cs" />
+    <Compile Include="ApprovalMng\AppTableSetMng\Domain\AppMasterData.cs" />
+    <Compile Include="ApprovalMng\AppTableSetMng\Domain\AppMasterPropertySet.cs" />
+    <Compile Include="ApprovalMng\AppTableSetMng\Domain\AppTableSet.cs" />
+    <Compile Include="Base\Domain\BaseDetail.cs" />
+    <Compile Include="Base\Domain\BaseMaster.cs" />
+    <Compile Include="Base\Domain\BasePractTable.cs" />
+    <Compile Include="Base\Domain\DataDomain.cs" />
+    <Compile Include="Base\Service\BaseBasicDataSrv.cs" />
+    <Compile Include="Base\Service\BaseService.cs" />
+    <Compile Include="Base\Service\IBaseBasicDataSrv.cs" />
+    <Compile Include="Base\Service\IPrintSolutionAccess.cs" />
+    <Compile Include="Base\Service\PrintSolutionAccess.cs" />
+    <Compile Include="BasicData\BaleNoMng\Domain\BaleNoFactory.cs" />
+    <Compile Include="BasicData\BaleNoMng\Service\BaleNoFactorySrv.cs" />
+    <Compile Include="BasicData\BaleNoMng\Service\IBaleNoFactorySrv.cs" />
+    <Compile Include="BasicData\BillUserMng\Domain\BillUser.cs" />
+    <Compile Include="BasicData\BillUserMng\Domain\BillAction.cs" />
+    <Compile Include="BasicData\BillUserMng\Domain\BillPersonInfor.cs" />
+    <Compile Include="BasicData\BillUserMng\Service\BillUserSrv.cs" />
+    <Compile Include="BasicData\BillUserMng\Service\IBillUserSrv.cs" />
+    <Compile Include="BasicData\Domain\BasicDataDetail.cs" />
+    <Compile Include="BasicData\Domain\BasicDatas.cs" />
+    <Compile Include="BasicData\Domain\IndicatorBasicValue.cs" />
+    <Compile Include="BasicData\ExpenseItemMng\Service\IExpenseItemSrv.cs" />
+    <Compile Include="BasicData\Service\BasicDataService.cs" />
+    <Compile Include="BasicData\Service\UnitSrv.cs" />
+    <Compile Include="BasicData\Service\IBasicDataService.cs" />
+    <Compile Include="BasicData\Service\IUnitSrv.cs" />
+    <Compile Include="BasicData\UnitMng\Domain\UnitDetail.cs" />
+    <Compile Include="BasicData\UnitMng\Domain\UnitMaster.cs" />
+    <Compile Include="Basic\Domain\BasicDataOptr.cs" />
+    <Compile Include="Basic\Domain\BillComments.cs" />
+    <Compile Include="Basic\Domain\CurrentProjectInfo.cs" />
+    <Compile Include="Basic\Domain\LogData.cs" />
+    <Compile Include="Basic\Domain\MachineCostParame.cs" />
+    <Compile Include="Basic\Domain\MaterialInterfacePrice.cs" />
+    <Compile Include="Basic\Domain\OftenWord.cs" />
+    <Compile Include="Basic\Domain\ProgramReduceRete.cs" />
+    <Compile Include="Basic\Domain\ProjectLedger.cs" />
+    <Compile Include="Basic\Domain\ProRelationUnit.cs" />
+    <Compile Include="Basic\Domain\PeriodNode.cs" />
+    <Compile Include="Basic\Domain\SumAreaParame.cs" />
+    <Compile Include="Basic\Service\CurrentProjectSrv.cs" />
+    <Compile Include="Basic\Service\ICurrentProjectSrv.cs" />
+    <Compile Include="ConstructionLogManage\WeatherManage\Domain\QRCodeBill.cs" />
+    <Compile Include="CostManagement\ContractExcuteMng\Domain\LaborSubContractPriceItem.cs" />
+    <Compile Include="CostManagement\ContractExcuteMng\Domain\ProfessionalSubcontractPriceItem.cs" />
+    <Compile Include="CostManagement\CostItemMng\Domain\CostItemsZoning.cs" />
+    <Compile Include="CostManagement\CostItemMng\Domain\CostWorkForce.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Domain\CostMonthReportChangeDetail.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Domain\CostMonthReportChangeMatser.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Domain\SelFeeDtl.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Domain\SelFeeFormula.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Domain\SelFeeTempFormula.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Domain\SelFeeTemplateDtl.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Domain\SelFeeTemplateMaster.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Domain\BearerIndicatorDtl.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Domain\BureauCostDtl.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Domain\CommercialReportMaster.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Domain\VisaClamisDtl.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Domain\CostCheckIndicatorDtl.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Domain\DisclosureMaster.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Domain\CostReporterConfig.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Domain\DisclosureDetail.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Domain\DisputeTrackDtl.cs" />
+    <Compile Include="CostManagement\PBS\Domain\PBSTemplate.cs" />
+    <Compile Include="CostManagement\PBS\Domain\PBSTemplateType.cs" />
+    <Compile Include="CostManagement\SubContractBalanceMng\Domain\EndAccountAuditDetail.cs" />
+    <Compile Include="CostManagement\SubContractBalanceMng\Domain\EndAccountAuditBill.cs" />
+    <Compile Include="CostManagement\WBS\Domain\GWBSDetailImport.cs" />
+    <Compile Include="CostManagement\WBS\Domain\GWBSDtlCostSubRate.cs" />
+    <Compile Include="CostManagement\WBS\Domain\GWBSTreeDetailRelationship.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireBalance\Domain\MatHireBalanceDetail.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireBalance\Domain\MatHireBalanceMaster.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireBalance\Domain\MatHireBalanceOtherCostDtl.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireCollection\Domain\MatHireCollectionCostDtl.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireCollection\Domain\MatHireCollectionDetail.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireCollection\Domain\MatHireCollectionMaster.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireCollection\Domain\MatHireCollectionNotQtyCost.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireLedger\Domain\MatHireLedgerDetail.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireLedger\Domain\MatHireLedgerMaster.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireOrder\Domain\MatHireOrderDetail.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MaterialHireMng\MaterialHireOrder\Domain\MatHireOrderMaster.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MaterialHireMng\MaterialHireOrder\Domain\OrderDetailCostSetItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MaterialHireMng\MaterialHireOrder\Domain\OrderMasterCostSetItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MaterialHireMng\MaterialHireOrder\Domain\MatHireStockBlockDetail.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireOrder\Domain\MatHireStockBlockMaster.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireRelation\MatHireStockRelation.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireStockIn\BasicDomain\MatHireBasicStockIn.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireStockIn\BasicDomain\MatHireBasicStockInDtl.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireStockIn\Domain\MatHireStockIn.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireStockIn\Domain\MatHireStockInDtl.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireStockIn\Domain\MatHireStockInDtlSeq.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireStockIn\Domain\MatHireStockInRed.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireStockIn\Domain\MatHireStockInRedDtl.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireStockOut\BasicDomain\MatHireBasicStockOut.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireStockOut\BasicDomain\MatHireBasicStockOutDtl.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireStockOut\BasicDomain\MatHireBasicStockOutDtlSeq.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireStockOut\Domain\MatHireStockOut.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireStockOut\Domain\MatHireStockOutDtl.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireStockOut\Domain\MatHireStockOutDtlSeq.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireStockOut\Domain\MatHireStockOutRed.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireStockOut\Domain\MatHireStockOutRedDtl.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireSupply\BasicDomain\MatHireBasicSupplyDetail.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireSupply\BasicDomain\MatHireBasicSupplyMaster.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireSupply\Domain\MatHireSupplyOrderDetail.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireSupply\Domain\MatHireSupplyOrderMaster.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireSupply\Domain\MatHireSupplyOrderPayment.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireSupply\Domain\MatHireSupplyOrderProjectDetail.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireTransportCost\Domain\MatHireTranCostDetail.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireTransportCost\Domain\MatHireTranCostMaster.cs" />
+    <Compile Include="MaterialHireMng\Service\IMaterialHireMngSvr.cs" />
+    <Compile Include="MaterialHireMng\Service\IMaterialHireStockInSrv.cs" />
+    <Compile Include="MaterialHireMng\Service\IMaterialHireStockOutSrv.cs" />
+    <Compile Include="MaterialHireMng\Service\IMaterialHireSupplyOrderSrv.cs" />
+    <Compile Include="MaterialHireMng\Service\MaterialHireMngSvr.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireReturn\Domain\MatHireRepair.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireReturn\Domain\MatHireReturnCostDtl.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireReturn\Domain\MatHireReturnDetail.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireReturn\Domain\MatHireReturnDetailSeq.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireReturn\Domain\MatHireReturnMaster.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireReturn\Domain\MatHireReturnNotQtyCost.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireLoss\Domain\MatHireLossDetail.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireLoss\Domain\MatHireLossMaster.cs" />
+    <Compile Include="MaterialHireMng\MaterialHireSettlement\MatHireSettleDetail.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MaterialHireMng\MaterialHireSettlement\MatHireSettleMaster.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MaterialHireMng\MaterialHireSettlement\MatHireSubjectDetail.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MaterialHireMng\Service\MaterialHireStockInSrv.cs" />
+    <Compile Include="MaterialHireMng\Service\MaterialHireStockOutSrv.cs" />
+    <Compile Include="MaterialHireMng\Service\MaterialHireSupplyOrderSrv.cs" />
+    <Compile Include="MaterialManage\MaterialRentalContractMng\Domain\MaterialRentalContractDetail.cs" />
+    <Compile Include="MaterialManage\MaterialRentalContractMng\Domain\MaterialRentalContractMaster.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\ConstructNodeSubject.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\FundSchemeCashCostRate.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\FundSchemeFinanceFee.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\FundSchemeReportAmount.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\FundSchemePayment.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\FundPlanningMaster.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Domain\SettlementProgressReportDtl.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Domain\SubcontractAuditDtl.cs" />
+    <Compile Include="CostManagement\OBS\Domain\OBSPerson.cs" />
+    <Compile Include="CostManagement\OwnerQuantityMng\Domain\OwnerQuantity.cs" />
+    <Compile Include="CostManagement\PBS\Domain\ElementFeature.cs" />
+    <Compile Include="CostManagement\PBS\Domain\ElementPBSRelation.cs" />
+    <Compile Include="CostManagement\PBS\Domain\Elements.cs" />
+    <Compile Include="CostManagement\PBS\Domain\Feature.cs" />
+    <Compile Include="CostManagement\PBS\Domain\FeatureSet.cs" />
+    <Compile Include="CostManagement\PBS\Domain\ObjectFeatureValue.cs" />
+    <Compile Include="CostManagement\PBS\Domain\PBSNodeRelation.cs" />
+    <Compile Include="CostManagement\PBS\Domain\ProductExample.cs" />
+    <Compile Include="CostManagement\PBS\Domain\Versions.cs" />
+    <Compile Include="CostManagement\RequirementPlan\Domain\ResourceRequireReceipt.cs" />
+    <Compile Include="CostManagement\RequirementPlan\Domain\ResourceRequireReceiptDetail.cs" />
+    <Compile Include="CostManagement\WBS\Domain\PlanProjectsAmountValueObj.cs" />
+    <Compile Include="CostManagement\WBS\Domain\ProjectDocumentVerify.cs" />
+    <Compile Include="CostManagement\WBS\Domain\ProTaskTypeDocumentStencil.cs" />
+    <Compile Include="CostManagement\WBS\Domain\SharingProjectsAmountValueObj.cs" />
+    <Compile Include="EngineerManage\CollectionManage\Domain\ColletionManage.cs" />
+    <Compile Include="EngineerManage\CollectionManage\Service\CollectionMngSrv.cs" />
+    <Compile Include="EngineerManage\CollectionManage\Service\ICollectionMngSrv.cs" />
+    <Compile Include="EngineerManage\CompleteSettlementBook\Domain\CompleteInfo.cs" />
+    <Compile Include="EngineerManage\CompleteSettlementBook\Service\CompleteSrv.cs" />
+    <Compile Include="EngineerManage\CompleteSettlementBook\Service\IComplete.cs" />
+    <Compile Include="ConcreteManage\ConcreteBalanceMng\Domain\BaseConcreteBalanceDetail.cs" />
+    <Compile Include="ConcreteManage\ConcreteBalanceMng\Domain\BaseConcreteBalanceMaster.cs" />
+    <Compile Include="ConcreteManage\ConcreteBalanceMng\Domain\ConcreteBalanceDetail.cs" />
+    <Compile Include="ConcreteManage\ConcreteBalanceMng\Domain\ConcreteBalanceMaster.cs" />
+    <Compile Include="ConcreteManage\ConcreteBalanceMng\Domain\ConcreteBalanceRedDetail.cs" />
+    <Compile Include="ConcreteManage\ConcreteBalanceMng\Domain\ConcreteBalanceRedMaster.cs" />
+    <Compile Include="ConcreteManage\ConcreteCheckingMng\Domain\ConcreteCheckingDetail.cs" />
+    <Compile Include="ConcreteManage\ConcreteCheckingMng\Domain\ConcreteCheckingMaster.cs" />
+    <Compile Include="ConcreteManage\PouringNoteMng\Domain\PouringNoteDetail.cs" />
+    <Compile Include="ConcreteManage\PouringNoteMng\Domain\PouringNoteMaster.cs" />
+    <Compile Include="ConcreteManage\PouringPlanMng\Domain\PouringPlanDetail.cs" />
+    <Compile Include="ConcreteManage\PouringPlanMng\Domain\PouringPlanMaster.cs" />
+    <Compile Include="ConcreteManage\PumpingPoundsMng\Domain\PumpingPoundsDetail.cs" />
+    <Compile Include="ConcreteManage\PumpingPoundsMng\Domain\PumpingPoundsMaster.cs" />
+    <Compile Include="ConcreteManage\Service\ConcreteManSrv.cs" />
+    <Compile Include="ConcreteManage\Service\IConcreteManSrv.cs" />
+    <Compile Include="ConfigureXml\SystemParamMng\Domain\SystemParam.cs" />
+    <Compile Include="ConfigureXml\SystemParamMng\Service\ISystemParamSrv.cs" />
+    <Compile Include="ConfigureXml\SystemParamMng\Service\SystemParamSrv.cs" />
+    <Compile Include="ConstructionLogManage\ConstructionMangement\Domain\ConstructionManagement.cs" />
+    <Compile Include="ConstructionLogManage\ConstructionMangement\Service\ConstructionSrv.cs" />
+    <Compile Include="ConstructionLogManage\ConstructionMangement\Service\IConstructionSrv.cs" />
+    <Compile Include="ConstructionLogManage\ConstructionReport\Domain\ConstructionReport.cs" />
+    <Compile Include="ConstructionLogManage\ConstructionReport\Service\ConstructionReportSrv.cs" />
+    <Compile Include="ConstructionLogManage\ConstructionReport\Service\IConstructionReportSrv.cs" />
+    <Compile Include="ConstructionLogManage\PersonManagement\Domain\PersonManage.cs" />
+    <Compile Include="ConstructionLogManage\PersonManagement\Service\IPersonmanageSrv.cs" />
+    <Compile Include="ConstructionLogManage\PersonManagement\Service\PersonManageSrv.cs" />
+    <Compile Include="ConstructionLogManage\WeatherManage\Domain\WeatherInfo.cs" />
+    <Compile Include="ConstructionLogManage\WeatherManage\Service\IWeatherSrv.cs" />
+    <Compile Include="ConstructionLogManage\WeatherManage\Service\WeatherSrv.cs" />
+    <Compile Include="CostManagement\ConstructionDataMng\Domain\ConstructionData.cs" />
+    <Compile Include="CostManagement\ConstructionDataMng\Service\IConstructionDataSrv.cs" />
+    <Compile Include="CostManagement\ConstructionDataMng\Service\ConstructionDataSrv.cs" />
+    <Compile Include="CostManagement\ContractExcuteMng\Domain\SubContractChangeItem.cs" />
+    <Compile Include="CostManagement\ContractExcuteMng\Domain\SubContractProject.cs" />
+    <Compile Include="CostManagement\ContractExcuteMng\Service\ContractExcuteSrv.cs" />
+    <Compile Include="CostManagement\ContractExcuteMng\Service\IContractExcuteSrv.cs" />
+    <Compile Include="CostManagement\CostItemMng\Domain\CostItem.cs" />
+    <Compile Include="CostManagement\CostItemMng\Domain\CostItemCategory.cs" />
+    <Compile Include="CostManagement\CostItemMng\Domain\ResourceGroup.cs" />
+    <Compile Include="CostManagement\CostItemMng\Domain\SubjectCostQuota.cs" />
+    <Compile Include="CostManagement\CostItemMng\Domain\CostAccountSubject.cs" />
+    <Compile Include="CostManagement\CostItemMng\Service\CostItemSrv.cs" />
+    <Compile Include="CostManagement\CostItemMng\Service\ICostItemSrv.cs" />
+    <Compile Include="CostManagement\CostItemMng\Service\ICostItemCategorySrv.cs" />
+    <Compile Include="CostManagement\CostItemMng\Service\CostItemCategorySrv.cs" />
+    <Compile Include="CostManagement\CostItemMng\Service\ICostAccountSubjectSrv.cs" />
+    <Compile Include="CostManagement\CostItemMng\Service\CostAccountSubjectSrv.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Domain\CostMonthAccDtlConsume.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Domain\CostMonthAccountBill.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Domain\CostMonthAccountDtl.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Domain\CostMonthAccountLog.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Service\CostMonthAccountSrv.cs" />
+    <Compile Include="CostManagement\CostMonthAccountMng\Service\ICostMonthAccountSrv.cs" />
+    <Compile Include="CostManagement\EngineerChangeMng\Domain\EngineerChangeDetail.cs" />
+    <Compile Include="CostManagement\EngineerChangeMng\Domain\EngineerChangeMaster.cs" />
+    <Compile Include="CostManagement\EngineerChangeMng\Service\EngineerChangeSrv.cs" />
+    <Compile Include="CostManagement\EngineerChangeMng\Service\IEngineerChangeSrv.cs" />
+    <Compile Include="CostManagement\OBS\Domain\OBSManage.cs" />
+    <Compile Include="CostManagement\OBS\Domain\OBSService.cs" />
+    <Compile Include="CostManagement\OBS\Service\OBSSrv.cs" />
+    <Compile Include="CostManagement\OBS\Service\IOBSSrv.cs" />
+    <Compile Include="CostManagement\OwnerQuantityMng\Domain\OwnerQuantityDetail.cs" />
+    <Compile Include="CostManagement\OwnerQuantityMng\Domain\OwnerQuantityMaster.cs" />
+    <Compile Include="CostManagement\OwnerQuantityMng\Service\IOwnerQuantitySrv.cs" />
+    <Compile Include="CostManagement\OwnerQuantityMng\Service\OwnerQuantitySrv.cs" />
+    <Compile Include="CostManagement\PBS\Domain\PBSTree.cs" />
+    <Compile Include="CostManagement\PBS\Service\IPBSTreeSrv.cs" />
+    <Compile Include="CostManagement\PBS\Service\PBSTreeSrv.cs" />
+    <Compile Include="CostManagement\ProjectCopyMng\Service\ProjectCopySrv.cs" />
+    <Compile Include="CostManagement\ProjectCopyMng\Service\IProjectCopySrv.cs" />
+    <Compile Include="CostManagement\ProjectTaskAccountMng\Domain\ProjectTaskAccountBill.cs" />
+    <Compile Include="CostManagement\ProjectTaskAccountMng\Domain\ProjectTaskDetailAccount.cs" />
+    <Compile Include="CostManagement\ProjectTaskAccountMng\Domain\ProjectTaskDetailAccountSubject.cs" />
+    <Compile Include="CostManagement\ProjectTaskAccountMng\Domain\ProjectTaskDetailAccountSummary.cs" />
+    <Compile Include="CostManagement\ProjectTaskAccountMng\Service\IProjectTaskAccountSrv.cs" />
+    <Compile Include="CostManagement\ProjectTaskAccountMng\Service\ProjectTaskAccountSrv.cs" />
+    <Compile Include="CostManagement\QWBS\Domain\QWBSManage.cs" />
+    <Compile Include="CostManagement\QWBS\Service\IQWBSSrv.cs" />
+    <Compile Include="CostManagement\QWBS\Service\QWBSSrv.cs" />
+    <Compile Include="CostManagement\RequirementPlan\Domain\ResourceRequirePlan.cs" />
+    <Compile Include="CostManagement\RequirementPlan\Domain\ResourceRequirePlanDetail.cs" />
+    <Compile Include="CostManagement\RequirementPlan\Service\ResourceRequirePlanSrv.cs" />
+    <Compile Include="CostManagement\RequirementPlan\Service\IResourceRequirePlanSrv.cs" />
+    <Compile Include="CostManagement\SubContractBalanceMng\Domain\SubContractBalanceBill.cs" />
+    <Compile Include="CostManagement\SubContractBalanceMng\Domain\SubContractBalanceDetail.cs" />
+    <Compile Include="CostManagement\SubContractBalanceMng\Domain\SubContractBalanceSubjectDtl.cs" />
+    <Compile Include="CostManagement\SubContractBalanceMng\Service\ISubContractBalanceBillSrv.cs" />
+    <Compile Include="CostManagement\SubContractBalanceMng\Service\SubContractBalanceBillSrv.cs" />
+    <Compile Include="CostManagement\WBS\Domain\ContractGroup.cs" />
+    <Compile Include="CostManagement\WBS\Domain\ContractGroupDetail.cs" />
+    <Compile Include="CostManagement\WBS\Domain\DocumentsManagement.cs" />
+    <Compile Include="CostManagement\WBS\Domain\GWBSDetailCostSubject.cs" />
+    <Compile Include="CostManagement\WBS\Domain\GWBSDetailLedger.cs" />
+    <Compile Include="CostManagement\WBS\Domain\GWBSRelaPBS.cs" />
+    <Compile Include="CostManagement\WBS\Domain\GWBSTree.cs" />
+    <Compile Include="CostManagement\WBS\Domain\PBSRelaTaskTypeRuleDetail.cs" />
+    <Compile Include="CostManagement\WBS\Domain\PBSRelaTaskTypeRuleMaster.cs" />
+    <Compile Include="CostManagement\WBS\Domain\ProjectTaskTypeTree.cs" />
+    <Compile Include="CostManagement\WBS\Domain\GWBSDetail.cs" />
+    <Compile Include="CostManagement\PBS\Domain\PBSStructTypeRuleDetail.cs" />
+    <Compile Include="CostManagement\PBS\Domain\PBSStructTypeRuleMaster.cs" />
+    <Compile Include="CostManagement\WBS\Service\DocumentManagementSrv.cs" />
+    <Compile Include="CostManagement\WBS\Service\GWBSDetailCostSubjectSrv.cs" />
+    <Compile Include="CostManagement\WBS\Service\IDocumentManagementSrv.cs" />
+    <Compile Include="CostManagement\WBS\Service\IGWBSDetailCostSubjectSrv.cs" />
+    <Compile Include="CostManagement\WBS\Service\IGWBSTreeSrv.cs" />
+    <Compile Include="CostManagement\WBS\Service\IProjectTaskTypeSrv.cs" />
+    <Compile Include="CostManagement\WBS\Service\GWBSTreeSrv.cs" />
+    <Compile Include="CostManagement\WBS\Service\ProjectTaskTypeSrv.cs" />
+    <Compile Include="CostManagement\WBS\Service\IContractGroupSrv.cs" />
+    <Compile Include="CostManagement\WBS\Service\ContractGroupSrv.cs" />
+    <Compile Include="EngineerManage\DocApprovalManage\Domain\DocApprovalMng.cs" />
+    <Compile Include="EngineerManage\DocApprovalManage\Service\IDocApprovalMngSrv.cs" />
+    <Compile Include="EngineerManage\DocApprovalManage\Service\DocApprovalMngSrv.cs" />
+    <Compile Include="EngineerManage\MeetingManage\Domain\MeetingMng.cs" />
+    <Compile Include="EngineerManage\MeetingManage\Service\IMeetingMngSrv.cs" />
+    <Compile Include="EngineerManage\MeetingManage\Service\MeetingMngSrv.cs" />
+    <Compile Include="ExcelImportMng\Service\ExcelImportSrv.cs" />
+    <Compile Include="ExcelImportMng\Service\IExcelImportSrv.cs" />
+    <Compile Include="FinanceMng\Domain\AccountTitleTree.cs" />
+    <Compile Include="FinanceMng\Domain\CostProject.cs" />
+    <Compile Include="FinanceMng\Domain\DelimitIndividualBill.cs" />
+    <Compile Include="FinanceMng\Domain\ExpensesRowBill.cs" />
+    <Compile Include="FinanceMng\Domain\ExpensesSingleBill.cs" />
+    <Compile Include="FinanceMng\Domain\IncomeSettlementDetail.cs" />
+    <Compile Include="FinanceMng\Domain\IncomeSettlementMaster.cs" />
+    <Compile Include="FinanceMng\Domain\MaterialSettlementDetail.cs" />
+    <Compile Include="FinanceMng\Domain\MaterialSettlementMaster.cs" />
+    <Compile Include="FinanceMng\Domain\OverlayAmortizeDetail.cs" />
+    <Compile Include="FinanceMng\Domain\OverlayAmortizeMaster.cs" />
+    <Compile Include="FinanceMng\Service\AccountTitleTreeSvr.cs" />
+    <Compile Include="FinanceMng\Service\CostProjectSrv.cs" />
+    <Compile Include="FinanceMng\Service\DelimitIndividualBillSrv.cs" />
+    <Compile Include="FinanceMng\Service\IAccountTitleTreeSvr.cs" />
+    <Compile Include="FinanceMng\Service\OverlayAmortizeSrv.cs" />
+    <Compile Include="FinanceMng\Service\ICostProjectSrv.cs" />
+    <Compile Include="FinanceMng\Domain\AccountLevel.cs" />
+    <Compile Include="FinanceMng\Domain\AccountTitle.cs" />
+    <Compile Include="FinanceMng\Domain\AccTitleVob.cs" />
+    <Compile Include="FinanceMng\Domain\CashFlowItems.cs" />
+    <Compile Include="FinanceMng\Domain\CommonEnum.cs" />
+    <Compile Include="FinanceMng\Domain\DeskAccount.cs" />
+    <Compile Include="FinanceMng\Domain\FinanceUtil.cs" />
+    <Compile Include="FinanceMng\Domain\LockNo.cs" />
+    <Compile Include="FinanceMng\InitStruct\AccAssistInfoSrt.cs" />
+    <Compile Include="FinanceMng\InitStruct\CopyAccTitleSrt.cs" />
+    <Compile Include="FinanceMng\InitStruct\QueryAccSrt.cs" />
+    <Compile Include="FinanceMng\Service\AccountLevelImpl.cs" />
+    <Compile Include="FinanceMng\Service\AccountTitleService.cs" />
+    <Compile Include="FinanceMng\Service\AccTitleCodeImpl.cs" />
+    <Compile Include="FinanceMng\Service\CashFlowItemSrv.cs" />
+    <Compile Include="FinanceMng\Service\CommonAccBookSrv.cs" />
+    <Compile Include="BasicData\ExpenseItemMng\Service\ExpenseItemSrv.cs" />
+    <Compile Include="FinanceMng\Service\DeskAccontSrv.cs" />
+    <Compile Include="FinanceMng\Service\IAccountLevelService.cs" />
+    <Compile Include="FinanceMng\Service\IAccountLevelSrv.cs" />
+    <Compile Include="FinanceMng\Service\IAccountTitleService.cs" />
+    <Compile Include="FinanceMng\Service\IAccTitleCodeSrv.cs" />
+    <Compile Include="FinanceMng\Service\ICashFlowItemSrv.cs" />
+    <Compile Include="FinanceMng\Service\ICommonAccBookSrv.cs" />
+    <Compile Include="FinanceMng\Service\IDelimitIndividualBillSrv.cs" />
+    <Compile Include="FinanceMng\Service\IOverlayAmortizeSrv.cs" />
+    <Compile Include="FinanceMng\Service\IDeskAccontSrv.cs" />
+    <Compile Include="FinanceMng\Service\IIAccountLevelService.cs" />
+    <Compile Include="FinanceMng\Service\ILockNoSrv.cs" />
+    <Compile Include="FinanceMng\Service\LockNoSrv.cs" />
+    <Compile Include="FinanceMng\Service\ExpensesRowBillSrv.cs" />
+    <Compile Include="FinanceMng\Service\IExpensesRowBillSrv.cs" />
+    <Compile Include="FinanceMng\Service\ExpensesSingleBillSrv.cs" />
+    <Compile Include="FinanceMng\Service\IExpensesSingleBillSrv.cs" />
+    <Compile Include="FinanceMng\Service\IMaterialSettlementSrv.cs" />
+    <Compile Include="FinanceMng\Service\MaterialsettlementSrv.cs" />
+    <Compile Include="FinanceMng\Service\IIncomeSettlementSrv.cs" />
+    <Compile Include="FinanceMng\Service\IncomeSettlementSrv.cs" />
+    <Compile Include="EngineerManage\ImplementationPlan\Domain\ImplementationMaintain.cs" />
+    <Compile Include="EngineerManage\ImplementationPlan\Domain\ImplementProjectUnit.cs" />
+    <Compile Include="EngineerManage\ImplementationPlan\Service\IImplementSrv.cs" />
+    <Compile Include="EngineerManage\ImplementationPlan\Service\ImplementSrv.cs" />
+    <Compile Include="HelpOnlineManage\Domain\HelpOnlineMng.cs" />
+    <Compile Include="HelpOnlineManage\Service\HelpOnlineSrv.cs" />
+    <Compile Include="HelpOnlineManage\Service\IHelpOnlineSrv.cs" />
+    <Compile Include="Indicator\Action.cs" />
+    <Compile Include="Indicator\IndicatorDefine\Domain\IndicatorCategory.cs" />
+    <Compile Include="Indicator\IndicatorDefine\Domain\IndicatorDefinition.cs" />
+    <Compile Include="Indicator\IndicatorDefine\Service\IIndicatorDefineService.cs" />
+    <Compile Include="Indicator\IndicatorDefine\Service\IndicatorDefineService.cs" />
+    <Compile Include="Indicator\IndicatorUse\Domain\CubeAttribute.cs" />
+    <Compile Include="Indicator\IndicatorUse\Domain\CubeData.cs" />
+    <Compile Include="Indicator\IndicatorUse\Domain\CubeRegister.cs" />
+    <Compile Include="Indicator\IndicatorUse\Domain\DimensionCategory.cs" />
+    <Compile Include="Indicator\IndicatorUse\Domain\DimensionDefine.cs" />
+    <Compile Include="Indicator\IndicatorUse\Domain\DimensionRegister.cs" />
+    <Compile Include="Indicator\IndicatorUse\Domain\DimensionScope.cs" />
+    <Compile Include="Indicator\IndicatorUse\Domain\FactDefine.cs" />
+    <Compile Include="Indicator\IndicatorUse\Domain\SystemRegister.cs" />
+    <Compile Include="Indicator\IndicatorUse\Domain\ViewDetail.cs" />
+    <Compile Include="Indicator\IndicatorUse\Domain\ViewDistribute.cs" />
+    <Compile Include="Indicator\IndicatorUse\Domain\ViewMain.cs" />
+    <Compile Include="Indicator\IndicatorUse\Domain\ViewRuleDef.cs" />
+    <Compile Include="Indicator\IndicatorUse\Domain\ViewStyle.cs" />
+    <Compile Include="Indicator\IndicatorUse\Domain\ViewStyleDimension.cs" />
+    <Compile Include="Indicator\IndicatorUse\Domain\ViewWriteInfo.cs" />
+    <Compile Include="Indicator\IndicatorUse\Service\CubeService.cs" />
+    <Compile Include="Indicator\IndicatorUse\Service\DimensionDefineService.cs" />
+    <Compile Include="Indicator\IndicatorUse\Service\ICubeDataService.cs" />
+    <Compile Include="Indicator\IndicatorUse\Service\ICubeDefineService.cs" />
+    <Compile Include="Indicator\IndicatorUse\Service\ICubeService.cs" />
+    <Compile Include="Indicator\IndicatorUse\Service\IDimensionDefineService.cs" />
+    <Compile Include="Indicator\IndicatorUse\Service\IViewDefineService.cs" />
+    <Compile Include="Indicator\IndicatorUse\Service\IViewService.cs" />
+    <Compile Include="Indicator\IndicatorUse\Service\ViewService.cs" />
+    <Compile Include="MaterialManage\MaterialBalanceMng\Domain\MatBalOtherCostDetail.cs" />
+    <Compile Include="MaterialManage\MaterialBalanceMng\Domain\MaterialBalanceDetail.cs" />
+    <Compile Include="MaterialManage\MaterialBalanceMng\Domain\MaterialBalanceMaster.cs" />
+    <Compile Include="MaterialManage\MaterialCollectionMng\Domain\MaterialCostDtl.cs" />
+    <Compile Include="MaterialManage\MaterialCollectionMng\Domain\MaterialNotQtyCost.cs" />
+    <Compile Include="MaterialManage\MaterialDamageApplyMng\Domain\MaterialDamageApplyDetail.cs" />
+    <Compile Include="MaterialManage\MaterialDamageApplyMng\Domain\MaterialDamageApplyMaster.cs" />
+    <Compile Include="MaterialManage\MaterialRentalLedgerMng\Domain\MaterialRentalLedger.cs" />
+    <Compile Include="MaterialManage\MaterialRentalLedgerMng\Domain\MaterialRentalLedgerDetail.cs" />
+    <Compile Include="MaterialManage\MaterialRentalOrder\Domain\BasicCostSet.cs" />
+    <Compile Include="MaterialManage\MaterialRentalOrder\Domain\BasicDtlCostSet.cs" />
+    <Compile Include="MaterialManage\MaterialRentalOrder\Domain\MaterialRentalOrderDetail.cs" />
+    <Compile Include="MaterialManage\MaterialRentalOrder\Domain\MaterialRentalOrderMaster.cs" />
+    <Compile Include="MaterialManage\MaterialRentalSettlementMng\Domain\MaterialRentalSettlementDetail.cs" />
+    <Compile Include="MaterialManage\MaterialRentalSettlementMng\Domain\MaterialRentalSettlementMaster.cs" />
+    <Compile Include="MaterialManage\MaterialRentalSettlementMng\Domain\MaterialSubjectDetail.cs" />
+    <Compile Include="MaterialManage\MaterialReturnMng\Domain\MaterialRepair.cs" />
+    <Compile Include="MaterialManage\MaterialReturnMng\Domain\MaterialReturnCostDtl.cs" />
+    <Compile Include="MaterialManage\MaterialReturnMng\Domain\MaterialReturnDetail.cs" />
+    <Compile Include="MaterialManage\MaterialReturnMng\Domain\MaterialReturnDetailSeq.cs" />
+    <Compile Include="MaterialManage\MaterialReturnMng\Domain\MaterialReturnMaster.cs" />
+    <Compile Include="MaterialManage\MaterialCollectionMng\Domain\MaterialCollectionDetail.cs" />
+    <Compile Include="MaterialManage\MaterialCollectionMng\Domain\MaterialCollectionMaster.cs" />
+    <Compile Include="MaterialManage\MaterialReturnMng\Domain\MaterialReturnNotQtyCost.cs" />
+    <Compile Include="MaterialManage\Service\IMatManSrv.cs" />
+    <Compile Include="MaterialManage\Service\MatManSrv.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\AcceptanceBill.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\ConstructNode.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\DatePeriodDefine.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\FactoringDataDetail.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\FactoringDataMaster.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\FinanceMultDataDetail.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\FinanceMultDataMaster.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\FundSchemeGathering.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\FundSchemeIndirectTaxRate.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\FundSchemeSummary.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\LockAccountMaster.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\ProjectBalanceOfPayment.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\FundSchemeContrast.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\FundSchemeEfficiencyMaster.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\FundSchemeEfficiencyDetail.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\InvoiceSettlementRelation.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\PaymentRequest.cs" />
+    <Compile Include="MoneyManage\IndirectCost\Domain\OfficeFundPlanPayDetail.cs" />
+    <Compile Include="MoneyManage\IndirectCost\Domain\FundAssessmentMaster.cs" />
+    <Compile Include="MoneyManage\IndirectCost\Domain\ProjectOtherPayPlanDetail.cs" />
+    <Compile Include="MoneyManage\IndirectCost\Domain\FundInterestDetail.cs" />
+    <Compile Include="MoneyManage\IndirectCost\Domain\FundAssessCashDetail.cs" />
+    <Compile Include="MoneyManage\IndirectCost\Service\IProjectStateHelper.cs" />
+    <Compile Include="MoneyManage\IndirectCost\Service\ProjectStateHelper.cs" />
+    <Compile Include="ProductionManagement\ScheduleMangement\Domain\AssignWorkerOrderDetail.cs" />
+    <Compile Include="ProductionManagement\ScheduleMangement\Domain\AssignWorkerOrderMaster.cs" />
+    <Compile Include="ProductionManagement\ScheduleMangement\Domain\DurationDelayWarn.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\SQLScript.cs" />
+    <Compile Include="MoneyManage\IndirectCost\Domain\BorrowedOrderDetail.cs" />
+    <Compile Include="MoneyManage\IndirectCost\Domain\BorrowedOrderMaster.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\GatheringAndQuantityRel.cs" />
+    <Compile Include="MoneyManage\IndirectCost\Domain\FilialeFundPlanDetail.cs" />
+    <Compile Include="MoneyManage\IndirectCost\Domain\FilialeFundPlanMaster.cs" />
+    <Compile Include="MoneyManage\IndirectCost\Domain\FundManageByProject.cs" />
+    <Compile Include="MoneyManage\IndirectCost\Domain\FundManagement.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\GatheringDetail.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\GatheringInvoice.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\GatheringMaster.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\PaymentDetail.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\PaymentInvoice.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Domain\PaymentMaster.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Service\FinanceMultDataSrv.cs" />
+    <Compile Include="MoneyManage\FinanceMultData\Service\IFinanceMultDataSrv.cs" />
+    <Compile Include="MoneyManage\IndirectCost\Domain\IndirectCostDetail.cs" />
+    <Compile Include="MoneyManage\IndirectCost\Domain\IndirectCostMaster.cs" />
+    <Compile Include="MoneyManage\IndirectCost\Domain\ProjectFundPlanDetail.cs" />
+    <Compile Include="MoneyManage\IndirectCost\Domain\ProjectFundPlanMaster.cs" />
+    <Compile Include="MoneyManage\IndirectCost\Service\IIndex.cs" />
+    <Compile Include="MoneyManage\IndirectCost\Service\IIndirectCostSvr.cs" />
+    <Compile Include="MoneyManage\IndirectCost\Service\Index.cs" />
+    <Compile Include="MoneyManage\IndirectCost\Service\IndirectCostSvr.cs" />
+    <Compile Include="MoneyManage\IndirectCost\SQLScript.cs" />
+    <Compile Include="NoiceMng\Service\NoiceSrv.cs" />
+    <Compile Include="NoiceMng\Service\INoiceSrv.cs" />
+    <Compile Include="BasicData\ExpenseItemMng\Domain\ExpenseItem.cs" />
+    <Compile Include="PMCAndWarning\Domain\StateCheckAction.cs" />
+    <Compile Include="PMCAndWarning\Domain\StateCheckActionValueObject.cs" />
+    <Compile Include="PMCAndWarning\Domain\WarningInfo.cs" />
+    <Compile Include="PMCAndWarning\Domain\WarningPushMode.cs" />
+    <Compile Include="PMCAndWarning\Domain\WarningServerControl.cs" />
+    <Compile Include="PMCAndWarning\Domain\WarningTarget.cs" />
+    <Compile Include="PMCAndWarning\Service\IPMCAndWarningSrv.cs" />
+    <Compile Include="PMCAndWarning\Service\PMCAndWarningSrv.cs" />
+    <Compile Include="ProductionManagement\AcceptanceInspectionMng\Domain\AcceptanceInspection.cs" />
+    <Compile Include="ProductionManagement\AcceptanceInspectionMng\Service\AcceptanceInspectionSrv.cs" />
+    <Compile Include="ProductionManagement\AcceptanceInspectionMng\Service\IAcceptanceInspectionSrv.cs" />
+    <Compile Include="ProductionManagement\InspectionLotMng\Domain\InspectionLot.cs" />
+    <Compile Include="ProductionManagement\InspectionLotMng\Domain\InspectionLotDetail.cs" />
+    <Compile Include="ProductionManagement\InspectionLotMng\Domain\InspectionLotMaster.cs" />
+    <Compile Include="ProductionManagement\InspectionRecordManage\Domain\InspectionRecord.cs" />
+    <Compile Include="ProductionManagement\InspectionRecordManage\Domain\RectificationNotice.cs" />
+    <Compile Include="ProductionManagement\InspectionRecordManage\Domain\SitePictureVideo.cs" />
+    <Compile Include="ProductionManagement\LaborDemandPlanManage\Domain\LaborDemandPlanDetail.cs" />
+    <Compile Include="ProductionManagement\LaborDemandPlanManage\Domain\LaborDemandPlanMaster.cs" />
+    <Compile Include="ProductionManagement\LaborDemandPlanManage\Domain\LaborDemandPlanWorkerType.cs" />
+    <Compile Include="ProductionManagement\LaborSporadicManagement\Domain\LaborSporadicDetail.cs" />
+    <Compile Include="ProductionManagement\LaborSporadicManagement\Domain\LaborSporadicMaster.cs" />
+    <Compile Include="ProductionManagement\PenaltyDeductionManagement\Domain\PenaltyDeductionDetail.cs" />
+    <Compile Include="ProductionManagement\PenaltyDeductionManagement\Domain\PenaltyDeductionMaster.cs" />
+    <Compile Include="ProductionManagement\ProfessionInspectionRecord\Domian\ProfessionInspectionRecordDetail.cs" />
+    <Compile Include="ProductionManagement\ProfessionInspectionRecord\Domian\ProfessionInspectionRecordMaster.cs" />
+    <Compile Include="ProductionManagement\ProfessionInspectionRecord\Service\ProfessionInspectionSrv.cs" />
+    <Compile Include="ProductionManagement\ProfessionInspectionRecord\Service\IProfessionInspectionSrv.cs" />
+    <Compile Include="ProductionManagement\RectificationNoticeMng\Domain\RectificationNoticeDetail.cs" />
+    <Compile Include="ProductionManagement\RectificationNoticeMng\Domain\RectificationNoticeMaster.cs" />
+    <Compile Include="ProductionManagement\RectificationNoticeMng\Service\RectificationNoticeSrv.cs" />
+    <Compile Include="ProductionManagement\RectificationNoticeMng\Service\IRectificationNoticeSrv.cs" />
+    <Compile Include="ProductionManagement\ScheduleMangement\Domain\GWBSTaskConfirm.cs" />
+    <Compile Include="ProductionManagement\ScheduleMangement\Domain\GWBSTaskConfirmMaster.cs" />
+    <Compile Include="ProductionManagement\ScheduleMangement\Domain\GWBSTaskConfirmNode.cs" />
+    <Compile Include="ProductionManagement\ScheduleMangement\Domain\BearersProjectAmount.cs" />
+    <Compile Include="ProductionManagement\ScheduleMangement\Domain\ProduceSelfValueDetail.cs" />
+    <Compile Include="ProductionManagement\ScheduleMangement\Domain\ProduceSelfValueMaster.cs" />
+    <Compile Include="ProductionManagement\ScheduleMangement\Domain\ProductionScheduleDetail.cs" />
+    <Compile Include="ProductionManagement\ScheduleMangement\Domain\ProductionScheduleMaster.cs" />
+    <Compile Include="ProductionManagement\ScheduleMangement\Domain\SpecialCostDetail.cs" />
+    <Compile Include="ProductionManagement\ScheduleMangement\Domain\SpecialCostMaster.cs" />
+    <Compile Include="ProductionManagement\ScheduleMangement\Domain\SpeCostSettlementDetail.cs" />
+    <Compile Include="ProductionManagement\ScheduleMangement\Domain\SpeCostSettlementMaster.cs" />
+    <Compile Include="ProductionManagement\ScheduleMangement\Domain\WeekScheduleRalation.cs" />
+    <Compile Include="ProductionManagement\ScheduleMangement\Domain\WeekScheduleTask.cs" />
+    <Compile Include="ProductionManagement\ScheduleMangement\Domain\WeekScheduleDetail.cs" />
+    <Compile Include="ProductionManagement\ScheduleMangement\Domain\WeekScheduleMaster.cs" />
+    <Compile Include="ProductionManagement\ScheduleMangement\Service\ISpecialCostSrv.cs" />
+    <Compile Include="ProductionManagement\ScheduleMangement\Service\SpecialCostSrv.cs" />
+    <Compile Include="ProductionManagement\Service\DurationDelayHelper.cs" />
+    <Compile Include="ProductionManagement\Service\IPenaltyDeductionSrv.cs" />
+    <Compile Include="ProductionManagement\Service\IProductionManagementSrv.cs" />
+    <Compile Include="ProductionManagement\Service\ILaborDemandPlanSrv.cs" />
+    <Compile Include="ProductionManagement\Service\PenaltyDeductionSrv.cs" />
+    <Compile Include="ProductionManagement\Service\ProductionManagementSrv.cs" />
+    <Compile Include="ProductionManagement\Service\LaborDemandPlanSrv.cs" />
+    <Compile Include="ProductionManagement\Service\ILaborSporadicSrv.cs" />
+    <Compile Include="ProductionManagement\Service\LaborSporadicSrv.cs" />
+    <Compile Include="ProductionManagement\Service\IInspectionLotSrv.cs" />
+    <Compile Include="ProductionManagement\Service\InspectionLotSrv.cs" />
+    <Compile Include="ProductionManagement\Service\SqlScript.cs" />
+    <Compile Include="ProjectDocumentManage\Domain\DocCateCodeProfixMap.cs" />
+    <Compile Include="ProjectDocumentManage\Domain\ProObjectRelaDocument.cs" />
+    <Compile Include="ProjectDocumentManage\Domain\ObjTypeDefaultCateConfig.cs" />
+    <Compile Include="ProjectDocumentManage\Service\IProObjectRelaDocumentSrv.cs" />
+    <Compile Include="ProjectDocumentManage\Service\ProObjectRelaDocumentSrv.cs" />
+    <Compile Include="ProjectPlanningMange\Domain\BusinessProposal.cs" />
+    <Compile Include="ProjectPlanningMange\Domain\BusinessProposalItem.cs" />
+    <Compile Include="ProjectPlanningMange\Domain\IrpBusinessPlanManageLog.cs" />
+    <Compile Include="ProjectPlanningMange\Domain\SpecialityProposal.cs" />
+    <Compile Include="ProjectPlanningMange\Service\IProjectPlanningSrv.cs" />
+    <Compile Include="ProjectPlanningMange\Service\ProjectPlanningSrv.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="SettlementManagment\ExpensesSettleMng\Domain\ExpensesSettleDetail.cs" />
+    <Compile Include="SettlementManagment\ExpensesSettleMng\Domain\ExpensesSettleMaster.cs" />
+    <Compile Include="SettlementManagment\ExpensesSettleMng\Service\ExpensesSettleSrv.cs" />
+    <Compile Include="SettlementManagment\ExpensesSettleMng\Service\IExpensesSettleSrv.cs" />
+    <Compile Include="SettlementManagment\MaterialSettleMng\Domain\MaterialSettleDetail.cs" />
+    <Compile Include="SettlementManagment\MaterialSettleMng\Domain\MaterialSettleMaster.cs" />
+    <Compile Include="SettlementManagment\MaterialSettleMng\Service\MaterialSettleSrv.cs" />
+    <Compile Include="SettlementManagment\MaterialSettleMng\Service\IMaterialSettleSrv.cs" />
+    <Compile Include="StockManage\Base\Domain\BaseStockInOut.cs" />
+    <Compile Include="StockManage\Base\Domain\StationCategory.cs" />
+    <Compile Include="StockManage\Base\Domain\StockInManner.cs" />
+    <Compile Include="StockManage\Base\Domain\StockOutPurpose.cs" />
+    <Compile Include="StockManage\Base\Service\IStationCategorySrv.cs" />
+    <Compile Include="StockManage\Base\Service\IStockInMannerSrv.cs" />
+    <Compile Include="StockManage\Base\Service\IStockOutPurposeSrv.cs" />
+    <Compile Include="StockManage\Base\Service\StationCategorySrv.cs" />
+    <Compile Include="StockManage\Base\Service\StockInMannerSrv.cs" />
+    <Compile Include="StockManage\Base\Service\StockOutPurposeSrv.cs" />
+    <Compile Include="StockManage\DetectionReceiptManage\Domain\DetectionReceiptDetail.cs" />
+    <Compile Include="StockManage\DetectionReceiptManage\Domain\DetectionReceiptMaster.cs" />
+    <Compile Include="StockManage\DetectionReceiptManage\Service\DetectionReceiptSrv.cs" />
+    <Compile Include="StockManage\DetectionReceiptManage\Service\IDetectionReceiptSrv.cs" />
+    <Compile Include="StockManage\StockBalManage\Domain\BaseStockInBalDetail.cs" />
+    <Compile Include="StockManage\StockBalManage\Domain\BaseStockInBalMaster.cs" />
+    <Compile Include="StockManage\StockBalManage\Domain\StockInBalDetail.cs" />
+    <Compile Include="StockManage\StockBalManage\Domain\StockInBalDetail_ForwardDetail.cs" />
+    <Compile Include="StockManage\StockBalManage\Domain\StockInBalMaster.cs" />
+    <Compile Include="StockManage\StockBalManage\Domain\StockInBalRedDetail.cs" />
+    <Compile Include="StockManage\StockBalManage\Domain\StockInBalRedMaster.cs" />
+    <Compile Include="StockManage\StockInManage\BasicDomain\BasicStockIn.cs" />
+    <Compile Include="StockManage\StockInManage\BasicDomain\BasicStockInDtl.cs" />
+    <Compile Include="StockManage\StockInManage\Domain\StockIn.cs" />
+    <Compile Include="StockManage\StockInManage\Domain\StockInDtl.cs" />
+    <Compile Include="StockManage\StockInManage\Domain\StockInDtlSeq.cs" />
+    <Compile Include="StockManage\StockInManage\Domain\StockInRed.cs" />
+    <Compile Include="StockManage\StockInManage\Domain\StockInRedDtl.cs" />
+    <Compile Include="StockManage\StockInManage\Service\IStockInSrv.cs" />
+    <Compile Include="StockManage\StockInManage\Service\StockInSrv.cs" />
+    <Compile Include="StockManage\StockInventory\Domain\StockInventoryDetail.cs" />
+    <Compile Include="StockManage\StockInventory\Domain\StockInventoryMaster.cs" />
+    <Compile Include="StockManage\StockInventory\Service\IStockInventorySrv.cs" />
+    <Compile Include="StockManage\StockInventory\Service\StockInventorySrv.cs" />
+    <Compile Include="StockManage\StockLossOut\Domain\LossOut.cs" />
+    <Compile Include="StockManage\StockLossOut\Domain\LossOutDtl.cs" />
+    <Compile Include="StockManage\StockLossOut\Service\ILossOutSrv.cs" />
+    <Compile Include="StockManage\StockLossOut\Service\LossOutSrv.cs" />
+    <Compile Include="StockManage\StockMoveManage\Domain\StockMoveIn.cs" />
+    <Compile Include="StockManage\StockMoveManage\Domain\StockMoveInDtl.cs" />
+    <Compile Include="StockManage\StockMoveManage\Domain\StockMoveInRed.cs" />
+    <Compile Include="StockManage\StockMoveManage\Domain\StockMoveInRedDtl.cs" />
+    <Compile Include="StockManage\StockMoveManage\Domain\StockMoveOut.cs" />
+    <Compile Include="StockManage\StockMoveManage\Domain\StockMoveOutDtl.cs" />
+    <Compile Include="StockManage\StockMoveManage\Domain\StockMoveOutRed.cs" />
+    <Compile Include="StockManage\StockMoveManage\Domain\StockMoveOutRedDtl.cs" />
+    <Compile Include="StockManage\StockMoveManage\Service\IStockMoveSrv.cs" />
+    <Compile Include="StockManage\StockMoveManage\Service\StockMoveSrv.cs" />
+    <Compile Include="StockManage\StockOutManage\BasicDomain\BasicStockOutDtlSeq.cs" />
+    <Compile Include="StockManage\StockOutManage\BasicDomain\BasicStockOut.cs" />
+    <Compile Include="StockManage\StockOutManage\BasicDomain\BasicStockOutDtl.cs" />
+    <Compile Include="StockManage\StockOutManage\Domain\StockOut.cs" />
+    <Compile Include="StockManage\StockOutManage\Domain\StockOutDtl.cs" />
+    <Compile Include="StockManage\StockOutManage\Domain\StockOutDtlSeq.cs" />
+    <Compile Include="StockManage\StockOutManage\Domain\StockOutRed.cs" />
+    <Compile Include="StockManage\StockOutManage\Domain\StockOutRedDtl.cs" />
+    <Compile Include="StockManage\StockOutManage\Service\IStockOutSrv.cs" />
+    <Compile Include="StockManage\StockOutManage\Service\StockOutSrv.cs" />
+    <Compile Include="StockManage\StockProfitIn\Domain\AcctLoseAndProfit.cs" />
+    <Compile Include="StockManage\StockProfitIn\Domain\AcctLoseAndProfitDtl.cs" />
+    <Compile Include="StockManage\StockProfitIn\Domain\ProfitIn.cs" />
+    <Compile Include="StockManage\StockProfitIn\Domain\ProfitInDtl.cs" />
+    <Compile Include="StockManage\StockProfitIn\Service\IProfitInSrv.cs" />
+    <Compile Include="StockManage\StockProfitIn\Service\ProfitInSrv.cs" />
+    <Compile Include="StockManage\Stock\Domain\StockAndAcct.cs" />
+    <Compile Include="StockManage\Stock\Domain\StockInOut.cs" />
+    <Compile Include="StockManage\Stock\Domain\StockQuantity.cs" />
+    <Compile Include="StockManage\Stock\Domain\StockRelation.cs" />
+    <Compile Include="StockManage\Stock\Domain\StockRelationLock.cs" />
+    <Compile Include="StockManage\Stock\Domain\StockSequence.cs" />
+    <Compile Include="StockManage\StockInManage\Domain\WeightBillRelation.cs" />
+    <Compile Include="StockManage\Stock\Service\IStockInOutSrv.cs" />
+    <Compile Include="StockManage\Stock\Service\IStockQuantitySrv.cs" />
+    <Compile Include="StockManage\Stock\Service\IStockRelationSrv.cs" />
+    <Compile Include="StockManage\Stock\Service\StockInOutSrv.cs" />
+    <Compile Include="StockManage\Stock\Service\StockQuantitySrv.cs" />
+    <Compile Include="StockManage\Stock\Service\StockRelationSrv.cs" />
+    <Compile Include="SupplyManage\Base\Domain\BaseSupplyDetail.cs" />
+    <Compile Include="SupplyManage\Base\Domain\BaseSupplyMaster.cs" />
+    <Compile Include="SupplyManage\ContractAdjustPriceManage\Domain\ContractAdjustPrice.cs" />
+    <Compile Include="SupplyManage\DailyPlanManage\Domain\DailyPlanDetail.cs" />
+    <Compile Include="SupplyManage\DailyPlanManage\Domain\DailyPlanMaster.cs" />
+    <Compile Include="SupplyManage\DemandMasterPlanManage\Domain\DemandMasterPlanDetail.cs" />
+    <Compile Include="SupplyManage\DemandMasterPlanManage\Domain\DemandMasterPlanMaster.cs" />
+    <Compile Include="SupplyManage\MonthlyPlanManage\Domain\MonthlyPlanDetail.cs" />
+    <Compile Include="SupplyManage\MonthlyPlanManage\Domain\MonthlyPlanMaster.cs" />
+    <Compile Include="SupplyManage\Service\IContractAdjustPriceSrv.cs" />
+    <Compile Include="SupplyManage\Service\ContractAdjustPriceSrv.cs" />
+    <Compile Include="SupplyManage\Service\ISupplyPlanSrv.cs" />
+    <Compile Include="SupplyManage\Service\SupplyPlanSrv.cs" />
+    <Compile Include="SupplyManage\Service\SupplyOrderSrv.cs" />
+    <Compile Include="SupplyManage\Service\ISupplyOrderSrv.cs" />
+    <Compile Include="SupplyManage\Service\DailyPlanSrv.cs" />
+    <Compile Include="SupplyManage\Service\IDailyPlanSrv.cs" />
+    <Compile Include="SupplyManage\Service\DemandPlanSrv.cs" />
+    <Compile Include="SupplyManage\Service\IDemandPlanSrv.cs" />
+    <Compile Include="SupplyManage\Service\IMonthlyPlanSrv.cs" />
+    <Compile Include="SupplyManage\Service\MonthlyPlanSrv.cs" />
+    <Compile Include="SupplyManage\SupplyOrderManage\Domain\SupplyOrderDetail.cs" />
+    <Compile Include="SupplyManage\SupplyOrderManage\Domain\SupplyOrderMaster.cs" />
+    <Compile Include="SupplyManage\SupplyOrderManage\Domain\SupplyOrderPayment.cs" />
+    <Compile Include="SupplyManage\SupplyOrderManage\Domain\SupplyOrderProjectDetail.cs" />
+    <Compile Include="SupplyManage\SupplyPlanManage\Domain\SupplyPlanDetail.cs" />
+    <Compile Include="SupplyManage\SupplyPlanManage\Domain\SupplyPlanMaster.cs" />
+    <Compile Include="EngineerManage\TargetRespBookManage\Domain\IrpRiskDepositPayRecord.cs" />
+    <Compile Include="EngineerManage\TargetRespBookManage\Domain\TargetProgressNode.cs" />
+    <Compile Include="EngineerManage\TargetRespBookManage\Domain\TargetRespBook.cs" />
+    <Compile Include="EngineerManage\TargetRespBookManage\Service\ITargetRespBookSrc.cs" />
+    <Compile Include="EngineerManage\TargetRespBookManage\Service\TargetRespBookSrc.cs" />
+    <Compile Include="UtilityControlService\IUtilityControlSrv.cs" />
+    <Compile Include="UtilityControlService\UtilityControlSrv.cs" />
+    <Compile Include="Util\Ftp\DuxSocketClient.cs" />
+    <Compile Include="Util\Ftp\FTPFactory.cs" />
+    <Compile Include="Util\GetGTPWeightBill.cs" />
+    <Compile Include="Util\KnowledgeUtil.cs" />
+    <Compile Include="Util\OracleDAOUtil.cs" />
+    <Compile Include="Util\SendMessageUtil.cs" />
+    <Compile Include="Util\TransUtil.cs" />
+    <Compile Include="Util\UpdateIRPXml.cs" />
+    <Compile Include="WasteMaterialManage\Service\IWasteMatSrv.cs" />
+    <Compile Include="WasteMaterialManage\Service\WasteMatSrv.cs" />
+    <Compile Include="WasteMaterialManage\WasteMatApplyMng\Domain\WasteMatApplyDetail.cs" />
+    <Compile Include="WasteMaterialManage\WasteMatApplyMng\Domain\WasteMatApplyMaster.cs" />
+    <Compile Include="WasteMaterialManage\WasteMatProcessMng\Domain\WasteMatProcessDetail.cs" />
+    <Compile Include="WasteMaterialManage\WasteMatProcessMng\Domain\WasteMatProcessMaster.cs" />
+    <Compile Include="Web References\SendMsgWebservice\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="ConfigureXml\NavigateSchema.xsd">
+      <SubType>
+      </SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConfigureXml\NavigateSchema.xsx">
+      <DependentUpon>NavigateSchema.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <EmbeddedResource Include="MapFiles\CostManagement\PBS\Feature.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\PBS\FeatureSet.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\PBS\PBSNodeRelation.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\PBS\Elements.hbm.xml" />
+    <EmbeddedResource Include="MapFiles\CostManagement\PBS\ElementsFeature.hbm.xml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SendMsgWebservice\MainService.wsdl" />
+    <None Include="Web References\SendMsgWebservice\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <EmbeddedResource Include="MapFiles\CostManagement\WBS\PBSRelaTaskTypeRuleMaster.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://www.cscec3b.com:800/MsgSender/MainService.asmx%3fWSDL">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SendMsgWebservice\</RelPath>
+      <UpdateFromURL>http://www.cscec3b.com:800/MsgSender/MainService.asmx%3fWSDL</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>SupplyChain_SendMsgWebservice_MainService</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MapFiles\MaterialHireMng\MaterialHireStockIn\" />
+    <Folder Include="MapFiles\MaterialHireMng\MaterialHireStockOut\" />
+    <Folder Include="Properties\DataSources\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

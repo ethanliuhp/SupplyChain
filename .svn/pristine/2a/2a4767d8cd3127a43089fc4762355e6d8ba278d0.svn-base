@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <tr>
+            <td align="right" class="common">
+                名称
+            </td>
+            <td align="left">
+                中建三局总承包公司
+            </td>
+        </tr>
+        <tr>
+            <td align="right" class="common">
+                电话
+            </td>
+            <td align="left">
+            </td>
+        </tr>
+        <tr>
+            <td align="right" class="common">
+                地址
+            </td>
+            <td align="left">
+                武昌中南路口
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <iframe scrolling="auto" width="595" height="365" id="frmMapChart" frameborder="0"
+                    marginwidth="0" marginheight="0" src="../MainPage/MainPageBottom.aspx?ProjectId=0_8J_eQfP068UvW6Eu_qkO&ProjectType=h&ProjectSyscode=91cf7bf193fb4824adbcfbf5360369b3.0_8J_eQfP068UvW6Eu_qkO.&rand=0.3856763438939113">
+                </iframe>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

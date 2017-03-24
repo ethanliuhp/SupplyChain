@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="IRPServiceModel.Domain.Document.GenerateSerialNumber,IRPServiceModel" table="irp_GenerateSerialNumber" lazy="true" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="RuleName" />
+    <property name="ProjectCode" />
+    <property name="ProjectName" />
+    <property name="AppClassName" />
+    <property name="CodeLength" />
+    <property name="CurrMaxValue" />
+  </class>
+</hibernate-mapping>

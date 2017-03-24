@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.Indicator.IndicatorUse.Domain.DimensionScope,SupplyChain" table="THD_DimensionScope" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="ScopeType" column="ScopeType"/>
+    <property name="ScopeName" column="ScopeName" />
+    <property name="BeginValue" column="BeginValue"/>
+    <property name="EndValue" column="EndValue"/>
+    <property name="Score" column="Score"/>
+    <property name="Remark" column="Remark"/>
+    <many-to-one name="Category" column="DimensionId" />  
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,21 @@
+﻿<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.CostMonthReportChangeDetail,SupplyChain" table="thd_costmonthreportchgdetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.CostMonthReportChangeMatser,SupplyChain"></many-to-one>
+    <property name="CostSubjectCode" />
+    <property name="ResourceTypeGUID" />
+    <property name="ResourceTypeName" />
+    <property name="ResourceTypeSpec" />
+    <property name="RationUnitName" />
+    <property name="ChangeQty" />
+    <property name="ChangeBudgetMoney" />
+    <property name="ChangeRemark" />
+    <property name="ChangeType" />
+
+  </class>
+</hibernate-mapping>
+
+

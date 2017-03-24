@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.StockManage.Stock.Domain.StockInOut, SupplyChain" table="THD_StkStockInOut" lazy="true" select-before-update="true">
+
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="Version" type="long" unsaved-value="-1"/>
+
+    <many-to-one name="TheMaterial" />
+    <property name="MatCode" />
+    <property name="MatName" />
+    <property name="MatSpec" />
+    <property name="MaterialStuff" />
+    <property name="UnitName" />
+    <many-to-one name="TheStationCategory" />
+    <property name="FiscalYear" />
+    <property name="FiscalMonth" />
+    
+    <property name="LastQuantity" />
+    <property name="LastMoney" />
+    <property name="NowInQuantity"  />
+    <property name="NowInMoney"  />
+
+    <property name="NowInRedQuantity"  />
+    <property name="NowInRedMoney"  />
+    
+    <property name="NowOutQuantity"  />
+    <property name="NowOutMoney"  />
+    
+    <property name="NowOutRedQuantity"  />
+    <property name="NowOutRedMoney"  />
+
+    <property name="NowQuantity" />
+    <property name="NowMoney" />
+
+    <property name="BuyInQuantity" />
+    <property name="BuyInMoney" />
+    <property name="BuyInAddQuantity" />
+    <property name="BuyInAddMoney" />
+
+    <property name="SaleOutQuantity"  />
+    <property name="SaleOutMoney"  />
+    <property name="SaleOutAddQuantity"  />
+    <property name="SaleOutAddMoney"  />
+    
+    <property name="LossOutQuantity"  />
+    <property name="LossOutMoney"  />
+    <property name="LossOutAddQuantity"  />
+    <property name="LossOutAddMoney"  />
+    
+    <property name="ProfitInQuantity"  />
+    <property name="ProfitInMoney"  />
+    <property name="ProfitInAddQuantity"  />
+    <property name="ProfitInAddMoney"  />
+        
+    <property name="MoveInQuantity"  />
+    <property name="MoveInMoney"  />
+    <property name="MoveInAddQuantity"  />
+    <property name="MoveInAddMoney"  />
+    <property name="MoveOutQuantity"  />
+    <property name="MoveOutMoney"  />
+    <property name="MoveOutAddQuantity"  />
+    <property name="MoveOutAddMoney"  />
+
+    <property name="AcctType" />
+
+    <property name="BuyInRedQuantity" />
+    <property name="BuyInRedMoney" />
+    <property name="BuyInRedAddQuantity" />
+    <property name="BuyInRedAddMoney" />
+    <property name="MoveInRedQuantity" />
+    <property name="MoveInRedMoney" />
+    <property name="MoveInRedAddQuantity" />
+    <property name="MoveInRedAddMoney" />
+    <property name="SaleOutRedQuantity" />
+    <property name="SaleOutRedMoney" />
+    <property name="SaleOutRedAddQuantity" />
+    <property name="SaleOutRedAddMoney" />
+    <property name="MoveOutRedQuantity" />
+    <property name="MoveOutRedMoney" />
+    <property name="MoveOutRedAddQuantity" />
+    <property name="MoveOutRedAddMoney" />
+
+    <property name="StockInDtlId" />
+    <property name="ProjectId" />
+    <property name="Special" />
+
+    <property  name="AccountPersonOrgSysCode"/>
+
+    <property name="AccountRange" />
+    <property name="AccountTaskName" />
+    <property name="AccountTaskSysCode" />
+    <property name="AccountOrgGuid" />
+    <property name="AccountOrgName" />
+    <property name="AccountOrgSyscode" />
+  
+    <property name="CreatePersonName" />
+    <property name="CreatePersonID" />
+    <property name="RealOperationDate" />
+    <property name="CreatePersonOrgSysCode" />
+    
+  </class>
+</hibernate-mapping>

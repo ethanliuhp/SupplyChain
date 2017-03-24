@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.PBS.Domain.PBSStructTypeRuleDetail,SupplyChain" lazy="true" table="THD_PBSStructTypeRuleDetail" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="uuid.hex" />
+    </id>
+    <version name="Version" column="Version" type="long" unsaved-value="-1" />
+    <property name="StructType" />
+
+    <many-to-one name="TheParent" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.CostManagement.PBS.Domain.PBSStructTypeRuleMaster,SupplyChain" lazy="false"></many-to-one>
+
+  </class>
+</hibernate-mapping>

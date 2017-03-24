@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.InspectionLotMng.Domain.InspectionLot,SupplyChain" table="THD_InspectionLot" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="uuid.hex" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="Code"  />
+    <property name="Name"  />
+    <!--序号-->
+    <property name="SerialNumber"  />
+    <!--状态-->
+    <property name="DocState" column="State" />
+    <!--描述-->
+    <property name="Descript" column="Descript"/>
+    <!--制单年-->
+    <property name="CreateYear" column="CreateYear"/>
+    <!--制单月-->
+    <property name="CreateMonth" column="CreateMonth"/>
+    <!--制单时间-->
+    <property name="CreateDate" column="CreateDate"/>
+    <!--验收时间-->
+    <property name="RealOperationDate" column="RealOperationDate"/>
+
+    <!--归属项目-->
+    <property name="ProjectId"/>
+    <property name="ProjectName"/>
+    <!--归属工程项目任务-->
+    <!--<property name="ProjectTask"/>-->
+    <many-to-one name="ProjectTask" column="ProjectTask"  class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain"/>
+    <!--归属工程项目任务名称-->
+    <property name="ProjectTaskName"/>
+    <!--检查状态更新时间-->
+    <property name="InsUpdateDate"/>
+    <!--检验批文档-->
+    <property name="InspectionDocument"/>
+    <!--验收结算状态-->
+    <property name="AccountStatus"/>
+    <!--外部监理-->
+    <many-to-one name="Super" column="Super" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="SuperName"/>
+
+    <!--责任人-->
+    <many-to-one name="HandlePerson" column="HandlePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="HandlePersonName"/>
+    <!--业务组织-->
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperOrgInfoName" column="OperOrgName"/>
+    <!--内部负责人归属组织层次码-->
+    <property name="OpgSysCode" column="OpgSysCode"/>
+
+    <many-to-one name="CreatePerson" column="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="CreatePersonName"/>
+
+    <property name="AuditYear" column="AuditYear"/>
+    <property name="AuditMonth" column="AuditMonth"/>
+    <property name="AuditDate" column="AuditDate"/>
+    <!--审核人-->
+    <many-to-one name="AuditPerson" column="AuditPerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="AuditPersonName"/>
+    
+  </class>
+</hibernate-mapping>
+
+

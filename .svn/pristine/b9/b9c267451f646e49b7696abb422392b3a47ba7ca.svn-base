@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.Financial.InitialData.Domain.AccountLevel, SupplyChain" table="THD_FIACCLEVEL" lazy="true" select-before-update="true">
+    <cache usage="nonstrict-read-write" />
+    <id name="Id" column="ACCLEVID" unsaved-value="null">
+      <generator class="identity" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1" />
+    <property name="FirstLev" column="FIRSTLEV"  />
+    <property name="SecondLev" column="SECONDLEV"  />
+    <property name="ThirdLev" column="THIRDLEV"  />
+    <property name="FourthLev" column="FOURTHLEV"  />
+    <property name="FifthLev" column="FIFTHLEV"  />
+    <property name="SixthLev" column="SIXTHLEV"  />
+    <property name="State" column="STATES"  />
+    <property name="BelongCode" column="BELONGCODE" />
+  </class>
+</hibernate-mapping>

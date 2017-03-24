@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MaterialManage.MaterialBalanceMng.Domain.MaterialBalanceMaster,SupplyChain" table="THD_MaterialBalanceMaster" lazy="true" select-before-update="true">
+
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.MaterialManage.MaterialBalanceMng.Domain.MaterialBalanceDetail, SupplyChain"/>
+    </set>
+    <property name="OpgSysCode" column="OpgSysCode"/>
+    <property name="DocState" column="State" />
+    <property name="Descript" column="Descript"/>
+    <property name="CreateYear" column="CreateYear"/>
+    <property name="CreateMonth" column="CreateMonth"/>
+    <property name="FiscalYear" column="FiscalYear"/>
+    <property name="FiscalMonth" column="FiscalMonth"/>
+    <many-to-one name="UsedPart" column="UsedPart" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree, SupplyChain"/>
+    <property name="UsedPartName" />
+    <property name="UsedPartSysCode"/>
+
+    <property name="AuditYear" column="AuditYear"/>
+    <property name="AuditMonth" column="AuditMonth"/>
+    
+    <property name="CreateDate" column="CreateDate"/>
+    <property name="RealOperationDate" column="RealOperationDate"/>
+    <property name="SubmitDate" column="SubmitDate"/>
+    <property name="StartDate" column="StartDate"/>
+    <property name="EndDate" column="EndDate"/>
+
+    <property name="AuditDate" column="AuditDate"/>
+    <many-to-one name="CreatePerson" column="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="CreatePersonName"/>
+
+    <many-to-one name="CurrencyType" column="CurrencyType" class="Application.Resource.FinancialResource.Domain.Currency,ResourceManager"/>
+    <property name="ExchangeRate" column="ExchangeRate"/>
+    <!--审核人-->
+    <many-to-one name="AuditPerson" column="AuditPerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="AuditPersonName"/>
+    <!--业务组织-->
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperOrgInfoName" column="OperOrgName"/>
+    <!--出租方（供应商）-->
+    <many-to-one name="TheSupplierRelationInfo" column="SupplierRelation" class="Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass.SupplierRelationInfo,ResourceManager"/>
+    <property name="SupplierName"/>
+
+    <property name="SumMatQuantity" length="4" />
+    <property name="SumMatMoney" length="4" />
+    <property name="OtherMoney" length="4" />
+    <property name="ProjectId"></property>
+    <property name="ProjectName"/>
+    <property name="OldContractNum"/>
+    <property name="LastModifyDate"/>
+
+    <set name="MatBalOtherCostDetails" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.MaterialManage.MaterialBalanceMng.Domain.MatBalOtherCostDetail, SupplyChain"/>
+    </set>
+  </class>
+</hibernate-mapping>

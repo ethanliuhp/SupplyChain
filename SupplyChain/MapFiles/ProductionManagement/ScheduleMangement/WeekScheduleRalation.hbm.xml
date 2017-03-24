@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.WeekScheduleRalation,SupplyChain" table="THD_WeekScheduleRalation" lazy="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <many-to-one name="Master" column="WeekScheduleDetail" not-null="true" class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.WeekScheduleDetail, SupplyChain"/>
+    <many-to-one name="FrontWeekScheduleDetail" column="FrontWeekScheduleDetail" class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.WeekScheduleDetail, SupplyChain"/>
+    <property name="DelayRule" />
+    <property name="DelayDays" />
+  </class>
+</hibernate-mapping>

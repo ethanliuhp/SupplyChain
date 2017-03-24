@@ -1,0 +1,338 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <!--公用服务-->
+  <object id="SecureCommonTarget" type="Application.Business.Erp.Secure.GlobalInfo.SecureCommon, SecureSystem" init-method="Init">
+    <property name="Dao" ref="nakedDao"/>
+    <property name="SysAuthenticSrv" ref="SysAuthentic"/>
+  </object>
+
+  <object id="SecureCommon" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="SecureCommonTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--数据字典-->
+  <object id="DictionrayServiceTarget" type="Application.Business.Erp.Secure.Dictionary.DictionaryService,SecureSystem">
+    <property name="Dao" ref="dao"/>
+  </object>
+
+  <object	id="DictionaryService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="DictionrayServiceTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--类数据字典-->
+  <object id="ClassDictionaryServiceTarget" type="Application.Business.Erp.Secure.Dictionary.ClassDictionaryService,SecureSystem">
+    <property name="Dao" ref="dao" />
+  </object>
+
+  <object id="ClassDictionaryService" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="ClassDictionaryServiceTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--初始化类-->
+  <object id="InitDataDictionaryTarget" type="Application.Business.Erp.Secure.Dictionary.InitDataDictionary,SecureSystem">
+    <property name="Dao" ref="dao" />
+  </object>
+
+  <object id="InitDataDictionary" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="InitDataDictionaryTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--权限相关-->
+  <!--权限配置类工厂-->
+  <object id="SecureFactoryTarget" type="Application.Business.Erp.Secure.SecureFactory.SecureFactoryImpl, SecureSystem">
+    <property name="Dao" ref="nakedDao" />
+  </object>
+
+  <object id="SecureFactory" type="Spring.Aop.Framework.ProxyFactoryObject, Spring.Aop">
+    <property name="target" ref="SecureFactoryTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--分系统管理员权限设置-->
+  <object id="AuthorManagerTarget" parent="SecurityEssenseSrvTarget" type="Application.Business.Erp.Secure.AuthorManager.AuthorManagerImpl, SecureSystem" >
+    <property name="Dao" ref="dao" />
+    <property name="SecFactory" ref="SecureFactory" />
+  </object>
+
+  <object id="AuthorManager" type="Spring.Aop.Framework.ProxyFactoryObject, Spring.Aop">
+    <property name="target" ref="AuthorManagerTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--功能权限设置-->
+  <object id="AuthorFuncRightsTarget" parent="SecurityEssenseSrvTarget" type="Application.Business.Erp.Secure.AuthorFunction.AuthorFuncRightsImpl, SecureSystem" >
+    <property name="SecFactory" ref="SecureFactory" />
+  </object>
+
+  <object id="AuthorFuncRights" type="Spring.Aop.Framework.ProxyFactoryObject, Spring.Aop">
+    <property name="target" ref="AuthorFuncRightsTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+
+  <!--业务组织和岗位显示-->
+  <object id="ResOrgPostTarget" parent="SecurityEssenseSrvTarget" type="Application.Business.Erp.Secure.ResOrgAndPost.ResOrgPostSrvImpl, SecureSystem" >
+    <property name="Dao" ref="dao" />
+  </object>
+
+  <object id="ResOrgPostSrv" type="Spring.Aop.Framework.ProxyFactoryObject, Spring.Aop">
+    <property name="target" ref="ResOrgPostTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--菜单配置类工厂-->
+  <object id="MenuFactoryTarget" type="Application.Business.Erp.Secure.SecureFactory.MenuFactoryImpl, SecureSystem" >
+    <property name="Dao" ref="nakedDao" />
+  </object>
+
+  <object id="MenuFactorySrv" type="Spring.Aop.Framework.ProxyFactoryObject, Spring.Aop">
+    <property name="target" ref="MenuFactoryTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--系统菜单配置-->
+  <object id="MenuCfgSrvTarget" type="Application.Business.Erp.Secure.MenuCfg.MenuCfgImpl, SecureSystem" >
+    <property name="Dao" ref="nakedDao" />
+  </object>
+
+  <object id="MenuCfgSrv" type="Spring.Aop.Framework.ProxyFactoryObject, Spring.Aop">
+    <property name="target" ref="MenuCfgSrvTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--人员上岗管理-->
+  <object id="OperOnRoleSrvTarget" type="Application.Business.Erp.Secure.ResOperAndRole.OperOnRoleImpl, SecureSystem" >
+    <property name="Dao" ref="nakedDao" />
+    <property name="SecFactory" ref="SecureFactory" />
+  </object>
+
+  <object id="OperOnRoleSrv" type="Spring.Aop.Framework.ProxyFactoryObject, Spring.Aop">
+    <property name="target" ref="OperOnRoleSrvTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--岗位管理-->
+  <object id="RoleInfoSrvTarget" type="Application.Business.Erp.Secure.ResOperAndRole.RoleInfoImpl, SecureSystem" >
+    <property name="Dao" ref="nakedDao" />
+  </object>
+
+  <object id="RoleInfoSrv" type="Spring.Aop.Framework.ProxyFactoryObject, Spring.Aop">
+    <property name="target" ref="RoleInfoSrvTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--操作员管理-->
+  <object id="OpratorInfoSrvTarget" type="Application.Business.Erp.Secure.ResOperAndRole.OpratorInfoImpl, SecureSystem" >
+    <property name="Dao" ref="nakedDao" />
+    <property name="AuthenSrv" ref="SysAuthentic" />
+  </object>
+
+  <object id="OpratorInfoSrv" type="Spring.Aop.Framework.ProxyFactoryObject, Spring.Aop">
+    <property name="target" ref="OpratorInfoSrvTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--实例权限设置-->
+  <object id="AuthorInstanceTarget" parent="SecurityEssenseSrvTarget" type="Application.Business.Erp.Secure.AuthorInstance.AuthorInstanceImpl, SecureSystem" >
+    <property name="SecFactory" ref="SecureFactory" />
+  </object>
+
+  <object id="AuthorInstanceSrv" type="Spring.Aop.Framework.ProxyFactoryObject, Spring.Aop">
+    <property name="target" ref="AuthorInstanceTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--链接规则配置-->
+  <object id="LinkRuleSrvTarget" type="Application.Business.Erp.Secure.BusinessCfg.LinkRuleImpl, SecureSystem" >
+    <property name="Dao" ref="nakedDao" />
+  </object>
+
+  <object id="LinkRuleSrv" type="Spring.Aop.Framework.ProxyFactoryObject, Spring.Aop">
+    <property name="target" ref="LinkRuleSrvTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--审批单据定义-->
+  <object id="AuditDefineCfgSrvTarget" type="Application.Business.Erp.Secure.BusinessCfg.AuditDefineCfgImpl, SecureSystem" >
+    <property name="Dao" ref="nakedDao" />
+  </object>
+
+  <object id="AuditDefineCfgSrv" type="Spring.Aop.Framework.ProxyFactoryObject, Spring.Aop">
+    <property name="target" ref="AuditDefineCfgSrvTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--审批方案定义-->
+  <object id="AuditSchemeCfgSrvTarget" type="Application.Business.Erp.Secure.BusinessCfg.AuditSchemeCfgImpl, SecureSystem" >
+    <property name="Dao" ref="nakedDao" />
+  </object>
+
+  <object id="AuditSchemeCfgSrv" type="Spring.Aop.Framework.ProxyFactoryObject, Spring.Aop">
+    <property name="target" ref="AuditSchemeCfgSrvTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--审批显示属性维护-->
+  <object id="AuditShowPropSrvTarget" type="Application.Business.Erp.Secure.BusinessCfg.AuditShowPropImpl, SecureSystem" >
+    <property name="Dao" ref="nakedDao" />
+  </object>
+
+  <object id="AuditShowPropSrv" type="Spring.Aop.Framework.ProxyFactoryObject, Spring.Aop">
+    <property name="target" ref="AuditShowPropSrvTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--审批权限设置-->
+  <object id="AuthorAuditSrvTarget" type="Application.Business.Erp.Secure.BusinessCfg.AuthorAuditImpl, SecureSystem" >
+    <property name="Dao" ref="nakedDao" />
+  </object>
+
+  <object id="AuthorAuditSrv" type="Spring.Aop.Framework.ProxyFactoryObject, Spring.Aop">
+    <property name="target" ref="AuthorAuditSrvTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--数据表维护-->
+  <object id="ClassTableSrvTarget" type="Application.Business.Erp.Secure.Dictionary.ClassTableSrvImpl, SecureSystem" >
+    <property name="Dao" ref="nakedDao" />
+  </object>
+
+  <object id="ClassTableSrv" type="Spring.Aop.Framework.ProxyFactoryObject, Spring.Aop">
+    <property name="target" ref="ClassTableSrvTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  
+  <!--数据类维护-->
+  <object id="ClassDataSrvTarget" type="Application.Business.Erp.Secure.Dictionary.ClassDataSrvImpl, SecureSystem" >
+    <property name="Dao" ref="nakedDao" />
+  </object>
+
+  <object id="ClassDataSrv" type="Spring.Aop.Framework.ProxyFactoryObject, Spring.Aop">
+    <property name="target" ref="ClassDataSrvTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <!--业务系统维护-->
+  <object id="BusinessCenterSrvTarget" type="Application.Business.Erp.Secure.Dictionary.BusinessCenterSrvImpl, SecureSystem" >
+    <property name="Dao" ref="nakedDao" />
+  </object>
+
+  <object id="BusinessCenterSrv" type="Spring.Aop.Framework.ProxyFactoryObject, Spring.Aop">
+    <property name="target" ref="BusinessCenterSrvTarget" />
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  
+</objects>

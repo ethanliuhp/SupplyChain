@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.SubcontractAuditDtl,SupplyChain" table="thd_subcontractauditdtl" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    
+    <many-to-one name="Master" column="ParentId"  class="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.CommercialReportMaster,SupplyChain"></many-to-one>
+    <property name="Descript" />
+    
+    <property name="SubentryProjectName"/>
+    <property name="BearerOrgName"/>
+    <property name="SubcontractAmount" length="2"/>
+    <property name="AccumulateAmount" length="2"/>
+    <property name="Makespan"/>
+    <property name ="ExpectSubcontractAmount" length="2"/>
+    <property name="IsAudit" />
+    <property name="ExpectAuditTime" />
+    <property name ="OrderNo" />
+    
+  </class>
+</hibernate-mapping>
+
+

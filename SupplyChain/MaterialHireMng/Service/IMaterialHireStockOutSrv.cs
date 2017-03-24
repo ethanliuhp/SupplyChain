@@ -1,0 +1,166 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Application.Business.Erp.SupplyChain.Base.Service;
+using System.Collections;
+using VirtualMachine.Core;
+using Application.Business.Erp.SupplyChain.MaterialHireMng.MaterialHireStockOut.Domain;
+using System.Data;
+using Application.Resource.MaterialResource.Domain;
+ 
+
+namespace Application.Business.Erp.SupplyChain.MaterialHireMng.Service
+{
+    /// <summary>
+    /// 出库单服务
+    /// </summary>
+    public interface IMaterialHireStockOutSrv : IBaseService
+    {
+        IList GetStockOut(ObjectQuery oq);
+
+        MatHireStockOut GetStockOutById(string id);
+
+        MatHireStockOut SaveStockOut(MatHireStockOut obj);
+        MatHireStockOut SaveStockOut1(MatHireStockOut obj);
+        MatHireStockOut GetStockOutByCode(string code, string special, string projectId);
+        MatHireStockOut GetStockOutByCode(string code, string projectId);
+        IList GetSporadicMoney(string projectID, DateTime startDate, DateTime endDate);
+        /// <summary>
+        /// 根据明细Id查询领料出库单明细
+        /// </summary>
+        /// <param name="stockOutDtlId"></param>
+        /// <returns></returns>
+        MatHireStockOutDtl GetStockOutDtlById(string stockOutDtlId);
+
+        /// <summary>
+        /// 出库查询
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <returns></returns>
+        DataSet StockOutQuery(string condition);
+
+        IList GetStockOutRed(ObjectQuery oq);
+
+        MatHireStockOutRed GetStockOutRedById(string id);
+
+        /// <summary>
+        /// 保存领料出库红单
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="movedDtlList"></param>
+        /// <returns></returns>
+        MatHireStockOutRed SaveStockOutRed(MatHireStockOutRed obj, IList movedDtlList);
+        /// <summary>
+        /// 针对验收结算红单中出库单的调价冲红
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        MatHireStockOutRed SaveStockOutRed(MatHireStockOutRed obj);
+        /// <summary>
+        /// 删除领料出库红单
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        bool DeleteStockOutRed(MatHireStockOutRed obj);
+
+        MatHireStockOutRed GetStockOutRedByCode(string code, string special, string projectId);
+        MatHireStockOutRed GetStockOutRedByCode(string code, string projectId);
+        /// <summary>
+        /// 出库记账
+        /// </summary>
+        /// <param name="hashLst">key StockIn;value id List;key StockInRed;value id List;</param>
+        /// <param name="hashCode">key StockIn;value Code List;key StockInRed;value Code List;</param>
+        /// <param name="year">记账年</param>
+        /// <param name="month">记账月</param>
+        /// <param name="tallyPersonId">记账人ID</param>
+        /// <param name="tallyPersonName">记账人名称</param>
+        /// <returns></returns>
+        Hashtable TallyStockOut(Hashtable hashLst, Hashtable hashCode, int year, int month, string tallyPersonId, string tallyPersonName, string projectId);
+
+        /// <summary>
+        /// 查询出库时序
+        /// </summary>
+        /// <param name="oq"></param>
+        /// <returns></returns>
+        IList GetStockOutDtlSeq(ObjectQuery oq);
+
+        /// <summary>
+        /// 根据入库明细查询出库时序
+        /// </summary>
+        /// <param name="stockInDtlId"></param>
+        /// <returns></returns>
+        IList GetStockOutDtlSeqByStockInDtlId(string stockInDtlId);
+
+        /// <summary>
+        /// 根据出库Id查询出库时序(按库存时序排序)
+        /// </summary>
+        /// <param name="stockOutDtlId"></param>
+        /// <returns></returns>
+        IList GetStockOutDtlSeqByStockOutDtlId(string stockOutDtlId);
+
+        /// <summary>
+        /// 查询出库明细(包含出库时序)
+        /// </summary>
+        /// <param name="stockOutDtlId"></param>
+        /// <returns></returns>
+        MatHireStockOutDtl GetStockOutDtlByIdWithDetails(string stockOutDtlId);
+
+        /// <summary>
+        /// 根据明细时序的入库明细ID查询出库明细
+        /// </summary>
+        /// <param name="stockInDtlId"></param>
+        /// <returns></returns>
+        IList GetStockOutDtlByStockInDtlId(string stockInDtlId);
+
+        /// <summary>
+        /// 根据明细时序的入库明细ID查询出库明细
+        /// </summary>
+        /// <param name="stockInDtlId"></param>
+        /// <returns></returns>
+        DataSet QueryStockOutDtl(string stockInDtlId);
+        /// <summary>
+        /// 根据入库单明细的ID获取出库时序表 出库单明细 出库单
+        /// </summary>
+        /// <param name="sStockInDtlID"></param>
+        /// <returns></returns>
+        IList GetStockOutDtlSeqByStockInDtlID1(string sStockInDtlID);
+        /// <summary>
+        /// 根据明细的ID获取出库主表的
+        /// </summary>
+        /// <param name="sID"></param>
+        /// <returns></returns>
+        MatHireStockOut GetStockOutByStockOutDtlID(string sID);
+        /// <summary>
+        /// 查询出库单 的数量和他的确认价格
+        /// </summary>
+        /// <param name="ssStockOutDtlID"></param>
+        /// <returns></returns>
+        DataSet QueryStockInQuantityAndOutPrice(string sStockOutDtlID);
+        IList GetMaterialLst(IList list);
+
+        // <summary>
+        /// 获取安装的核算节点
+        /// </summary>
+        /// <returns></returns>
+        IList GetSetUpCostAccountSubject();
+        IList ObjectQuery(Type entityType, ObjectQuery oq);
+        IList GetMaterial(string sID);
+
+        /// <summary>
+        /// 根据 项目名称  单据ID获取没有记账的单据
+        /// </summary>
+        /// <param name="sProjectName"></param>
+        /// <param name="sCode"></param>
+        /// <returns></returns>
+        DataSet QueryListStockOutNotHS(string sProjectName, string sCode);
+        bool UpdateStockOutNotHS(string sID, DateTime Time, string sDescript, int iYear, int iMonth);
+        IList GetStockMoveOut(ObjectQuery oq);
+        IList GetStockMoveOutRed(ObjectQuery oq);
+
+        string GetUnitDiffMaterial(IList lstMaterial, string sProjectID, string sSpecial, string sProfessioncategory, IList lstDiagramNum);
+
+
+        DataSet GetStockMatByUnit(string sProjectID, string sSpec, string sCode, string sName, string sSpecial, string sProfession, MaterialCategory oMaterialCategory, bool IsMoveOut);
+    }
+}

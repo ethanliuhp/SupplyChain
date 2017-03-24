@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostItem,SupplyChain" lazy="true" table="THD_CostItem" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="Code" />
+    <property name="Name" />
+    <property name="QuotaCode" />
+<property name="IsCommonlyUsed" />
+    <property name="CostDesc"/>
+    <many-to-one name="TheCostItemCategory" not-null="true" class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostItemCategory,SupplyChain"></many-to-one>
+    <property name="TheCostItemCateSyscode"/>
+
+    <many-to-one name="ProjectUnitGUID" column="ProjectUnitGUID"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="ProjectUnitName"/>
+
+    <property name="PricingType"/>
+    <property name="Price" />
+    <property name="PriceNumber" />
+    <property name="SubContractPrice" />
+
+    <many-to-one name="PriceUnitGUID" column="PriceUnitGUID"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="PriceUnitName"/>
+
+    <property name="Summary"/>
+    <property name="ApplyLevel"/>
+
+    <many-to-one name="CateFilter1" column="BaseCostItemCateFilter"/>
+    <property name="CateFilterName1" />
+    <property name="CateFilterSysCode1" />
+
+    <many-to-one name="CateFilter2" column="BaseCostItemCateFilter2"/>
+    <property name="CateFilterName2" />
+    <property name="CateFilterSysCode2" />
+
+    <many-to-one name="SubjectCateFilter1" column="BaseCostSubjectCateFilter1"/>
+    <property name="SubjectCateFilterName1" />
+    <property name="SubjectCateFilterSyscode1" />
+
+    <many-to-one name="SubjectCateFilter2" column="BaseCostSubjectCateFilter2"/>
+    <property name="SubjectCateFilterName2" />
+    <property name="SubjectCateFilterSyscode2" />
+
+    <many-to-one name="SubjectCateFilter3" column="BaseCostSubjectCateFilter3"/>
+    <property name="SubjectCateFilterName3" />
+    <property name="SubjectCateFilterSyscode3" />
+
+    <property name="PricingRate"/>
+    <property name="PartGUID" length="64"/>
+    <property name="PartName"/>
+
+    <property name="ResourceTypeGUID" length="64"/>
+    <property name="ResourceTypeName"/>
+    <property name="MethodGUID" length="64"/>
+    <property name="MethodName"/>
+    <property name="TerritoryGUID" length="64"/>
+    <property name="TerritoryName"/>
+
+    <property name="TheProjectGUID" length="64"/>
+    <property name="TheProjectName"/>
+
+    <property name="ItemState"/>
+    <property name="CreateTime"/>
+    <property name="UpdateTime"/>
+
+    <set name="ListQuotas" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="CostItemId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.SubjectCostQuota,SupplyChain"/>
+    </set>
+
+    <set name="ListCostWorkForce" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="CostItemId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostWorkForce,SupplyChain"/>
+    </set>
+    
+    <many-to-one name="ManagementMode" class="Application.Business.Erp.SupplyChain.Basic.Domain.BasicDataOptr,SupplyChain"></many-to-one>
+    <property name="ManagementModeName"/>
+    <property name="ContentType"/>
+    <property name="CostItemVersion"/>
+    <property name="CostItemType"/>
+  </class>
+</hibernate-mapping>

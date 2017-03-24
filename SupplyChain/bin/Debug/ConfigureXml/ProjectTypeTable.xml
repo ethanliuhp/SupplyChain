@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ProjectType>
+  <item>
+    <name>采购原材料</name>
+    <tache>采购订单</tache>
+  </item>
+  <item>
+    <name>印花税</name>
+    <tache>采购订单</tache>
+  </item>
+  <item>
+    <name>销售产品</name>
+    <tache>销售订单</tache>
+  </item>
+  <item>
+    <name>销售原材料</name>
+    <tache>销售订单</tache>
+  </item>
+  <item>
+    <name>加工材销售</name>
+    <tache>销售订单</tache>
+  </item>
+  <item>
+    <name>补价差</name>
+    <tache>销售订单</tache>
+  </item>
+</ProjectType>

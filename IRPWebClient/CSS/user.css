@@ -1,0 +1,150 @@
+﻿/*鐢ㄦ埛鎵╁睍鏍峰紡*/
+
+/** input **/
+/**
+input.xforms-value{
+	border:2px solid blue; 
+}
+**/
+
+/**input榧犳爣婊戣繃**/
+/**
+input.mouse-over{
+	border:2px solid red; 
+}
+**/
+
+/** textarea **/
+/**
+textarea.xforms-value{
+	border:2px solid blue; 
+}
+**/
+
+
+/** textarea榧犳爣婊戣繃  **/
+/**
+textarea.mouse-over{
+	border:2px solid red; 
+}
+**/
+
+
+/** output **/
+/**
+.xforms-output .xforms-value{
+ 	
+ }
+ **/
+ 
+/** 涓嬫媺缁勪欢**/
+/**
+div.xxforms-ext-select {
+	border: 2px solid blue;
+	width: 100%;
+}
+**/
+
+/** 涓嬫媺缁勪欢 榧犳爣婊戣繃**/
+/**
+div.ext-select-mouse-over {
+	border: 2px solid red;
+	width: 100%;
+}
+**/
+ 
+ /** 杈撳叆妗嗘姤閿欐牱寮忥紝榛樿涓虹孩鑹叉尝娴嚎**/
+/**
+.xforms-invalid  input.xforms-value,
+.xforms-invalid  textarea.xforms-value,
+.xforms-invalid  .xforms-ext-select input
+{
+	background-image: url(../form/xsltforms/invalid_line.gif);
+	background-repeat: repeat-x;
+	background-position: bottom;
+}
+**/
+
+/** 琛ㄦ牸琛岄珮  鑷姩鎾戝紑**/
+/**
+div.gridbox table.row20px tr  td{
+	height:auto;
+	word-break: break-all; 
+    white-space:normal;
+    padding:2,0,2,0;
+}
+div.gridbox_justep table.row20px tr  td{
+	height:auto;
+	word-break: break-all; 
+    white-space:normal;
+    padding:2,0,2,0;
+}
+**/
+
+/**琛ㄦ牸閫変腑琛岄鑹�**/
+/**
+div.gridbox_justep table.obj tr.rowselected td{
+ background-color:#FFFFCC;
+ color:black;
+ }
+ div.gridbox_justep table.obj tr.rowselected td.cellselected, div.gridbox table.obj td.cellselected {
+	background-color:#FFFFCC;
+	}
+**/
+
+/** 鍙鏍峰紡**/
+/**
+.xforms-readonly, 
+.xforms-readonly .xxf-value input, 
+.xforms-readonly .xxf-value textarea, 
+.xforms-readonly .xxf-value span{
+	background-color	: #f8f8f8 !important; 
+	color				: #6D6D6D !important; 
+}
+
+**/
+
+/**
+   鑳屾櫙鍥剧墖  grid tabPanel閫忔槑
+body {
+	font-family: "瀹嬩綋", Arial Helvetica, sans-serif;
+	font-size: 63%;
+	color: #333333;
+	background: #E7EEF8 url(../images/main_bottom_bg.jpg) bottom right
+		no-repeat;
+}
+
+div.gridbox_justep .objbox {
+	background: transparent;
+}
+
+.body_bg {
+	background: #F0F7FB url(../images/body_bottom_bg.jpg) no-repeat bottom
+		right;
+}
+
+.tabs {
+	background: transparent;
+}
+
+.jstabbar .contents {
+	background-color: transparent;
+}
+
+.jstabbar .tabItems LI {
+	background-color: transparent;
+}
+
+.jstabbar .tabItems LI.selected {
+	background-color: white;
+}
+
+**/
+
+.noneborder {
+	border: none;
+}
+
+input, textarea, select{
+ font-size: inherit;
+}

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.ContractExcuteMng.Domain.SubContractProject,SupplyChain" table="THD_SubContractProject" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="Code" />
+    <property name="ProjectId" />
+    <property name="ProjectName"/>
+    <property name="SubmitDate" column="SubmitDate"/>
+    <many-to-one name="BearerOrg" column="BearerOrgGUID" class="Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass.SupplierRelationInfo,ResourceManager"/>
+    <property name="BearerOrgName"/>
+    <!--单据状态-->
+    <property name="DocState" column="State" />
+    <many-to-one name="Owner" column="OwnerID" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="OwnerName" />
+    <property name="SubPackage" />
+    <property name="BalanceStyle" />
+    <property name="LastModifyDate"/>
+    <property name="RealOperationDate"/>
+    <property name="OwnerOrgSysCode" length="4000" />
+    <property name="CreateDate" column="CreateTime"/>
+    <property name="ContractType" />
+    <!--分包劳务税金计取方式-->
+    <property name="LaborMoneyType" />
+    <!--分包劳务税金费率-->
+    <property name="LaobrRace" />
+    
+    <many-to-one name="TheContractGroup" column="contractGroupId" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.ContractGroup,SupplyChain"></many-to-one>
+    <property name="ContractGroupCode" />
+    <property name="ContractSumMoney" length="3" />
+    <property name="ContractInterimMoney" length="3" />
+    <property name="AddupBalanceMoney" length="3" />
+    <property name="AddupWaitApproveBalMoney" length="3" />
+    <property name="AllowExceedPercent" length="3" />
+
+    <property name="UtilitiesRemMethod" />
+    <property name="UtilitiesRate" length="3" />
+    <property name="ManagementRemMethod" />
+    <property name="ManagementRate" length="3" />
+
+    <property name="ProcessPayRate" length="3" />
+    <property name="CompletePayRate" length="3" />
+    <property name="WarrantyPayRate" length="3" />
+    
+    <many-to-one name="CreatePerson" column="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="CreatePersonName"/>
+    
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="TheProject" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.ContractExcuteMng.Domain.SubContractChangeItem,SupplyChain"/>
+    </set>
+    <set name="LaborDetails" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="TheProject" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.ContractExcuteMng.Domain.LaborSubContractPriceItem,SupplyChain"/>
+    </set>
+    <set name="ProfessDetails" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="TheProject" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.ContractExcuteMng.Domain.ProfessionalSubcontractPriceItem,SupplyChain"/>
+    </set>
+
+  </class>
+</hibernate-mapping>

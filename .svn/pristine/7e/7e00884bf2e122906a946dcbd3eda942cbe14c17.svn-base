@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.BearerIndicatorDtl,SupplyChain" table="thd_bearerindicatordtl" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    
+    <many-to-one name="Master" column="ParentId"  class="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.CommercialReportMaster,SupplyChain"></many-to-one>
+    <property name="Descript" />
+    
+    <property name="ConstructionTeam"/>
+    <property name="ConstructionContent"/>
+    <property name="CurrenContractMoney" length="2"/>
+    <property name="CurrentSettleMoney" length="2"/>
+    <property name="CurrentOuterSettleMoney" length="2"/>
+    <property name="IsConrresponding"/>
+    <property name="IncomeMoney" length="2"/>
+    <property name="CurrentSelfSignMoney" length="2"/>
+    <property name="AccrueSettleMoney" length="2"/>
+    <property name="AccrueOuterSettleMoney" length="2"/>
+    <property name="AccrueSelfSignMoney" length="2"/>
+    <property name="CurrentOemMoney" length="2"/>
+    <property name="CurrentBeOemMoney" length="2"/>
+    <property name="AccrueOemMoney" length="2"/>
+    <property name="AccrueBeOemMoney" length="2"/>
+    <property name="CurrentHourlyMoney" length="2"/>
+    <property name="CurrentHourlyRate"/>
+    <property name="AccrueHourlyMoney" length="2"/>
+    <property name="AccrueHourlyRate"/>
+
+    <property name="FLAG"/>
+    <property name="OrderNo"></property>
+    
+  </class>
+</hibernate-mapping>
+
+

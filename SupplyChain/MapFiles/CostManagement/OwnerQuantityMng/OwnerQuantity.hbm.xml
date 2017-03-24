@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.OwnerQuantityMng.Domain.OwnerQuantity,SupplyChain" table="THD_OwnerQuantity" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <!--报送总金额-->
+    <property name="SumSubmitMoney" column="SumSubmitMoney"/>
+    <!--合同总金额-->
+    <property name="SumContractMoney" column="SumContractMoney"/>
+    <!--实际收款累计金额-->
+    <property name="RealCollectionMoney" column="RealCollectionMoney"/>
+    <!--所属项目-->
+    <property name="ProjectId" column="ProjectId"/>
+    <!--所属项目名称-->
+    <property name="ProjectName" column="ProjectName"/>
+    <!--清单WBS-->
+    <many-to-one name="QWBSGUID" column="QWBSGUID"  class="Application.Business.Erp.SupplyChain.CostManagement.QWBS.Domain.QWBSManage,SupplyChain"></many-to-one>
+    <!--清单WBS名称-->
+    <property name="QWBSName" column="QWBSName"/>
+    <!--清单WBS层次码-->
+    <property name="QWBSSysCode" column="QWBSSysCode"/>
+    <!--价格计量单位名称-->
+    <property name="UnitPriceName" column="UnitPriceName"/>
+    <!--价格计量单位-->
+    <many-to-one name="UnitPrice" column="UnitPrice"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <!--业主确认累计金额-->
+    <property name="SumConfirmMoney" column="SumConfirmMoney"/>
+    <!--最后更新时间-->
+    <property name="LastUpdateDate" column="LastUpdateDate"/>
+    <!--应付累计金额-->
+    <property name="SumPayforMoney" column="SumPayforMoney"/>
+    
+  </class>
+</hibernate-mapping>
+
+

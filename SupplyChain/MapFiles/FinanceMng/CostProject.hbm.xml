@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.Financial.BasicAccount.InitialSetting.Domain.CostProject, SupplyChain" table="Res_CostProject" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="identity" />
+    </id>
+    <version name="Version" column="Version" type="long" unsaved-value="-1" />
+    <property name="CostType" />
+    <property name="Describe" />
+    <property name="CategoryNodeType" />
+    <property name="Level" column="TLevel"/>
+    <property name="Name" />
+    <property name="Unit" />
+    <property name="AccLevelName" />
+    <property name="Code" />
+    <property name="OrderNo" />
+    <many-to-one name="ParentNode" column="ParentNodeId" class="Application.Business.Erp.Financial.BasicAccount.InitialSetting.Domain.CostProject, SupplyChain"/>
+    <property name="State" />
+    <property name="SysCode" />
+    <many-to-one name="TheTree" column="CatTreeId" class="VirtualMachine.Patterns.CategoryTreePattern.Domain.CategoryTree,VirtualMachine" />    
+    <bag name="ChildNodes" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentNodeId" />
+      <one-to-many class="Application.Business.Erp.Financial.BasicAccount.InitialSetting.Domain.CostProject, SupplyChain" />
+    </bag>
+    <property name="CostProjectType" />
+    <property name="InfluxCodex" />
+    <many-to-one name="AccTitle" />
+    <many-to-one name="ExpenseItem" lazy="false" />
+  </class>
+</hibernate-mapping>

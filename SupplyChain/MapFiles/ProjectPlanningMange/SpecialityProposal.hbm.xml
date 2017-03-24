@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProjectPlanningMange.Domain.SpecialityProposal,SupplyChain" lazy="true" table="THD_SpecialityProposal" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="Descript" />
+    <property name="PlanningLevel" />
+    <property name="SubmitDate" />    
+    <property name="EnginnerType" />
+    <property name="EvaluationWay" />
+    <property name="EnginnerName" />
+    <property name="DocState" />
+    <property name="CreateDate" />
+    <property name="CreatePersonName" />
+    <many-to-one name="CreatePerson"  column="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="OpgSysCode" />
+    <property name="ProjectId" />
+    <property name="ProjectName" />
+    <property name="RealOperationDate"/>
+
+  </class>
+</hibernate-mapping>

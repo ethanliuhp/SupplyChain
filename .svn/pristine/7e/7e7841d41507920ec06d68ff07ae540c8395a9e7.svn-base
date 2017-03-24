@@ -1,0 +1,323 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Collections;
+using System.Data;
+using Application.Business.Erp.SupplyChain.MoneyManage.IndirectCost.Domain;
+using Application.Resource.PersonAndOrganization.HumanResource.RelateClass;
+using VirtualMachine.Core;
+using Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain;
+using Application.Business.Erp.SupplyChain.Base.Domain;
+
+namespace Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Service
+{
+    public interface IFinanceMultDataSrv
+    {
+        IList QuerySubAndCompanyOrgInfo();
+        GatheringMaster GetGatheringMasterById(string id);
+        DataSet QueryGatheringByCondition(string condition);
+        GatheringMaster SaveGatheringMaster(GatheringMaster obj);
+        IList SaveGatheringMaster(IList lstMaster);
+        GatheringMaster SaveWebGatheringMaster(GatheringMaster obj);
+        IList GetGatheringMaster(ObjectQuery oQuery);
+        DataDomain QueryOwnerQuantityInfoByMxID(string ownerMxID);
+        GatheringInvoice SaveGatheringInvoice(GatheringInvoice obj);
+
+        GatheringAndQuantityRel SaveGatheringAndQuantityRel(GatheringAndQuantityRel obj);
+        IList GetGatheringAndQuantityRel(ObjectQuery oQuery);
+
+        AcceptanceBill SaveAcceptanceBill(AcceptanceBill obj);
+        IList GetAcceptanceBill(ObjectQuery oQuery);
+        AcceptanceBill GetAcceptanceBillById(string id);
+        bool DeleteGatheringMaster(GatheringMaster obj);
+        IList GetGatheringInvoice(ObjectQuery oQuery);
+
+        IList SavePaymentInvoice(IList lst);
+        IList GetPaymentInvoice(ObjectQuery oQuery);
+        IList GetPaymentInvoice(string projId, string sysCode, DateTime bgDate, DateTime endDate, string supplierName,
+                                string invoiceType);
+
+        List<DataDomain> GetPaymentInvoiceReport(DateTime bgDate, DateTime endDate, string projId, string sysCode,
+                                                 bool isSubCompany);
+        PaymentInvoice GetPaymentInvoiceById(string id);
+        bool IsPaymentInvoiceNoUsed(string invNo, string id);
+        PaymentInvoice SavePaymentInvoice(PaymentInvoice obj);
+        bool DeletePaymentInvoice(PaymentInvoice obj);
+
+        IList GetPaymentMaster(ObjectQuery oQuery);
+        PaymentMaster GetPaymentMasterById(string id);
+        PaymentMaster GetPlanPayMasterById(string id);
+        PaymentMaster SavePaymentMaster(PaymentMaster obj);
+        IList SavePaymentMaster(IList lstBill);
+        PaymentMaster SaveWebPaymentMaster(PaymentMaster obj);
+        bool DeletePaymentMaster(PaymentMaster obj);
+        int GetNoSubmitBillCount(string projectID, int billType);
+
+        IList GetRelCategoryList();
+        IList QueryCusAndSupInfoByCondition(string supCondition, string cusCondition);
+        IList QuerySupInfo();
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="lst"></param>
+        /// <returns></returns>
+        bool Delete(object obj);
+
+        /// <summary>
+        /// 新增保存
+        /// </summary>
+        /// <param name="lst"></param>
+        /// <returns></returns>
+        object Save(object obj);
+        /// <summary>
+        /// 修改保存
+        /// </summary> 
+        /// <param name="lst"></param>
+        /// <returns></returns>
+        object Update(object obj);
+
+        /// <summary>
+        /// 修改或更新
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        bool SaveOrUpdateList(IList list);
+
+        bool DeleteFinanceMultDataMaster(Object obj);
+        /// <summary>
+        /// 通过ID查询财务综合数据主表
+        /// </summary>
+        /// <param name="strID"></param>
+        /// <returns></returns>
+        FinanceMultDataMaster GetMasterByID(string strID);
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="oQuery"></param>
+        /// <returns></returns>
+        IList Query(ObjectQuery oQuery);
+        /// <summary>
+        /// 通过ID查找保理业务详情
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        FactoringDataMaster GetFactoringDataById(string id);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="oQuery"></param>
+        /// <returns></returns>
+        IList QueryDetial(ObjectQuery oQuery);
+        /// <summary>
+        /// 批量保存
+        /// </summary>
+        /// <param name="list"></param>
+        void SaveList(IList list);
+
+
+        IList Query(Type type, ObjectQuery oQuery);
+        /// <summary>
+        /// 查询 项目收款台帐
+        /// </summary>
+        /// <param name="sProjectID"></param>
+        /// <param name="sOprSysCode"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        IList QueryProjectGatheringAccountReport(string sProjectID,   DateTime startDate, DateTime endDate);
+        /// <summary>
+        /// 查询 项目应收未收台帐
+        /// </summary>
+        /// <param name="sProjectID"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        DataSet QueryProjectNotGatheringAccountReport(string sProjectID, DateTime startDate, DateTime endDate);
+        /// <summary>
+        /// 查询 分支机构收款台帐
+        /// </summary>
+        /// <param name="sOrgSysCode"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        DataSet QueryOrgGatheringAccountReport(string sOrgSysCode, DateTime startDate, DateTime endDate);
+        /// <summary>
+        /// 查询 分支机构应收未收台帐
+        /// </summary>
+        /// <param name="sOrgSysCode"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        DataSet QueryOrgNotGatheringAccountReport(string sOrgSysCode, DateTime startDate, DateTime endDate);
+        /// <summary>
+        /// 主营业务收入台账
+        /// </summary>
+        /// <param name="sProjectID"></param>
+        /// <param name="sSysCode"></param>
+        /// <param name="iYear"></param>
+        /// <param name="iMonth"></param>
+        /// <returns></returns>
+        DataSet QueryMainBusinessInComeReport(string sProjectID, string sSysCode, int iYear, int iMonth, bool isOnlyOne);
+        /// <summary>
+          /// 项目成本支出台账
+        /// </summary>
+        /// <param name="sProjectID"></param>
+        /// <param name="sSysCode"></param>
+        /// <param name="iYear"></param>
+        /// <param name="iMonth"></param>
+        /// <returns></returns>
+          DataSet QueryCostPaymentReport(string sProjectID, string sSysCode, int iYear, int iMonth);
+        /// <summary>
+        /// 获取项目相关信息 组织ID 项目ID 项目名称
+        /// </summary>
+        /// <returns></returns>
+        IList GetProjectInfo( );
+
+        /// <summary>
+        /// 根据资金结账情况，判断当前业务是否允许发生
+        /// </summary>
+        /// <param name="projId">项目Id</param>
+        /// <param name="businessDate">业务日期</param>
+        /// <returns>有错误信息即表示不允许该业务，否则允许</returns>
+        string IsAllowBusinessHappend(string projId, DateTime businessDate);
+
+        /// <summary>
+        /// 批量结账
+        /// </summary>
+        /// <param name="lstLock"></param>
+        /// <returns></returns>
+        string SaveAccountLockMaster(IList lstLock);
+
+        /// <summary>
+        /// 批量反结账
+        /// </summary>
+        /// <param name="lstLock"></param>
+        /// <returns></returns>
+        string DeleteAccountLockMaster(IList lstLock);
+
+        /// <summary>
+        /// 按年份查询时间期间定义
+        /// </summary>
+        /// <param name="year">年份</param>
+        /// <param name="isFilterInvalid">是否过滤未启用项</param>
+        /// <returns></returns>
+        IList GetDatePeriodDefineByYear(int year, bool isFilterInvalid);
+        /// <summary>
+        /// 查询收付款保证金/押金台账
+        /// </summary>
+        /// <param name="dEnd"></param>
+        /// <param name="sProjectID"></param>
+        /// <param name="sSysCode"></param>
+        /// <param name="sAccountTitleName"></param>
+        /// <param name="sDeptID"></param>
+        /// <param name="sDeptType"></param>
+        /// <returns></returns>
+        DataSet QueryGatherAndPayDepositReport(DateTime dEnd, string sProjectID, string sSysCode, string sAccountTitleName, string sTheSupplierRelationInfo,string sTheCustomerRelationInfo, string sDeptType);
+
+        IList GetConstructNodeByProject(string projId);
+        FundPlanningMaster SaveFundScheme(FundPlanningMaster fund);
+        IList GetFundSchemeByEditor(PersonInfo per);
+        FundPlanningMaster GetFundSchemeById(string id);
+        PaymentMaster GetFundPaymentMasterById(string id);
+        IList GetFundSchemeByProject(string projeId);
+        IList QueryFundSchemeReportAmountByScheme(string schId);
+        bool ClearFundSchemeDetail(string schId);
+        IList GetFundSchemeDetail(FundPlanningMaster scheme, Type tp);
+        bool SaveFundSchemeDetail(List<IList> details);
+        /// <summary>
+        /// 查找分公司层次码集合
+        /// </summary>
+        /// <returns></returns>
+        IList GetSubCompanySyscodeList();
+        /// <summary>
+        /// 生成工程项目收支分析表
+        /// </summary>
+        /// <param name="sProjectId"></param>
+        /// <param name="iYear"></param>
+        /// <param name="iMonth"></param>
+        /// <returns></returns>
+        ProjectBalanceOfPayment GenerateProjectBalanceOfPayment(string sProjectId, int iYear, int iMonth);
+        ProjectBalanceOfPayment SaveOrUpdateProjectBalanceOfPayment(ProjectBalanceOfPayment obj);
+        IList QueryProjectBalanceOfPayment(ObjectQuery oQuery);
+        IList QueryProjectUnBalanceOfPayment(string sOrgID,string sProjectID, int iYear, int iMonth);
+        IList SaveOrUpdateProjectBalanceOfPayment(IList lst);
+        bool DeleteProjectBalanceOfPayment(ProjectBalanceOfPayment obj);
+        /// <summary>
+        /// 获取该组织类型 项目 分公司 总部 其他
+        /// </summary>
+        /// <param name="sOrgID"></param>
+        /// <returns></returns>
+        string GetOrgType(string sOrgID);
+
+        DataDomain GetProjectPlanRate(string projId);
+
+        /// <summary>
+        /// 获取项目资金计划申报主表
+        /// </summary>
+        /// <param name="oq"></param>
+        /// <returns></returns>
+        IList GetProjectFundPlanMasterByOQ(ObjectQuery oq);
+
+        ProjectFundPlanMaster CreateProjectFundDetail(ProjectFundPlanMaster fundPlan);
+
+        ///<summary>
+        ///获取项目其他支出计划明细表
+        ///
+        IList GetProjectOtherPayPlanDetailByOQ(ObjectQuery oq);
+
+        ProjectFundPlanMaster SaveProjectFundPlan(ProjectFundPlanMaster fundPlan);
+
+        List<ProjectFundPlanMaster> SaveProjectFundPlans(List<ProjectFundPlanMaster> fundPlans);
+
+        FilialeFundPlanMaster SaveFilialeFundPlan(FilialeFundPlanMaster fundPlan);
+
+        ProjectFundPlanMaster GetProjectFundFlow(ProjectFundPlanMaster fundPlan);
+
+        ProjectOtherPayPlanDetail SaveOtherPayPlanDetail(ProjectOtherPayPlanDetail otherPlanDetail);
+
+        List<ProjectOtherPayPlanDetail> SaveOtherPayPlanDetails(List<ProjectOtherPayPlanDetail> otherPlanDetails);
+
+        ProjectFundPlanDetail SaveProjectPlanDetail(ProjectFundPlanDetail projectPlanDetail);
+
+        List<ProjectFundPlanDetail> SaveProjectPlanDetails(List<ProjectFundPlanDetail> projectPlanDetails);
+
+        OfficeFundPlanPayDetail SaveOfficePlanDetail(OfficeFundPlanPayDetail officePlanDetail);
+
+        List<OfficeFundPlanPayDetail> SaveOfficePlanDetails(List<OfficeFundPlanPayDetail> officePlanDetails);
+
+        FilialeFundPlanDetail SaveFilialePlanDetail(FilialeFundPlanDetail filialePlanDetail);
+
+        List<FilialeFundPlanDetail> SaveFilialePlanDetails(List<FilialeFundPlanDetail> filialePlanDetails);
+
+        /// <summary>
+        /// 获取分公司资金使用计划申报表
+        /// </summary>
+        /// <param name="oq"></param>
+        /// <returns></returns>
+        IList GetFilialeFundPlanMasterByOQ(ObjectQuery oq);
+
+        IList GetFilialeFundPlanProjectDetail(FilialeFundPlanMaster filialeFund);
+
+        FilialeFundPlanMaster GetFilialeFundPlanFlow(FilialeFundPlanMaster filialeFund);
+
+        ProjectFundPlanMaster GetProjectFundPlanById(string id);
+
+        FilialeFundPlanMaster GetFilialeFundPlanById(string id);
+
+        IList GetPayAccounts();
+
+        List<decimal> GetPayValues(string projId, string supId, string planCode, DateTime billDate);
+
+        FundAssessmentMaster SaveFundAssessment(FundAssessmentMaster master);
+
+        FundAssessmentMaster GetFundAssessmentById(string id);
+
+        FundAssessmentMaster GetFundAssessmentData(FundAssessmentMaster initMaster, int fundAssessmentType);
+
+        FundSchemeEfficiencyMaster SaveSchemeEfficiency(FundSchemeEfficiencyMaster efficiencyMaster);
+
+        List<DataDomain> GetSettlementsByType(DateTime bgDate, DateTime endDate, string projId, string billCode,
+                                                     string billType, string supId);
+    }
+}

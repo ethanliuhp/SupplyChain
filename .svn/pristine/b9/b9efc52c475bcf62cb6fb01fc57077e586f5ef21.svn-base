@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.EngineerManage.MeetingManage.Domain.MeetingMng,SupplyChain" table="thd_Meetingmanage" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <!--<version name="Version" column="VERSION" type="long" unsaved-value="-1"/>-->
+    <property name="Attemdee"/>
+    <property name="CreatePersonName"/>
+    <many-to-one name="CreatePerson"/> 
+    <property name="OpgSysCode"/>
+    <property name="CreateDate"/>
+    <property name="MeetingAdd"/> 
+    <property name="MeetingStyle"/> 
+    <property name="MeetingDate"/> 
+    <property name="MeetingRemark"/>
+    <property name="MeetingTopic"/>
+    <property name="ProjectId"/>
+    <property name="ProjectName"/>
+    <property name="DocState"/>
+    <property name="RealOperationDate"/>
+    <property name="SubmitDate"/>
+    
+    <!--<set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.ImplementationPlan.Domain.ImplementProjectUnit,SupplyChain"/>
+    </set>-->
+    
+  </class>
+</hibernate-mapping>

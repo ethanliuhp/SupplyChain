@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.StockManage.Stock.Domain.StockQuantity, SupplyChain" table="THD_StkStockQuantity" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="Version" type="long" unsaved-value="-1"/>            
+    <many-to-one name="TheMngState" class="Application.Resource.MaterialResource.Domain.ManageState,ResourceManager"></many-to-one>
+    <many-to-one name="TheStaCat" class="Application.Business.Erp.SupplyChain.StockManage.Base.Domain.StationCategory,SupplyChain"></many-to-one>    
+    <property name="Quantity"  />
+    <property name="UseableQuantity" />
+  </class>
+</hibernate-mapping>

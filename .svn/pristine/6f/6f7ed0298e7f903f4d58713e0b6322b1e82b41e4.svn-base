@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Logs>
+  <version code="101" date="2006-10-01" >
+    <property name="Detail">
+      <list>
+        <value>增加明细帐</value>
+        <value>增加总帐</value>
+        <value>增加总帐</value>
+      </list>
+    </property>
+  </version>
+  <version code="102" date="2006-10-10">
+    <property name="Detail">
+      <list>
+        <value>增加明细帐1</value>
+        <value>增加总帐2</value>
+        <value>增加总帐3</value>
+      </list>
+    </property>
+  </version>
+</Logs>

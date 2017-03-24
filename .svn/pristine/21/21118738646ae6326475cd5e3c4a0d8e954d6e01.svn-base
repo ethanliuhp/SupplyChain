@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.InspectionLotMng.Domain.InspectionLotDetail,SupplyChain" table="THD_InspectionLotDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <!--项目-->
+    <property name="ProjectId" />
+    <property name="ProjectName" />
+    <!--周进度计划明细-->
+    <property name="WeekScheduleId" />
+    <property name="WeekScheduleName"/>
+    <property name="Descript" column="Descript"/>
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.ProductionManagement.InspectionLotMng.Domain.InspectionLotMaster,SupplyChain"></many-to-one>
+
+  </class>
+</hibernate-mapping>
+
+

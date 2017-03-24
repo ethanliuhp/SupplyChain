@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MaterialHireMng.MaterialHireTransportCost.Domain.MatHireTranCostMaster,SupplyChain" table="THD_MatHireTranCostMaster" lazy="true" select-before-update="true">
+
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.MaterialHireMng.MaterialHireTransportCost.Domain.MatHireTranCostDetail,SupplyChain"/>
+    </set>
+
+    <!--业务组织-->
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperOrgInfoName" column="OperOrgName"/>
+    <property name="OpgSysCode" column="OpgSysCode"/>
+    <property name="Code" column="Code"  />
+    <property name="DocState" column="State" />
+    <property name="Descript" column="Descript"/>
+    <property name="RealOperationDate" column="RealOperationDate"/>
+    <property name="SubmitDate" column="SubmitDate"/>
+    <property name="CreateYear" column="CreateYear"/>
+    <property name="CreateMonth" column="CreateMonth"/>
+
+
+    <property name="CreateDate" column="CreateDate"/>
+ 
+    <many-to-one name="CreatePerson" column="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="CreatePersonName"/>
+
+
+    <property name="ProjectId"/>
+    <property name="ProjectName"/>
+    <many-to-one  name="Contract" column="ContractId" class="Application.Business.Erp.SupplyChain.MaterialHireMng.MaterialHireOrder.Domain.MatHireOrderMaster,SupplyChain" />
+    <property name="ContractCode"/>
+    <many-to-one name="TheSupplierRelationInfo" column="SupplierRelation" class="Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass.SupplierRelationInfo,ResourceManager"/>
+    <property name="SupplierName"/>
+    <property name="TransportTime"></property>
+    <property name="BalState"></property>
+    <property name="BalYear"></property>
+    <property name="BalMonth"></property>
+    <property name="SumMoney"></property>
+    <property name="BillCode"></property>
+  </class>
+</hibernate-mapping>

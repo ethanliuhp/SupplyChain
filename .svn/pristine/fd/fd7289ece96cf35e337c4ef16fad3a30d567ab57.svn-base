@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.RequirementPlan.Domain.ResourceRequirePlanDetail,SupplyChain" table="THD_ResourceRequirePlanDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="Summary" length="512"/>
+    <property name="State"/>
+    <property name="StateUpdateTime" />
+    <property name="PlannedCostQuantity" length="3"/>
+    <property name="PlanInRequireQuantity" length="3" />
+    <property name="PlanOutRequireQuantity" length="3"/>
+    <property name="FirstOfferRequireQuantity" length="3"/>
+    <property name="DailyPlanPublishQuantity" length="3"/>
+    <property name="ResponsibilityCostQuantity" length="3"/>
+    <property name="MonthPlanPublishQuantity" length="3"/>
+    <property name="ExecutedQuantity" length="3"/>
+
+    <many-to-one name="QuantityUnitGUID" column="QuantityUnitGUID"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="QuantityUnitName"/>
+
+    <property name="CreateTime"/>
+    
+    <many-to-one name="TheGWBSTaskGUID" column="TheGWBSTaskGUID"  class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain"/>
+    <property name="TheGWBSTaskName"/>
+    <property name="TheGWBSSysCode" length="4000"/>
+
+    <property name="TheProjectGUID"/>
+    <property name="TheProjectName"/>
+
+    <property name="RequireType"/>
+
+    <many-to-one name="MaterialResource" column="MaterialGUID" class="Application.Resource.MaterialResource.Domain.Material,ResourceManager"/>
+
+    <property name="MaterialCode"/>
+    <property name="MaterialName"/>
+    <property name="MaterialStuff" column="MaterialQuality"/>
+    <property name="MaterialSpec"/>
+    <property name="DiagramNumber" />
+
+    <many-to-one name="ResourceCategory" column="ResourceCategory"  class="Application.Resource.MaterialResource.Domain.MaterialCategory,ResourceManager"/>
+    <property name="ResourceTypeClassification"/>
+
+    <many-to-one name="TheResourceRequirePlan" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.CostManagement.RequirementPlan.Domain.ResourceRequirePlan,SupplyChain"></many-to-one>
+    <property name="Descript"/>
+    <property name="TechnicalParameters"/>
+	  <property name="QualityStandards"/>
+    <property name="SupplyPlanPublishQuantity"/>
+    <property name="Price"/>
+  </class>
+</hibernate-mapping>
+
+

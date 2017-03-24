@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Examples</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../../css/bootstrap.css">
+<link rel="stylesheet" href="css/style.css">
+<script type="text/javascript" src="../../JavaScript/My97DatePicker/WdatePicker.js"></script>
+
+</head>
+<body>
+	
+	<div ng-controller="FactoringDataMasterCtrl">
+		<div class="panel">
+			  <div class="panel-body">
+			  		<div class="row">
+			  			<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="height:100%;">
+			  				<span class="label panel-search">截止日期</span>
+			  			</div>
+			  			<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<input type="text" class="form-control" ng-model="params.startTime">
+			  			</div>
+			  			<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<input type="text" class="form-control" ng-model="params.endTime">
+			  			</div>
+			  		</div>
+			  </div>
+		</div>
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th>序号</th>
+					<th>单价编号</th>
+					<th>制单人</th>
+					<th>业务员</th>
+					<th>制单日期</th>
+					<th>备注</th>
+					<th>状态</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in masterList">
+					<td>{{$index + 1}}</td>
+					<td>{{item.code}}</td>
+					<td>{{item.createpersonname}}</td>
+					<td>{{item.handlepersonname}}</td>
+					<td>{{item.createdate}}</td>
+					<td>{{item.descript}}</td>
+					<td>{{item.state}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<script src="../../JavaScript/angular.js"></script>
+	<script src="../../js/controller.js"></script>
+</body>
+</html>

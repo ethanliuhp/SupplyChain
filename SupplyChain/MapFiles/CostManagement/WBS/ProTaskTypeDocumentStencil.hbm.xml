@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.ProTaskTypeDocumentStencil,SupplyChain" lazy="true" table="THD_ProTaskTypeDocumentStencil" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <!--自身的属性-->
+    <version name="Version" column="Version" type="long" unsaved-value="-1" />
+    <property name="ProDocumentMasterID" />
+    <property name="InspectionMark" />
+    <property name="ControlWorkflowName"/>
+    <property name="ProjectCode" />
+    <property name="AlarmMode" />
+    <many-to-one name="ProTaskType" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.ProjectTaskTypeTree, VirtualMachine" />
+    <property name="StencilName"/>
+    <property name="StencilCode" />
+    <property name="StencilDescription" />
+    <property name="ProjectName" />
+    
+    <property name="DocumentCateName" />
+    <property name="DocumentCateCode" />
+
+    <property name="ProTaskTypeName" />
+    <property name="SysCode" />
+    
+  </class>
+</hibernate-mapping>

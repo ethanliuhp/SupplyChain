@@ -1,0 +1,24 @@
+<ion-view view-title="{{title}}" hide-tabs="true">
+  <ion-nav-buttons side="right">
+   <button menu-toggle="right" ng-click='viewChange()' class="button button-icon icon ion-pie-graph"></button>
+  </ion-nav-buttons>
+  <ion-content overflow-scroll='false' has-bouncing='true'>
+    <ion-refresher on-refresh='drawImage()' pulling-text='下拉刷新...'></ion-refresher>
+    <ion-list ng-show='view'>
+  	  <ion-item class="item-remove-animate item-avatar item-icon-right home-item list-title-style alert-info" type="item-text-wrap">
+        <p class="list-item col-33 center">分支结构</p>
+        <p class="list-item col-33 center">本月收入</p>
+        <p class="list-item col-33 center">本年收入</p>
+  	  </ion-item>
+      <ion-item class="item-remove-animate item-avatar item-icon-right home-item list-title-style bottom-0" ng-class="{'item-back-odd':($index%2 == 0)}" type="item-text-wrap" ng-href='#/tab/index/businessincome/detail/{{item.ID}}|{{item.Name}}' ng-repeat="item in info">
+        <p class="list-item col-33 center">{{item.Name}}</p>
+        <p class="list-item col-33 center">{{item | FundConversion:'Month':'Unit'}}</p>
+        <p class="list-item col-33 center">{{item | FundConversion:'Year':'Unit'}}</p>
+      </ion-item>
+    </ion-list> 
+    <p>&nbsp;</p>
+    <div style="width:100%;height:400px;" id="img" ng-show='!view'>
+    </div>
+    <p style="height:100px;">&nbsp;</p>
+  </ion-content>
+</ion-view>

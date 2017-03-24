@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.SubContractBalanceMng.Domain.SubContractBalanceBill,SupplyChain" table="THD_SubContractBalanceBill" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="version" type="long" unsaved-value="-1"/>
+    <!--基类字段-->
+    <property name="Code" column="Code"  />
+    <property name="Descript" column="Descript"/>
+    <property name="CreateDate" column="CreateDate"/>
+    <property name="CreateYear" column="CreateYear"/>
+    <property name="CreateMonth" column="CreateMonth"/>
+    
+    <many-to-one name="CreatePerson" column="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="CreatePersonName"/>
+
+    <!--审核人-->
+    <many-to-one name="AuditPerson" column="AuditPerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="AuditPersonName"/>
+
+    <property name="AuditDate" column="AuditDate"/>
+
+    <!--责任人-->
+    <many-to-one name="HandlePerson" column="HandlePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="HandlePersonName"/>
+
+    <!--业务组织-->
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperOrgInfoName" column="OperOrgName"/>
+    <property name="OpgSysCode" column="OpgSysCode" length="4000"/>
+
+    <property name="ProjectId"/>
+    <property name="ProjectName"/>
+
+    <property name="LastModifyDate"/>
+    <property name="CumulativeMoney"/>
+
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.SubContractBalanceMng.Domain.SubContractBalanceDetail,SupplyChain"/>
+    </set>
+
+    <!--自身的属性-->
+    <!--<property name="BalanceRange"/>-->
+    <many-to-one name="BalanceRange" column="BalanceRange"  class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain"></many-to-one>
+    <property name="BalanceTaskName"/>
+    <property name="BalanceTaskSyscode"/>
+    <!--<property name="SubContractUnitGUID"/>-->
+    <many-to-one name="SubContractUnitGUID" column="SubContractUnitGUID" class="Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass.SupplierRelationInfo,ResourceManager"/>
+    <property name="SubContractUnitName"/>
+    <property name="BeginTime"/>
+    <property name="EndTime"/>
+    <property name="DocState" column="STATE" />
+    <property name="MonthAccBill" column="MonthAccBillId"/>
+	<property name="PrintTimes"/>
+    <property name="MonthAccFlag"/>
+    <many-to-one name="TheSubContractProject" column="SubContractProjectID" class="Application.Business.Erp.SupplyChain.CostManagement.ContractExcuteMng.Domain.SubContractProject,SupplyChain"/>
+    <property name="BalanceMoney" length="3"/>
+    <property name="CreateBatchNo"/>
+  </class>
+</hibernate-mapping>

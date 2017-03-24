@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.StockManage.StockInventory.Domain.StockInventoryMaster,SupplyChain" table="THD_StockInventoryMaster" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="Code" column="Code"  />
+    <property name="DocState" column="State" />
+    <property name="Descript" column="Descript"/>
+    <property name="CreateYear" column="CreateYear"/>
+    <property name="CreateMonth" column="CreateMonth"/>
+    <property name="CreateDate" column="CreateDate"/>
+    <property name="RealOperationDate" column="RealOperationDate"/>
+    <property name="SubmitDate" column="SubmitDate"/>
+    <many-to-one name="CreatePerson" column="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="CreatePersonName"/>
+    <property name="AuditYear" column="AuditYear"/>
+    <property name="AuditMonth" column="AuditMonth"/>
+    <property name="AuditDate" column="AuditDate"/>
+    <!--审核人-->
+    <many-to-one name="AuditPerson" column="AuditPerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="AuditPersonName"/>
+
+    <property name="ProjectId"/>
+    <property name="ProjectName"/>
+    
+    <property name="MatCatName"/>
+    <many-to-one name="MaterialCategory"/>
+    
+    <!--责任人-->
+    <many-to-one name="HandlePerson" column="HandlePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="HandlePersonName"/>
+    <!--业务组织-->
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperOrgInfoName" column="OperOrgName"/>
+    <property name="OpgSysCode" column="OpgSysCode"/>
+    <property name="LastModifyDate"/>
+    <!--仓库编号-->
+    <!--<property name="StockId"/>-->
+    <many-to-one name="StockId" column="StockId" class="Application.Business.Erp.SupplyChain.StockManage.Base.Domain.StationCategory,SupplyChain"/>
+    <!--盘点地址-->
+    <property name="InventoryAddress"/>
+    <property name="SumQuantity"/>
+    <many-to-one name="UsedRank" column="UsedRankID" class="Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass.SupplierRelationInfo,ResourceManager"/>
+    <property name="UsedRankName"/>
+    <property name="UserPartName"  />
+    <many-to-one name="UserPart" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain"/>
+    <property name="UserPartSysCode" column="UserPartSysCode"></property>
+    
+    <property name="Special"/> 
+<property name="ProfessionCategory"/>
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class=" Application.Business.Erp.SupplyChain.StockManage.StockInventory.Domain.StockInventoryDetail, SupplyChain"/>
+    </set>
+  </class>
+</hibernate-mapping>
+
+
+

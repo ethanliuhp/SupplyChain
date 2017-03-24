@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MaterialManage.MaterialRentalSettlementMng.Domain.MaterialSubjectDetail, SupplyChain" table="THD_MaterialSubjectDetail" lazy="true" select-before-update="true">
+
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <!--价格单位-->
+    <many-to-one name="PriceUnit" column="PriceUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="PriceUnitName"/>
+    <!--时间单位-->
+    <many-to-one name="DateUnit" column="DateUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="DateUnitName"/>
+    <!--数量单位-->
+    <many-to-one name="QuantityUnit" column="QuantityUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="QuantityUnitName"/>
+    <!--成本名称-->
+    <property name="CostName"/>
+    <!--结算单价-->
+    <property name="SettlePrice"/>
+    <!--结算合价-->
+    <property name="SettleMoney"/>
+    <!--结算科目-->
+    <!--<many-to-one name="LaborSubject" column="LaborSubject"  class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostAccountSubject,ResourceManager"></many-to-one>-->
+    <many-to-one name="SettleSubject"/>
+    <property name="SettleSubjectName"/>
+    <property name="SettleSubjectSyscode"/>
+    
+    <!--结算数量-->
+    <property name="SettleQuantity"/>
+    <!--资源类型-->
+    <many-to-one name="MaterialType"/>
+    <property name="MaterialTypeName"/>
+    <property name="MaterialTypeSpec"/>
+    <property name="MaterialTypeStuff"/>
+    <!--租赁时间-->
+    <property name="SettleDate"/>
+    <property name="Descript"/>
+
+    <many-to-one name="MasterCost" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.MaterialManage.MaterialRentalSettlementMng.Domain.MaterialRentalSettlementDetail,SupplyChain"></many-to-one>
+
+  </class>
+</hibernate-mapping>

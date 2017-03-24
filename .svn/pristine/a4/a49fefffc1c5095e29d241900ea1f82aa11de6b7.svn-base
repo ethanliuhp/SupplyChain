@@ -1,0 +1,70 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors Your Name (you@example.org)
+ * @date    2016-03-02 09:02:35
+ * @version $Id$
+ */
+ body{
+ 	margin:0;
+ 	padding:0;
+ 	font: 14px/1.5 Tahoma,Helvetica,Arial,'宋体',sans-serif;
+ }
+ .table{
+ 	width:100%;
+ 	border-collapse: collapse;
+ }
+ .table .row-title{
+ 	background-color: #eee;
+ 	font-size: 16px;
+ }
+ .table .row-title th{
+ 	padding:5px;
+ 	height:30px;
+ }
+ .table .row-data{
+ 	font-size: 14px;
+ }
+ .table .row-data td{
+ 	font-size: 14px;
+ 	text-align: center;
+ 	/*padding: 3px;*/
+ 	height:24px;
+ }
+ .table .row-data td input{
+ 	border:none;
+ 	width:100%;
+ 	padding:;
+ 	height:100%;
+ 	text-align: center;
+ }
+ .table .row-foot{
+ 	font-size: 20px;
+ 	font-weight: bold;
+ }
+ .table .row-foot:hover{
+ 	background-color: #eee;
+ 	cursor: pointer;
+ }
+ .table .row-foot td{
+ 	text-align: center;
+ 	padding:5px;
+ }
+ .table-item-delete{
+ 	position: absolute;
+ 	padding:0;
+ 	background-color: #eee;
+ 	border:1px solid #aaa;
+ 	box-shadow: 2px 2px 5px #999;
+ 	width:30px;
+ 	height:26px;
+ 	border-radius:5px;
+ 	cursor:pointer;
+ }
+ .table-item-delete span{
+  	height:100%;
+  	text-align: center;
+  	padding:0;
+  	font-size:15px;
+  	font-weight: blod;
+ }

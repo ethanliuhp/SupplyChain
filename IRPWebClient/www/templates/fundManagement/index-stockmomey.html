@@ -1,0 +1,35 @@
+<ion-view view-title="{{title}}" hide-tabs="true">
+  <ion-content overflow-scroll='false' has-bouncing='true'>
+    <ion-list>
+<!--       <ion-item class="item-remove-animate item-avatar item-icon-right home-item list-title-style" type="item-text-wrap">
+        <div class="row">
+          <div class="col-25">其中保理</div>
+          <div class="col-24">{{info.Factoring | NumConvert}}亿元</div>
+          <div class="col-25">其中局借款</div>
+          <div class="col-24">{{info.Borrow | NumConvert}}亿元</div>
+        </div>
+      </ion-item> -->
+      <ion-item class="item-remove-animate item-avatar item-icon-right home-item list-title-style alert-info" type="item-text-wrap">
+        <div class="row">
+          <div class="col-25"><p class="center">分支机构</p></div>
+          <div class="col-25"><p class="center">资金存量</p></div>
+          <div class="col-25"><p class="center">日均存量</p></div>
+          <div class="col-25"><p class="center">其中借款</p></div>
+        </div>
+      </ion-item>
+      <ion-item class="item-remove-animate item-avatar item-icon-right home-item list-title-style" ng-class="{'item-back-odd':($index%2 == 0)}" ng-repeat="item in info.List">
+        <div class="row">
+          <div class="col-25"><p class="center">{{item.Name}}</p></div>
+          <div class="col-25"><p class="center">{{item.StockValue | NumConvert}}</p></div>
+          <div class="col-25"><p class="center">{{item.DailyValue | NumConvert}}</p></div>
+          <div class="col-25"><p class="center">{{item.BorrowValue | NumConvert}}</p></div>
+        </div>
+      </ion-item>
+    </ion-list>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+  </ion-content>
+</ion-view>
+
+

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.PMCAndWarning.Domain.WarningInfo,SupplyChain" table="THD_WarningInfo" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="ProjectId"  />
+    <property name="ProjectName" />
+    <property name="ProjectSyscode" length="4000"/>
+    
+    <many-to-one name="TheTarget" class="Application.Business.Erp.SupplyChain.PMCAndWarning.Domain.WarningTarget,SupplyChain"/>
+    <property name="TheTargetName"/>
+    
+    <property name="TheWarningObjectTypeName" length="512"/>
+    <property name="TheWarningObjectId"/>
+    <property name="State" />
+    <property name="SubmitTime" type="DateTime"/>
+    <property name="FailureTime" type="DateTime"/>
+    <property name="Level" column="WarnLevel" />
+    <property name="WarningContent" length="2000"/>
+    <many-to-one name="Owner" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="OwnerName" />
+    <property name="OwnerOrgSysCode" length="4000"/>
+  </class>
+</hibernate-mapping>

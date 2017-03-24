@@ -1,0 +1,21 @@
+﻿body 
+{
+    font-size:13px;
+}
+#divMain
+{
+    height:550px;
+}
+#divLeft
+{
+    float:left; 
+    width:160px; 
+    height:550px;
+}
+#divRight
+{
+    float:left; 
+    width:700px; 
+    height:550px;
+    text-align:center;
+}

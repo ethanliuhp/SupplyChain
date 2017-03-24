@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MaterialHireMng.MaterialHireOrder.Domain.MatHireOrderDetail,SupplyChain" table="THD_MaterialHireOrderDetail" lazy="true" select-before-update="true">
+
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+
+    <set name="BasicDtlCostSets" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.MaterialHireMng.MaterialHireOrder.Domain.OrderDetailCostSetItem, SupplyChain"/>
+    </set>
+
+    <many-to-one name="MaterialResource" column="Material"  class="Application.Resource.MaterialResource.Domain.Material,ResourceManager"/>
+    <property name="DiagramNumber"></property>
+    <property name="MaterialSpec"></property>
+    <property name="MaterialName"></property>
+    <property name="MaterialCode"></property>
+    <property name="MaterialStuff"></property>
+    <many-to-one name="MatStandardUnit" column="MatStandardUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="MatStandardUnitName"></property>
+    <property name="Quantity" length="4" />
+    <property name="Price" length="8" />
+    <property name="Money" length="2" />
+    <property name="Descript"/>
+    <property name="RuleState"/>
+    <property name="RefQuantity" column="RefQuantity"/>
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.MaterialHireMng.MaterialHireOrder.Domain.MatHireOrderMaster, SupplyChain"></many-to-one>
+
+  </class>
+</hibernate-mapping>

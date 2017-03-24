@@ -1,0 +1,42 @@
+﻿.overlayer
+{
+	background-color: #000;
+}
+.window
+{
+	padding: 0px;
+	border: 2px solid #75A0CA;
+	background: #FFFFFF;
+	position: absolute;
+	z-index: 9999;
+	width: 600px;
+	top: 17%;
+	left: 30%;
+	display: none;
+}
+.window .title
+{
+	background: #E2EFFC;
+	padding: 5px;
+	text-align: center;
+	font-size: 12pt;
+	font-weight: bold;
+}
+.window .title .status .resize
+{
+	color: #FFFFFF;
+}
+.window .content
+{
+	padding: 8px;
+	overflow: hidden;
+	background-color: #FFFFFF;
+}
+.transferer
+{
+	border: 1px solid #EEE;
+	background-color: #F9F9F9;
+	opacity: 0.7;
+	filter: alpha(opacity=30);
+	z-index: 9999;
+}

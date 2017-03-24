@@ -1,0 +1,97 @@
+﻿<ContextConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <!--  三层或两层-->
+  <IsRemote>false</IsRemote>
+  <DefultContextGroupName>默认帐套</DefultContextGroupName>
+  <!--  子模块全局变量初始化方法.在界面集成时用,暂时可以不写  -->
+  <!--  <InitialMethods>
+    <InitialMethod>
+      <MethodName>Initial</MethodName>
+      <TypeName>Application.Business.Erp.SupplyChain.Client.ClientAppInitial,SupplyChainClient</TypeName>
+    </InitialMethod>
+  </InitialMethods>
+  -->
+  <!--  帐套列表  -->
+  <GroupList>
+    <ContextGroup>
+      <!--  帐套名-->
+      <GroupName>默认帐套</GroupName>
+      <UseClientSideCache>false</UseClientSideCache>
+      <!--  此帐套的spring context列表-->
+      <ContextInfoList>
+        <ContextInfo>
+          <!--  context的逻辑名字(AppDomain.CurrentDomain.GetData时用的名字)-->
+          <ReferenceName>SecureSystem</ReferenceName>
+          <LocalInfo>
+            <!--  spring 配置文件-->
+            <ContextFileName>E:\work\code\SSupplyChain\SupplyChain\appContext.xml</ContextFileName>
+          </LocalInfo>
+          <!--  远程spring context信息tcp://10.1.3.128:8998/-->
+          <RemoteInfo>
+            <ServerAddress>tcp://10.70.18.30:8998/</ServerAddress>
+            <RemoteContextName>中建三局总承包公司项目业务基础管理</RemoteContextName>
+          </RemoteInfo>
+        </ContextInfo>
+        <ContextInfo>
+          <ReferenceName>ResourceManager</ReferenceName>
+          <LocalInfo>
+            <ContextFileName>E:\work\code\SSupplyChain\SupplyChain\appContext.xml</ContextFileName>
+          </LocalInfo>
+          <RemoteInfo>
+            <ServerAddress>tcp://10.70.18.30:8998/</ServerAddress>
+            <RemoteContextName>中建三局总承包公司项目业务基础管理</RemoteContextName>
+          </RemoteInfo>
+        </ContextInfo>
+        <ContextInfo>
+          <ReferenceName>SupplyChain</ReferenceName>
+          <LocalInfo>
+            <ContextFileName>E:\work\code\SSupplyChain\SupplyChain\appContext.xml</ContextFileName>
+          </LocalInfo>
+          <RemoteInfo>
+            <ServerAddress>tcp://10.70.18.30:8998/</ServerAddress>
+            <RemoteContextName>中建三局总承包公司项目业务基础管理</RemoteContextName>
+          </RemoteInfo>
+        </ContextInfo>
+        <ContextInfo>
+          <ReferenceName>CommonSearchLib</ReferenceName>
+          <LocalInfo>
+            <ContextFileName>E:\work\code\SSupplyChain\SupplyChain\appContext.xml</ContextFileName>
+          </LocalInfo>
+          <RemoteInfo>
+            <ServerAddress>tcp://10.70.18.30:8998/</ServerAddress>
+            <RemoteContextName>中建三局总承包公司项目业务基础管理</RemoteContextName>
+          </RemoteInfo>
+        </ContextInfo>
+        <ContextInfo>
+          <ReferenceName>AuthManagerLib</ReferenceName>
+          <LocalInfo>
+            <ContextFileName>E:\work\code\SSupplyChain\SupplyChain\appContext.xml</ContextFileName>
+          </LocalInfo>
+          <RemoteInfo>
+            <ServerAddress>tcp://10.70.18.30:8998/</ServerAddress>
+            <RemoteContextName>中建三局总承包公司项目业务基础管理</RemoteContextName>
+          </RemoteInfo>
+        </ContextInfo>
+        <ContextInfo>
+          <ReferenceName>ApprovalManagerLib</ReferenceName>
+          <LocalInfo>
+            <ContextFileName>E:\work\code\SSupplyChain\SupplyChain\appContext.xml</ContextFileName>
+          </LocalInfo>
+          <RemoteInfo>
+            <ServerAddress>tcp://10.70.18.30:8998/</ServerAddress>
+            <RemoteContextName>中建三局总承包公司项目业务基础管理</RemoteContextName>
+          </RemoteInfo>
+        </ContextInfo>
+        <ContextInfo>
+          <ReferenceName>IRPServiceModel</ReferenceName>
+          <LocalInfo>
+            <ContextFileName>E:\work\code\SSupplyChain\SupplyChain\appContext.xml</ContextFileName>
+          </LocalInfo>
+          <RemoteInfo>
+            <ServerAddress>tcp://10.70.18.30:8998/</ServerAddress>
+            <RemoteContextName>中建三局总承包公司项目业务基础管理</RemoteContextName>
+          </RemoteInfo>
+        </ContextInfo>
+      </ContextInfoList>
+    </ContextGroup>
+  </GroupList>
+</ContextConfig>

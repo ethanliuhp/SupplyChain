@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProjectDocumentManage.Domain.ProObjectRelaDocument,SupplyChain" lazy="true" table="THD_ProObjectRelaDocument" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="ProObjectName" />
+    <property name="ProObjectGUID" />
+    <many-to-one name="DocumentOwner" column="DocumentOwnerGUID" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="DocumentOwnerName" />
+    <property name="DocumentGUID" />
+    <property name="DocumentName" />    
+    <property name="DocumentCateCode" />
+    <property name="DocumentCateName" />
+    <property name="DocumentDesc" length="4000"/>
+    <property name="FileURL" />
+    <property name="SubmitTime" />
+    <property name="TheProjectGUID" />
+    <property name="TheProjectName" />
+    
+    <property name="ProjectDocumentVerifyID" />
+    <property name="DocumentCode" />
+    <property name="DocumentWorkflowName" />
+    <property name="OrganizationSyscode" />
+    <property name="TheProjectCode" />
+  </class>
+</hibernate-mapping>

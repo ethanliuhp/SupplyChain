@@ -1,0 +1,289 @@
+﻿.modalCover {
+background-color: #EEE;
+border: none;
+height: 100%;
+width: 100%;
+left: 0px;
+top: 0px;
+opacity: 0.5;
+position: absolute;
+display: none;
+z-index				: 9000;
+}
+
+.calendar {
+	border-top			: 1px solid #BBBBBB;
+	border-right		: 1px solid #BBBBBB;
+	border-bottom		: 1px solid #BBBBBB;
+	border-left			: 1px solid #BBBBBB;
+	border-bottom-left-radius: 4px 4px;
+	border-bottom-right-radius: 4px 4px;
+	border-top-left-radius: 4px 4px;
+	border-top-right-radius: 4px 4px;	  
+	padding				: 1px 0px 0px 1px;
+	color				: black;
+	position			: absolute;
+	z-index				: 10000;
+	background			: #ffffff; 
+}
+
+.calendarList {
+	border-top			: 1px solid #BBBBBB;
+	border-right		: 1px solid #BBBBBB;
+	border-bottom		: 1px solid #BBBBBB;
+	border-left			: 1px solid #BBBBBB;
+	border-bottom-left-radius: 3px 3px;
+	border-bottom-right-radius: 3px 3px;
+	border-top-left-radius: 3px 3px;
+	border-top-right-radius: 3px 3px;	  
+	padding				: 1px 0px 0px 1px;
+	color				: black;
+	background			: #FFFFFF; 
+	position			: absolute;
+	z-index				: 10000;
+}
+
+.calendar .prev-year {
+	border				: none;
+	cursor				: pointer;			
+	width				: 14px;
+	height				: 19px;
+	background			: url(../images/navLeft.gif) no-repeat;
+}
+.calendar .prev-month {
+	border				: none;
+	cursor				: pointer;			
+	width				: 14px;
+	height				: 19px;
+	background			: url(../images/left.gif) no-repeat;
+}
+.calendar .next-year {
+	border				: none;
+	cursor				: pointer;			
+	width				: 14px;
+	height				: 19px;
+	background			: url(../images/navRight.gif) no-repeat;
+}
+.calendar .next-month {
+	border				: none;
+	cursor				: pointer;			
+	width				: 14px;
+	height				: 19px;
+	background			: url(../images/right.gif) no-repeat;
+}
+
+.calendar .clear{
+	width				:16px; 
+	height				:16px;
+	background			: url(icon_clear.gif) no-repeat;
+	cursor				: pointer;
+}
+ 
+.touch .prev-year,
+.touch .prev-month,
+.touch .next-year,
+.touch .next-month,  
+.touch .clear,
+{
+	background : transparent;
+}
+
+.calendar .button {
+	text-align			: center;
+	padding				: 1px;
+	border				: 1px solid;
+	border-color		: #fff #000 #000 #fff;
+}
+
+.calendar thead .hover {
+	border				: 2px solid;
+	border-color		: #fff #000 #000 #fff;
+	background-color	: #DFF4FF;
+}
+
+.calendar .title, .calendar tfoot {
+	text-align			: center;
+	border: 			: none;
+}
+
+.date tfoot {
+	display				: none;
+}
+
+.calendar thead tr{
+	background: #DFF4FF;
+}
+.calendar tfoot tr, .calendar thead tr{
+	height				:32px;
+	line-height: 		:32px;
+}
+
+.touch tfoot tr, .calendar thead tr{
+	height				:32px;
+	line-height: 		:32px;
+}
+
+.calendar tfoot input {
+	width				: 42px;
+	height				: 18px;
+	text-align			: center;
+	border-left: 			: none;
+	border-right: 			: none;
+	border-top: 			: none;
+	border-bottom: 			: none; 
+	border-bottom-left-radius: 3px 3px;
+	border-top-left-radius: 3px 3px;
+	border-bottom-right-radius: 3px 3px;
+	border-top-right-radius: 3px 3px;
+}
+
+.touch tfoot input {
+	width				: 60px;
+	height				: 24px;
+}
+
+.calendar-button {
+	height				: 24px;
+	width				: 48px;
+	margin:1px 3px 2px 1px;
+    border:0px solid #dedede;
+    border-top:0px solid #eee;
+    border-left:0px solid #eee;
+    font-size: 12px;
+    cursor:pointer;
+	border-bottom-left-radius: 3px 3px;
+	border-top-left-radius: 3px 3px;
+	border-bottom-right-radius: 3px 3px;
+	border-top-right-radius: 3px 3px;
+    background:#54B3F3;
+    color: white;
+    border-bottom: 1px solid #6BA7CF;
+}
+
+.calendar-button:hover {
+	background: #6ABCF4;
+}
+.calendar-input{
+	/*font-size				: 16px;*/
+	height					: 18px;
+	cursor					: pointer;
+	border 					: 1px solid #BBBBBB;
+	ime-mode				: disabled;
+	background				: #FFFFFF 
+}
+
+.touch .calendar-input{
+	height					: 24px;
+}
+	 
+.calendar-year{
+	width					: 54px;
+	text-align				: right; 
+	border-right			: medium none;
+	border-bottom-left-radius: 3px 3px;
+	border-top-left-radius: 3px 3px;
+}
+
+.calendar-{
+	width					: 8px;
+	border-left				: medium none; 
+	border-right			: medium none;	
+}
+
+.calendar-month{
+	width					: 36px; 
+	text-align				: left; 
+	border-left				: medium none;
+	border-bottom-right-radius: 3px 3px;
+	border-top-right-radius: 3px 3px;
+}
+
+.calendar .names {
+	height				:24px;
+	line-height: 		:24px;
+	background			: #DFF4FF;
+	text-align			: center;
+}
+
+.calendar .names .name{
+	width				:24px;
+}
+
+.calendar .day {
+	-moz-box-sizing		: border-box;
+	box-sizing			: border-box;
+	text-align			: center;
+	padding				: 2,6,2,6; 
+	cursor				: pointer; 
+	height				: 24px;
+}
+
+.touch .names .name{
+	width				:32px;
+}
+
+.touch .day {
+	height				: 32px;
+}
+
+.calendar tbody .hover {
+	background:#DFF4FF;
+	border-bottom-left-radius: 5px 5px;
+	border-top-left-radius: 5px 5px;
+	border-bottom-right-radius: 5px 5px;
+	border-top-right-radius: 5px 5px;
+}
+
+.calendar .today {
+	font-weight			: bold;
+	color				: #00f;
+}
+
+.calendar .selected {
+	font-weight			: bold;
+	background:#DFF4FF;
+	border-bottom-left-radius: 5px 5px;
+	border-top-left-radius: 5px 5px;
+	border-bottom-right-radius: 5px 5px;
+	border-top-right-radius: 5px 5px;
+}
+
+.calendar .weekend {
+	color				: #f00;
+}
+
+.calendarList {
+	padding				: 0;
+	margin				: 0;
+	width				: 55px;
+	-moz-box-sizing		: border-box;
+	box-sizing			: border-box;
+	cursor				: pointer;
+}
+
+.touchCalendarList{
+	width				: 60px;
+	height				: 224px;
+	overflow			: auto;
+}
+
+.calendarList li {
+	list-style-type		: none;
+	text-align			: center;
+	padding				: 1px;
+}
+
+.touchCalendarList li{
+	height				: 24px;
+}
+
+.calendarList li.hover {
+	border				: none;  
+	padding				: 1px;
+	background:#DFF4FF;
+	width				: 100%;
+	border-bottom-left-radius: 5px 5px;
+	border-top-left-radius: 5px 5px;
+	border-bottom-right-radius: 5px 5px;
+	border-top-right-radius: 5px 5px;
+}

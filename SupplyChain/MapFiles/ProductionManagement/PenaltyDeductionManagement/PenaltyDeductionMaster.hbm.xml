@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.PenaltyDeductionManagement.Domain.PenaltyDeductionMaster,SupplyChain" table="THD_PenaltyDeductionMaster" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <!--编号-->
+    <property name="Code" column="Code"  />
+    <!--状态-->
+    <property name="DocState" column="State" />
+    <!--描述-->
+    <property name="Descript" column="Descript"/>
+    <!--罚款类型-->
+    <property name="PenaltyType" column="PenaltyType"/>
+    <!--派工代工id-->
+    <property name="OEMId"/>
+    
+    <!--罚扣队伍-->
+    <many-to-one name="PenaltyDeductionRant" column="PenaltyDeductionRant" class="Application.Business.Erp.SupplyChain.CostManagement.ContractExcuteMng.Domain.SubContractProject,SupplyChain"/>
+    <!--扣罚队伍名称-->
+    <property name="PenaltyDeductionRantName" column="PenaltyDeductionRantName"/>
+    <!--罚扣原因-->
+    <property name="PenaltyDeductionReason" column="PenaltyDeductionReason"/>
+    
+    <!--制单年-->
+    <property name="CreateYear" column="CreateYear"/>
+    <!--制单月-->
+    <property name="CreateMonth" column="CreateMonth"/>
+    <!--业务日期-->
+    <property name="CreateDate" column="CreateDate"/>
+    <!--制单日期-->
+    <property name="RealOperationDate" column="RealOperationDate"/>
+    <property name="SubmitDate" column="SubmitDate"/>
+    <property name="SumQuantity" length="4" />
+    <property name="SumMoney" length="4" />
+    
+    <!--归属项目-->
+    <property name="ProjectId"/>
+    <property name="ProjectName"/>
+    <!--责任人-->
+    <many-to-one name="HandlePerson" column="HandlePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="HandlePersonName"/>
+    <!--业务组织-->
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperOrgInfoName" column="OperOrgName"/>
+    <property name="OpgSysCode" column="OpgSysCode"/>
+    <property name="HandOrgLevel" column="HandOrgLevel"/>
+    <many-to-one name="CreatePerson" column="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="CreatePersonName"/>
+	<property name="PrintTimes"/>
+    <property name="AuditYear" column="AuditYear"/>
+    <property name="AuditMonth" column="AuditMonth"/>
+    <property name="AuditDate" column="AuditDate"/>
+    <property name="CheckOrderId" />  <!-- 关联的检查单记录id -->
+    <!--审核人-->
+    <many-to-one name="AuditPerson" column="AuditPerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="AuditPersonName"/>
+    
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.ProductionManagement.PenaltyDeductionManagement.Domain.PenaltyDeductionDetail,SupplyChain"/>
+    </set>
+
+  </class>
+</hibernate-mapping>
+
+

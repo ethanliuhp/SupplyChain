@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ApprovalMng.AppTableSetMng.Domain.AppDetailData, SupplyChain" table="THD_AppDetailData" lazy="true" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+
+    <property name="PropertyName" />
+    <property name="PropertyValue"  />
+    <property name="BillId"/>
+    <property name="BillDtlId"/>
+    <property name="PropertyChineseName"/>
+    <property name="AppStatus" column="AppState"/>
+    <property name="AppDate"/>
+    <property name="AppTableSet"/>
+    <property name="PropertySerialNumber"/>
+
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<OprationTache>
+  <tache>
+    <name>付款单</name>
+    <module>应付管理</module>
+  </tache>
+  <tache>
+    <name>报帐单</name>
+    <module>应付管理</module>
+  </tache>
+  <tache>
+    <name>收款单</name>
+    <module>应收管理</module>
+  </tache>
+  <tache>
+    <name>结算单</name>
+    <module>应收管理</module>
+  </tache>
+</OprationTache>

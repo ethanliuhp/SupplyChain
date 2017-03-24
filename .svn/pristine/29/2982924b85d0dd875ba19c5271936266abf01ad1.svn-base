@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.InspectionRecordManage.Domain.InspectionRecord,SupplyChain" table="THD_InspectionRecord" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <property name="DocState" column="State" />
+    <!--工程项目任务-->
+    <many-to-one name="GWBSTree" column="GWBSTree" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree, SupplyChain"/>
+    <property name="GWBSTreeName" />
+    <property name="GWBSTreeSysCode" />
+    <!--工区-->
+    <many-to-one name="PBSTree" column="PBSTree" class="Application.Business.Erp.SupplyChain.CostManagement.PBS.Domain.PBSTree, SupplyChain"/>
+    <property name="PBSTreeName" />
+    <!--工程项目任务摘要-->
+    <property name="GWBSDescription" />
+    <!--周进度计划GUID-->
+    <many-to-one name="WeekScheduleDetail" column="WeekScheduleDetail" class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.WeekScheduleDetail, SupplyChain"/>
+    <!--检查时间-->
+    <!--<property name="InspectionDate"/>-->
+    <property name="CreateDate" column="InspectionDate"/>
+    <property name="RealOperationDate" column="RealOperationDate"/>
+    <property name="SubmitDate" column="SubmitDate"/>
+    <!--检查专业-->
+    <property name="InspectionSpecial"/>
+    <!--检查专业编号-->
+    <property name="InspectionSpecialCode"/>
+    <!--专业检查状态字位置-->
+    <property name="SpecialInspectionState"/>
+    <!--检查内容说明-->
+    <property name="InspectionContent"/>
+    <!--检查类型-->
+    <property name="InspectType"/>
+    <!--检查情况-->
+    <property name="InspectionStatus"/>
+    <!--检查结论-->
+    <property name="InspectionConclusion"/>
+    <!--制单人==检查责任人-->
+    <many-to-one name="CreatePerson" column="InspectionPerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="CreatePersonName" column="InspectionPersonName"/>
+    <!--检查责任人组织层次码-->
+    <property name="InspecPersonOpgSysCode"/>
+    <!--罚款单GUID-->
+    <property name="PenaltyDeductionMaster" column="PenaltyDeductionMaster"/>
+    <!--承担队伍-->
+    <many-to-one name ="BearTeam"/>
+    <!--承担队伍名称-->
+    <property name ="BearTeamName" column ="BearTeamName"/>
+    <!--责任人-->
+    <many-to-one name="HandlePerson" column="HandlePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="HandlePersonName"/>
+    <!--业务组织-->
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperOrgInfoName" column="OperOrgName"/>
+    <property name="OpgSysCode" column="OpgSysCode"/>
+    <property name="HandOrgLevel" column="HandOrgLevel"/>
+    <!--罚扣款标志-->
+    <property name="DeductionSign" column="DeductionSign"/>
+    <!--整改标志-->
+    <property name="CorrectiveSign" column="CorrectiveSign"/>
+    
+    <!--归属项目-->
+    <property name="ProjectId"/>
+    <property name="ProjectName"/>
+
+    <!--整改通知明细-->
+    <set name="RectificationNotices" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.ProductionManagement.InspectionRecordManage.Domain.RectificationNotice,SupplyChain"/>
+    </set>
+    <!--现场照片和视频-->
+    <set name="SitePictureVideos" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.ProductionManagement.InspectionRecordManage.Domain.SitePictureVideo,SupplyChain"/>
+    </set>
+
+  </class>
+</hibernate-mapping>
+
+

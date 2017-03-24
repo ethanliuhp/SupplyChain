@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://www.cscec3b.com:1205/IRP/PLMWebServices.asmx?wsdl" docRef="http://www.cscec3b.com:1205/IRP/PLMWebServices.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://www.cscec3b.com:1205/IRP/PLMWebServices.asmx" xmlns:q1="http://think3.com/" binding="q1:PLMWebServicesSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://www.cscec3b.com:1205/IRP/PLMWebServices.asmx" xmlns:q2="http://think3.com/" binding="q2:PLMWebServicesSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

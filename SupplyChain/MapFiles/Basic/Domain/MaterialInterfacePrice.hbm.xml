@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.Basic.Domain.MaterialInterfacePrice,SupplyChain" table="thd_MatInterPrice" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="uuid.hex" />
+    </id>
+    <!--<id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>-->
+    <many-to-one name="MaterialGUID" column="MaterialGUID"/>
+    <property name="MatName" column="MatName"/>
+    <property name="MatCode" />
+    <property name="MatSpec" />
+    <property name="MatStuff" />
+    <many-to-one name="MatUnit" />
+    <property name="MatUnitName" />
+    <property name="LastUpdateDate" />
+    <many-to-one name="MakePerson" />
+    <property name="MakePersonName" />
+    <property name="MakeTime" />
+    <property name="State" />
+    <property name="Price" />
+    <property name="MarketPrice" />
+    <property name="Descript" />
+    <property name="DateTimeBegin" />
+    <property name="DateTimeEnd" />
+  </class>
+</hibernate-mapping>

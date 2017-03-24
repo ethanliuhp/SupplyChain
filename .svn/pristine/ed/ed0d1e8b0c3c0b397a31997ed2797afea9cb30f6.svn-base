@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ConcreteManage.PouringNoteMng.Domain.PouringNoteDetail,SupplyChain" table="THD_PouringNoteDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <!--物资-->
+    <many-to-one name="MaterialResource" column="Material"  class="Application.Resource.MaterialResource.Domain.Material,ResourceManager"/>
+    <property name="MaterialCode"/>
+    <property name="MaterialName"/>
+    <property name="MaterialSpec"/>
+    <property name="MaterialStuff"/>
+
+    <!--计量单位-->
+    <many-to-one name="MatStandardUnit" column="MatStandardUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="MatStandardUnitName"/>
+
+    <!--浇筑部位-->
+    <many-to-one name="UsedPart" column="UsedPart" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree, SupplyChain"/>
+    <property name="UsedPartName" />
+    <property name="PouringDate"/>
+    <!--结算科目-->
+    <many-to-one name="SubjectGUID" column="SubjectGUID"  class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostAccountSubject,ResourceManager"></many-to-one>
+    <property name="SubjectName"/>
+    <property name="SubjectSysCode"/>
+    <!--计划数量-->
+    <property name="PlanQuantity"/>
+    <property name="ForwardDetailId"/>
+    <property name="IsPump"/>
+    <property name="Price"/>
+    <property name="Quantity" length="4" />
+    <property name="RefQuantity" length="4" />
+    <property name="Money" length="4"/>
+    <property name="Descript"/>
+    <property name="ProjectId"/>
+    <!--调入数量 单价 金额-->
+    <property name="ImportQty" length="4" />
+    <property name="ImportPrice"/>
+    <property name="ImportMoney" length="4"/>
+    <!--调出数量 单价 金额-->
+    <property name="ExportQty" length="4" />
+    <property name="ExportPrice"/>
+    <property name="ExportMoney" length="4"/>
+    <!--消耗数量 单价 金额-->
+    <property name="ConsumeQty" length="4" />
+    <property name="ConsumePrice"/>
+    <property name="ConsumeMoney" length="4"/>
+
+    <property name="ConcreteCheckId"/>
+    <property name="ConcreteCheckState"/>
+
+    <property name="ReasonDes"/>
+
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.ConcreteManage.PouringNoteMng.Domain.PouringNoteMaster,SupplyChain"></many-to-one>
+
+  </class>
+</hibernate-mapping>
+
+

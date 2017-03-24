@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.CostCheckIndicatorDtl,SupplyChain" table="thd_costcheckindicatordtl" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.CostManagement.CostMonthAccountMng.Domain.CommercialReportMaster,SupplyChain"></many-to-one>
+    <property name="Descript" />
+    
+    <property name="TenderCalculatePoint"/>
+    <property name="LiabilityPaid"/>
+    <property name="SelfPlanMoney"/>
+    <property name="QuarterBenefitRate"/>
+    <property name="ConstructionContractIncome"/>
+    <property name="Income" length="2"/>
+    <property name="Cost" length="2"/>
+    <property name="BenefitAmount" length="2"/>
+    <property name="BenefitRate"/>
+    <property name="DutyCost" length="2"/>
+    <property name="OverCostReduceRate"/>
+    <property name="SiteFunds" length="2"/>
+    <property name="TotalOutputValueAccount"/>
+    <property name="OccurredMoney" length="2"/>
+    <property name="ExpectOccurredMoney" length="2"/>
+    <property name="TotalMoney" length="2"/>
+    <property name="ExpectOutputValueAccount"/>
+    <property name="ConcreteDrawingBudget"/>
+    <property name="ConcreteConsumption"/>
+    <property name="ConcreteSaveRate"/>
+    <property name="RebarDetailingAmount"/>
+    <property name="RebarConsumption"/>
+    <property name="RebarSaveRate"/>
+    <property name="WasteRebarAmount"/>
+    <property name="ScrapRate"/>
+    <property name="RightReportPoint"/>
+    <property name="ProjectSubmitTime"/>
+    <property name="OwnerConfirmTime"/>
+    <property name="OwnerRightOutput" length="2"/>
+    <property name="ContractorRightOutput" length="2"/>
+    <property name="ProjectSelfPayment" length="2"/>
+    <property name="ProjcetContractorPayment" length="2"/>
+    <property name="SelfOutputRightRate"/>
+    <property name="ContractorOutputRightRate"/>
+    <property name="OutPutRightRate"/>
+    <property name="ReceivableAccount" length="2"/>
+    <property name="ActualAccount" length="2"/>
+    <property name="OverallBusinessPlan"/>
+    <property name="ResponsibilitySigh"/>
+    <property name="ReceivableRiskMortgage" length="2"/>
+    <property name="ActualRiskMortgage" length="2"/>
+    <property name="RiskMortgageRate"/>
+    <property name="OccurredHourlyAccount" length="2"/>
+    <property name="ProportionOfHourlyWork"/>
+    <property name="OccurredOEMAccount" length="2"/>
+    <property name="DeductedAccount" length="2"/>
+    <property name="OuterContractAccount" length="2"/>
+    <property name="SelfSignedAccount" length="2"/>
+    <property name="ProportionOfOuterContractAccount" column="ProportionOuterContractAccount"/>
+    
+  </class>
+</hibernate-mapping>
+
+

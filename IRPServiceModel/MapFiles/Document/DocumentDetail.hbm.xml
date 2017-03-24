@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="IRPServiceModel.Domain.Document.DocumentDetail,IRPServiceModel" table="irp_documentDetail" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <many-to-one name="Master"  class="IRPServiceModel.Domain.Document.DocumentMaster,IRPServiceModel" />
+    <many-to-one name="TheFileCabinet"  class="IRPServiceModel.Domain.Document.FileCabinet,IRPServiceModel" />
+    <property name="FileName" />
+    <property name="ExtendName" /> 
+    <property name="FilePartPath" />
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.AssignWorkerOrderMaster, SupplyChain" table="THD_AssignWorkerOrderMaster" lazy="true">
+    <!--主键-->
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    
+    
+    <!--明细-->
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.AssignWorkerOrderDetail, SupplyChain"/>
+    </set>
+
+    <!--派工单名称-->
+    <property name="Code" />
+
+    <!--派工单描述-->
+    <property name="AssignWorkerOrderDescription" />
+
+    <!--周进度计划-->
+    <property name="WeekSchedule" />
+
+    <!--周进度计划名称-->
+    <property name="WeekScheduleName" />
+
+    <!--派工队伍-->
+    <property name="AssignTeam" />
+
+    <!--派工队伍名称-->
+    <property name="AssignTeamName" />
+
+    <!--项目-->
+    <property name="ProjectId" />
+
+    <!--项目名称-->
+    <property name="ProjectName" />
+
+    <!--打印次数-->
+    <property name="PrintCount" />
+
+    <!--业务时间-->
+    <property name="CreateDate" />
+
+    <!--制单人-->
+    <many-to-one name="CreatePerson" />
+
+    <!--制单人姓名-->
+    <property name="CreatePersonName" />
+
+    <!--最后打印时间-->
+    <property name="LastPrintTime" />
+
+    <!--最后打印人-->
+    <many-to-one name="LastPrintPerson" />
+
+    <!--最后打印人姓名-->
+    <property name="LastPrintPersonName" />
+
+    <property name="OrgSysCode" />
+
+    <property name="DocState" column="State"/>
+    
+    <property name="SubmitDate" />
+
+    <property name="MsgState" />
+
+    <property name="MsgDate" />
+
+    <property name="MsgPerson" />
+
+    <property name="MsgPersonName" />    
+  </class>
+</hibernate-mapping>

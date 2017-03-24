@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.AssignWorkerOrderDetail, SupplyChain" table="thd_AssignWorkerOrderDetail" lazy="true">
+    <!--主键-->
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <!--主表主键-->
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.AssignWorkerOrderMaster, SupplyChain"/>
+    <!--工程任务-->
+    <many-to-one name="GWBSTree" column="GWBSTree" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree, SupplyChain"/>
+    <!--工程任务名称-->
+    <property name="GWBSTreeName" />
+    <!--工程任务明细-->
+    <many-to-one name="GWBSDetail" column="GWBSDetail" class ="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSDetail, SupplyChain"/>
+    <!--工程任务明细名称-->
+    <property name="GWBSDetailName" />
+    <!--计划开始时间-->
+    <property name="PlanBeginDate" />
+    <!--计划结束时间-->
+    <property name="PlanEndDate" />
+    <!--计划工期-->
+    <property name="PlanWorkDays" />
+    <!--实际开始时间-->
+    <property name="ActualBenginDate" />
+    <!--实际结束时间-->
+    <property name="ActualEndDate" />
+    <!--实际工期-->
+    <property name="ActualWorkDays" />
+    <property name ="AssWorkDesc"></property>
+  </class>
+</hibernate-mapping>

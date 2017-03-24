@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.SupplyManage.SupplyOrderManage.Domain.SupplyOrderDetail,SupplyChain" table="THD_SupplyOrderDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+
+    <!--物资-->
+    <many-to-one name="MaterialResource" column="Material"  class="Application.Resource.MaterialResource.Domain.Material,ResourceManager"/>
+    <property name="MaterialCode"/>
+    <property name="MaterialName"/>
+    <property name="MaterialSpec"/>
+    <property name="MaterialStuff"/>
+    <property name="DiagramNumber" />
+    <!--材料类别和名称-->
+    <many-to-one name="MaterialCategory" column="MaterialCategory" class="Application.Resource.MaterialResource.Domain.MaterialCategory,ResourceManager"/>
+    <property name="MaterialCategoryName" column="MaterialCategoryName"/>
+
+    <!--计量单位-->
+    <many-to-one name="MatStandardUnit" column="MatStandardUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="MatStandardUnitName"/>
+
+    <property name="Quantity" length="4" />
+    <property name="LeftQuantity" length="4"/>
+    <property name="RefQuantity" length="4"/>
+    <property name="SupplyPrice" length="8" />
+    <property name="ModifyPrice" length="8" />
+    <property name="ConfirmPrice" length="8" />
+    <property name="Money" length="2" />
+    <property name="Descript"/>
+    <property name="SpecialType"/>
+    <property name="Grade"/>
+    <property name="Brand"/>
+    <!--认价金额-->
+    <property name="RJMoney"/>
+    
+    <property name="ForwardDetailId"/>
+    <many-to-one name="ContractAdjustPrice" column="ContractAdjustPrice" class="Application.Business.Erp.SupplyChain.SupplyManage.ContractAdjustPriceManage.Domain.ContractAdjustPrice,SupplyChain"/>
+
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.SupplyManage.SupplyOrderManage.Domain.SupplyOrderMaster, SupplyChain"></many-to-one>
+    <property name="TechnologyParameter"/>
+  </class>
+</hibernate-mapping>
+
+

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.EngineerManage.TargetRespBookManage.Domain.TargetRespBook,SupplyChain" lazy="true" table="THD_TargetRespBook" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="SafetyCivilizedSign" />
+    <property name="InstallationFreeRate" />
+    <!--<many-to-one name="DocumentOwner" column="DocumentOwnerGUID" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>-->
+    <property name="CostcontrolRewardtatio" />
+    <property name="CostcontrolTarget" />
+    <property name="CashRewardNodeNumber" />    
+    <property name="RiskPaymentState" />
+    <property name="RiskrewardRatio" />
+    <property name="RiskDissolvesTarget" />
+    <property name="ProjectDate" />
+    <property name="PeriodmeaSuringUnit" />
+    <property name="PlanEndDate" />
+    <property name="PlanBeginDate" />
+    <property name="PrickleName" />
+    <many-to-one name="PricePrickle" />
+    <property name="EconomicgoalEnginner" />
+    <property name="RealOperationDate" />
+    <property name="EnsureLevel" />
+    <property name="SignedWhether" />
+    <property name="DocumentName" />
+    <property name="ProjectId" />
+    <property name="ProjectScale" />
+    <property name="ProjectManagerName" />
+    <many-to-one name="ProjectManagerId" />
+    <property name="ProjectName" />
+    <property name="ServiceFeeRates" />
+    <property name="OwneRawardsRatio" />
+    <property name="ResponsibilityRatio" />
+    <property name="ResponsibilityRewardTatio" />
+    <property name="ResponsibilityTurnedTarget" />
+    <property name="DocState" />
+    <property name="HandlePerson" />
+    <property name="CreateDate" />
+    <property name="SubmitDate" />
+
+    <set name="NodeDetails" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.EngineerManage.TargetRespBookManage.Domain.TargetProgressNode, SupplyChain"/>
+    </set>
+    <set name="RecordDetails" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.EngineerManage.TargetRespBookManage.Domain.IrpRiskDepositPayRecord, SupplyChain"/>
+    </set>
+  </class>
+</hibernate-mapping>

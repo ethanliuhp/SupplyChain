@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+   <class name="Application.Business.Erp.SupplyChain.Approval.AppProcessMng.Domain.ApproveBill,SupplyChain" table="THD_ApproveBill" lazy="true" discriminator-value="-1">
+        <id name="Id" column="Id" unsaved-value="null">
+           <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+        </id>
+      <version name="Version" column="VERSION" type="long" unsaved-value="-1" />
+      <property name="BillId" />
+      <property name="BillCode" />
+      <property name="BillSysCode" />
+      <property name="BillCreateDate" />
+      <many-to-one name="BillCreatePerson" lazy="false" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,SupplyChain"/>
+      <property name="BillCreatePersonName" />
+      <many-to-one name="AppTableDefine" column="AppTableSet" class="Application.Business.Erp.SupplyChain.Approval.AppTableSetMng.Domain.AppTableSet,SupplyChain"/>
+      <many-to-one name="AppSolution" class="Application.Business.Erp.SupplyChain.Approval.AppSolutionSetMng.Domain.AppSolutionSet,SupplyChain"/>
+      <property name="AppSolutionName" />
+      <property name="IsDone" />
+      <property name="LastModifTime" />
+      <property name="LastModifyBy" />
+      <property name="NextStep" />
+      <property name="ProjectId" />
+      <property name="ProjectName" />
+     
+   </class>
+</hibernate-mapping>

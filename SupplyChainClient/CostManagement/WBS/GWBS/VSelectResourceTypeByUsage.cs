@@ -1,0 +1,302 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Application.Business.Erp.ResourceManager.Client.Basic.Template;
+using Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain;
+using VirtualMachine.Core;
+using VirtualMachine.Core.Expression;
+using Application.Resource.MaterialResource.Domain;
+using System.Collections;
+using Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain;
+
+namespace Application.Business.Erp.SupplyChain.Client.CostManagement.WBS.GWBS
+{
+    public partial class VSelectResourceTypeByUsage : TBasicDataView
+    {
+        private string filterTerm = "";
+        private int pageSize = 20;
+        private int pageIndex = 1;
+        private int pageCount = 0;
+
+
+        private IList listMaterial = new ArrayList();
+
+        private IList listResourceGroup = null;
+        /// <summary>
+        /// 选择范围的资源组
+        /// </summary>
+        public IList ListResourceGroup
+        {
+            get { return listResourceGroup; }
+            set { listResourceGroup = value; }
+        }
+
+        private Material _selectedMateril = null;
+        /// <summary>
+        /// 选择的物料对象
+        /// </summary>
+        public Material SelectedMateril
+        {
+            get { return _selectedMateril; }
+            set { _selectedMateril = value; }
+        }
+
+        /// <summary>
+        /// 缺省选择的物料对象Id
+        /// </summary>
+        public string DefaultSelectedMaterilId = null;
+
+        public MGWBSTree model = new MGWBSTree();
+        public VSelectResourceTypeByUsage()
+        {
+            InitializeComponent();
+            InitialForm();
+        }
+        private void InitialForm()
+        {
+            InitialEvents();
+        }
+        private void InitialEvents()
+        {
+            btnEnter.Click += new EventHandler(btnEnter_Click);
+            btnCancel.Click += new EventHandler(btnCancel_Click);
+
+            btnQuery.Click += new EventHandler(btnQuery_Click);
+            cbShowAll.Click += new EventHandler(cbShowAll_Click);
+
+            this.Load += new EventHandler(VGWBSDetailUsageInfoEdit_Load);
+
+            this.FormClosing += new FormClosingEventHandler(VSelectResourceTypeByUsage_FormClosing);
+        }
+
+        //过滤
+        void btnQuery_Click(object sender, EventArgs e)
+        {
+            string resName = txtResName.Text.Trim();
+            string resSpec = txtResSpec.Text.Trim();
+
+            if (resName == "" && resSpec == "")
+            {
+                MessageBox.Show("请输入过滤条件！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtResName.Focus();
+                return;
+            }
+
+            resName = resName.ToLower();
+            resSpec = resSpec.ToLower();
+
+            gridMaterial.Rows.Clear();
+            if (cbShowAll.Checked)
+            {
+                //查询整个资源库
+                GetAllQueryData(resName, resSpec);
+            }
+            else
+            {
+                #region 从以保存的数据中查询
+                IList listResult = null;
+                if (resName != "" && resSpec != "")
+                {
+                    listResult = (from m in listMaterial.OfType<Material>()
+                                  where m.Name.ToLower().IndexOf(resName) > -1 && m.Specification.ToLower().IndexOf(resSpec) > -1
+                                  select m).ToList();
+                }
+                else if (resName != "")
+                {
+                    listResult = (from m in listMaterial.OfType<Material>()
+                                  where m.Name.ToLower().IndexOf(resName) > -1
+                                  select m).ToList();
+                }
+                else if (resSpec != "")
+                {
+                    listResult = (from m in listMaterial.OfType<Material>()
+                                  where m.Specification.ToLower().IndexOf(resSpec) > -1
+                                  select m).ToList();
+                }
+
+                if (listResult != null)
+                {
+                    foreach (Material mat in listResult)
+                    {
+                        AddUsageDetailInfoInGrid(mat, (mat.Id == DefaultSelectedMaterilId));
+                    }
+                }
+                #endregion
+            }
+        }
+        //显示全部
+        void cbShowAll_Click(object sender, EventArgs e)
+        {
+            btnQuery_Click(sender, e);
+            //if (cbShowAll.Checked)
+            //{
+            //    gridMaterial.Rows.Clear();
+
+            //    foreach (Material mat in listMaterial)
+            //    {
+            //        AddUsageDetailInfoInGrid(mat, (mat.Id == DefaultSelectedMaterilId));
+            //    }
+            //}
+        }
+
+        public bool isOK = false;
+        void btnEnter_Click(object sender, EventArgs e)
+        {
+            if (gridMaterial.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("请选择一项资源类型！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            SelectedMateril = gridMaterial.SelectedRows[0].Tag as Material;
+            SelectedMateril = model.GetObjectById(typeof(Material), SelectedMateril.Id) as Material;
+            isOK = true;
+            this.Close();
+        }
+        void btnCancel_Click(object sender, EventArgs e)
+        {
+            SelectedMateril = null;
+
+            this.Close();
+        }
+        void VSelectResourceTypeByUsage_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!isOK)
+                SelectedMateril = null;
+        }
+        void VGWBSDetailUsageInfoEdit_Load(object sender, EventArgs e)
+        {
+            if (ListResourceGroup != null)
+            {
+                string where = "";
+                foreach (ResourceGroup item in listResourceGroup)
+                {
+                    if (item.IsCateResource)
+                    {
+                        where += "thesyscode like '" + item.ResourceCateSyscode + "%' or ";
+                    }
+                    else
+                    {
+                        where += "materialid='" + item.ResourceTypeGUID + "' or ";
+                    }
+                }
+                if (where != "")
+                {
+                    where = where.Substring(0, where.Length - 3);
+                    //where = "thesyscode like '1.29BioV9QP5T9tJmw1VKARN.0_9v5YmYHCwOys4MOCzafd.%'";//用 资源类型 阀门 做测试（8000条数据）
+                    string sql = "select materialid,matname,matspecification from resmaterial where " + where;
+                    DataSet ds = model.SearchSQL(sql);
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            Material mat = new Material();
+                            mat.Id = row["materialid"].ToString();
+                            mat.Name = row["matname"].ToString();
+                            mat.Specification = row["matspecification"].ToString();
+
+                            bool isSelected = false;
+                            if (mat.Id == DefaultSelectedMaterilId)
+                                isSelected = true;
+
+                            listMaterial.Add(mat);
+
+                            AddUsageDetailInfoInGrid(mat, isSelected);
+                        }
+                    }
+                }
+                //ObjectQuery oq = new ObjectQuery();
+                //Disjunction dis = new Disjunction();
+                //foreach (ResourceGroup item in listResourceGroup)
+                //{
+                //    if (item.IsCateResource)
+                //    {
+                //        dis.Add(Expression.Like("TheSyscode", item.ResourceCateSyscode, MatchMode.Start));
+                //    }
+                //    else
+                //    {
+                //        dis.Add(Expression.Eq("Id", item.ResourceTypeGUID));
+                //    }
+                //}
+                //oq.AddCriterion(dis);
+
+                ////oq.AddOrder(NHibernate.Criterion.Order.Asc("TheSyscode"));
+
+                //IList list = model.ObjectQuery(typeof(Material), oq);
+                //if (list != null && list.Count > 0)
+                //{
+                //    foreach (Material mat in list)
+                //    {
+                //        bool isSelected = false;
+                //        if (mat.Id == DefaultSelectedMaterilId)
+                //            isSelected = true;
+
+                //        AddUsageDetailInfoInGrid(mat, isSelected);
+                //    }
+                //}
+            }
+        }
+
+        private void AddUsageDetailInfoInGrid(Material mat, bool isSelected)
+        {
+            int index = gridMaterial.Rows.Add();
+            DataGridViewRow row = gridMaterial.Rows[index];
+            row.Cells[DtlResourceName.Name].Value = mat.Name;
+            row.Cells[DtlResourceTypeSpec.Name].Value = mat.Specification;
+
+            row.Tag = mat;
+
+            if (isSelected)
+            {
+                row.Selected = true;
+                gridMaterial.CurrentCell = row.Cells[0];
+            }
+
+        }
+
+        private void GetAllQueryData(string matname, string resSpec)
+        {
+            string sqlWhere = "";
+            if (!string.IsNullOrEmpty(matname))
+            {
+                sqlWhere = string.Format(@" matname like '%{0}%'", matname);
+            }
+            if (!string.IsNullOrEmpty(resSpec))
+            {
+                sqlWhere = string.Format(@" matspecification like '%{0}%'", resSpec);
+            }
+
+            string sql = "select materialid,matname,matspecification from resmaterial  ";
+
+            if (!string.IsNullOrEmpty(sqlWhere))
+            {
+                sql += " where " + sqlWhere;
+            }
+
+            DataSet ds = model.SearchSQL(sql);
+            gridMaterial.Rows.Clear();
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    Material mat = new Material();
+                    mat.Id = row["materialid"].ToString();
+                    mat.Name = row["matname"].ToString();
+                    mat.Specification = row["matspecification"].ToString();
+
+                    bool isSelected = false;
+                    if (mat.Id == DefaultSelectedMaterilId)
+                        isSelected = true;
+
+                    AddUsageDetailInfoInGrid(mat, isSelected);
+                }
+            }
+
+        }
+    }
+}

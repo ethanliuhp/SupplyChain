@@ -1,0 +1,438 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Application.Business.Erp.SupplyChain.Client.Basic.Template;
+using Application.Business.Erp.SupplyChain.Client.Basic.CommonClass;
+using Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass;
+using Application.Resource.PersonAndOrganization.HumanResource.RelateClass;
+using VirtualMachine.Component.Util;
+using Application.Business.Erp.SupplyChain.Client.Basic;
+using Application.Business.Erp.SupplyChain.ProductionManagement.LaborSporadicManagement.Domain;
+using Application.Business.Erp.SupplyChain.Basic.Domain;
+using Application.Business.Erp.ResourceManager.Client.Basic.Controls;
+using VirtualMachine.Core;
+using System.Collections;
+using NHibernate.Criterion;
+using Application.Business.Erp.SupplyChain.Client.CostManagement.ContractExcuteMng;
+using Application.Business.Erp.SupplyChain.CostManagement.ContractExcuteMng.Domain;
+using VirtualMachine.Patterns.BusinessEssence.Domain;
+using VirtualMachine.Component.WinControls.CommonForm.FlashScreenMng;
+
+namespace Application.Business.Erp.SupplyChain.Client.ProductionManagement.LaborSporadicMng
+{
+    public partial class VLaborQuery : TBasicDataView
+    {
+        private MLaborSporadicMng model = new MLaborSporadicMng();
+
+        public VLaborQuery()
+        {
+            InitializeComponent();
+            InitEvent();
+            InitData();
+        }
+
+        private void InitData()
+        {
+            comMngType.Items.Clear();
+            comMngType1.Items.Clear();
+            Array tem = Enum.GetValues(typeof(DocumentState));
+            for (int i = 0; i < tem.Length; i++)
+            {
+                DocumentState s = (DocumentState)tem.GetValue(i);
+                int k = (int)s;
+                if (k != 0)
+                {
+                    string strNewName = ClientUtil.GetDocStateName(k);
+                    System.Web.UI.WebControls.ListItem li = new System.Web.UI.WebControls.ListItem();
+                    li.Text = strNewName;
+                    li.Value = k.ToString();
+                    comMngType.Items.Add(li);
+                    comMngType1.Items.Add(li);
+                }
+            }
+            this.dtpDateBegin.Value = ConstObject.TheLogin.LoginDate.AddDays(-7);
+            this.dtpDateEnd.Value = ConstObject.TheLogin.LoginDate;
+            this.dtpDateBeginBill.Value = ConstObject.TheLogin.LoginDate.AddDays(-7);
+            this.dtpDateEndBill.Value = ConstObject.TheLogin.LoginDate;
+            pnlFloor.Paint += new PaintEventHandler(pnlFloor_Paint);
+        }
+
+        void pnlFloor_Paint(object sender, PaintEventArgs e)
+        {
+            btnSearch.Focus();
+        }
+
+        private void InitEvent()
+        {
+            this.btnSearch.Click += new EventHandler(btnSearch_Click);
+            this.btnSearchBill.Click += new EventHandler(btnSearchBill_Click);
+            this.btnExcel.Click += new EventHandler(btnExcel_Click);
+            this.btnExcelBill.Click += new EventHandler(btnExcelBill_Click);
+            this.btnChoice.Click += new EventHandler(btnChoice_Click);
+            this.btnSelInsted.Click += new EventHandler(btnSelInsted_Click);
+            this.btnChoiceBill.Click += new EventHandler(btnChoiceBill_Click);
+            dgDetail.CellContentClick += new DataGridViewCellEventHandler(dgDetail_CellContentClick);
+            dgMaster.SelectionChanged += new EventHandler(dgMaster_SelectionChanged);
+        }
+        //明细显示选择队伍
+        void btnChoice_Click(object sender, EventArgs e)
+        {
+            VContractExcuteSelector vmros = new VContractExcuteSelector();
+            vmros.ShowDialog();
+            IList list = vmros.Result;
+            if (list == null || list.Count == 0) return;
+            SubContractProject engineerMaster = list[0] as SubContractProject;
+            txtSupply.Text = engineerMaster.BearerOrgName;
+            txtSupply.Tag = engineerMaster;
+        }
+        //明细显示选择被代工队伍
+        void btnSelInsted_Click(object sender, EventArgs e)
+        {
+            VContractExcuteSelector vmros = new VContractExcuteSelector();
+            vmros.ShowDialog();
+            IList list = vmros.Result;
+            if (list == null || list.Count == 0) return;
+            SubContractProject engineerMaster = list[0] as SubContractProject;
+            this.txtInstedSupply.Text = engineerMaster.BearerOrgName;
+            txtInstedSupply.Tag = engineerMaster;
+        }
+
+
+        void dgDetail_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex < 0 || e.RowIndex < 0) return;
+            DataGridViewCell dgvCell = dgDetail[e.ColumnIndex, e.RowIndex];
+            if (dgvCell.Value == null || string.IsNullOrEmpty(dgvCell.Value.ToString())) return;
+            if (dgvCell.OwningColumn.Name == colCode.Name)
+            {
+                LaborSporadicMaster master = model.LaborSporadicSrv.GetLaborSporadicByCode(dgvCell.Value.ToString());
+                VLaborSporadic vmro = new VLaborSporadic();
+                vmro.CurBillMaster = master;
+                vmro.Preview();
+            }
+        }
+
+        //明细EXCEL 按钮事件
+        void btnExcel_Click(object sender, EventArgs e)
+        {
+            Application.Business.Erp.SupplyChain.Client.Basic.CommonClass.StaticMethod.ExcelClass.SaveDataGridViewToExcel(this.dgDetail, true);
+        }
+
+        //明细显示查询事件
+        void btnSearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FlashScreen.Show("正在查询信息......");
+                string condition = "";
+                CurrentProjectInfo projectInfo = StaticMethod.GetProjectInfo();
+                projectInfo = StaticMethod.GetProjectInfo();
+                condition += "and t1.ProjectId = '" + projectInfo.Id + "'";
+                //单据
+                if (txtCodeBegin.Text != "")
+                {
+                    condition += "and t1.Code like '%" + txtCodeBegin.Text + "%'";
+                }
+                //业务日期
+                if (StaticMethod.IsUseSQLServer())
+                {
+                    condition += " and t1.CreateDate>='" + dtpDateBegin.Value.Date.ToShortDateString() + "' and t1.CreateDate<'" + dtpDateEnd.Value.AddDays(1).Date.ToShortDateString() + "'";
+                }
+                else
+                {
+                    condition += " and t1.CreateDate>=to_date('" + dtpDateBegin.Value.Date.ToShortDateString() + "','yyyy-mm-dd') and t1.CreateDate<to_date('" + dtpDateEnd.Value.AddDays(1).Date.ToShortDateString() + "','yyyy-mm-dd')";
+                }
+                //创建人
+                if (txtCreatePerson.Text != "")
+                {
+                    condition = condition + " and t1.createPersonName='" + (txtCreatePerson.Result[0] as PersonInfo).Name + "'";
+                }
+                //承担队伍
+                if (txtSupply.Text != "")
+                {
+                    condition += "and t1.bearTeamName = '" + txtSupply.Text + "' and t1.bearTeam = '" + (txtSupply.Tag as SubContractProject).Id + "'";
+
+                }
+                //被代工队伍
+                if (this.txtInstedSupply.Text != "")
+                {
+                    condition += "and t2.insteadteamname = '" + txtInstedSupply.Text + "'";
+
+                }
+                //派工类型
+                condition += "and t1.LaborState = '代工'";
+                if (comMngType1.Text != "")
+                {
+                    System.Web.UI.WebControls.ListItem li = comMngType1.SelectedItem as System.Web.UI.WebControls.ListItem;
+                    int values = ClientUtil.ToInt(li.Value);
+                    //condition += "and t1.State= '"+ values +"'";
+                }
+                DataSet dataSet = model.LaborSporadicSrv.LaborSporadicQuery(condition);
+                this.dgDetail.Rows.Clear();
+                DataTable dataTable = dataSet.Tables[0];
+                foreach (DataRow dataRow in dataTable.Rows)
+                {
+                    int rowIndex = this.dgDetail.Rows.Add();
+                    dgDetail[colCode.Name, rowIndex].Value = dataRow["code"];
+                    object objState = dataRow["State"];
+                    if (objState != null)
+                    {
+                        dgDetail[colState.Name, rowIndex].Value = ClientUtil.GetDocStateName(int.Parse(objState.ToString()));
+                    }
+                    dgDetail[colAccountPrice.Name, rowIndex].Value = dataRow["AccountPrice"];     //核算价格
+                    dgDetail[colAccountSporadicNum.Name, rowIndex].Value = dataRow["AccountLaborNum"];   //核算用工量
+                    dgDetail[colBearTeam.Name, rowIndex].Value = dataRow["BearTeamName"];       //承担队伍
+                    dgDetail[colInsteadTeam.Name, rowIndex].Value = dataRow["InsteadTeamName"];      //被代工单位
+                    if (ClientUtil.ToString(dataRow["balancedtlguid"]) != "")
+                    {
+                        dgDetail[this.colMxIfBal.Name, rowIndex].Value = "是";
+                    }
+                    else
+                    {
+                        dgDetail[this.colMxIfBal.Name, rowIndex].Value = "否";
+                    }
+                    string b = dataRow["RealOperationDate"].ToString();
+                    string[] bArray = b.Split(' ');
+                    string strb = bArray[0];
+                    dgDetail[colComPleteDate.Name, rowIndex].Value = strb;    //完成时间
+                    string d = dataRow["CreateDate"].ToString();
+                    string[] dArray = d.Split(' ');
+                    string strd = dArray[0];
+                    dgDetail[colCreateDate.Name, rowIndex].Value = strd;
+                    dgDetail[colCreatePerson.Name, rowIndex].Value = dataRow["CreatePersonName"];
+                    string a = dataRow["EndDate"].ToString();
+                    string[] aArray = a.Split(' ');
+                    string stra = aArray[0];
+                    dgDetail[colEndDate.Name, rowIndex].Value = stra;
+                    dgDetail[colLaborSubject.Name, rowIndex].Value = dataRow["LaborSubjectName"];        //用工科目
+                    dgDetail[colPredictSpotadicNum.Name, rowIndex].Value = dataRow["PredictLaborNum"];       //计划用工量
+                    dgDetail[colPriceUnit.Name, rowIndex].Value = dataRow["PriceUnitName"];             //价格单位
+                    dgDetail[colProjectTastDetail.Name, rowIndex].Value = dataRow["ProjectTastDetailName"];     //工程任务明细
+                    dgDetail[colProjectTastType.Name, rowIndex].Value = dataRow["ProjectTastName"];            //工程任务类型
+                    dgDetail[colQuantityUnit.Name, rowIndex].Value = dataRow["QuantityUnitName"];         //数量单位
+                    dgDetail[colRealSporadicNum.Name, rowIndex].Value = dataRow["RealLaborNum"];        //实际用工量
+                    dgDetail[colLaborDescript.Name, rowIndex].Value = dataRow["LaborDescript"];       //用工说明
+                    dgDetail[colSporadicType.Name, rowIndex].Value = dataRow["LaborState"];         //用工类型
+                    string c = dataRow["StartDate"].ToString();
+                    string[] cArray = c.Split(' ');
+                    string strc = cArray[0];
+                    dgDetail[colStartDate.Name, rowIndex].Value = strc;
+                    string strIsCreate = dataRow["IsCreate"].ToString();
+                    if (strIsCreate.Equals("0"))
+                    {
+                        dgDetail[colIsCreate.Name, rowIndex].Value = "未审核";
+                    }
+                    if (strIsCreate.Equals("1"))
+                    {
+                        dgDetail[colIsCreate.Name, rowIndex].Value = "已审核";
+                    }
+                    if (ClientUtil.ToDateTime(dataRow["RealOperationDate"]) > ClientUtil.ToDateTime("1900-01-01"))
+                    {
+                        dgDetail[colRealOperationDate.Name, rowIndex].Value = ClientUtil.ToDateTime(dataRow["RealOperationDate"]).ToString();     //制单时间;
+                    }
+                }
+                lblRecordTotal.Text = "共【" + dataTable.Rows.Count + "】条记录";
+                this.dgDetail.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
+                FlashScreen.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("查询数据出错。\n" + ex.Message);
+            }
+            finally
+            {
+                FlashScreen.Close();
+            }
+
+        }
+        //主从表EXCEL 按钮事件
+        void btnExcelBill_Click(object sender, EventArgs e)
+        {
+            Application.Business.Erp.SupplyChain.Client.Basic.CommonClass.StaticMethod.ExcelClass.SaveDataGridViewToExcel(this.dgDetailBill, true);
+        }
+        //主从表显示选择队伍
+        void btnChoiceBill_Click(object sender, EventArgs e)
+        {
+            if (btnChoiceBill.Enabled = true)
+            {
+                VContractExcuteSelector vmros = new VContractExcuteSelector();
+                vmros.ShowDialog();
+                IList list = vmros.Result;
+                if (list == null || list.Count == 0) return;
+                SubContractProject engineerMaster = list[0] as SubContractProject;
+                txtSupplyBill.Text = engineerMaster.BearerOrgName;
+                txtSupplyBill.Tag = engineerMaster;
+            }
+        }
+
+        //主从表查询按钮事件
+        void btnSearchBill_Click(object sender, EventArgs e)
+        {
+            FlashScreen.Show("正在查询信息......");
+            ObjectQuery objectQuery = new ObjectQuery();
+            IList list = new ArrayList();
+            CurrentProjectInfo projectInfo = StaticMethod.GetProjectInfo();
+            //当前项目
+            objectQuery.AddCriterion(Expression.Eq("ProjectId", projectInfo.Id));
+
+            //单据
+            if (txtCodeBeginBill.Text != "")
+            {
+                objectQuery.AddCriterion(Expression.Like("Code", txtCodeBeginBill.Text, MatchMode.Anywhere));
+            }
+            //业务时间
+            objectQuery.AddCriterion(Expression.Ge("CreateDate", this.dtpDateBeginBill.Value.Date));
+            objectQuery.AddCriterion(Expression.Lt("CreateDate", this.dtpDateEndBill.Value.AddDays(1).Date));
+            //创建人
+            if (txtCreatePersonBill.Text != "")
+            {
+                objectQuery.AddCriterion(Expression.Like("CreatePersonName", txtCreatePersonBill.Text, MatchMode.Anywhere));
+            }
+            //承担队伍
+            if (txtSupplyBill.Text != "")
+            {
+                objectQuery.AddCriterion(Expression.Eq("BearTeamName", txtSupplyBill.Text));
+                objectQuery.AddCriterion(Expression.Eq("BearTeam", txtSupplyBill.Tag as SubContractProject));
+            }
+            //派工类型
+            objectQuery.AddCriterion(Expression.Eq("LaborState", "代工"));
+            //状态
+            if (comMngType.Text != "")
+            {
+                System.Web.UI.WebControls.ListItem li = comMngType.SelectedItem as System.Web.UI.WebControls.ListItem;
+                int values = ClientUtil.ToInt(li.Value);
+                objectQuery.AddCriterion(Expression.Eq("DocState", (DocumentState)values));
+            }
+            try
+            {
+                list = model.LaborSporadicSrv.GetLaborSporadic(objectQuery);
+                dgDetail.Rows.Clear();
+                dgMaster.Rows.Clear();
+                dgDetailBill.Rows.Clear();
+                ShowMasterList(list);
+                FlashScreen.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("查询数据出错。\n" + ex.Message);
+            }
+            finally
+            {
+                FlashScreen.Close();
+            }
+        }
+
+        /// <summary>
+        /// 显示主表
+        /// </summary>
+        /// <param name="masterList"></param>
+        private void ShowMasterList(IList masterList)
+        {
+            dgMaster.Rows.Clear();
+            if (masterList == null || masterList.Count == 0) return;
+            foreach (LaborSporadicMaster master in masterList)
+            {
+                int rowIndex = dgMaster.Rows.Add();
+                dgMaster.Rows[rowIndex].Tag = master;
+                dgMaster[colCodeBill.Name, rowIndex].Value = master.Code;
+                dgMaster[colBearTeamBill.Name, rowIndex].Value = master.BearTeamName;
+                dgMaster[colCreatePersonBill.Name, rowIndex].Value = master.CreatePersonName;         //制单人
+                dgMaster[colCreateDateBill.Name, rowIndex].Value = master.CreateDate.ToShortDateString();         //业务日期
+                if (master.RealOperationDate > ClientUtil.ToDateTime("1900-1-1"))
+                {
+                    dgMaster[colRealOperationDateBill.Name, rowIndex].Value = master.RealOperationDate.ToShortDateString(); 
+                }
+                object objState = master.DocState;
+                if (objState != null) 
+                {
+                    dgMaster[colStateBill.Name, rowIndex].Value = ClientUtil.GetDocStateName((master.DocState));
+                    if (master.DocState == DocumentState.Suspend)
+                    {
+                        dgMaster[colStateBill.Name, rowIndex].Value = "待复核";
+                    }
+                }
+            }
+            dgMaster.CurrentCell = dgMaster[1, 0];
+            dgMaster_SelectionChanged(dgMaster, new EventArgs());
+        }
+        /// <summary>
+        /// 主表变化，明细同步变化
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void dgMaster_SelectionChanged(object sender, EventArgs e)
+        {
+            dgDetailBill.Rows.Clear();
+            LaborSporadicMaster master = dgMaster.CurrentRow.Tag as LaborSporadicMaster;
+            if (master == null) return;
+            //dgDetail.Rows[rowIndex].Tag = dtl;
+            foreach (LaborSporadicDetail dtl in master.Details)
+            {
+                int rowIndex = dgDetailBill.Rows.Add();
+                dgDetailBill[colInsteadTeamBill.Name, rowIndex].Value = dtl.InsteadTeamName;           //被代工队伍
+                dgDetailBill[colSporadicTypeBill.Name, rowIndex].Value = master.LaborState;               //派工类型    
+                dgDetailBill[colProjectTastTypeBill.Name, rowIndex].Value = dtl.ProjectTastName;         //工程任务类型
+                dgDetailBill[colProjectTastDetailBill.Name, rowIndex].Value = dtl.ProjectTastDetailName;      //工程任务明细
+                dgDetailBill[colLaborSubjectBill.Name, rowIndex].Value = dtl.LaborSubjectName;         //用工科目
+                dgDetailBill[colPredictSpotadicNumBill.Name, rowIndex].Value = dtl.PredictLaborNum;            //计划用工量
+                dgDetailBill[colRealSporadicNumBill.Name, rowIndex].Value = dtl.RealLaborNum;                 //实际用工量
+                dgDetailBill[colLaborDescriptBill.Name, rowIndex].Value = dtl.LaborDescript;                //用工说明
+                dgDetailBill[colQuantityUnitBill.Name, rowIndex].Value = dtl.QuantityUnitName;              //数量单位
+                dgDetailBill[colPriceUnitBill.Name, rowIndex].Value = dtl.PriceUnitName;                  //价格单位
+                string strIsCreate = dtl.IsCreate.ToString();                //是否核算
+                if (strIsCreate.Equals("0"))
+                {
+                    dgDetailBill[colIsCreateBill.Name, rowIndex].Value = "未审核";
+                }
+                if (strIsCreate.Equals("1"))
+                {
+                    dgDetailBill[colIsCreateBill.Name, rowIndex].Value = "已审核";
+                }
+                dgDetailBill[colStartDateBill.Name, rowIndex].Value = dtl.StartDate.ToShortDateString();          //开始时间
+                dgDetailBill[colEndDateBill.Name, rowIndex].Value = dtl.EndDate.ToShortDateString();              //结束时间
+                if (dtl.CompleteDate > ClientUtil.ToDateTime("1900-01-01"))
+                {
+                    dgDetailBill[colComPleteDateBill.Name, rowIndex].Value = dtl.CompleteDate.ToShortDateString();            //业务完成时间
+                }
+                if (dtl.BalanceDtlGUID ==null)
+                {
+                    dgDetailBill[colSettleDate.Name, rowIndex].Value = "未结算";
+                }
+                else 
+                {
+                    dgDetailBill[colSettleDate.Name, rowIndex].Value = "已结算";
+                }
+            }
+        }
+
+        public override bool Print()
+        {
+            return Preview();
+        }
+
+        public override bool Preview()
+        {
+            LaborSporadicMaster master = dgMaster.CurrentRow.Tag as LaborSporadicMaster;
+            if (master == null) return false;
+            try
+            {
+                LaborSporadicBillPrintPreview.Preview(master);
+                return true;
+
+            }
+            catch (InvalidOperationException e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return false;
+        }
+
+
+    }
+}
+

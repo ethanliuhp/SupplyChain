@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.Basic.Domain.ProjectLedger,SupplyChain" table="THD_ProjectLedger" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+
+    <property name="FullName"/>
+    <property name="ShortName"/>
+    <property name="ConstructionStage"/>
+    <property name="PermitTransact"/>
+    <property name="Province"/>
+    <property name="City"/>
+    <property name="Address"/>
+    <property name="BuildUnit"/>
+    <property name="FirstPartyPrincipal"/>
+    <property name="PrincipalJob"/>
+    <property name="PrincipalPhone"/>
+    <property name="SupervisorUnit"/>
+    <property name="DesignUnit"/>
+    <property name="ProjectManager"/>
+    <property name="ManagerPhone"/>
+    <property name="StartWorkDate"/>
+    <property name="CompleteDate"/>
+    <property name="CalendarDay"/>
+    <property name="BuildingCost"/>
+    <property name="OutputValue"/>
+    <property name="StructureArea"/>
+    <property name="BuildHeight"/>
+    <property name="StoreyNumber"/>
+    <property name="Scale"/>
+    <property name="QualityTarget"/>
+    <property name="ExcellenceTarget"/>
+    <property name="SecurityTarget"/>
+    <property name="CreateDate"/>
+    <property name="ModifyDate"/>
+
+    <many-to-one name="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"></many-to-one>
+    <property name="CreatePersonName"/>
+    <many-to-one name="OperOrgInfo" column="OwnerOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"></many-to-one>
+    <property name="OperOrgInfoName" column="OwnerOrgNAME"/>
+    <property name="OpgSysCode" column="OwnerOrgSYSCODE"/>
+
+    <property name="SupervisorPrincipal"/>
+    <property name="SupervisorPhone"/>
+    <property name="RealStartDate"/>
+    <property name="RealCompleteDate"/>
+    <property name="State"/>
+  </class>
+</hibernate-mapping>

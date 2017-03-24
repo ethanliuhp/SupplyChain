@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.PBS.Domain.Elements,SupplyChain" lazy="true" table="THD_Elements" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="Description" />
+    <property name="Name" />
+    <property name="Code" />
+    <many-to-one name="Unit" class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager" />
+    <property name="UnitName" />
+    <property name="WorkAmount" />
+    <property name="Type" />
+    <property name="Resources" />
+    <property name="ResourcesName" />
+    <property name="PbsId" />
+    <property name="PbsName" />
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="Master" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.PBS.Domain.ElementFeature,SupplyChain"/>
+    </set>
+  </class>
+</hibernate-mapping>

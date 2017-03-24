@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetAllData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DataType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllDataResult" type="tns:ReturnData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ReturnData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="XML" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LastServerID" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetUserFlag">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sMSG" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserFlagResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetUserFlagResult" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sMSG" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DataType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="err" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDataResult" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="err" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReturnData" nillable="true" type="tns:ReturnData" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetAllDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllData" />
+  </wsdl:message>
+  <wsdl:message name="GetAllDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserFlagSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserFlag" />
+  </wsdl:message>
+  <wsdl:message name="GetUserFlagSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserFlagResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetData" />
+  </wsdl:message>
+  <wsdl:message name="GetDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllDataHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="DataType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllDataHttpGetOut">
+    <wsdl:part name="Body" element="tns:ReturnData" />
+  </wsdl:message>
+  <wsdl:message name="GetAllDataHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="DataType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllDataHttpPostOut">
+    <wsdl:part name="Body" element="tns:ReturnData" />
+  </wsdl:message>
+  <wsdl:portType name="DataSvcSoap">
+    <wsdl:operation name="GetAllData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">根据数据类型返回全部数据</wsdl:documentation>
+      <wsdl:input message="tns:GetAllDataSoapIn" />
+      <wsdl:output message="tns:GetAllDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserFlag">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">返回当前库中的USER表标示。</wsdl:documentation>
+      <wsdl:input message="tns:GetUserFlagSoapIn" />
+      <wsdl:output message="tns:GetUserFlagSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">返回部门用户数据信息。</wsdl:documentation>
+      <wsdl:input message="tns:GetDataSoapIn" />
+      <wsdl:output message="tns:GetDataSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="DataSvcHttpGet">
+    <wsdl:operation name="GetAllData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">根据数据类型返回全部数据</wsdl:documentation>
+      <wsdl:input message="tns:GetAllDataHttpGetIn" />
+      <wsdl:output message="tns:GetAllDataHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="DataSvcHttpPost">
+    <wsdl:operation name="GetAllData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">根据数据类型返回全部数据</wsdl:documentation>
+      <wsdl:input message="tns:GetAllDataHttpPostIn" />
+      <wsdl:output message="tns:GetAllDataHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DataSvcSoap" type="tns:DataSvcSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAllData">
+      <soap:operation soapAction="http://tempuri.org/GetAllData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserFlag">
+      <soap:operation soapAction="http://tempuri.org/GetUserFlag" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetData">
+      <soap:operation soapAction="http://tempuri.org/GetData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DataSvcSoap12" type="tns:DataSvcSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAllData">
+      <soap12:operation soapAction="http://tempuri.org/GetAllData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserFlag">
+      <soap12:operation soapAction="http://tempuri.org/GetUserFlag" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetData">
+      <soap12:operation soapAction="http://tempuri.org/GetData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DataSvcHttpGet" type="tns:DataSvcHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="GetAllData">
+      <http:operation location="/GetAllData" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DataSvcHttpPost" type="tns:DataSvcHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GetAllData">
+      <http:operation location="/GetAllData" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DataSvc">
+    <wsdl:port name="DataSvcSoap" binding="tns:DataSvcSoap">
+      <soap:address location="http://www.cscec3b.com:8888/WebService/LK6SyncService/MrMMSSvc/DataSvc.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DataSvcSoap12" binding="tns:DataSvcSoap12">
+      <soap12:address location="http://www.cscec3b.com:8888/WebService/LK6SyncService/MrMMSSvc/DataSvc.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DataSvcHttpGet" binding="tns:DataSvcHttpGet">
+      <http:address location="http://www.cscec3b.com:8888/WebService/LK6SyncService/MrMMSSvc/DataSvc.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DataSvcHttpPost" binding="tns:DataSvcHttpPost">
+      <http:address location="http://www.cscec3b.com:8888/WebService/LK6SyncService/MrMMSSvc/DataSvc.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

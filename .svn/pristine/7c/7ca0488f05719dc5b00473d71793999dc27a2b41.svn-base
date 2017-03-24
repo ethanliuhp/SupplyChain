@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.StockManage.StockInManage.Domain.StockInDtlSeq,SupplyChain" table="thd_stkStockInRedSeq" lazy="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <!--物资-->
+    <property name="Material" column="Material"/>
+    <property name="MaterialCode" column="MatCode"/>
+    <property name="MaterialName" column="MatName"/>
+    <property name="MaterialSpec" column="MatSpec"/>
+
+    <property name="StockInRedId"/>
+    <property name="StockInRedDtlId"/>
+    <property name="Step"/>
+    <property name="Descript"/>
+    <property name="Quantity"/>
+    <property name="Price"/>
+    <property name="StockOutDtlId"/>
+
+  </class>
+</hibernate-mapping>
+
+

@@ -1,0 +1,205 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Application.Business.Erp.SupplyChain.Base.Domain;
+using Application.Resource.PersonAndOrganization.HumanResource.RelateClass;
+using Iesi.Collections.Generic;
+using VirtualMachine.Core.Attributes;
+
+namespace Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain
+{
+    /// <summary>
+    /// 资金策划主表
+    /// </summary>
+    [Serializable]
+    [Entity]
+    public class FundPlanningMaster : BaseMaster
+    {
+        private string unit; //单位
+        private DateTime declareDate; //申报日期
+        private decimal projectCost; //工程造价
+        private string contractDuration; //合同工期
+        private string gatheringCondition; //主合同收款条件
+        private string specialDescript; //主合同需特别说明事项
+        private DateTime schemeBeginDate; //资金策划周期
+        private DateTime schemeEndDate; //资金策划周期
+        private string calculateSituation; //资金测算情况
+        private string planningTarget; //资金策划目标
+        private decimal calculateProfitRate; //测算自行利润率
+        private decimal targetHandin; //目标责任上缴
+        private decimal costCashRate; //成本付现率
+        private decimal breakevenPoint; //收支平衡点
+
+        private ISet<FundSchemeGathering> gatheringCalculationDtl = new HashedSet<FundSchemeGathering>();
+        private ISet<FundSchemePayment> paymentCalculationDtl = new HashedSet<FundSchemePayment>();
+        private ISet<FundSchemeCashCostRate> cashCostRateCalculationDtl = new HashedSet<FundSchemeCashCostRate>();
+        private ISet<FundSchemeReportAmount> costCalculationDtl = new HashedSet<FundSchemeReportAmount>();
+        private ISet<FundSchemeIndirectTaxRate> indirectInputCalculate = new HashedSet<FundSchemeIndirectTaxRate>();
+        private ISet<FundSchemeFinanceFee> financeFeeCalculate = new HashedSet<FundSchemeFinanceFee>();
+        private ISet<FundSchemeSummary> fundSchemeSummary = new HashedSet<FundSchemeSummary>();
+        private ISet<FundSchemeContrast> fundSchemeContrast = new HashedSet<FundSchemeContrast>();
+
+        public virtual string Unit
+        {
+            get { return unit; }
+            set { unit = value; }
+        }
+
+        public virtual DateTime DeclareDate
+        {
+            get { return declareDate; }
+            set { declareDate = value; }
+        }
+
+        public virtual decimal ProjectCost
+        {
+            get { return projectCost; }
+            set { projectCost = value; }
+        }
+
+        public virtual string ContractDuration
+        {
+            get { return contractDuration; }
+            set { contractDuration = value; }
+        }
+
+        public virtual string GatheringCondition
+        {
+            get { return gatheringCondition; }
+            set { gatheringCondition = value; }
+        }
+
+        public virtual string SpecialDescript
+        {
+            get { return specialDescript; }
+            set { specialDescript = value; }
+        }
+
+        public virtual DateTime SchemeBeginDate
+        {
+            get { return schemeBeginDate; }
+            set { schemeBeginDate = value; }
+        }
+
+        public virtual DateTime SchemeEndDate
+        {
+            get { return schemeEndDate; }
+            set { schemeEndDate = value; }
+        }
+
+        public virtual string CalculateSituation
+        {
+            get { return calculateSituation; }
+            set { calculateSituation = value; }
+        }
+
+        public virtual string PlanningTarget
+        {
+            get { return planningTarget; }
+            set { planningTarget = value; }
+        }
+
+        public virtual decimal CalculateProfitRate
+        {
+            get { return calculateProfitRate; }
+            set { calculateProfitRate = value; }
+        }
+
+        public virtual decimal TargetHandin
+        {
+            get { return targetHandin; }
+            set { targetHandin = value; }
+        }
+
+        public virtual decimal CostCashRate
+        {
+            get { return costCashRate; }
+            set { costCashRate = value; }
+        }
+
+        public virtual decimal BreakevenPoint
+        {
+            get { return breakevenPoint; }
+            set { breakevenPoint = value; }
+        }
+
+        /// <summary>
+        /// 收款测算
+        /// </summary>
+        public virtual ISet<FundSchemeGathering> GatheringCalculationDtl
+        {
+            get { return gatheringCalculationDtl; }
+            set { gatheringCalculationDtl = value; }
+        }
+
+        /// <summary>
+        /// 付款测算
+        /// </summary>
+        public virtual ISet<FundSchemePayment> PaymentCalculationDtl
+        {
+            get { return paymentCalculationDtl; }
+            set { paymentCalculationDtl = value; }
+        }
+
+        /// <summary>
+        /// 付现成本率测算
+        /// </summary>
+        public virtual ISet<FundSchemeCashCostRate> CashCostRateCalculationDtl
+        {
+            get { return cashCostRateCalculationDtl; }
+            set { cashCostRateCalculationDtl = value; }
+        }
+
+        /// <summary>
+        /// 报量与成本
+        /// </summary>
+        public virtual ISet<FundSchemeReportAmount> CostCalculationDtl
+        {
+            get { return costCalculationDtl; }
+            set { costCalculationDtl = value; }
+        }
+
+        /// <summary>
+        /// 间接费进项税率
+        /// </summary>
+        public virtual ISet<FundSchemeIndirectTaxRate> IndirectInputCalculate
+        {
+            get { return indirectInputCalculate; }
+            set { indirectInputCalculate = value; }
+        }
+
+        /// <summary>
+        /// 财务费用测算
+        /// </summary>
+        public virtual ISet<FundSchemeFinanceFee> FinanceFeeCalculate
+        {
+            get { return financeFeeCalculate; }
+            set { financeFeeCalculate = value; }
+        }
+
+        /// <summary>
+        /// 资金策划汇总表
+        /// </summary>
+        public virtual ISet<FundSchemeSummary> FundSummaryDtl
+        {
+            get { return fundSchemeSummary; }
+            set { fundSchemeSummary = value; }
+        }
+
+        /// <summary>
+        /// 项目现金流测算及资金策划对比表
+        /// </summary>
+        public virtual ISet<FundSchemeContrast> FundCalculateContrastDtl
+        {
+            get { return fundSchemeContrast; }
+            set { fundSchemeContrast = value; }
+        }
+
+        public virtual string SchemeTime
+        {
+            get { return string.Concat(schemeBeginDate.ToString("yyyy年M月d日"), "-", schemeEndDate.ToString("yyyy年M月d日")); }
+        }
+
+    }
+}

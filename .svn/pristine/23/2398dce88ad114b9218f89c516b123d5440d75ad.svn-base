@@ -1,0 +1,412 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using VirtualMachine.Component.WinMVC.generic;
+using System.Collections;
+using Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain;
+using Application.Business.Erp.SupplyChain.Client.MoneyManage.FundScheme;
+
+namespace Application.Business.Erp.SupplyChain.Client.MoneyManage.FinanceMultData
+{
+    public enum FinanceMultDataExecType
+    {
+        项目财务账面维护 = 0,
+        项目财务账面维护查询 = 1,
+        主营业务收入台账 = 2,
+        项目成本支出台账 = 3,
+        工程项目收支分析表 = 4,
+        项目财务账面维护安装 = 5,
+        资金结账 = 6,
+        时间期间定义 = 7,
+        施工节点进度维护 = 8,
+        项目启动确认 = 9,
+        项目商务成本确认 = 10,
+        资金策划表 = 11,
+        资金测算表 = 12,
+        资金策划表审批 = 13,
+        非实体进度设置 = 14,
+        资金策划表查询 = 15
+    }
+
+    public class CFinanceMultData
+    {
+        private static IFramework framework = null;
+        private string mainViewName = "项目财务账面维护";
+        private  VFinanceMultDataSearchList searchList;
+
+        public CFinanceMultData(IFramework fm)
+        {
+            if (framework == null)
+                framework = fm;
+            searchList = new VFinanceMultDataSearchList(this);
+        }
+
+        public void Start(FinanceMultDataExecType execType)
+        {
+            Find("空", execType, "空");
+        }
+
+        public void Find(string name, FinanceMultDataExecType execType, string Id)
+        {
+            switch (execType)
+            {
+                case FinanceMultDataExecType.项目财务账面维护:
+                    {
+
+                        mainViewName = "项目财务账面维护";
+                        string captionName = mainViewName;
+                        if (name is string)
+                        {
+                            captionName = this.mainViewName + "-" + name;
+                        }
+
+                        IMainView mv = framework.GetMainView(captionName);
+
+                        if (mv != null)
+                        {
+                            //如果当前视图已经存在，直接显示
+                            mv.ViewShow();
+                            return;
+                        }
+
+                        VFinanceMultData vMainView = framework.GetMainView(mainViewName + "-空") as VFinanceMultData;
+
+                        if (vMainView == null)
+                        {
+                            vMainView = new VFinanceMultData(AccountType.项目);
+                            //vMainView.MonthlyType = execType;
+                            vMainView.ViewName = mainViewName;
+
+                            //载入查询视图
+                            vMainView.ViewDeletedEvent += new Application.Business.Erp.SupplyChain.Client.Basic.Template.ViewDeletedHandle(vSaleBudget_ViewDeletedEvent);
+                            //分配辅助视图
+                            vMainView.AssistViews.Add(searchList);
+                            VFinanceMultDataSearchCon searchCon = new VFinanceMultDataSearchCon(searchList, AccountType.项目,execType);
+
+                            vMainView.AssistViews.Add(searchCon);
+
+                            //载入框架
+                            framework.AddMainView(vMainView);
+                        }
+
+                        vMainView.ViewCaption = captionName;
+                        vMainView.ViewName = mainViewName;
+                        vMainView.Start(Id);
+
+                        vMainView.ViewShow();
+                        break;
+                    }
+                case FinanceMultDataExecType.项目商务成本确认:
+                    {
+                        mainViewName = "项目商务成本确认";
+                        string captionName = mainViewName;
+                        if (name is string)
+                        {
+                            captionName = this.mainViewName + "-" + name;
+                        }
+
+                        IMainView mv = framework.GetMainView(captionName);
+
+                        if (mv != null)
+                        {
+                            //如果当前视图已经存在，直接显示
+                            mv.ViewShow();
+                            return;
+                        }
+
+                        VBusinessCostSure vMainView = framework.GetMainView(mainViewName + "-空") as VBusinessCostSure;
+
+                        if (vMainView == null)
+                        {
+                            
+                            vMainView = new VBusinessCostSure(AccountType.项目);
+                            //vMainView.MonthlyType = execType;
+                            vMainView.ViewName = mainViewName;
+
+                            //载入查询视图
+                            vMainView.ViewDeletedEvent += new Application.Business.Erp.SupplyChain.Client.Basic.Template.ViewDeletedHandle(vSaleBudget_ViewDeletedEvent);
+                            //分配辅助视图
+                            vMainView.AssistViews.Add(searchList);
+
+                            VBusinessCostSureSearchCon searchCon = new VBusinessCostSureSearchCon(searchList, AccountType.项目, execType);
+
+                            vMainView.AssistViews.Add(searchCon);
+
+                            //载入框架
+                            framework.AddMainView(vMainView);
+                        }
+
+                        vMainView.ViewCaption = captionName;
+                        vMainView.ViewName = mainViewName;
+                        vMainView.Start(Id);
+
+                        vMainView.ViewShow();
+                        break;
+                    }
+                case FinanceMultDataExecType.项目财务账面维护安装:
+                    {
+                        mainViewName = "项目财务账面维护(安装)";
+                        string captionName = mainViewName;
+                        if (name is string)
+                        {
+                            captionName = this.mainViewName + "-" + name;
+                        }
+
+                        IMainView mv = framework.GetMainView(captionName);
+
+                        if (mv != null)
+                        {
+                            //如果当前视图已经存在，直接显示
+                            mv.ViewShow();
+                            return;
+                        }
+
+                        VFinanceMultDataAZ vMainView = framework.GetMainView(mainViewName + "-空") as VFinanceMultDataAZ;
+
+                        if (vMainView == null)
+                        {
+                            vMainView = new VFinanceMultDataAZ(AccountType.项目);
+                            //vMainView.MonthlyType = execType;
+                            vMainView.ViewName = mainViewName;
+
+                            //载入查询视图
+                            vMainView.ViewDeletedEvent += new Application.Business.Erp.SupplyChain.Client.Basic.Template.ViewDeletedHandle(vSaleBudget_ViewDeletedEvent);
+                            //分配辅助视图
+                            vMainView.AssistViews.Add(searchList);
+                            VFinanceMultDataSearchCon searchCon = new VFinanceMultDataSearchCon(searchList, AccountType.项目, execType);
+
+                            vMainView.AssistViews.Add(searchCon);
+
+                            //载入框架
+                            framework.AddMainView(vMainView);
+                        }
+
+                        vMainView.ViewCaption = captionName;
+                        vMainView.ViewName = mainViewName;
+                        vMainView.Start(Id);
+
+                        vMainView.ViewShow();
+                        break;
+                    }
+                
+            }
+        }
+
+        void vSaleBudget_ViewDeletedEvent(object sender)
+        {
+            IMainView mv = sender as IMainView;
+
+            VFinanceMultData vDmand = mv as VFinanceMultData;
+            if (vDmand != null)
+                searchList.RemoveRow(vDmand.CurBillMaster.Id);
+
+
+            IList lst = framework.GetMainViews(mv.ViewName);
+
+            if (lst.Count > 1)
+                framework.CloseMainView(mv);
+        }
+
+        public object Excute(params object[] args)
+        {
+            if (args.Length == 0)
+            {
+
+            }
+            else
+            {
+                object o = args[0];
+                FinanceMultDataExecType execType = (FinanceMultDataExecType)o;
+                switch (execType)
+                {
+                    case FinanceMultDataExecType.项目财务账面维护:
+                        {
+                            Start(execType);
+                            break;
+                        }
+                    case FinanceMultDataExecType.项目财务账面维护安装:
+                        {
+                            Start(execType);
+                            break;
+                        }
+                    case FinanceMultDataExecType.项目财务账面维护查询:
+                        {
+                            string sViewCaption = "项目财务账面维护查询";
+                            VFinanceMultDataQuery viewMain = framework.GetMainView(sViewCaption) as VFinanceMultDataQuery;
+                            if (viewMain == null)
+                            {
+                                viewMain = new VFinanceMultDataQuery();
+                                framework.AddMainView(viewMain);
+                                viewMain.ViewCaption = sViewCaption;
+                            }
+                            viewMain.ViewShow();
+                            break;
+                        }
+                    case FinanceMultDataExecType.主营业务收入台账:
+                        {
+                            string sViewCaption = "主营业务收入台账";
+                            VMainBusinessInComeReportReport viewMain = framework.GetMainView(sViewCaption) as VMainBusinessInComeReportReport;
+                            if (viewMain == null)
+                            {
+                                viewMain = new VMainBusinessInComeReportReport(execType);
+                                framework.AddMainView(viewMain);
+                                viewMain.ViewCaption = sViewCaption;
+                            }
+                            viewMain.ViewShow();
+                            break;
+                        }
+                    case FinanceMultDataExecType.项目成本支出台账:
+                        {
+                            string sViewCaption = "项目成本支出台账";
+                            VProjectCostPaymentReport viewMain = framework.GetMainView(sViewCaption) as VProjectCostPaymentReport;
+                            if (viewMain == null)
+                            {
+                                viewMain = new VProjectCostPaymentReport(execType);
+                                framework.AddMainView(viewMain);
+                                viewMain.ViewCaption = sViewCaption;
+                            }
+                            viewMain.ViewShow();
+                            break;
+                        }
+                    case FinanceMultDataExecType.工程项目收支分析表:
+                        {
+                            string sViewCaption = "工程项目收支分析表";
+                            VProjectBalanceOfPaymentsAnalysisRpt viewMain = framework.GetMainView(sViewCaption) as VProjectBalanceOfPaymentsAnalysisRpt;
+                            if (viewMain == null)
+                            {
+                                viewMain = new VProjectBalanceOfPaymentsAnalysisRpt(execType);
+                                framework.AddMainView(viewMain);
+                                viewMain.ViewCaption = sViewCaption;
+                            }
+                            viewMain.ViewShow();
+                            break;
+                        }
+                    case FinanceMultDataExecType.资金结账:
+                        {
+                            string sViewCaption = "资金结账";
+                            VAccountLock viewMain = framework.GetMainView(sViewCaption) as VAccountLock;
+                            if (viewMain == null)
+                            {
+                                viewMain = new VAccountLock(execType);
+                                framework.AddMainView(viewMain);
+                                viewMain.ViewCaption = sViewCaption;
+                            }
+                            viewMain.ViewShow();
+                            break;
+                        }
+                    case FinanceMultDataExecType.时间期间定义:
+                        {
+                            string sViewCaption = "时间期间定义";
+                            VDatePeriodDefine viewMain = framework.GetMainView(sViewCaption) as VDatePeriodDefine;
+                            if (viewMain == null)
+                            {
+                                viewMain = new VDatePeriodDefine();
+                                framework.AddMainView(viewMain);
+                                viewMain.ViewCaption = sViewCaption;
+                            }
+                            viewMain.ViewShow();
+                            break;
+                        }
+                    case FinanceMultDataExecType.施工节点进度维护:
+                        {
+                            string sViewCaption = "施工节点进度维护";
+                            VConstructNode viewMain = framework.GetMainView(sViewCaption) as VConstructNode;
+                            if (viewMain == null)
+                            {
+                                viewMain = new VConstructNode();
+                                framework.AddMainView(viewMain);
+                                viewMain.ViewCaption = sViewCaption;
+                            }
+                            viewMain.ViewShow();
+                            break;
+                        }
+                    case FinanceMultDataExecType.项目启动确认:
+                        {
+                            string sViewCaption = "项目启动确认";
+                            VProjectStartAffirm viewMain = framework.GetMainView(sViewCaption) as VProjectStartAffirm;
+                            if (viewMain == null)
+                            {
+                                viewMain = new VProjectStartAffirm();
+                                framework.AddMainView(viewMain);
+                                viewMain.ViewCaption = sViewCaption;
+                            }
+                            viewMain.ViewShow();
+                            break;
+                        }
+                    case FinanceMultDataExecType.资金策划表:
+                        {
+                            string sViewCaption = "资金策划表";
+                            VFundSchemeRequest viewMain = framework.GetMainView(sViewCaption) as VFundSchemeRequest;
+                            if (viewMain == null)
+                            {
+                                viewMain = new VFundSchemeRequest();
+                                framework.AddMainView(viewMain);
+                                viewMain.ViewCaption = sViewCaption;
+                            }
+                            viewMain.ViewShow();
+                            break;
+                        }
+                    case FinanceMultDataExecType.资金策划表查询:
+                        {
+                            string sViewCaption = "资金策划表查询";
+                            VFundSchemeQuery viewMain = framework.GetMainView(sViewCaption) as VFundSchemeQuery;
+                            if (viewMain == null)
+                            {
+                                viewMain = new VFundSchemeQuery();
+                                framework.AddMainView(viewMain);
+                                viewMain.ViewCaption = sViewCaption;
+                            }
+                            viewMain.ViewShow();
+                            break;
+                        }
+                    case FinanceMultDataExecType.资金测算表:
+                        {
+                            string sViewCaption = "资金测算表";
+                            VFundSchemeCalculate viewMain = framework.GetMainView(sViewCaption) as VFundSchemeCalculate;
+                            if (viewMain == null)
+                            {
+                                viewMain = new VFundSchemeCalculate();
+                                framework.AddMainView(viewMain);
+                                viewMain.ViewCaption = sViewCaption;
+                            }
+                            viewMain.ViewShow();
+                            break;
+                        }
+                    case FinanceMultDataExecType.资金策划表审批:
+                        {
+                            string sViewCaption = "资金策划表审批";
+                            VFundShcemeApprove viewMain = framework.GetMainView(sViewCaption) as VFundShcemeApprove;
+                            if (viewMain == null)
+                            {
+                                viewMain = new VFundShcemeApprove();
+                                framework.AddMainView(viewMain);
+                                viewMain.ViewCaption = sViewCaption;
+                            }
+                            viewMain.ViewShow();
+                            break;
+                        }
+                    case FinanceMultDataExecType.非实体进度设置:
+                        {
+                            string sViewCaption = "非实体进度设置";
+                            VConstructNodeSubject viewMain = framework.GetMainView(sViewCaption) as VConstructNodeSubject;
+                            if (viewMain == null)
+                            {
+                                viewMain = new VConstructNodeSubject();
+                                framework.AddMainView(viewMain);
+                                viewMain.ViewCaption = sViewCaption;
+                            }
+                            viewMain.ViewShow();
+                            break;
+                        }
+                    default:
+                        {
+                            Start(execType);
+                            break;
+                        }
+                }
+            }
+            return null;
+        }
+    }
+}

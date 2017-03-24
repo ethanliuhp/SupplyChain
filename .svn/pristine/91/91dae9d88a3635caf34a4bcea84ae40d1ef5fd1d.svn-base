@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.PaymentDetail,SupplyChain" table="THD_PaymentDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.PaymentMaster,SupplyChain"></many-to-one>
+	<property name="Money" length="2"/>
+	<property name="Descript"/>
+	  
+	<many-to-one name="AcceptBillID" column="AcceptBillID" class="Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain.AcceptanceBill,SupplyChain"/>
+	<property name="InMaterialMoney" length="2"/>
+	<property name="LiveMoney" length="2"/>
+	<property name="OtherMoney" length="2"/>
+	<property name="PaymentMoney" length="2"/>
+	
+  </class>
+</hibernate-mapping>

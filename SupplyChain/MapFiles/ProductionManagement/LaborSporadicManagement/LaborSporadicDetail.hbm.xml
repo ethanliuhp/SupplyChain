@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.LaborSporadicManagement.Domain.LaborSporadicDetail,SupplyChain" table="THD_LaborSporadicDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <!--工程项目任务-->
+    <!--<property name="ProjectTast"/>-->
+    <many-to-one name="ProjectTast" column="ProjectTast"  class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain"></many-to-one>
+    <property name="ProjectTastName"/>
+    <property name="ProjectTaskSyscode"/>
+    <!--核算单价-->
+    <property name="AccountPrice" length="4"/>
+    <!--核算合价-->
+    <property name="AccountSumMoney" length="4"/>
+    <!--核算用工量-->
+    <property name="AccountLaborNum" length="4"/>
+    <!--计划用工数量-->
+    <property name="PredictLaborNum" length="4"/>
+    <!--价格单位-->
+    <!--<property name="PriceUnit"/>-->
+    <many-to-one name="PriceUnit" column="PriceUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="PriceUnitName"/>
+    <!--结束时间-->
+    <property name="EndDate"/>
+    <!--业务完成时间-->
+    <property name="CompleteDate"/>
+    <!--结算状态-->
+    <property name="SettlementState"/>
+    <!--开始时间-->
+    <property name="StartDate"/>
+    <!--任务明细名称-->
+    <!--<property name="TastDetailName"/>-->
+    <!--实际用工数量-->
+    <property name="RealLaborNum" length="4"/>
+    <!--数量计量单位-->
+    <!--<property name="QuantityUnit"/>-->
+    <many-to-one name="QuantityUnit" column="QuantityUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="QuantityUnitName"/>
+    <!--业务日期-->
+    <property name="RealOperationDate"/>
+    <!--是否生成扣款单（复核）-->
+    <property name="IsCreate"/>
+    <!--用工科目-->
+    <many-to-one name="LaborSubject" column="LaborSubject"  class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostAccountSubject,ResourceManager"></many-to-one>
+    <property name="LaborSubjectName"/>
+    <property name="LaborSubjectSysCode"/>
+    <!--工程任务明细-->
+    <!--<property name="ProjectTastDetail"/>-->
+    <many-to-one name="ProjectTastDetail" column="ProjectTastDetail"  class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSDetail,SupplyChain"></many-to-one>
+    <property name="ProjectTastDetailName"/>
+    <!--资源类型-->
+    <many-to-one name="ResourceType" column="ResourceType"  class="Application.Resource.MaterialResource.Domain.Material,ResourceManager"/>
+    <!--<property name="ResourceType"/>-->
+    <property name="ResourceTypeName"/>
+    <property name="ResourceTypeSpec"/>
+    <property name="ResourceTypeStuff"/>
+    <property name="ResourceSysCode"/>
+    <!--结算明细GUID-->
+    <property name="BalanceDtlGUID"/>
+    <!--用工说明-->
+    <property name="LaborDescript"/>
+    <!--罚款单明细GUID-->
+    <property name="PenaltyDeductionDetail" column="PenaltyDeductionDetail"/>
+    <!--被代工队伍-->
+    <many-to-one name="InsteadTeam" column="InsteadTeam" />
+    <!--被代工队伍名称-->
+    <property name="InsteadTeamName" column="InsteadTeamName"/>
+
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.ProductionManagement.LaborSporadicManagement.Domain.LaborSporadicMaster,SupplyChain"></many-to-one>
+    
+    <property name="DetailNumber" />
+    <property name="WorkersInformation" />
+
+    <property name="ForwardDetailId" />
+    <property name="RefQuantity" />
+  
+  </class>
+</hibernate-mapping>
+
+

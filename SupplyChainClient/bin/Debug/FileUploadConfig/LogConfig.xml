@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<log4net>
+	<!-- Appenders -->
+	<!--
+	PLMLOGDIR  log file directory.
+	           You can define it as environment variable
+	           otherwise the PLMPLMLoggerData folder will be
+	           created under file system root.
+	-->
+    <appender name="StackTrace" type="log4net.Appender.RollingFileAppender">
+        <file type="log4net.Util.PatternString" value="%property{PLMLOGDIR}/PLMLoggerData/StackTrace.log" />
+        <staticLogFileName value="true" />
+        <appendToFile value="true" />
+        <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+        <maximumFileSize value="10000KB" />
+        <maxSizeRollBackups value="30" />
+        <rollingStyle value="Date" />
+        <datePattern value="yyyyMMdd" />
+        <layout type="log4net.Layout.XmlLayoutSchemaLog4j">
+            <locationInfo value="false" />
+        </layout>
+    </appender>
+    <appender name="EditorInitialization" type="log4net.Appender.RollingFileAppender">
+        <file type="log4net.Util.PatternString" value="%property{PLMLOGDIR}/PLMLoggerData/EditorInitialization.log" />
+        <staticLogFileName value="true" />
+        <appendToFile value="true" />
+        <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+        <maximumFileSize value="10000KB" />
+        <maxSizeRollBackups value="30" />
+        <rollingStyle value="Date" />
+        <datePattern value="yyyyMMdd" />
+        <layout type="log4net.Layout.XmlLayoutSchemaLog4j">
+            <locationInfo value="false" />
+        </layout>
+    </appender>
+    <appender name="EditorIntegration" type="log4net.Appender.RollingFileAppender">
+        <file type="log4net.Util.PatternString" value="%property{PLMLOGDIR}/PLMLoggerData/EditorIntegration.log" />
+        <staticLogFileName value="true" />
+        <appendToFile value="true" />
+        <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+        <maximumFileSize value="10000KB" />
+        <maxSizeRollBackups value="30" />
+        <rollingStyle value="Date" />
+        <datePattern value="yyyyMMdd" />
+        <layout type="log4net.Layout.XmlLayoutSchemaLog4j">
+            <locationInfo value="false" />
+        </layout>
+    </appender>
+    <appender name="ExcelIntegration" type="log4net.Appender.RollingFileAppender">
+        <file type="log4net.Util.PatternString" value="%property{PLMLOGDIR}/PLMLoggerData/Excel.log" />
+        <staticLogFileName value="true" />
+        <appendToFile value="true" />
+        <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+        <maximumFileSize value="10000KB" />
+        <maxSizeRollBackups value="30" />
+        <rollingStyle value="Date" />
+        <datePattern value="yyyyMMdd" />
+        <layout type="log4net.Layout.XmlLayoutSchemaLog4j">
+            <locationInfo value="false" />
+        </layout>
+    </appender>
+    <appender name="WordIntegration" type="log4net.Appender.RollingFileAppender">
+        <file type="log4net.Util.PatternString" value="%property{PLMLOGDIR}/PLMLoggerData/Word.log" />
+        <staticLogFileName value="true" />
+        <appendToFile value="true" />
+        <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+        <maximumFileSize value="10000KB" />
+        <maxSizeRollBackups value="30" />
+        <rollingStyle value="Date" />
+        <datePattern value="yyyyMMdd" />
+        <layout type="log4net.Layout.XmlLayoutSchemaLog4j">
+            <locationInfo value="false" />
+        </layout>
+    </appender>
+    <appender name="PowerpointIntegration" type="log4net.Appender.RollingFileAppender">
+        <file type="log4net.Util.PatternString" value="%property{PLMLOGDIR}/PLMLoggerData/Powerpoint.log" />
+        <staticLogFileName value="true" />
+        <appendToFile value="true" />
+        <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+        <maximumFileSize value="10000KB" />
+        <maxSizeRollBackups value="30" />
+        <rollingStyle value="Date" />
+        <datePattern value="yyyyMMdd" />
+        <layout type="log4net.Layout.XmlLayoutSchemaLog4j">
+            <locationInfo value="false" />
+        </layout>
+    </appender>
+    <appender name="OutlookIntegration" type="log4net.Appender.RollingFileAppender">
+        <file type="log4net.Util.PatternString" value="%property{PLMLOGDIR}/PLMLoggerData/Outlook.log" />
+        <staticLogFileName value="true" />
+        <appendToFile value="true" />
+        <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+        <maximumFileSize value="10000KB" />
+        <maxSizeRollBackups value="30" />
+        <rollingStyle value="Date" />
+        <datePattern value="yyyyMMdd" />
+        <layout type="log4net.Layout.XmlLayoutSchemaLog4j">
+            <locationInfo value="false" />
+        </layout>
+    </appender>
+    <appender name="ProjectIntegration" type="log4net.Appender.RollingFileAppender">
+        <file type="log4net.Util.PatternString" value="%property{PLMLOGDIR}/PLMLoggerData/Project.log" />
+        <staticLogFileName value="true" />
+        <appendToFile value="true" />
+        <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+        <maximumFileSize value="10000KB" />
+        <maxSizeRollBackups value="30" />
+        <rollingStyle value="Date" />
+        <datePattern value="yyyyMMdd" />
+        <layout type="log4net.Layout.XmlLayoutSchemaLog4j">
+            <locationInfo value="false" />
+        </layout>
+    </appender>
+    <appender name="SolidworksIntegration" type="log4net.Appender.RollingFileAppender">
+        <file type="log4net.Util.PatternString" value="%property{PLMLOGDIR}/PLMLoggerData/Solidworks.log" />
+        <staticLogFileName value="true" />
+        <appendToFile value="true" />
+        <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+        <maximumFileSize value="10000KB" />
+        <maxSizeRollBackups value="30" />
+        <rollingStyle value="Date" />
+        <datePattern value="yyyyMMdd" />
+        <layout type="log4net.Layout.XmlLayoutSchemaLog4j">
+            <locationInfo value="false" />
+        </layout>
+    </appender>
+    <appender name="InventorIntegration" type="log4net.Appender.RollingFileAppender">
+        <file type="log4net.Util.PatternString" value="%property{PLMLOGDIR}/PLMLoggerData/Inventor.log" />
+        <staticLogFileName value="true" />
+        <appendToFile value="true" />
+        <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+        <maximumFileSize value="10000KB" />
+        <maxSizeRollBackups value="30" />
+        <rollingStyle value="Date" />
+        <datePattern value="yyyyMMdd" />
+        <layout type="log4net.Layout.XmlLayoutSchemaLog4j">
+            <locationInfo value="false" />
+        </layout>
+    </appender>
+    <appender name="ThinkdesignIntegration" type="log4net.Appender.RollingFileAppender">
+        <file type="log4net.Util.PatternString" value="%property{PLMLOGDIR}/PLMLoggerData/Thinkdesign.log" />
+        <staticLogFileName value="true" />
+        <appendToFile value="true" />
+        <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+        <maximumFileSize value="10000KB" />
+        <maxSizeRollBackups value="30" />
+        <rollingStyle value="Date" />
+        <datePattern value="yyyyMMdd" />
+        <layout type="log4net.Layout.XmlLayoutSchemaLog4j">
+            <locationInfo value="false" />
+        </layout>
+    </appender>
+    <appender name="AutocadIntegration" type="log4net.Appender.RollingFileAppender">
+        <file type="log4net.Util.PatternString" value="%property{PLMLOGDIR}/PLMLoggerData/Autocad.log" />
+        <staticLogFileName value="true" />
+        <appendToFile value="true" />
+        <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+        <maximumFileSize value="10000KB" />
+        <maxSizeRollBackups value="30" />
+        <rollingStyle value="Date" />
+        <datePattern value="yyyyMMdd" />
+        <layout type="log4net.Layout.XmlLayoutSchemaLog4j">
+            <locationInfo value="false" />
+        </layout>
+    </appender>
+    <appender name="ProeIntegration" type="log4net.Appender.RollingFileAppender">
+        <file type="log4net.Util.PatternString" value="%property{PLMLOGDIR}/PLMLoggerData/Proe.log" />
+        <staticLogFileName value="true" />
+        <appendToFile value="true" />
+        <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+        <maximumFileSize value="10000KB" />
+        <maxSizeRollBackups value="30" />
+        <rollingStyle value="Date" />
+        <datePattern value="yyyyMMdd" />
+        <layout type="log4net.Layout.XmlLayoutSchemaLog4j">
+            <locationInfo value="false" />
+        </layout>
+    </appender>
+    <appender name="ShellIntegration" type="log4net.Appender.RollingFileAppender">
+        <file type="log4net.Util.PatternString" value="%property{PLMLOGDIR}/PLMLoggerData/ShellIntegration.log" />
+        <staticLogFileName value="true" />
+        <appendToFile value="true" />
+        <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+        <maximumFileSize value="10000KB" />
+        <maxSizeRollBackups value="30" />
+        <rollingStyle value="Date" />
+        <datePattern value="yyyyMMdd" />
+        <layout type="log4net.Layout.XmlLayoutSchemaLog4j">
+            <locationInfo value="false" />
+        </layout>
+    </appender>
+    <appender name="ShellProperty" type="log4net.Appender.RollingFileAppender">
+        <file type="log4net.Util.PatternString" value="%property{PLMLOGDIR}/PLMLoggerData/ShellProperty.log" />
+        <staticLogFileName value="true" />
+        <appendToFile value="true" />
+        <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+        <maximumFileSize value="10000KB" />
+        <maxSizeRollBackups value="30" />
+        <rollingStyle value="Date" />
+        <datePattern value="yyyyMMdd" />
+        <layout type="log4net.Layout.XmlLayoutSchemaLog4j">
+            <locationInfo value="false" />
+        </layout>
+    </appender>
+    <appender name="ShellColumn" type="log4net.Appender.RollingFileAppender">
+        <file type="log4net.Util.PatternString" value="%property{PLMLOGDIR}/PLMLoggerData/ShellColumn.log" />
+        <staticLogFileName value="true" />
+        <appendToFile value="true" />
+        <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+        <maximumFileSize value="10000KB" />
+        <maxSizeRollBackups value="30" />
+        <rollingStyle value="Date" />
+        <datePattern value="yyyyMMdd" />
+        <layout type="log4net.Layout.XmlLayoutSchemaLog4j">
+            <locationInfo value="false" />
+        </layout>
+    </appender>
+    <appender name="ShellContext" type="log4net.Appender.RollingFileAppender">
+        <file type="log4net.Util.PatternString" value="%property{PLMLOGDIR}/PLMLoggerData/ShellContext.log" />
+        <staticLogFileName value="true" />
+        <appendToFile value="true" />
+        <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+        <maximumFileSize value="10000KB" />
+        <maxSizeRollBackups value="30" />
+        <rollingStyle value="Date" />
+        <datePattern value="yyyyMMdd" />
+        <layout type="log4net.Layout.XmlLayoutSchemaLog4j">
+            <locationInfo value="false" />
+        </layout>
+    </appender>
+    <!-- Loggers -->
+	<logger name="com.think3.PLM.StackTrace" additivity="false">
+		<level value="DEBUG"/>
+		<appender-ref ref="StackTrace" />
+	</logger>
+    <logger name="com.think3.PLM.Integration.Client.EditorInitialization" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="EditorInitialization" />
+    </logger>
+    <logger name="com.think3.PLM.Integration.Client.EditorIntegration" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="EditorIntegration" />
+    </logger>
+    <logger name="com.think3.PLM.Integration.Client.ExcelIntegration" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="ExcelIntegration" />
+    </logger>
+    <logger name="com.think3.PLM.Integration.Client.WordIntegration" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="WordIntegration" />
+    </logger>
+    <logger name="com.think3.PLM.Integration.Client.PowerpointIntegration" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="PowerpointIntegration" />
+    </logger>
+    <logger name="com.think3.PLM.Integration.Client.OutlookIntegration" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="OutlookIntegration" />
+    </logger>
+    <logger name="com.think3.PLM.Integration.Client.ProjectIntegration" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="ProjectIntegration" />
+    </logger>
+    <logger name="com.think3.PLM.Integration.Client.SolidworksIntegration" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="SolidworksIntegration" />
+    </logger>
+    <logger name="com.think3.PLM.Integration.Client.InventorIntegration" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="InventorIntegration" />
+    </logger>
+    <logger name="com.think3.PLM.Integration.Client.ThinkdesignIntegration" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="ThinkdesignIntegration" />
+    </logger>
+    <logger name="com.think3.PLM.Integration.Client.AutocadIntegration" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="AutocadIntegration" />
+    </logger>
+    <logger name="com.think3.PLM.Integration.Client.ProeIntegration" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="ProeIntegration" />
+    </logger>
+    <logger name="com.think3.PLM.Integration.Client.ShellIntegration" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="ShellIntegration" />
+    </logger>
+    <logger name="com.think3.PLM.Integration.Client.ShellProperty" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="ShellProperty" />
+    </logger>
+    <logger name="com.think3.PLM.Integration.Client.ShellColumn" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="ShellColumn" />
+    </logger>
+    <logger name="com.think3.PLM.Integration.Client.ShellContext" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="ShellContext" />
+    </logger>
+</log4net>

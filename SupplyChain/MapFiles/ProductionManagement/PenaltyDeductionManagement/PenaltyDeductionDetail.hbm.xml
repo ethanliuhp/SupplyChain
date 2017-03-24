@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.PenaltyDeductionManagement.Domain.PenaltyDeductionDetail,SupplyChain" table="THD_PenaltyDeductionDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+
+    <!--工程项目任务-->
+    <!--<property name="ProjectTask"/>-->
+    <many-to-one name="ProjectTask" column="ProjectTask"  class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain"></many-to-one>
+    <property name="ProjectTaskName"/>
+    <property name="ProjectTaskSyscode"/>
+    <!--<property name="ProjectTaskDetail"/>-->
+    <many-to-one name="ProjectTaskDetail" column="ProjectTaskDetail"  class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSDetail,SupplyChain"></many-to-one>
+    <property name="TaskDetailName" column="TaskDetailName"/>
+    <property name="ProjectDetailSysCode" column="ProjectDetailSysCode"/>
+    <property name="PenaltyQuantity" length="4" />
+    <property name="PenaltyMoney" length="4" />
+    <property name="AccountPrice" length="8" />
+    <property name="AccountQuantity" length="4" />
+    <property name="AccountMoney" length="4" />
+    <property name="Descript"/>
+    <!--罚款类型-->
+	  <property name="PenaltyType" column="PenaltyTypeDtl"/>
+	  <property name="PenaltySubject" column="PenaltySubject"/>
+    <many-to-one name="PenaltySubjectGUID" column="PenaltySubjectGUID"  class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostAccountSubject,ResourceManager"></many-to-one>
+    <property name="PenaltySysCode" column="PenaltySysCode"/>
+    <!--<property name="ProductUnit" column="ProductUnit"/>-->
+    <many-to-one name="ProductUnit" column="ProductUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="ProductUnitName" column="ProductUnitName"/>
+    <property name="AccountState" column="AccountState"/>
+    <!--<property name="MoneyUnit" column="MoneyUnit"/>-->
+    <many-to-one name="MoneyUnit" column="MoneyUnit"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="MoneyUnitName" column="MoneyUnitName"/>
+
+    <!--资源类型-->
+    <many-to-one name="ResourceType" column="ResourceType"  class="Application.Resource.MaterialResource.Domain.Material,ResourceManager"/>
+    <!--<property name="ResourceType"/>-->
+    <property name="ResourceTypeName"/>
+    <property name="ResourceTypeSpec"/>
+    <property name="ResourceTypeStuff"/>
+    <property name="ResourceSysCode"/>
+    <!--关联零星用工明细-->
+    <many-to-one name="LaborDetailGUID" column="LaborDetailGUID"/>
+    <property name="Cause" column="Cause"/>
+    <property name="BusinessDate" column="BusinessDate"/>
+
+    <property name="BalanceDtlGUID"/>
+    
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.ProductionManagement.PenaltyDeductionManagement.Domain.PenaltyDeductionMaster,SupplyChain"></many-to-one>
+
+  </class>
+</hibernate-mapping>
+
+

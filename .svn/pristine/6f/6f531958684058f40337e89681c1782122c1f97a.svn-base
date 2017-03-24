@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.Approval.AppSolutionSetMng.Domain.AppSolutionSet, SupplyChain" table="THD_AppSolutionSet" lazy="true" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1" />
+
+    <property name="SolutionName" length="50" />
+    <property name="Description" length="100" />
+    <many-to-one name="ParentId"/>
+    <property name="Conditions"  length="200" />
+
+    <property name="Status"/>
+    <set name="AppStepsSets" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write" />
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.Approval.AppSolutionSetMng.Domain.AppStepsSet, SupplyChain" />
+    </set>
+  </class>
+</hibernate-mapping>

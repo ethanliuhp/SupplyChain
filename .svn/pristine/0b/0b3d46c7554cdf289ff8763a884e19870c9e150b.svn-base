@@ -1,0 +1,99 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Application.Business.Erp.SupplyChain.Client.Basic.Template;
+using Application.Business.Erp.SupplyChain.Client.Basic.CommonClass;
+using Application.Business.Erp.SupplyChain.Client.AppMng.AppPlatformUI;
+using Application.Business.Erp.SupplyChain.Approval.AppProcessMng.Domain;
+using VirtualMachine.Component.WinControls.Controls;
+using Application.Business.Erp.SupplyChain.Client.Util;
+
+namespace Application.Business.Erp.SupplyChain.Client.MoneyManage.FundPlan
+{
+    public partial class VFundPayApplyApprove : TBasicDataView
+    {
+        private MAppPlatform appPlatform = new MAppPlatform();
+        private ApproveBill selectAppBill;
+
+        public VFundPayApplyApprove()
+        {
+            InitializeComponent();
+
+            InitData();
+        }
+
+        private void LoadApproveTask()
+        {
+            var proj = StaticMethod.GetProjectInfo();
+
+            var tbBills = appPlatform.Service.GetApprovingBills(ConstObject.TheLogin.TheSysRole.Id,
+                                                                ConstObject.TheLogin.ThePerson.Id,
+                                                                proj == null ||
+                                                                proj.Code == CommonUtil.CompanyProjectCode
+                                                                    ? string.Empty
+                                                                    : proj.Id);
+
+            if (tbBills != null)
+            {
+                dgBillList.DataSource = tbBills.OfType<ApproveBill>().ToList().FindAll(
+                    a => a.BillCode.StartsWith("资金支付申请"));
+
+            }
+            else
+            {
+                dgBillList.DataSource = null;
+            }
+
+            ClearInfo();
+        }
+
+        private void InitData()
+        {
+            InitGrid();
+
+            LoadApproveTask();
+        }
+
+        private void InitGrid()
+        {
+            FundPlanOperate.LoadFlexFile(string.Concat("资金支付申请单.flx"), gdFundPayApply);
+        }
+
+        private void ClearInfo()
+        {
+            selectAppBill = null;
+            foreach (TabPage tabPage in tabControl1.TabPages)
+            {
+                foreach (var ctrl in tabPage.Controls)
+                {
+                    if (ctrl is CustomFlexGrid)
+                    {
+                        LoadTempleteFile(ctrl as CustomFlexGrid, tabPage.Tag + ".flx");
+                    }
+                }
+            }
+        }
+
+        private void LoadTempleteFile(CustomFlexGrid grid, string sReportPath)
+        {
+            ExploreFile eFile = new ExploreFile();
+            string path = eFile.Path;
+            if (eFile.IfExistFileInServer(sReportPath))
+            {
+                eFile.CreateTempleteFileFromServer(sReportPath);
+                //载入格式和数据
+                grid.OpenFile(path + "\\" + sReportPath); //载入格式
+                grid.SelectionStart = 0;
+            }
+            else
+            {
+                MessageBox.Show("未找到模板格式文件【" + sReportPath + "】");
+            }
+        }
+    }
+}

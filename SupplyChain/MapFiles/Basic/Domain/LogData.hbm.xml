@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" auto-import="false">
+  <class name="Application.Business.Erp.SupplyChain.Basic.Domain.LogData,SupplyChain" table="THD_LogData" lazy="true" select-before-update="true">
+
+    <!--<id name="Id" column="Id" type="long" unsaved-value="-1">
+      <generator class="sequence" >
+        <param name="sequence">THD_BasicDataOptr_Seq</param>
+      </generator>
+    </id>-->
+
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <property name="OperDate"/>
+    <property name="OperPerson"/>
+    <property name="Code"/>
+    <property name="Descript"/>
+    <property name="BillType"/>
+    <property name="ProjectName"/>
+	<property name="ProjectID"/>
+    <property name="BillId"/>
+    <property name="OperType"/>
+  </class>
+</hibernate-mapping>

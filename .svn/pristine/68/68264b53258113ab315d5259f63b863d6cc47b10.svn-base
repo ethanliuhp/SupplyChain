@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.ContractExcuteMng.Domain.LaborSubContractPriceItem,SupplyChain" lazy="true" table="THD_LaborSubContractPriceItem" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="Descript" />
+    <property name="ConstractType" />
+    <many-to-one name="SubConProject"/>
+    <property name="UnitPrice" />
+    <many-to-one name="ProjectAmountUnit" />
+    <!--<many-to-one name="ProjectAmountUnit" column="ProjectAmountUnitID"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>-->
+    <property name="ProjectAmountName" />
+    <property name="JobContent" />
+    <many-to-one name="PriceUnit" />
+    <property name="PriceUnitName" />
+    <many-to-one name="TheProject" column="TheProject" class="Application.Business.Erp.SupplyChain.CostManagement.ContractExcuteMng.Domain.SubContractProject,SupplyChain"/>
+  </class>
+</hibernate-mapping>
+

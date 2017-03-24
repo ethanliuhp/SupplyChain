@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.Indicator.IndicatorUse.Domain.CubeRegister,SupplyChain" table="THD_CubeRegister" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="CubeCode" column="CUBECODE" not-null="true" />
+    <property name="CubeName" column="CUBENAME" not-null="true" />
+    <many-to-one name="SysRegister" column="SYSTEMID" />
+    <!--子类本身的属性-->
+    <bag name="CubeAttribute" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="CUBEREGID" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.Indicator.IndicatorUse.Domain.CubeAttribute,SupplyChain"/>
+    </bag>
+  </class>
+</hibernate-mapping>

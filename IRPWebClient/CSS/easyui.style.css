@@ -1,0 +1,27 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors Your Name (you@example.org)
+ * @date    2016-03-07 10:58:42
+ * @version $Id$
+ */
+.row{
+    padding: 0 0 10px 30px;
+    margin:10px 0 0 0;
+}
+.footer{
+    font:13px/1.5 Arial;
+    color:#666;
+    padding:4px;
+    text-align:center;
+    white-space: nowrap;
+}
+input:read-only{
+    background-color: #eee;
+}
+.readonly{
+    background-color: #eee;
+}
+textarea:read-only{
+    background-color: #eee;
+}

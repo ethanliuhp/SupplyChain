@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.RequirementPlan.Domain.ResourceRequireReceipt,SupplyChain" table="THD_ResourceRequireReceipt" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="Code"  />
+    <property name="State" />
+    <property name ="CreateDate" column="CreateTime"/>
+    <property name="RealOperationDate" column="RealOperationDate"/>
+    <property name="SubmitDate" column="SubmitDate"/>
+    <!--责任人-->
+    <many-to-one name="HandlePerson" column="OwnerGUID" />
+    <property name="HandlePersonName" column="OwnerName" />
+    
+    <!--所属项目-->
+    <property name="ProjectId"  column="TheProjectGUID" />
+    <property name="ProjectName" column="TheProjectName"/>
+
+    <many-to-one name="SchedulingProduction" column="SchedulingProduction" class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.WeekScheduleMaster,SupplyChain" />
+    <property name="SchedulingProductionName"/>
+
+    <property name="PlanRequireDateBegin" />
+    <property name="PlanRequireDateEnd"/>
+
+    <many-to-one name="ResourceRequirePlan" column="ResourceRequirePlan"  class="Application.Business.Erp.SupplyChain.CostManagement.RequirementPlan.Domain.ResourceRequirePlan,SupplyChain"></many-to-one>
+    <property name="ResourceRequirePlanName"/>
+    <property name="ReceiptName" />
+    
+    <!--核算组织-->
+    <many-to-one name="OpgOrgInfo" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"></many-to-one>
+    <property name="OpgOrgInfoName" />
+    <property name="OwnerOrgSysCode" />
+
+    <!--业务组织-->
+    <many-to-one name="OperOrgInfo" column="OperatioOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"></many-to-one>
+    <property name="OperOrgInfoName" column="OperatioOrgName" />
+    <property name="OpgSysCode" />
+
+    <many-to-one name="ResourceCategory" column="ResourceCategory"  class="Application.Resource.MaterialResource.Domain.MaterialCategory,ResourceManager"></many-to-one>
+    <property name="ResourceCategorySysCode"/>
+    <property name="ResourceRequirePlanTypeWord" />
+    <property name="ResourceRequirePlanTypeCode" />
+
+    <property name ="StagePlanType" />
+    <property name ="MaterialType" />
+    
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.RequirementPlan.Domain.ResourceRequireReceiptDetail,SupplyChain"/>
+    </set>
+
+  </class>
+</hibernate-mapping>
+
+

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <!--PBSTemplate类-->
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.PBS.Domain.PBSTemplate,SupplyChain" lazy="true" table="THD_PBSTemplate" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <property name="Name" />
+    <property name="Code" />
+    <property name="Level" column="NodeLevel" />
+    <property name="ParentId" />
+    <property name="Description" />
+    <property name="SysCode" />
+    <property name="CreateTime" />
+    <property name="ModifyTime" />
+    <property name="FullPath" />
+    <many-to-one name="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager" />
+    <property name="CreatePersonName" />
+    <property name="Sort" />
+    <many-to-one name="Type" column="NodeType" class="Application.Business.Erp.SupplyChain.CostManagement.PBS.Domain.PBSTemplateType,SupplyChain" />
+    <property name="TypeCode" />
+    <property name="TypeName" />
+    <property name="TypeBit" />
+  </class>
+  <!--PBSTemplateType类-->
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.PBS.Domain.PBSTemplateType,SupplyChain" lazy="true" table="THD_PBSTemplateType" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <property name="Code" />
+    <property name="Name" />
+    <property name="CodeBit" />
+    <property name="Remark" />
+    <property name="CreateTime" />
+    <property name="ModifyTime" />
+    <many-to-one name="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager" />
+    <property name="CreatePersonName" />
+  </class>
+</hibernate-mapping>

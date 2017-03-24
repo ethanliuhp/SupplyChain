@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ConstructionLogManage.WeatherManage.Domain.WeatherInfo,SupplyChain" table="THD_WeatherInfo" lazy="true" discriminator-value="-1">
+    <!--<id name="Id" column="Id" unsaved-value="null">
+      <generator class="uuid.hex" />
+    </id>-->
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="DocState" column="State" />
+    <property name="CreateDate" column="LogDate"/>
+    <!--<property name="LogDate" column="LogDate"/>-->
+    <property name="RealOperationDate" column="RealOperationDate"/>
+    <many-to-one name="CreatePerson" column="CreatePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="CreatePersonName"/>
+    <!--责任人-->
+    <many-to-one name="HandlePerson" column="HandlePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="HandlePersonName"/>
+    <!--业务组织-->
+    <many-to-one name="OperOrgInfo" column="OperationOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"/>
+    <property name="OperOrgInfoName" column="OperOrgName"/>
+    <property name="OpgSysCode" column="OpgSysCode"/>
+    <property name="HandOrgLevel" column="HandOrgLevel"/>
+    <property name="SubmitDate" column="SubmitDate"/>
+    <property name="ProjectId"/>
+    <property name="ProjectName"/>
+    <property name="WindDirection"/>
+
+    <property name="WeatherCondition"/>
+    <property name="Temperature"/>
+    <property name="RelativeHumidity"/>
+    <property name="Week"/>
+
+  </class>
+</hibernate-mapping>
+
+

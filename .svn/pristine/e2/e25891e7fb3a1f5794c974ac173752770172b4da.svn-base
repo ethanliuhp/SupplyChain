@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ImplementationPlan.Domain.ImplementationMaintain,SupplyChain" table="thd_ImplementationPlanbook" lazy="true" select-before-update="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="CITarget"/>
+    <property name="MaterialPaystype"/>
+    <property name="MaterialMoney"/>
+    <property name="FloorStructure"/> 
+    <property name="CostObjective"/>
+    <property name="CreateDate"/>
+    <property name="TeamPayStyle"/> 
+    <property name="EngChoice"/> 
+    <property name="PeriodTarget"/> 
+    <property name="ContractChange"/>
+    <property name="EnGoal"/>
+    <property name="TechTarget"/> 
+    <property name="CoveredArea"/> 
+    <property name="StructType"/> 
+    <property name="DoteamPayStyle"/>
+    <property name="FileName"/>
+    <property name="ThingsBuy"/>
+    <property name="ProjectId"/>
+    <property name="ProName"/>
+    <property name="CashProject"/>
+    <property name="Ownerpayment"/>
+    <property name="DofficerId"/>
+    <property name="DutyOfficer"/>
+    <property name="DofficerName"/>
+    <property name="DofficerLevel"/>
+    <property name="ProfessionSafe"/>
+    <property name="QualityObj"/>
+    <property name="DocState"/>
+    <property name="ObjectiveName"/>
+    <property name="RealOperationDate"/>
+    <property name="SubmitDate"/>
+
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.ImplementationPlan.Domain.ImplementProjectUnit,SupplyChain"/>
+    </set>
+    
+  </class>
+</hibernate-mapping>

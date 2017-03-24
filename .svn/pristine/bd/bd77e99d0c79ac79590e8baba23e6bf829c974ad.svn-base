@@ -1,0 +1,473 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Spring.Context;
+using VirtualMachine.Core;
+using VirtualMachine.Patterns.BusinessEssence.Service;
+using VirtualMachine.Patterns.BusinessEssence.Domain;
+using System.Collections;
+using NHibernate.Criterion;
+using Application.Resource.CommonClass.Domain;
+using System.Runtime.Remoting.Messaging;
+using Application.Business.Erp.SupplyChain.Base.Domain;
+using NHibernate;
+using System.Data;
+using VirtualMachine.Core.DataAccess;
+
+namespace Application.Business.Erp.SupplyChain.Base.Service
+{
+    public abstract class BaseService : Application.Business.Erp.SupplyChain.Base.Service.IBaseService
+    {
+        protected IDao dao;
+        private IBusinessEssenceSrv refBusinessEssenceService;
+        private IBusinessEssenceQuerySrv refBusinessEssenceQuerySrv;
+
+        public IBusinessEssenceQuerySrv RefBusinessEssenceQuerySrv
+        {
+            get { return refBusinessEssenceQuerySrv; }
+            set { refBusinessEssenceQuerySrv = value; }
+        }
+
+        public IDao Dao
+        {
+            get { return dao; }
+            set { dao = value; }
+        }
+
+        public IBusinessEssenceSrv RefBusinessEssenceService
+        {
+            get { return refBusinessEssenceService; }
+            set { refBusinessEssenceService = value; }
+        }
+
+        public virtual object GetDomain(Type domain, string id, ObjectQuery objectQuery)
+        {
+            try
+            {
+                return refBusinessEssenceService.GetBusEntityForHandle(domain, id, objectQuery);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public virtual IList GetDetailList(Type objType, ObjectQuery objectQuery)
+        {
+            try
+            {
+                return Dao.ObjectQuery(objType, objectQuery);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public virtual IList GetObjects(Type aType, ObjectQuery aObjectQuery)
+        {
+            return dao.ObjectQuery(aType, aObjectQuery);
+        }
+
+
+        public virtual IList GetDomainByCondition(Type objType, ObjectQuery objectQuery)
+        {
+            try
+            {
+                //objectQuery = new ObjectQuery();
+                return Dao.ObjectQuery(objType, objectQuery);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        [TransManager]
+        public virtual object Save(BusinessEntity obj)
+        {
+            Login login = VirtualMachine.Component.Util.CallContextUtil.LogicalGetData<Login>("LoginInformation");
+            try
+            {
+                BaseBillMaster billMaster = obj as BaseBillMaster;
+
+                if (billMaster != null)
+                {
+                    billMaster.RealOperationDate = DateTime.Now;
+                }
+
+                if (SaveValide(billMaster))
+                {
+                    object tempDomain = refBusinessEssenceService.SaveBusinessEntity(billMaster);
+
+                    return tempDomain;
+                }
+                return billMaster;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        [TransManager]
+        public virtual object Update(BusinessEntity obj)
+        {
+            object temp = null;
+
+            UpdateBasicInfo(ref obj);
+
+
+            if (UpdateValide(obj))
+            {
+                BusinessEntity be = dao.Get(obj.GetType(), obj.Id) as BusinessEntity;
+                obj.Version = be.Version;
+                temp = refBusinessEssenceService.UpdateBusinessEntity(obj);
+            }
+
+            return temp;
+        }
+
+        private void UpdateBasicInfo(ref BusinessEntity obj)
+        {
+            //Login login = VirtualMachine.Component.Util.CallContextUtil.LogicalGetData<Login>("LoginInformation");
+            BaseBillMaster billMaster = obj as BaseBillMaster;
+            if (billMaster != null)
+            {
+                billMaster.LastModifyDate = DateTime.Now;
+            }
+        }
+
+        [TransManager]
+        public virtual bool DeleteObject(object obj)
+        {
+            try
+            {
+                if (DeleteValide(obj))
+                {
+                    refBusinessEssenceService.DeleteBusEntity(obj);
+                }
+                return true;
+            }
+            catch
+            {
+                throw;
+            }
+
+        }
+
+        public virtual IList GetForwardMasterBills(LinkRule linkRule, ObjectQuery objectQuery, bool isEagerDetail)
+        {
+            try
+            {
+
+                return RefBusinessEssenceQuerySrv.ShowAllNotCompleteBills(linkRule, objectQuery, isEagerDetail);
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public virtual IList GetForwardMasterBills(LinkRule linkRule, ObjectQuery objectQuery, bool isEagerDetail,
+                                                   bool onlyExecBills)
+        {
+            try
+            {
+                //return RefBusinessEssenceQuerySrv.ShowAllNotCompleteBills(linkRule, objectQuery, isEagerDetail, onlyExecBills);
+                return RefBusinessEssenceQuerySrv.ShowAllNotCompleteBills(linkRule, objectQuery, isEagerDetail);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public virtual string GetIdByCode(Type objType, string code)
+        {
+            try
+            {
+                ObjectQuery objectQuery = new ObjectQuery();
+                objectQuery.AddCriterion(Expression.Eq("Code", code));
+
+                IList masterList = Dao.ObjectQuery(objType, objectQuery);
+
+                BaseBillMaster temp = masterList[0] as BaseBillMaster;
+
+
+                return temp.Id;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public virtual IList GetForwardDetailBills(LinkRule linkRule, ObjectQuery objectQuery)
+        {
+            try
+            {
+                return RefBusinessEssenceQuerySrv.ShowAllNotCompleteBillDets(linkRule, objectQuery);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public virtual IList GetForwardDetailBills(LinkRule linkRule, ObjectQuery objectQuery, bool onlyExecBills)
+        {
+            try
+            {
+                //return RefBusinessEssenceQuerySrv.ShowAllNotCompleteBillDets(linkRule, objectQuery, onlyExecBills);
+                return RefBusinessEssenceQuerySrv.ShowAllNotCompleteBillDets(linkRule, objectQuery);
+            }
+            catch (Exception ee)
+            {
+                throw;
+            }
+        }
+
+        public virtual IList GetForwardDetailBills(LinkRule linkRule, ObjectQuery objectQuery, string masterID)
+        {
+            try
+            {
+                return RefBusinessEssenceQuerySrv.ShowAllNotCompleteBillDets(linkRule, objectQuery, masterID);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public virtual IList GetForwardTypes(Type objType)
+        {
+            try
+            {
+                return RefBusinessEssenceQuerySrv.ShowAllForwards(objType);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        [TransManager]
+        public virtual IList SaveByDao(IList objList)
+        {
+            try
+            {
+                if (SaveValide(objList))
+                {
+                    dao.Save(objList);
+                }
+
+                return objList;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        [TransManager]
+        public virtual object SaveByDao(object obj)
+        {
+            try
+            {
+                if (SaveValide(obj))
+                {
+
+                    dao.Save(obj);
+                }
+
+                return obj;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+        }
+
+        [TransManager]
+        public virtual object UpdateByDao(object obj)
+        {
+            try
+            {
+                if (UpdateValide(obj))
+                {
+                    dao.Update(obj);
+                }
+
+                return obj;
+            }
+            catch
+            {
+                throw;
+            }
+
+        }
+
+        [TransManager]
+        public virtual IList UpdateByDao(IList objList)
+        {
+            try
+            {
+                if (UpdateValide(objList))
+                {
+                    dao.Update(objList);
+                }
+
+                return objList;
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception("无法保存");
+            }
+
+        }
+
+        [TransManager]
+        public virtual bool DeleteByDao(object obj)
+        {
+            try
+            {
+                if (this.DeleteValide(obj))
+                {
+                    return dao.Delete(obj);
+                }
+
+                return false;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        [TransManager]
+        public virtual bool DeleteByDao(IList obj)
+        {
+            try
+            {
+                if (this.DeleteValide(obj))
+                {
+                    return dao.Delete(obj);
+                }
+
+                return false;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        [TransManager]
+        public virtual IList SaveOrUpdateByDao(IList objList)
+        {
+            try
+            {
+                dao.SaveOrUpdate(objList);
+                return objList;
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+        }
+
+        [TransManager]
+        public virtual object SaveOrUpdateByDao(object obj)
+        {
+            try
+            {
+                dao.SaveOrUpdate(obj);
+                return obj;
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+        }
+
+        public virtual IList FindAll(Type obj)
+        {
+            try
+            {
+                return dao.ListAll(obj);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("查询错误！");
+            }
+        }
+
+        protected virtual bool SaveValide(object obj)
+        {
+            return true;
+        }
+
+        protected virtual bool DeleteValide(object obj)
+        {
+            return true;
+        }
+
+        protected virtual bool UpdateValide(object obj)
+        {
+            return true;
+        }
+
+        public LinkRule GetLinkRule(Type type, string id)
+        {
+            LinkRule theLinkRule = new LinkRule();
+            LinkRule linkRule = refBusinessEssenceQuerySrv.GetLinkRuleByMainId(type, id);
+            theLinkRule.BaseClassName = linkRule.BaseClassName;
+            theLinkRule.BaseDetClass = linkRule.BaseDetClass;
+            theLinkRule.BaseMainRelClass = linkRule.BaseMainRelClass;
+            theLinkRule.BaseRelationClass = linkRule.BaseRelationClass;
+            theLinkRule.BaseShowName = linkRule.BaseShowName;
+            theLinkRule.DetailRadix = linkRule.DetailRadix;
+            theLinkRule.Id = linkRule.Id;
+            theLinkRule.LnkProp = linkRule.LnkProp;
+            theLinkRule.MasterRadix = linkRule.MasterRadix;
+            theLinkRule.State = linkRule.State;
+            theLinkRule.UpwardClassName = linkRule.UpwardClassName;
+            theLinkRule.UpwardDetClass = linkRule.UpwardDetClass;
+            theLinkRule.UpwardShowName = linkRule.UpwardShowName;
+            theLinkRule.Version = linkRule.Version;
+
+            return theLinkRule;
+        }
+
+        protected DataSet QueryDataToDataSet(string sql)
+        {
+            IList list = new ArrayList();
+            ISession session = CallContext.GetData("nhsession") as ISession;
+            IDbConnection conn = session.Connection;
+            IDbCommand command = conn.CreateCommand();
+            session.Transaction.Enlist(command);
+            command.CommandText = sql;
+            IDataReader dataReader = command.ExecuteReader();
+            return DataAccessUtil.ConvertDataReadertoDataSet(dataReader);
+        }
+
+        protected int ExecuteSql(string sql)
+        {
+            IList list = new ArrayList();
+            ISession session = CallContext.GetData("nhsession") as ISession;
+            IDbConnection conn = session.Connection;
+            IDbCommand command = conn.CreateCommand();
+            session.Transaction.Enlist(command);
+            command.CommandText = sql;
+            return command.ExecuteNonQuery();
+        }
+    }
+}

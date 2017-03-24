@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.FinanceMng.Domain.OverlayAmortizeDetail,SupplyChain" table="THD_OverlayAmortizeDetail" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <!--本期摊销-->
+    <property name="PeriodAmortize" />
+    <!--累计摊销-->
+    <property name="TotalAmortize"/>
+    <!--临建净值-->
+    <property name="OverlayValue"/>
+    <!--临建项目-->
+    <property name="OverlayProject" />
+    <!--临建期限-->
+    <property name="AmortizeTime"/>
+    
+    <property name="Descript"/>
+    <!--原值-->
+    <property name="OrgValue"/>
+
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.FinanceMng.Domain.OverlayAmortizeMaster, SupplyChain"></many-to-one>
+
+  </class>
+</hibernate-mapping>
+
+

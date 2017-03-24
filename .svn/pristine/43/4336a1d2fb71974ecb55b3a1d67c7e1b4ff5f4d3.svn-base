@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.ProductionScheduleDetail,SupplyChain" table="THD_ProductionScheduleDetail" lazy="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.ProductionScheduleMaster, SupplyChain"/>
+    <property name="ScheduleUnit" />
+    <property name="PlannedDuration" />
+    <property name="ActualDuration" />
+    <property name="TaskDescript" />
+    <property name="TaskRequirements" />
+    <property name="PlannedBeginDate" />
+    <property name="PlannedEndDate" />
+    <property name="ActualBeginDate" />
+    <property name="ActualEndDate" />
+    <property name="State" />
+    <property name="SysCode" />
+    <many-to-one name="ParentNode" column="ParentNode" class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.ProductionScheduleDetail, SupplyChain"/>
+    <many-to-one name="GWBSTree" column="GWBSTree" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree, SupplyChain"/>
+    <property name="GWBSTreeName" />
+    <property name="GWBSTreeSysCode" length="4000"/>
+    <property name="GWBSNodeType" />
+    <property name="Level" column="NodeLevel"/>
+    <property name="OrderNo"/>
+    
+    <property name="AddupFigureProgress" length="3"/>
+  </class>
+</hibernate-mapping>

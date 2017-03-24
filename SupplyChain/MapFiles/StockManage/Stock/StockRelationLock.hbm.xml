@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.StockManage.Stock.Domain.StockRelationLock, SupplyChain" table="Thd_stkrelationLock" lazy="true" select-before-update="true">
+
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <many-to-one name="LockPerson" column="LockPerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <many-to-one name="TheStockRelation" column="RelationId" class="Application.Business.Erp.SupplyChain.StockManage.Stock.Domain.StockRelation,SupplyChain"></many-to-one>
+    <property name="LockDate" type="Date" column="LockDate"/>
+    <property name="Quantity" />
+    <property name="BusinessMxId" />
+    <property name="State" />
+    <property name="LockType" column="LockType"/>
+    <property name="BusinessCode" column="BusinessCode"/>
+    <property name="Descript" column="Descript"/>
+    </class>
+</hibernate-mapping>

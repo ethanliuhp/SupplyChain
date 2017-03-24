@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ShellPropertySerializer Filter="C:\temp\PWS;E:\Workspaces" version="1.0">
+    <Context Name="CUSTOM" >
+        <Label Name="TITLE" Type="TabControl">
+          <LocalizedLabel LanguageRef="en">TD PLM</LocalizedLabel>
+          <LocalizedLabel LanguageRef="it">TD PLM</LocalizedLabel>
+          <LocalizedLabel LanguageRef="fr">TD PLM</LocalizedLabel>
+          <LocalizedLabel LanguageRef="de">TD PLM</LocalizedLabel>
+          <LocalizedLabel LanguageRef="ja">TD PLM</LocalizedLabel>
+          <LocalizedLabel LanguageRef="zhs">TD PLM</LocalizedLabel>
+        </Label>
+        <Label Name="PARTNAMEID" Type="TextBox" Editable="false">
+            <LocalizedLabel LanguageRef="en">Part Name ID</LocalizedLabel>
+          <LocalizedLabel LanguageRef="it">ID codice componente</LocalizedLabel>
+          <LocalizedLabel LanguageRef="fr">ID code composant</LocalizedLabel>
+          <LocalizedLabel LanguageRef="de">Teilenummer-ID</LocalizedLabel>
+          <LocalizedLabel LanguageRef="ja">部品番号</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">零件名称标识</LocalizedLabel>
+        </Label>
+        <Label Name="PARTID" Type="TextBox" Editable="false">
+            <LocalizedLabel LanguageRef="en">Part ID</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">ID componente</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">Teile-ID</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">零件标识</LocalizedLabel>
+        </Label>
+        <Label Name="TMM_COMPONENT" Type="TextBox" Editable="true">
+            <LocalizedLabel LanguageRef="en">Part Type</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">Tipo componente</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">Teiletyp</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">零件类型</LocalizedLabel>
+        </Label>
+        <Label Name="COMPNAME" Type="TextBox" Editable="false">
+            <LocalizedLabel LanguageRef="en">Part Name</LocalizedLabel>
+          <LocalizedLabel LanguageRef="it">Codice componente</LocalizedLabel>
+          <LocalizedLabel LanguageRef="fr">Code composant</LocalizedLabel>
+          <LocalizedLabel LanguageRef="de">Teilenummer</LocalizedLabel>
+          <LocalizedLabel LanguageRef="ja">部品番号</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">零件名称</LocalizedLabel>
+        </Label>
+        <Label Name="PARTREVISION" Type="TextBox" Editable="true">
+            <LocalizedLabel LanguageRef="en">Part Revision</LocalizedLabel>
+          <LocalizedLabel LanguageRef="it">Revisione componente</LocalizedLabel>
+          <LocalizedLabel LanguageRef="fr">Révision composant</LocalizedLabel>
+          <LocalizedLabel LanguageRef="de">Teilerevision</LocalizedLabel>
+          <LocalizedLabel LanguageRef="ja">部品のリビジョン</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">零件版本</LocalizedLabel>
+        </Label>
+        <Label Name="COMPDES" Type="TextBox" Editable="true">
+            <LocalizedLabel LanguageRef="en">Part Description</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">Descrizione componente</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_Part Description</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">零件描述</LocalizedLabel>
+        </Label>
+        <Label Name="COMPITEM" Type="TextBox" Editable="true">
+            <LocalizedLabel LanguageRef="en">Part Material</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">Materiale componente</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_Part Material</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">零件材料</LocalizedLabel>
+        </Label>
+        <Label Name="COMPUMIS" Type="TextBox" Editable="true">
+            <LocalizedLabel LanguageRef="en">Part Unit</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">Unità componente</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_Part Unit</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">零件单位</LocalizedLabel>
+        </Label>
+        <Label Name="FILENAMEID" Type="TextBox" Editable="false">
+            <LocalizedLabel LanguageRef="en">File Name ID</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">ID nome file</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_File Name ID</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">文件名称标识</LocalizedLabel>
+        </Label>
+        <Label Name="FILECREATOR" Type="TextBox" Editable="false">
+            <LocalizedLabel LanguageRef="en">File Created By</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">File creato da</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_File Created By</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">创建人</LocalizedLabel>
+        </Label>
+        <Label Name="FILECREATIONDATE" Type="TextBox" Editable="false">
+            <LocalizedLabel LanguageRef="en">File Created On</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">File creato il</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_File Created On</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">文件创建于</LocalizedLabel>
+        </Label>
+        <Label Name="FILEID" Type="TextBox" Editable="false">
+            <LocalizedLabel LanguageRef="en">File ID</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">ID file</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_File ID</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">文件标识</LocalizedLabel>
+        </Label>
+        <Label Name="FILEVERSION" Type="TextBox" Editable="false">
+            <LocalizedLabel LanguageRef="en">File Version</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">Versione file</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_File Version</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">文件版本</LocalizedLabel>
+        </Label>
+        <Label Name="FILEREVISION" Type="TextBox" Editable="false">
+            <LocalizedLabel LanguageRef="en">File Revision</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">Revisione file</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_File Revision</LocalizedLabel>
+          <LocalizedLabel LanguageRef="zhs">文件版本</LocalizedLabel>
+        </Label>
+        <Label Name="FILEUPDATEDATE" Type="TextBox" Editable="false">
+            <LocalizedLabel LanguageRef="en">Part Name</LocalizedLabel>
+          <LocalizedLabel LanguageRef="it">Codice componente</LocalizedLabel>
+          <LocalizedLabel LanguageRef="fr">Code composant</LocalizedLabel>
+          <LocalizedLabel LanguageRef="de">Teilenummer</LocalizedLabel>
+          <LocalizedLabel LanguageRef="ja">部品番号</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">零件名称</LocalizedLabel>
+        </Label>
+        <Label Name="FILEUPDATOR" Type="TextBox" Editable="false">
+            <LocalizedLabel LanguageRef="en">File Modified By</LocalizedLabel>
+            <LocalizedLabel LanguageRef="it">File modificato da</LocalizedLabel>
+            <LocalizedLabel LanguageRef="de">de_File Modified By</LocalizedLabel>
+            <LocalizedLabel LanguageRef="zhs">文件上传人</LocalizedLabel>
+        </Label>
+    </Context>
+</ShellPropertySerializer>

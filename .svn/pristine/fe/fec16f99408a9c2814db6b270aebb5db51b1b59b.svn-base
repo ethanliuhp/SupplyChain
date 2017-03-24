@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Navigate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://tempuri.org/NavigateSchema.xsd"   >
+  <Role code="1" describe="系统管理员">
+    <Menulist>
+      <menu name="日志管理"  ></menu>
+      <menu name="数据处理" ></menu>
+      <menu name="管理员维护"></menu>
+    </Menulist>
+  </Role>
+  <Role code="2" describe="分系统管理员">
+    <menulist>
+      <menu name="审批配置" ></menu>
+      <menu name="日志管理" ></menu>
+      <menu name="数据处理" ></menu>
+      <menu name="管理员维护" ></menu>
+      <menu name="权限设置" showAll="false">
+        <menulist>
+          <menu name="员工维护"  code="operatorInfo"></menu>
+          <menu name="岗位维护"  code="roleInfo"></menu>
+          <menu name="员工岗位管理"  code="operonrole"></menu>
+          <menu name="权限设置"  code="authorfunction"></menu>          
+          <menu name="设置默认状态权限" code="setdefaultpermission"></menu>
+        </menulist>
+      </menu>
+    </menulist>
+  </Role>
+  <Role code="3" describe="程序员">
+    <menulist>
+      <menu name="权限设置" showAll="false">
+        <menulist>
+          <menu name="构建菜单" code="menucfg"></menu>
+          <menu name="表单前驱后续关系维护" code="linkrulecfg"></menu>
+          <menu name="test" code="test"></menu>
+        </menulist>
+      </menu>
+      <menu name="数据字典" ></menu>
+    </menulist>
+  </Role>
+
+  <menu name="系统维护" >
+    <level>0</level>
+    <menulist>
+      <menu name="审批配置" >
+        <level>1</level>
+        <menulist>
+          <menu name="审批单据维护" code="auditdefine">
+          </menu>
+          <menu name="审批权限设置" code="auditauthorize">
+          </menu>
+        </menulist>
+      </menu>
+
+      <menu name="权限设置" >
+        <level>1</level>
+        <menulist>
+          <menu name="构建菜单" code="treemenu">
+          </menu>
+          <menu name="设置默认状态权限" code="setdefaultpermission">
+          </menu>
+          <menu name="权限设置" code="authorizecfg">
+          </menu>
+          <menu name="test" code="test">
+          </menu>
+        </menulist>
+      </menu>
+
+      <menu name="日志管理" >
+        <level>1</level>
+        <menulist>
+          <menu name="日志查询" code="">
+          </menu>
+          <menu name="日志备份" code="">
+          </menu>
+          <menu name="日志恢复" code="">
+          </menu>
+          <menu name="日志清理" code="">
+          </menu>
+        </menulist>
+      </menu>
+
+      <menu name="数据处理" >
+        <level>1</level>
+        <menulist>
+          <menu name="数据备份" code="">
+          </menu>
+          <menu name="数据恢复" code="">
+          </menu>
+        </menulist>
+      </menu>
+
+      <menu name="管理员维护" >
+        <level>1</level>
+        <menulist>
+          <menu name="修改口令" code="">
+          </menu>
+          <menu name="分系统管理员维护" code="authormanager">
+          </menu>
+        </menulist>
+      </menu>
+      <menu name="数据字典" >
+        <level>1</level>
+        <menulist>
+          <menu name="业务系统" code="businesscenter">
+          </menu>
+          <menu name="业务模块" code="businessmodule">
+          </menu>
+          <menu name="初始化类" code="bussinitclass">
+          </menu>
+          <menu name="维护类数据字典" code="classdatamanage">
+          </menu>
+          <menu name="维护表数据字典" code="classtablemanage">
+          </menu>
+        </menulist>
+      </menu>
+
+    </menulist>
+  </menu>
+</Navigate>

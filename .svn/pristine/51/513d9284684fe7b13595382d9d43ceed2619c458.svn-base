@@ -1,0 +1,24 @@
+<ion-view view-title="{{title}}" hide-tabs="true">
+  <ion-content overflow-scroll='false' has-bouncing='true'>
+    <ion-refresher on-refresh='drawImage()' pulling-text='下拉刷新...'></ion-refresher>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right home-item list-title-style alert-info" type="item-text-wrap">
+        <p class="list-item col-20 center">分支结构</p>
+        <p class="list-item col-20 center">上年余额</p>
+        <p class="list-item col-20 center">本年增加</p>
+        <p class="list-item col-20 center">本年减少</p>
+        <p class="list-item col-20 center">本年余额</p>
+      </ion-item>
+      <ion-item class="item-remove-animate item-avatar item-icon-right home-item list-title-style bottom-0" type="item-text-wrap" ng-repeat="item in info" ng-class="{'item-back-odd':($index%2 == 0)}">
+        <p class="list-item col-20 center">{{item.Name}}</p>
+        <p class="list-item col-20 center">{{item.Balance | NumConvert}}</p>
+        <p class="list-item col-20 center">{{item.Add | NumConvert}}</p>
+        <p class="list-item col-20 center">{{item.Minus | NumConvert}}</p>
+        <p class="list-item col-20 center">{{item.Surplus | NumConvert}}</p>
+      </ion-item>
+    </ion-list>
+    <p>&nbsp;</p>
+  </ion-content>
+</ion-view>
+
+

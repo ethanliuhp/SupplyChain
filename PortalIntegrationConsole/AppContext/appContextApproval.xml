@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <!--审批定义-->
+  <!--<object id="AppDefineSrvTarget" type="ApprovalManagerLib.AppDefineMng.Service.AppDefineSrv,ApprovalManagerLib" autowire="byName">
+  </object>
+
+  <object	id="AppDefineSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="AppDefineSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <object id="AppDataSrvTarget" type="ApprovalManagerLib.AppDataMng.Service.AppDataSrv,ApprovalManagerLib" autowire="byName">
+  </object>
+
+  <object	id="AppDataSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="AppDataSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+
+  <object id="CommentsModelSrvTarget" type="ApprovalManagerLib.CommentsMng.Service.CommentsModelSrv,ApprovalManagerLib" autowire="byName">
+  </object>
+
+  <object	id="CommentsModelSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="CommentsModelSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>parent="BaseService"
+  </object>-->
+  <object id="AppSrvTarget"  type="Application.Business.Erp.SupplyChain.Approval.AppSolutionSetMng.Service.AppSrv,SupplyChain" >
+    <property name="NodeSrv" ref="CategoryNodeService" />
+    <property name="PlanSrv" ref="ResourceRequirePlanSrv" />
+    <property name="AccSrv" ref="ProjectTaskAccountSrv" />
+    <property name="SubBalSrv" ref="SubContractBalanceBillSrv" />
+    <property name="Dao" ref="dao"/>
+  </object>
+  <object id="RefAppSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="AppSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+  <object id="AppByBusinessSrvTarget" type="Application.Business.Erp.SupplyChain.Approval.AppSolutionSetMng.Service.AppByBusinessSrv,SupplyChain" >
+    <property name="Dao" ref="dao"/>
+  </object>
+  <object id="RefAppByBusinessSrv" type="Spring.Aop.Framework.ProxyFactoryObject,Spring.Aop">
+    <property name="target" ref="AppByBusinessSrvTarget"/>
+    <property name="interceptorNames">
+      <list>
+        <value>sessionManageAspect</value>
+        <value>transactionAspect</value>
+      </list>
+    </property>
+  </object>
+</objects>

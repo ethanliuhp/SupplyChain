@@ -1,0 +1,384 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using IRPServiceModel.Services.Common;
+using PortalIntegrationConsole.CommonClass;
+using PortalIntegrationConsole.Plugin;
+using Cscec.Web.ProjectRanking;
+using Application.Business.Erp.SupplyChain.Basic.Domain;
+using System.Data;
+using PortalIntegrationConsole.MsgService;
+using System.Configuration;
+
+namespace PortalIntegrationConsole.Service
+{
+    public class ProjectRanking
+    {
+        private ICommonMethodSrv service = StaticMethod.GetService("IRPServiceModel", "CommonMethodSrv") as ICommonMethodSrv;
+        /// <summary>
+        /// 得分列表
+        /// </summary>
+        public List<ProjectSysRankingModel> RankingList { get; set; }
+        /// <summary>
+        /// 是否发送消息给商务经理
+        /// </summary>
+        public bool IsSend { get; set; }
+        /// <summary>
+        /// 排名处理方法
+        /// </summary>
+        public ProjectRanking()
+        {
+            RankingList = new List<ProjectSysRankingModel>();
+
+            InitTime();
+        }
+
+        /// <summary>
+        /// 初始化时间片
+        /// </summary>
+        private void InitTime()
+        {
+            string sql = "select fiscalmonth month,begindate,enddate from resfiscalperioddet";
+            var timeList = service.GetData(sql).Tables[0].Select().Select(a => new { Month = Convert.ToInt32(a["month"]), BeginDate = Convert.ToDateTime(a["begindate"]), EndDate = Convert.ToDateTime(a["enddate"]) });
+            var nowTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            // 获取统计的当前月所处的时间区间
+            var curTimeSpan = timeList.FirstOrDefault(a => a.BeginDate <= nowTime && a.EndDate >= nowTime);
+            // 统计的第一个月为按当前时间往前推一个时间片的月份
+            // 获取第一个月的时间区间
+            var firstTimeSpan = timeList.FirstOrDefault(a => a.BeginDate <= curTimeSpan.BeginDate.AddDays(-1) && a.EndDate >= curTimeSpan.BeginDate.AddDays(-1));
+            ProjectRankingPlugin.finialTime = firstTimeSpan.EndDate.AddDays(1); // 统计的截止时间
+            ProjectRankingPlugin.curMonth = firstTimeSpan.BeginDate;        // 当前月开始时间
+            // 获取第二个月的时间区间
+            var secondTimeSpan = timeList.FirstOrDefault(a => a.BeginDate <= firstTimeSpan.BeginDate.AddDays(-1) && a.EndDate >= firstTimeSpan.BeginDate.AddDays(-1));
+            ProjectRankingPlugin.preMonth = secondTimeSpan.BeginDate;       // 近两月开始时间
+            // 获取第三个月的时间区间
+            var threeTimeSpan = timeList.FirstOrDefault(a => a.BeginDate <= secondTimeSpan.BeginDate.AddDays(-1) && a.EndDate >= secondTimeSpan.BeginDate.AddDays(-1));
+            ProjectRankingPlugin.lastMonth = threeTimeSpan.BeginDate;       // 近三月开始时间
+
+
+
+        }
+        /// <summary>
+        /// 创建数据
+        /// </summary>
+        public void CreateData()
+        {
+            var date = DateTime.Now;
+            var projectList = GetAllProject();
+            // 计算【工程信息】得分
+            var foundationScore = projectList.CalcFoundationScore("工程信息");
+            RankingList.AddRange(foundationScore);
+            //// 计算【电子签名】得分【？】【****添加进度计划评分是屏蔽此项****】
+            //var relativeTable = GetProjectPostUserRelative();
+            //var autoGraphScore = projectList.CalcAutoGraphScore(relativeTable, "电子签名");
+            //RankingList.AddRange(autoGraphScore);
+            // 获取所有其他指标
+            var allOtherTable = GetAllOtherTable().Select();
+            // 计算【施工部位划分】得分【？】
+            var constructionSiteScore = projectList.CalcConstructionSiteScore(allOtherTable, "施工部位划分");
+            RankingList.AddRange(constructionSiteScore);
+            // 计算【施工任务划分】得分【？】
+            var constructionTaskScore = projectList.CalcConstructionTaskScore(allOtherTable, "施工任务划分");
+            RankingList.AddRange(constructionTaskScore);
+            // 计算【成本信息】得分【？】
+            var costInfoScore = projectList.CalcCostInfoScore(allOtherTable, "成本信息");
+            RankingList.AddRange(costInfoScore);
+            // 计算【核算任务数】得分
+            var taskTotalScore = projectList.CalcTaskTotalScore(allOtherTable, "核算任务数");
+            RankingList.AddRange(taskTotalScore);
+            // 计算【零星工单数】得分
+            var sporadicScore = projectList.CalcSporadicScore(allOtherTable, "零星工单数");
+            RankingList.AddRange(sporadicScore);
+            // 计算【整改单数】得分
+            var rectificationScore = projectList.CalcRectificationScore(allOtherTable, "整改单数");
+            RankingList.AddRange(rectificationScore);
+            // 计算【罚款单数】得分
+            var fineScore = projectList.CalcFineScore(allOtherTable, "罚款单数");
+            RankingList.AddRange(fineScore);
+            // 计算【验收结算】得分
+            var checkScore = projectList.CalcCheckScore(allOtherTable, "验收结算");//6
+            RankingList.AddRange(checkScore);
+            // 计算【料具收料】得分
+            var materialReceivingScore = projectList.CalcMaterialReceivingScore(allOtherTable, "料具收料");//6
+            RankingList.AddRange(materialReceivingScore);
+            // 计算【月度耗用报表】得分
+            var consumeScore = projectList.CalcIndexScore(allOtherTable, "月度耗用报表", 3);
+            RankingList.AddRange(consumeScore);
+            // 计算【分包结算数】得分
+            var subcontractScore = projectList.CalcIndexScore(allOtherTable, "分包结算数", 10);
+            RankingList.AddRange(subcontractScore);
+            // 计算【分包结算打印数】得分
+            var printScore = projectList.CalcIndexScore(allOtherTable, "分包结算打印数", 5);
+            RankingList.AddRange(printScore);
+            // 计算【业主报量】得分
+            var ownerAmountScore = projectList.CalcIndexScore(allOtherTable, "业主报量", 5);
+            RankingList.AddRange(ownerAmountScore);
+            // 计算【财务费用】得分
+            var costScore = projectList.CalcIndexScore(allOtherTable, "财务费用", 2);
+            RankingList.AddRange(costScore);
+            // 计算【设备租赁费用】得分
+            var leaseScore = projectList.CalcIndexScore(allOtherTable, "设备租赁费用", 2);
+            RankingList.AddRange(leaseScore);
+            // 计算【月度成本核算】得分
+            var monthCostScore = projectList.CalcIndexScore(allOtherTable, "月度成本核算", 6);
+            RankingList.AddRange(monthCostScore);
+
+            // 计算【收款单数】得分
+            var a1 = projectList.CalcIndexScore(allOtherTable, "收款单数", 5);
+            RankingList.AddRange(a1);
+            // 计算【付款单数】得分
+            var a2 = projectList.CalcIndexScore(allOtherTable, "付款单数", 5);
+            RankingList.AddRange(a2);
+            // 计算【财务费用单数】得分
+            var a3 = projectList.CalcIndexScore(allOtherTable, "财务费用单数", 5);
+            RankingList.AddRange(a3);
+
+            //计算【总进度计划】得分
+            var allScheduleScore = projectList.CalcTwoGradesScore(allOtherTable, "总进度计划", 8);
+            RankingList.AddRange(allScheduleScore);
+            //计算【周进度计划】得分
+            var weekScheduleScore = projectList.CalcLatelyThressScore(allOtherTable, "周进度计划", 8, 2);
+            RankingList.AddRange(weekScheduleScore);
+            //计算【任务单】得分
+            var tastOrderScore = projectList.CalcLatelyThressScore(allOtherTable, "任务单", 4, 2);
+            RankingList.AddRange(tastOrderScore);
+
+
+            // 计算各单位总分
+            var finalScore = projectList.CalcFinalScore(RankingList);
+            RankingList.AddRange(finalScore);
+            // 设置分公司名称
+            var subcompanyList = service.GetData("select opgsyscode code,opgname name from resoperationorg t1 where t1.opgoperationtype='b'").Tables[0].Select().Select(a => new { Code = a["code"].ToString(), Name = a["name"].ToString() });
+            foreach (var item in RankingList)
+            {
+                var sub = subcompanyList.FirstOrDefault(a => item.OwnerOrgSysCode.Contains(a.Code));
+                item.SubCompanyName = sub == null ? "" : sub.Name;
+            }
+
+            // 写入数据库
+            WriteDataBase();
+        }
+        private List<CurrentProjectInfo> GetAllProject()
+        {
+            string sql = "select id, ownerorgsyscode, createdate, projectname, handlepersonname projectmanager, projectlocationprovince, projectlocationcity, projectlocationdescript, " +
+                          " mappoint, contractarea, projectcost, realpermoney, contractincome, buildingheight, buildingarea, thegroundarea, undergroundarea, civilcontractmoney, " +
+                          " installordermoney, contractcollectratio, resproportion, constractstage, saftytarget, quanlitytarget, qualityreword, begindate, enddate, projecttypedescript, " +
+                          " aprroachdate from resconfig t1 where projectcurrstate=0 and projecttype=0 " +
+                          " and (t1.ownerorgsyscode like '%05PoCvzHvFEuW55GL84aHq%' or t1.ownerorgsyscode like '%2PHPFlXtr9LhsSPtyDXQI9%' or t1.ownerorgsyscode like '%3fDdVLafD4SfzyGZ3YtDCg%' " +
+                          " or t1.ownerorgsyscode like '%2F71AVYz91se5q3CJk37wx%' or t1.ownerorgsyscode like '%3EfbkpOzv6MPvTDNE9jX6j%' or t1.ownerorgsyscode like '%1C12ZRo6fE89PqR8tYLnon%') ";
+
+            var projectList = service.GetData(sql).Tables[0].Select().Select(a => new CurrentProjectInfo
+            {
+                Id = a["id"].ToString(),                                            // 项目id
+                Name = a["projectname"].ToString().Replace("\n", ""),                                 // 项目名称
+                OwnerOrgSysCode = a["ownerorgsyscode"].ToString(),                  // 项目层次id
+                CreateDate = a["createdate"] == DBNull.Value ? new DateTime(1900, 1, 1) : Convert.ToDateTime(a["createdate"]),                                 // 业务时间
+                HandlePersonName = a["projectmanager"] + "",                        // 项目经理
+                ProjectLocationProvince = a["projectlocationprovince"] + "",        // 省份
+                ProjectLocationCity = a["projectlocationcity"] + "",                // 城市
+                ProjectLocationDescript = a["projectlocationdescript"] + "",        // 地址
+                MapPoint = a["mappoint"] + "",                                      // 经纬度
+                ContractArea = a["contractarea"] + "",                              // 工程范围
+                ProjectCost = a["projectcost"] == DBNull.Value ? 0 : Convert.ToDecimal(a["projectcost"]),// 工程造价
+                RealPerMoney = a["realpermoney"] == DBNull.Value ? 0 : Convert.ToDecimal(a["realpermoney"]),// 实际预算总额
+                ContractIncome = a["contractincome"] == DBNull.Value ? 0 : Convert.ToDecimal(a["contractincome"]),// 自营合同收入
+                BuildingHeight = a["buildingheight"] == DBNull.Value ? 0 : Convert.ToDecimal(a["buildingheight"]),// 高度
+                BuildingArea = a["buildingarea"] == DBNull.Value ? 0 : Convert.ToDecimal(a["buildingarea"]),// 面积
+                TheGroundArea = a["thegroundarea"] == DBNull.Value ? 0 : Convert.ToDecimal(a["thegroundarea"]),// 地上面积
+                UnderGroundArea = a["undergroundarea"] == DBNull.Value ? 0 : Convert.ToDecimal(a["undergroundarea"]),// 地下面积
+                CivilContractMoney = a["civilcontractmoney"] == DBNull.Value ? 0 : Convert.ToDecimal(a["civilcontractmoney"]),// 土建合同金额
+                InstallOrderMoney = a["installordermoney"] == DBNull.Value ? 0 : Convert.ToDecimal(a["installordermoney"]),// 安装合同金额
+                ContractCollectRatio = a["contractcollectratio"] == DBNull.Value ? 0 : Convert.ToDecimal(a["contractcollectratio"]),// 合同收款比例
+                ResProportion = a["resproportion"] == DBNull.Value ? 0 : Convert.ToDecimal(a["resproportion"]),// 责任上缴比例
+                ConstractStage = a["constractstage"] + "",// 施工阶段
+                SaftyTarget = a["saftytarget"] + "",// 安全目标
+                QuanlityTarget = a["quanlitytarget"] + "",// 质量目标
+                QualityReword = a["qualityreword"] + "",// 质量奖罚
+                BeginDate = a["begindate"] == DBNull.Value ? new DateTime(1900, 1, 1) : Convert.ToDateTime(a["begindate"]),// 开工日期
+                EndDate = a["enddate"] == DBNull.Value ? new DateTime(1900, 1, 1) : Convert.ToDateTime(a["enddate"]),// 竣工日期
+                ProjectTypeDescript = a["projecttypedescript"] + "",
+                AprroachDate = a["aprroachdate"] == DBNull.Value ? new DateTime(1900, 1, 1) : Convert.ToDateTime(a["aprroachdate"]) // 进厂时间
+            }).ToList();
+
+            return projectList;
+        }
+        /// <summary>
+        /// 获取项目、岗位、人员关系
+        /// </summary>
+        /// <returns></returns>
+        private DataTable GetProjectPostUserRelative()
+        {
+            string sql = "select t1.id projectid, t2.opjid postid, t6.rolename postname, t4.pername username, t4.perphoto photo from resconfig t1, resoperationjob t2, respersononjob t3, resperson t4, resoperationjobwithrole t5, resoperationrole t6 where instr(t2.opjsyscode, t1.ownerorg)!=0 and " +
+                          " t2.opjid=t3.operationjobid and t3.perid=t4.perid and t1.projectcurrstate=0 and t1.projecttype=0 and t2.opjid=t5.operationjob and t5.operationrole=t6.id ";
+            return service.GetData(sql).Tables[0];
+        }
+        /// <summary>
+        /// 获取其他所有统计指标
+        /// </summary>
+        /// <returns></returns>
+        private DataTable GetAllOtherTable()
+        {
+            string sql = @"select theprojectguid projectid, theprojectname projectname, createdate, N'施工部位划分' indexname, count(*) count from thd_pbstree group by theprojectguid,theprojectname,createdate
+union all
+select theprojectguid projectid, theprojectname projectname, createdate, N'施工任务划分' indexname,count(*) count from thd_gwbstree where taskstate in (0,1,5) group by theprojectguid,theprojectname,createdate
+union all
+select theprojectguid projectid, theprojectname projectname, createtime createdate, N'成本信息' indexname,count(*) count from thd_gwbsdetail where state in (0,5) group by theprojectguid,theprojectname,createtime
+union all
+select theprojectguid projectid, theprojectname projectname, createdate, N'核算任务数' indexname,count(*) count from thd_projecttaskaccountbill where createdate>=to_date('{0}','yyyy-mm-dd') group by theprojectguid, theprojectname, createdate
+union all
+select projectid, projectname, createdate, N'零星工单数' indexname, count(*) count From thd_laborsporadicmaster where createdate>=to_date('{0}','yyyy-mm-dd') group by projectid, projectname, createdate
+union all
+select projectid, projectname, createdate, N'整改单数' indexname,count(*) count from thd_rectificatnoticemaster where createdate>=to_date('{0}','yyyy-mm-dd') group by projectid, projectname, createdate
+union all
+select projectid, projectname, createdate, N'罚款单数' indexname,count(*) count from thd_penaltydeductionmaster where createdate>=to_date('{0}','yyyy-mm-dd') group by projectid, projectname, createdate
+union all
+select Translate(projectid USING NCHAR_CS) projectid, Translate(projectname USING NCHAR_CS) projectname, createdate, N'验收结算' indexname,count(*) count from thd_stockinbalmaster where createdate>=to_date('{0}','yyyy-mm-dd') group by projectid, projectname, createdate
+union all 
+select Translate(projectid USING NCHAR_CS) projectid, Translate(projectname USING NCHAR_CS) projectname, createdate, N'料具收料' indexname,count(*) count from thd_stkstockin where createdate>=to_date('{0}','yyyy-mm-dd') group by projectid, projectname, createdate
+union all 
+select projectid, projectname, to_date(to_char(createyear) || '-' || to_char(createmonth) || '-' || '5','yyyy-mm-dd') createdate, N'月度耗用报表' indexname,count(*) count from thd_materialsettlemaster where createdate>=to_date('{0}','yyyy-mm-dd') and settlestate='materialConsume' group by projectid, projectname, createyear, createmonth
+union all 
+select projectid, projectname, createdate, N'分包结算数' indexname,count(*) count from thd_subcontractbalancebill where createdate>=to_date('{0}','yyyy-mm-dd') group by projectid, projectname, createdate
+union all 
+select projectid, projectname, createdate, N'分包结算打印数' indexname,sum(printtimes) count from thd_subcontractbalancebill where createdate>=to_date('{0}','yyyy-mm-dd') group by projectid, projectname, createdate
+union all 
+select projectid, projectname, t2.quantitydate createdate, N'业主报量' indexname,count(*) count from thd_ownerquantitymaster t1,thd_ownerquantitydetail t2 where t1.id=t2.parentid and t2.quantitydate>=to_date('{0}','yyyy-mm-dd') group by projectid, projectname, t2.quantitydate
+union all 
+select projectid, projectname, createdate, N'财务费用' indexname,count(*) count from thd_expensessettlemaster where createdate>=to_date('{0}','yyyy-mm-dd') group by projectid, projectname, createdate
+union all 
+select projectid, projectname, createdate, N'设备租赁费用' indexname,count(*) count from thd_materialrentelsetmaster where createdate>=to_date('{0}','yyyy-mm-dd') group by projectid, projectname, createdate
+union all
+select Translate(projectid USING NCHAR_CS) projectid, Translate(projectname USING NCHAR_CS) projectname, createdate, N'付款单数' indexname, count(*) count from thd_paymentmaster where state <> 2 and createdate>=to_date('{0}','yyyy-mm-dd') and projectid is not null group by projectid, projectname, createdate
+union all
+select Translate(projectid USING NCHAR_CS) projectid, Translate(projectname USING NCHAR_CS) projectname, createdate, N'收款单数' indexname, count(*) count from thd_gatheringmaster where state <> 2 and createdate>=to_date('{0}','yyyy-mm-dd') and projectid is not null group by projectid, projectname, createdate
+union all
+select Translate(projectid USING NCHAR_CS) projectid, Translate(projectname USING NCHAR_CS) projectname, createdate, N'财务费用单数' indexname, count(*) count from thd_indirectcostmaster where state <> 2 and createdate>=to_date('{0}','yyyy-mm-dd') and projectid is not null group by projectid, projectname, createdate
+union all 
+select Translate(theprojectguid USING NCHAR_CS) projectid, Translate(theprojectname USING NCHAR_CS) projectname, to_date(to_char(kjn) || '-' || to_char(kjy) || '-' || '5','yyyy-mm-dd') createdate, N'月度成本核算' indexname,count(*) count from thd_costmonthaccount where createtime>=to_date('{0}','yyyy-mm-dd') group by theprojectguid, theprojectname, kjn, kjy";
+
+            sql += @" union all 
+select translate(m.projectid using nchar_cs) projectid,
+       translate(m.projectname using nchar_cs) projectname,
+       m.createdate,
+       N'总进度计划' indexname,
+       count(*) count
+  from thd_weekschedulemaster m
+ left join thd_weekscheduledetail de
+    on m.id = de.parentid 
+where m.execscheduletype = 40   
+ group by m.projectid, m.projectname, m.createdate";
+
+            sql += @" union all 
+select translate(m.projectid using nchar_cs) projectid,
+       translate(m.projectname using nchar_cs) projectname,
+       m.createdate,
+       N'周进度计划' indexname,
+       count(*) count
+  from thd_weekschedulemaster m 
+where m.execscheduletype = 10    
+ group by m.projectid, m.projectname, m.createdate";
+
+            sql += @" union all 
+select translate(m.projectid using nchar_cs) projectid,
+       translate(m.projectname using nchar_cs) projectname,
+       m.createdate,
+       N'任务单' indexname,
+       count(*) count
+  from thd_assignworkerordermaster m
+ group by m.projectid,
+          m.projectname,
+          m.createdate";
+            return service.GetData(string.Format(sql, ProjectRankingPlugin.lastMonth.ToString("yyyy-MM-dd"))).Tables[0];
+        }
+        /// <summary>
+        /// 写入数据库
+        /// </summary>
+        private void WriteDataBase()
+        {
+            service.InsertData(string.Format("delete thd_projectsysranking where createdate=to_date('{0}','yyyy-mm-dd')", DateTime.Now.ToString("yyyy-MM-dd")));    // 删除当日记录
+            foreach (var item in RankingList)
+            {
+                service.InsertData(item.InsertStr());
+            }
+        }
+        /// <summary>
+        /// 给得分低于指定分数的项目经理发送消息
+        /// </summary>
+        public string SendMsg(int score)
+        {
+            if (!IsSend) return "配置不发送消息";
+            var projectIdList = GetProject();
+            var projectList = GetManager(projectIdList.ToArray());
+            return Send(projectList);
+        }
+        /// <summary>
+        /// 获取分数低于60分的项目id
+        /// </summary>
+        /// <returns></returns>
+        private List<string> GetProject()
+        {
+            // 获取得分低于60分的项目
+            string sql = string.Format("select projectid from thd_projectsysranking where createdate=to_date('{0}','yyyy-mm-dd') and scoretype=0 and finalscore<{1} group by projectid, projectname", DateTime.Now.ToString("yyyy-MM-dd"), 60);
+            return service.GetData(sql).Tables[0].Select().Select(a => a["projectid"].ToString()).ToList();
+        }
+        /// <summary>
+        /// 根据项目id获取项目经理code
+        /// </summary>
+        /// <returns></returns>
+        private List<CurrentProjectInfo> GetManager(string[] arr)
+        {
+            string sql = string.Format("select t4.percode code, t1.id, t1.projectname name from resconfig t1, resoperationjob t2, respersononjob t3, resperson t4, resoperationjobwithrole t5 where instr(t2.opjsyscode, t1.ownerorg)!=0 and t2.opjid=t3.operationjobid and t3.perid=t4.perid and t1.projectcurrstate=0 and t1.projecttype=0 and t2.opjid=t5.operationjob and t1.id in ('{0}') and instr(t5.operationrolename,'商务经理')>0 group by percode, t1.id, t1.projectname", string.Join("','", arr));
+            return service.GetData(sql).Tables[0].Select().Select(a => new CurrentProjectInfo()
+            {
+                Name = a["name"].ToString(),
+                Id = a["id"].ToString(),
+                Code = a["code"].ToString()
+            }).ToList();
+        }
+
+        /// <summary>
+        /// 发送消息
+        /// </summary>
+        /// <param name="userIds"></param>
+        private string Send(List<CurrentProjectInfo> projectList)
+        {
+            if (projectList == null || projectList.Count == 0) return "没有收件者";
+            var ids = projectList.GroupBy(a => a.Code).Select(a => a.Key).ToArray();
+
+            //ids = new string[] { "sunxiaoshuang" };
+
+            var contentTemplate = "【项目信息系统应用情况通知】\r\n项目[{0}]的信息系统应用情况得分偏低，点击查看公司各项目的应用系统使用情况：{1}";
+            var url = ConfigurationManager.AppSettings["RankingMsgUrl"];
+            ImMessageServiceSoapClient client = new ImMessageServiceSoapClient();
+            foreach (var id in ids)
+            {
+                // 逐个用户发送消息
+                var user = "952@" + id;
+                var projectNames = projectList.Where(a => a.Code == id).Select(a => a.Name).ToArray();
+                var projectName = string.Join(",", projectNames);
+                var content = string.Format(contentTemplate, projectName, url);
+                client.SendCommonMessageByUserCode(952, "admin02", user, content, 0, 0, "GXT.IM", "", "", "");
+            }
+            // 发送消息给默认人员
+            Default_SendMsg();
+            return "发送成功";
+        }
+        /// <summary>
+        /// 给默认人员发送消息
+        /// </summary>
+        private void Default_SendMsg()
+        {
+            var people = ConfigurationManager.AppSettings["RankingMsgSendPeople"].Split(',');
+
+            //people = new string[] { "sunxiaoshuang" };
+
+            var url = ConfigurationManager.AppSettings["RankingMsgUrl"];
+            var usercode = string.Join(",", people.Select(a => "952@" + a).ToArray());
+            var content = "【项目信息系统应用情况通知】\r\n点击链接查看项目信息系统应用得分情况：" + url;
+            ImMessageServiceSoapClient client = new ImMessageServiceSoapClient();
+            client.SendCommonMessageByUserCode(952, "admin02", usercode, content, 0, 0, "GXT.IM", "", "", "");
+        }
+
+    }
+}

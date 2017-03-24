@@ -1,0 +1,638 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Application.Business.Erp.SupplyChain.Client.Basic.Template;
+using Application.Business.Erp.SupplyChain.Basic.Domain;
+using Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass;
+using Application.Business.Erp.SupplyChain.Client.MoneyManage.FinanceMultData;
+using Application.Business.Erp.SupplyChain.MoneyManage.IndirectCost.Domain;
+using VirtualMachine.Component.WinControls.Controls;
+using Application.Business.Erp.SupplyChain.Client.Basic.CommonClass;
+using VirtualMachine.Component.WinControls.CommonForm.FlashScreenMng;
+using VirtualMachine.Core;
+using NHibernate.Criterion;
+using VirtualMachine.Component.Util;
+using Application.Business.Erp.SupplyChain.Client.Util;
+using Application.Business.Erp.SupplyChain.Base.Domain;
+using System.Collections;
+using Application.Business.Erp.ResourceManager.Client.ResourceUI.PersonAndOrganization.OrganizationResource;
+using FlexCell;
+
+namespace Application.Business.Erp.SupplyChain.Client.MoneyManage.FundPlan
+{
+    public partial class VPlanDeclareQuery : TBasicDataView
+    {
+        private List<OperationOrgInfo> companyOrgs;
+        private MFinanceMultData mOperate = new MFinanceMultData();
+        private int showType;
+
+        private string allotCellName = "分配额";
+        private int gdOfficeExpendAllotInsertStartIndex = 5;//插入"分配额"的列号
+        private int gdCompanyReportAllotInsertStartIndex = 9;
+        private int gdOtherExpendAllotInsertStartIndex = 5;
+        private int gdProjectExpendAllotInsertStartIndex = 15;
+        private int gdTotalExpend2AllotInsertStartIndex = 11;
+
+        private decimal filialeFundPlanDeclareAllot = 0;//分公司资金支付计划申报表的"分配额"，要从两张flx表中获取数据
+        private decimal filialeOfficeTotalQuota = 0;//分公司机关资金支付计划申报表的"分配额"
+        private decimal filialeTotal2Quota = 0;//分公司汇总表2"分配额"
+        private decimal filialeTotalPlanDeclarePayment = 0;//分公司计划申报支出
+
+        public VPlanDeclareQuery()
+        {
+            InitializeComponent();
+
+            InitEvent();
+
+            InitData();
+
+            SetTabPageVisible();
+        }
+
+        private void InitEvent()
+        {
+            this.dgMaster.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgMaster.CellDoubleClick += new DataGridViewCellEventHandler(dgMaster_CellDoubleClick);
+        }
+
+        private void InitData()
+        {
+            this.Text = "资金计划查询";
+            this.dtpBeginCreateDate.Value = ConstObject.TheLogin.LoginDate.AddDays(-7);
+            this.dtpEndCreateDate.Value = ConstObject.TheLogin.LoginDate;
+
+            var projectInfo = StaticMethod.GetProjectInfo();
+            if (projectInfo != null && !projectInfo.Code.Equals(CommonUtil.CompanyProjectCode))
+            {
+                txtOperationOrg.Text = ConstObject.TheOperationOrg.Name;
+                txtOperationOrg.Tag = ConstObject.TheOperationOrg;
+                btnOperationOrg.Visible = false;
+            }
+
+            InitFlex();
+
+            GetCompanyOrg();
+        }
+
+        private void InitFlex()
+        {
+            foreach (TabPage tPage in tabControl1.TabPages)
+            {
+                if (tPage.Tag == null)
+                {
+                    continue;
+                }
+
+                var fName = string.Concat(tPage.Tag, ".flx");
+                var grid = FindGrid(tPage);
+                if (grid != null)
+                {
+                    FundPlanOperate.LoadFlexFile(fName, grid);
+                }
+            }
+
+            addAllAllotColumn();
+        }
+
+        private void GetCompanyOrg()
+        {
+            var list = mOperate.FinanceMultDataSrv.GetSubCompanySyscodeList();
+            if (list == null || list.Count == 0)
+            {
+                return;
+            }
+
+            ObjectQuery objQuery = new ObjectQuery();
+            Disjunction dis = new Disjunction();
+            foreach (var sysCode in list)
+            {
+                dis.Add(Expression.Eq("SysCode", sysCode));
+            }
+            objQuery.AddCriterion(dis);
+
+            companyOrgs = mOperate.FinanceMultDataSrv.Query(typeof(OperationOrgInfo), objQuery)
+                .OfType<OperationOrgInfo>().ToList();
+        }
+
+        private CustomFlexGrid FindGrid(TabPage tPage)
+        {
+            if (tPage == null)
+            {
+                return null;
+            }
+
+            foreach (Control ctrl in tPage.Controls)
+            {
+                if (ctrl is CustomFlexGrid)
+                {
+                    return ctrl as CustomFlexGrid;
+                }
+            }
+
+            return null;
+        }
+
+        private void SetTabPageVisible()
+        {
+            if (showType == 1) //总部机关资金计划
+            {
+                tpCompanyReport.Parent = null;
+                tpOtherExpend.Parent = null;
+                tpProjectExpend.Parent = null;
+                tpProjectReport.Parent = null;
+                tpTotalExpend1.Parent = null;
+                tpTotalExpend2.Parent = null;
+                tPOfficeExpend.Parent = tabControl1;
+            }
+            else if (showType == 3) //项目资金计划
+            {
+                tpCompanyReport.Parent = null;
+                tpOtherExpend.Parent = tabControl1;
+                tpProjectExpend.Parent = tabControl1;
+                tpProjectReport.Parent = tabControl1;
+                tpTotalExpend1.Parent = null;
+                tpTotalExpend2.Parent = null;
+                tPOfficeExpend.Parent = null;
+            }
+            else if (showType == 2) //分公司资金计划
+            {
+                tpCompanyReport.Parent = tabControl1;
+                tpOtherExpend.Parent = null;
+                tpProjectExpend.Parent = null;
+                tpProjectReport.Parent = null;
+                tpTotalExpend1.Parent = tabControl1;
+                tpTotalExpend2.Parent = tabControl1;
+                tPOfficeExpend.Parent = tabControl1;
+            }
+        }
+
+        private void FillProjectPlanMaster(IList list)
+        {
+            foreach (ProjectFundPlanMaster master in list)
+            {
+                int rowIndex = dgMaster.Rows.Add();
+                dgMaster.Rows[rowIndex].Tag = master;
+                dgMaster[colCode.Name, rowIndex].Value = master.Code;
+                dgMaster[colUnit.Name, rowIndex].Value = master.ReportUnit;
+                dgMaster[colFinanceConfirmTaxIncome.Name, rowIndex].Value = master.PresentMonthPayment;
+                dgMaster[colApprove.Name, rowIndex].Value = master.ApprovalAmount;
+                dgMaster[colDeclareDate.Name, rowIndex].Value = master.DeclareDate.ToShortDateString();
+                dgMaster[colState.Name, rowIndex].Value = ClientUtil.GetDocStateName(master.DocState);
+                dgMaster[colCreateDate.Name, rowIndex].Value = master.DeclareDate.ToShortDateString();
+                dgMaster[colCreatePersonName.Name, rowIndex].Value = master.CreatePersonName;
+            }
+        }
+
+        private void FillFilialePlanMaster(IList list)
+        {
+            foreach (FilialeFundPlanMaster master in list)
+            {
+                int rowIndex = dgMaster.Rows.Add();
+                dgMaster.Rows[rowIndex].Tag = master;
+                dgMaster[colCode.Name, rowIndex].Value = master.Code;
+                dgMaster[colUnit.Name, rowIndex].Value = master.DeclareUnit;
+                dgMaster[colFinanceConfirmTaxIncome.Name, rowIndex].Value = master.PresentMonthPlanPayment;
+                dgMaster[colApprove.Name, rowIndex].Value = master.Approval;
+                dgMaster[colDeclareDate.Name, rowIndex].Value = master.DeclareDate.ToShortDateString();
+                dgMaster[colState.Name, rowIndex].Value = ClientUtil.GetDocStateName(master.DocState);
+                dgMaster[colCreateDate.Name, rowIndex].Value = master.DeclareDate.ToShortDateString();
+                dgMaster[colCreatePersonName.Name, rowIndex].Value = master.CreatePersonName;
+            }
+        }
+
+        private void dgMaster_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgMaster.CurrentRow.Tag == null)
+            {
+                return;
+            }
+
+            if (dgMaster.CurrentRow.Tag is ProjectFundPlanMaster)
+            {
+                var master = dgMaster.CurrentRow.Tag as ProjectFundPlanMaster;
+                DisplayThisProjectOtherPlanDetail(master);
+                DispalyThisProjectPlanDetail(master);
+                DisplayThisProjectReportDetail(master);
+
+                showType = 3;
+            }
+            else if (dgMaster.CurrentRow.Tag is FilialeFundPlanMaster)
+            {
+                var master = dgMaster.CurrentRow.Tag as FilialeFundPlanMaster;
+                DisplayThisOfficePlanDetail(master);
+
+                var detailList = mOperate.FinanceMultDataSrv.GetFilialeFundPlanProjectDetail(master);
+                if (detailList != null)
+                {
+                    foreach (ProjectFundPlanMaster plan in detailList)
+                    {
+                        var project = mOperate.CurrentProjectSrv.GetProjectById(plan.ProjectId);
+                        if (project != null)
+                        {
+                            plan.ProjectState = ((EnumProjectCurrState) project.ProjectCurrState).ToString();
+                            plan.ProjectType = project.ProjectType;
+                        }
+                    }
+                }
+
+                var list = mOperate.FinanceMultDataSrv.GetFilialeFundPlanProjectDetail(master);
+                FundPlanOperate.DisplayFilialePlanProjectDetailsByName(list, gdTotalExpend1, "单位资金支付计划申报汇总表.flx");
+
+                DisplayThisTotalExpend2(master);
+
+                DisplayThisFilialePlanMaster(master);
+
+                if (companyOrgs.Exists(a => master.OpgSysCode.StartsWith(a.SysCode)))
+                {
+                    showType = 2;
+                }
+                else
+                {
+                    showType = 1;
+                }
+            }
+
+            SetTabPageVisible();
+        }
+
+        private void DisplayThisProjectOtherPlanDetail(ProjectFundPlanMaster master)
+        {
+            FundPlanOperate.DisplayProjectOtherPlanDetail(master, gdOtherExpend, "项目资金支付计划申报其他支出明细表.flx");
+            gdOtherExpend.InsertCol(gdOtherExpendAllotInsertStartIndex, 1);
+            gdOtherExpend.Cell(3, gdOtherExpendAllotInsertStartIndex).Text = allotCellName;
+            gdOtherExpend.Range(2, gdOtherExpendAllotInsertStartIndex - 1, 2, gdOtherExpendAllotInsertStartIndex + 1).Merge();
+            gdOtherExpend.Cell(2, gdOtherExpendAllotInsertStartIndex - 1).Text = "单位：元";
+            gdOtherExpend.Cell(2, gdOtherExpendAllotInsertStartIndex + 1).Text = "";
+
+            List<ProjectOtherPayPlanDetail> otherDetails = master.OtherPayDetails.OfType<ProjectOtherPayPlanDetail>().ToList();
+            List<FundPlanFlexGridOperate> otherPlanDetailOperate = FundPlanOperate.OtherPlanDetailOperate;
+            for (int rowIndex = 4; rowIndex < gdOtherExpend.Rows; rowIndex++)
+            {
+                if (otherPlanDetailOperate.Find(a => a.CurrentRowNumber == rowIndex) != null)
+                {
+                    FundPlanFlexGridOperate operate = otherPlanDetailOperate.Find(a => a.CurrentRowNumber == rowIndex);
+                    if (operate.DataRow)
+                    {
+                        ProjectOtherPayPlanDetail oneDetail = otherDetails.Find(a => a.Id == operate.Id);
+                        if (oneDetail.Quota != 0)
+                        {
+                            gdOtherExpend.Cell(rowIndex, 5).Text = oneDetail.Quota.ToString("N2");
+                        }
+                    }
+                    else
+                    {
+                        gdOtherExpend.Cell(rowIndex, 5).Text = operate.SubtotalQuota.ToString("N2");
+                        gdOtherExpend.Cell(rowIndex, 5).FontBold = true;
+                    }
+                }
+            }
+            gdOtherExpend.Locked = false;
+            CommonUtil.SetGridRangeLockState(gdOtherExpend.Range(gdOtherExpendAllotInsertStartIndex - 1, 1, gdOtherExpend.Rows - 2, gdOtherExpendAllotInsertStartIndex - 1), true);
+            CommonUtil.SetGridRangeLockState(gdOtherExpend.Range(4, gdOtherExpendAllotInsertStartIndex + 1, gdOtherExpend.Rows - 2, gdOtherExpendAllotInsertStartIndex + 1), true);
+            CommonUtil.SetGridRangeLockState(gdOtherExpend.Range(4, gdOtherExpendAllotInsertStartIndex, gdOtherExpend.Rows -2, gdOtherExpendAllotInsertStartIndex),true);
+        }
+
+        private void DispalyThisProjectPlanDetail(ProjectFundPlanMaster master)
+        {
+            FundPlanOperate.DispalyProjectPlanDetail(master, gdProjectExpend, "项目资金支付计划申报明细表.flx");
+            gdProjectExpend.InsertCol(gdProjectExpendAllotInsertStartIndex, 1);
+            gdProjectExpend.Range(3, gdProjectExpendAllotInsertStartIndex, 4, gdProjectExpendAllotInsertStartIndex).Merge();
+            gdProjectExpend.Cell(3, gdProjectExpendAllotInsertStartIndex).Text = allotCellName;
+            gdProjectExpend.Range(2, gdProjectExpendAllotInsertStartIndex - 1, 2, gdProjectExpendAllotInsertStartIndex + 1).Merge();
+            gdProjectExpend.Cell(2, gdProjectExpendAllotInsertStartIndex - 1).Text = "单位：元";
+            gdProjectExpend.Cell(2, gdProjectExpendAllotInsertStartIndex + 1).Text = "";
+
+            List<ProjectFundPlanDetail> details = master.Details.OfType<ProjectFundPlanDetail>().ToList();
+            List<FundPlanFlexGridOperate> projectPlanDetailOperate = FundPlanOperate.ProjectPlanDetailOperate;
+            for (int rowIndex = 5; rowIndex < gdProjectExpend.Rows; rowIndex++)
+            {
+                if (projectPlanDetailOperate.Find(a => a.CurrentRowNumber == rowIndex) != null)
+                {
+                    FundPlanFlexGridOperate operate = projectPlanDetailOperate.Find(a => a.CurrentRowNumber == rowIndex);
+                    if (operate.DataRow)
+                    {
+                        ProjectFundPlanDetail oneDetail = details.Find(a => a.Id == operate.Id);
+                        if (oneDetail.Quota != 0)
+                        {
+                            gdProjectExpend.Cell(rowIndex, 15).Text = oneDetail.Quota.ToString("N2");
+                        }
+                    }
+                    else
+                    {
+                        gdProjectExpend.Cell(rowIndex, 15).FontBold = true;
+                        gdProjectExpend.Cell(rowIndex, 15).Text = operate.SubtotalQuota.ToString("N2");
+                    }
+                }
+            }
+            gdProjectExpend.Locked = false;
+            CommonUtil.SetGridRangeLockState(gdProjectExpend.Range(5, 1, gdProjectExpend.Rows - 1, gdProjectExpendAllotInsertStartIndex - 1), true);
+            CommonUtil.SetGridRangeLockState(gdProjectExpend.Range(5, gdProjectExpendAllotInsertStartIndex + 1, gdProjectExpend.Rows - 1, gdProjectExpendAllotInsertStartIndex + 1), true);
+            CommonUtil.SetGridRangeLockState(gdProjectExpend.Range(5, gdProjectExpendAllotInsertStartIndex , gdProjectExpend.Rows - 1, gdProjectExpendAllotInsertStartIndex ), true);
+        }
+
+        private void DisplayThisProjectReportDetail(ProjectFundPlanMaster master)
+        {
+            FundPlanOperate.DisplayProjectReportDetail(master, gdProjectReport, "项目资金支付计划申报分配表.flx");
+
+            List<FundPlanFlexGridOperate> otherPlanCostTypeOperate = FundPlanOperate.OtherPlanCostTypeOperate;
+            List<FundPlanFlexGridOperate> projectPlanCostTypeOperate = FundPlanOperate.ProjectPlanCostTypeOperate;
+            int rowIndex = 10;
+            decimal totalQuota = 0;
+            if (projectPlanCostTypeOperate.Count > 0)
+            {
+                foreach (FundPlanFlexGridOperate operate in projectPlanCostTypeOperate)
+                {
+                    if (!string.IsNullOrEmpty(gdProjectReport.Cell(rowIndex, 1).Text))
+                    {
+                        string costTypeString = gdProjectReport.Cell(rowIndex, 1).Text;
+                        if (projectPlanCostTypeOperate.Find(a => a.CostType == FundPlanOperate.getCostType(costTypeString)) != null)
+                        {
+                            FundPlanFlexGridOperate currentOpearte = projectPlanCostTypeOperate.Find(a => a.CostType == FundPlanOperate.getCostType(costTypeString));
+                            gdProjectReport.Cell(rowIndex, 10).Text = operate.SubtotalQuota.ToString("N2");
+                            totalQuota += operate.SubtotalQuota;
+                        }
+                    }
+                    rowIndex++;
+                }
+            }
+            if (otherPlanCostTypeOperate.Count > 0)
+            {
+                FundPlanFlexGridOperate operate = otherPlanCostTypeOperate.ElementAt(0);
+                gdProjectReport.Cell(rowIndex, 10).Text = operate.SubtotalQuota.ToString("N2");
+                totalQuota += operate.SubtotalQuota;
+                rowIndex++;
+            }
+            gdProjectReport.Cell(rowIndex, 10).Text = totalQuota.ToString();
+            int rowStartIndex = 10;
+            CommonUtil.SetGridRangeLockState(gdProjectReport.Range(rowStartIndex, 10, gdProjectReport.Rows - 1, 10), true);
+        }
+
+        private void DisplayThisOfficePlanDetail(FilialeFundPlanMaster master)
+        {
+            FundPlanOperate.DisplayOfficePlanDetail(master, gdOfficeExpend, "机关资金计划支出明细表.flx");
+
+            gdOfficeExpend.InsertCol(gdOfficeExpendAllotInsertStartIndex, 1);
+            gdOfficeExpend.Cell(3, gdOfficeExpendAllotInsertStartIndex).Text = allotCellName;
+
+            List<OfficeFundPlanPayDetail> officeDetails = master.OfficeFundPlanDetails.
+                OfType<OfficeFundPlanPayDetail>().ToList();
+            List<FundPlanFlexGridOperate> officePlanDetailOperate = FundPlanOperate.OfficePlanDetailOperate;
+            decimal totalQuota = 0;
+            filialeFundPlanDeclareAllot = 0;
+            for (int rowIndex = 4; rowIndex < gdOfficeExpend.Rows; rowIndex++)
+            {
+                if (officePlanDetailOperate.Find(a => a.CurrentRowNumber == rowIndex) != null)
+                {
+                    FundPlanFlexGridOperate operate = officePlanDetailOperate.Find(a => a.CurrentRowNumber == rowIndex);
+                    if (operate.DataRow)
+                    {
+                        OfficeFundPlanPayDetail oneDetail = officeDetails.Find(a => a.Id == operate.Id);
+                        if (oneDetail.Quota != 0)
+                        {
+                            gdOfficeExpend.Cell(rowIndex, 5).Text = oneDetail.Quota.ToString("N2");
+                        }
+                    }
+                    else
+                    {
+                        gdOfficeExpend.Cell(rowIndex, 5).Text = operate.SubtotalQuota.ToString("N2");
+                        gdOfficeExpend.Cell(rowIndex, 5).FontBold = true;
+                        if (gdOfficeExpend.Cell(rowIndex, 1).Text == "合计")
+                        {
+                            filialeOfficeTotalQuota += operate.SubtotalQuota;
+                        }
+                    }
+                }
+            }
+            FundPlanFlexGridOperate declarePaymentOperate = officePlanDetailOperate.Find(a => a.MoneyType == "计划支出");
+            filialeTotalPlanDeclarePayment = declarePaymentOperate.AllTypeTotalSumMoeny;
+            filialeFundPlanDeclareAllot += filialeOfficeTotalQuota;
+
+            gdOfficeExpend.Locked = false;
+            CommonUtil.SetGridRangeLockState(gdOfficeExpend.Range(4, 4, gdOfficeExpend.Rows - 1, 4), true);
+            CommonUtil.SetGridRangeLockState(gdOfficeExpend.Range(4, 6, gdOfficeExpend.Rows - 1, 6), true);
+            CommonUtil.SetGridRangeLockState(gdOfficeExpend.Range(4, 5, gdOfficeExpend.Rows - 1, 5), true);
+        }
+
+        private void DisplayThisTotalExpend2(FilialeFundPlanMaster master)
+        {
+            gdTotalExpend2.Locked = false;
+            List<ProjectFundPlanMaster> list = (List<ProjectFundPlanMaster>)
+                mOperate.FinanceMultDataSrv.GetFilialeFundPlanProjectDetail(master);
+            if (list != null)
+            {
+                foreach (ProjectFundPlanMaster plan in list)
+                {
+                    var project = mOperate.CurrentProjectSrv.GetProjectById(plan.ProjectId);
+                    if (project != null)
+                    {
+                        plan.ProjectState = ((EnumProjectCurrState)project.ProjectCurrState).ToString();
+                    }
+                }
+            }
+            FundPlanOperate.DisplayFilialePlanProjectDetailsByState(list, gdTotalExpend2, "月资金计划项目申报汇总表.flx");
+
+            //资金计划申报汇总表2增加"分配额"列
+            gdTotalExpend2.InsertCol(gdTotalExpend2AllotInsertStartIndex, 1);
+            gdTotalExpend2.Range(3, gdTotalExpend2AllotInsertStartIndex, 4, gdTotalExpend2AllotInsertStartIndex).Merge();
+            gdTotalExpend2.Cell(3, gdTotalExpend2AllotInsertStartIndex).Text = allotCellName;
+
+            CommonUtil.SetGridRangeLockState(gdTotalExpend2.Range(5, 1, gdTotalExpend2.Rows - 1, gdTotalExpend2.Cols - 1), true);
+
+            List<FundPlanFlexGridOperate> operates = FundPlanOperate.TotalExpend2Operate;
+            decimal subtotalQuota = 0;//小计
+            filialeTotal2Quota = 0;//总计
+            for (int rowIndex = 5; rowIndex < gdTotalExpend2.Rows; rowIndex++)
+            {
+                if (operates.Find(a => a.CurrentRowNumber == rowIndex) != null)
+                {
+                    FundPlanFlexGridOperate operate = operates.Find(a => a.CurrentRowNumber == rowIndex);
+                    ProjectFundPlanMaster oneMaster = list.Find(a => a.Id == operate.Id);
+                    gdTotalExpend2.Cell(rowIndex, gdTotalExpend2AllotInsertStartIndex).Text = oneMaster.ApprovalAmount.ToString();
+                    subtotalQuota += oneMaster.ApprovalAmount;
+                }
+                if (gdTotalExpend2.Cell(rowIndex, 2).Text == "小计")
+                {
+                    gdTotalExpend2.Cell(rowIndex, gdTotalExpend2AllotInsertStartIndex).Text = subtotalQuota.ToString("N2");
+                    gdTotalExpend2.Cell(rowIndex, gdTotalExpend2AllotInsertStartIndex).FontBold = true;
+                    filialeTotal2Quota += subtotalQuota;
+                    subtotalQuota = 0;
+                }
+                if (gdTotalExpend2.Cell(rowIndex, 1).Text == "合计")
+                {
+                    gdTotalExpend2.Cell(rowIndex, gdTotalExpend2AllotInsertStartIndex).Text = filialeTotal2Quota.ToString("N2");
+                    gdTotalExpend2.Cell(rowIndex, gdTotalExpend2AllotInsertStartIndex).FontBold = true;
+                }
+            }
+            filialeFundPlanDeclareAllot += filialeTotal2Quota;
+        }
+
+        private void DisplayThisFilialePlanMaster(FilialeFundPlanMaster master)
+        {
+            FundPlanOperate.DisplayFilialePlanMaster(master, gdCompanyReport, "分公司资金支付计划申报表.flx");
+            gdCompanyReport.InsertCol(gdCompanyReportAllotInsertStartIndex, 1);
+            gdCompanyReport.Range(12, gdCompanyReportAllotInsertStartIndex, 13, gdCompanyReportAllotInsertStartIndex).Merge();
+            gdCompanyReport.Cell(12, gdCompanyReportAllotInsertStartIndex).Text = allotCellName;
+
+            List<FilialeFundPlanDetail> filialeDetails = master.Details.OfType<FilialeFundPlanDetail>().ToList();
+            List<FundPlanFlexGridOperate> filialePlanDetailOperate = FundPlanOperate.FilialePlanDetailOperate;
+            int currentRowIndex = 0;
+            int rowIndex = 14;
+            for (rowIndex = 14; rowIndex < gdCompanyReport.Rows; rowIndex++)
+            {
+                if (filialePlanDetailOperate.Find(a => a.CurrentRowNumber == rowIndex) != null)
+                {
+                    FundPlanFlexGridOperate operate = filialePlanDetailOperate.Find(a => a.CurrentRowNumber == rowIndex);
+                    if (operate.DataRow)
+                    {
+                        FilialeFundPlanDetail oneDetail = filialeDetails.Find(a => a.Id == operate.Id);
+                        gdCompanyReport.Cell(rowIndex, 9).Text = filialeTotal2Quota.ToString("N2");
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
+                    gdCompanyReport.Cell(rowIndex, 9).Text = filialeTotal2Quota.ToString("N2");
+                }
+                currentRowIndex = rowIndex;
+            }
+            gdCompanyReport.AddItem("", true);
+            currentRowIndex++;
+            //添加机关资金计划分配额
+            gdCompanyReport.Cell(currentRowIndex, 1).Text = "分公司机关";
+            gdCompanyReport.Cell(currentRowIndex, 6).Text = filialeTotalPlanDeclarePayment.ToString();
+            gdCompanyReport.Cell(currentRowIndex, 9).Text = filialeOfficeTotalQuota.ToString();
+            gdCompanyReport.AddItem("", true);
+            currentRowIndex++;
+            gdCompanyReport.Cell(currentRowIndex, 1).Text = "合计";
+            decimal totalQuota = filialeOfficeTotalQuota + filialeTotal2Quota;
+            gdCompanyReport.Cell(currentRowIndex, 9).Text = totalQuota.ToString();
+            filialeOfficeTotalQuota = 0;
+            filialeTotal2Quota = 0;
+            filialeTotalPlanDeclarePayment = 0;
+            gdCompanyReport.Range(currentRowIndex - 2, 8, currentRowIndex, 8).Merge();
+            gdCompanyReport.Cell(currentRowIndex - 2, 8).Text = master.Approval.ToString();
+            int colIndex = 2;
+            for (int i = colIndex; i < gdCompanyReport.Cols; i++)
+            {
+                gdCompanyReport.Cell(currentRowIndex, i).Text =
+                    ComputeColumnTotalValue(gdCompanyReport, 14, gdCompanyReport.Rows - 1, i).ToString("N2");
+            }
+            CommonUtil.SetFlexGridBorder(gdCompanyReport, 14);
+            CommonUtil.SetFlexGridColumnAutoFit(gdCompanyReport);
+            gdCompanyReport.Range(currentRowIndex - 2, 1, currentRowIndex, 10).Alignment = AlignmentEnum.RightCenter;
+            CommonUtil.SetGridRangeLockState(gdCompanyReport.Range(6, 1, gdCompanyReport.Rows - 1, gdCompanyReport.Cols - 1), true);
+        }
+
+        private decimal ComputeColumnTotalValue(CustomFlexGrid grid, int startRow, int endRow, int colIndex)
+        {
+            decimal totalVal = 0;
+            for (int i = startRow; i < endRow; i++)
+            {
+                var txt = grid.Cell(i, colIndex).Text.Trim();
+                var tmp = 0m;
+                if (decimal.TryParse(txt, out tmp))
+                {
+                    totalVal += tmp;
+                }
+            }
+
+            return totalVal;
+        }
+
+        private void btnQuery_Click(object sender, EventArgs e)
+        {
+            FlashScreen.Show("正在查询信息......");
+
+            ObjectQuery objectQuery = new ObjectQuery();
+
+            if (txtCode.Text != "")
+            {
+                objectQuery.AddCriterion(Expression.Like("Code", txtCode.Text, MatchMode.Anywhere));
+            }
+
+            //业务时间
+            objectQuery.AddCriterion(Expression.Ge("CreateDate", this.dtpBeginCreateDate.Value.Date));
+            objectQuery.AddCriterion(Expression.Lt("CreateDate", this.dtpEndCreateDate.Value.AddDays(1).Date));
+            var org = txtOperationOrg.Tag as OperationOrgInfo;
+            if (org != null)
+            {
+                objectQuery.AddCriterion(Expression.Like("OpgSysCode", org.SysCode, MatchMode.Start));
+            }
+            else
+            {
+                objectQuery.AddCriterion(Expression.Like("OpgSysCode", ConstObject.TheOperationOrg.SysCode, MatchMode.Start));
+            }
+
+            dgMaster.Rows.Clear();
+            var list = mOperate.FinanceMultDataSrv.GetFilialeFundPlanMasterByOQ(objectQuery);
+            FillFilialePlanMaster(list);
+
+            list = mOperate.FinanceMultDataSrv.GetProjectFundPlanMasterByOQ(objectQuery);
+            FillProjectPlanMaster(list);
+
+            InitFlex();
+
+            FlashScreen.Close();
+        }
+
+        private void btnOperationOrg_Click(object sender, EventArgs e)
+        {
+            VCommonOperationOrgSelect frm = new VCommonOperationOrgSelect(true);
+            frm.ShowDialog();
+            if (frm.Result != null && frm.Result.Count > 0)
+            {
+                var selOrg = frm.Result[0] as OperationOrgInfo;
+                txtOperationOrg.Tag = selOrg;
+                txtOperationOrg.Text = selOrg.Name;
+            }
+        }
+
+        /// <summary>
+        /// 给各表增加"分配额"列
+        /// </summary>
+        private void addAllAllotColumn()
+        {
+            //机关资金计划支出明细表增加"分配额"列
+            gdOfficeExpend.Locked = false;
+            gdOfficeExpend.InsertCol(gdOfficeExpendAllotInsertStartIndex, 1);
+            gdOfficeExpend.Cell(3, gdOfficeExpendAllotInsertStartIndex).Text = allotCellName;
+
+            //分公司资金支付计划申报表增加"分配额"列
+            gdCompanyReport.InsertCol(gdCompanyReportAllotInsertStartIndex, 1);
+            gdCompanyReport.Range(12, gdCompanyReportAllotInsertStartIndex, 13, gdCompanyReportAllotInsertStartIndex).Merge();
+            gdCompanyReport.Cell(12, gdCompanyReportAllotInsertStartIndex).Text = allotCellName;
+
+            //项目资金计划其他支出明细表增加"分配额"列
+            gdOtherExpend.InsertCol(gdOtherExpendAllotInsertStartIndex, 1);
+            gdOtherExpend.Cell(3, gdOtherExpendAllotInsertStartIndex).Text = allotCellName;
+            gdOtherExpend.Range(2, gdOtherExpendAllotInsertStartIndex - 1, 2, gdOtherExpendAllotInsertStartIndex + 1).Merge();
+            gdOtherExpend.Cell(2, gdOtherExpendAllotInsertStartIndex - 1).Text = "单位：元";
+            gdOtherExpend.Cell(2, gdOtherExpendAllotInsertStartIndex + 1).Text = "";
+            CommonUtil.SetGridRangeLockState(gdOtherExpend.Range(gdOtherExpendAllotInsertStartIndex - 1, 1, gdOtherExpend.Rows - 2, gdOtherExpendAllotInsertStartIndex - 1), true);
+            CommonUtil.SetGridRangeLockState(gdOtherExpend.Range(4, gdOtherExpendAllotInsertStartIndex + 1, gdOtherExpend.Rows - 2, gdOtherExpendAllotInsertStartIndex + 1), true);
+
+            //项目资金支付计划申报明细表增加"分配额"列
+            gdProjectExpend.InsertCol(gdProjectExpendAllotInsertStartIndex, 1);
+            gdProjectExpend.Range(3, gdProjectExpendAllotInsertStartIndex, 4, gdProjectExpendAllotInsertStartIndex).Merge();
+            gdProjectExpend.Cell(3, gdProjectExpendAllotInsertStartIndex).Text = allotCellName;
+            gdProjectExpend.Range(2, gdProjectExpendAllotInsertStartIndex - 1, 2, gdProjectExpendAllotInsertStartIndex + 1).Merge();
+            gdProjectExpend.Cell(2, gdProjectExpendAllotInsertStartIndex - 1).Text = "单位：元";
+            gdProjectExpend.Cell(2, gdProjectExpendAllotInsertStartIndex + 1).Text = "";
+            CommonUtil.SetGridRangeLockState(gdProjectExpend.Range(5, 1, gdProjectExpend.Rows - 1, gdProjectExpendAllotInsertStartIndex - 1), true);
+            CommonUtil.SetGridRangeLockState(gdProjectExpend.Range(5, gdProjectExpendAllotInsertStartIndex + 1, gdProjectExpend.Rows - 1, gdProjectExpendAllotInsertStartIndex + 1), true);
+
+            //资金计划申报汇总表2增加"分配额"列
+            gdTotalExpend2.InsertCol(gdTotalExpend2AllotInsertStartIndex, 1);
+            gdTotalExpend2.Range(3, gdTotalExpend2AllotInsertStartIndex, 4, gdTotalExpend2AllotInsertStartIndex).Merge();
+            gdTotalExpend2.Cell(3, gdTotalExpend2AllotInsertStartIndex).Text = allotCellName;
+        }
+    }
+}

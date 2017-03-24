@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <subclass name="Application.Business.Erp.SupplyChain.StockManage.StockMoveManage.Domain.StockMoveInDtl, SupplyChain" lazy="true" extends="Application.Business.Erp.SupplyChain.StockManage.StockInManage.BasicDomain.BasicStockInDtl,SupplyChain" select-before-update="true" discriminator-value="3">
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.StockManage.StockMoveManage.Domain.StockMoveIn, SupplyChain"/>
+  </subclass>
+</hibernate-mapping>
+
+
+

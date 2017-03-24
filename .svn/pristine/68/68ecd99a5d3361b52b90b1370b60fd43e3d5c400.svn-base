@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.ContractGroup,SupplyChain" table="THD_ContractGroup" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="Code"  />
+    <property name="ContractVersion" />
+    <property name="CreatePersonGUID" length="64"/>
+    <property name="CreatePersonName" />
+    <property name="CreateDate"/>
+    <property name="SubmitDate"/>
+    <property name="RealOperationDate"/>
+    <property name="CreatePersonSysCode" />
+    <property name="State" />
+    <property name="ContractGroupType"/>
+    <property name="ProjectId" />
+    <property name="ProjectName"/>
+    <property name="ContractDesc" />
+    <!--工期签证天数-->
+    <property name="ProjectVisa"/>
+    <property name="ConfirmMoney"/>
+    <property name="SubmitMoney"/>
+    <many-to-one name="ProjectUnit"/>
+    <property name="ProjectUnitName"/>
+    <many-to-one name="PriceUnit"/>
+    <property name="PriceUnitName"/>
+    <!--结算方式-->
+    <property name="SettleType"/>
+    <!--承担范围-->
+    <property name="BearRange"/>
+    <!--签订时间-->
+    <property name="SingDate"/>
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.ContractGroupDetail,SupplyChain"/>
+    </set>
+
+    <property name="ContractNumber" />
+    <many-to-one name="ChangeContract" column="ChangeContractId" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.ContractGroup,SupplyChain"></many-to-one>
+    <property name="ContractName"/>
+  </class>
+</hibernate-mapping>
+
+

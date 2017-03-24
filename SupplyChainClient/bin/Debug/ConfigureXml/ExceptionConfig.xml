@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Configs>
+  <config code="000" message="操作出错，请与系统管理员联系" />
+  <config code="001" message="服务未启动,请与系统管理员联系" />
+  <config code="002" message="操作员无效" />
+  <config code="003" message="操作员密码无效" />
+  <config code="004" message="登陆服务器失败"/>
+  
+  <!--会计科目模块-->
+  <config code="101" message="加载科目出错"/>
+  <config code="102" message="保存科目出错"/>
+  <config code="103" message="删除科目出错"/>
+  <config code="104" message="复制科目出错"/>
+
+</Configs>

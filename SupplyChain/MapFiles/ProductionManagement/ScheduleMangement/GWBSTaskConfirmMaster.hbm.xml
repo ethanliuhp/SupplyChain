@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.GWBSTaskConfirmMaster,SupplyChain" table="THD_GWBSTaskConfirmMaster" lazy="true">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.GWBSTaskConfirm, SupplyChain"/>
+    </set>
+    <property name="Code" />
+    <property name="SubmitDate" column="SubmitDate"/>
+    <property name="ProjectId" />
+    <property name="ProjectName" />
+    <property name="DocState" column="DocState" />
+    <many-to-one name="ConfirmHandlePerson" column="ConfirmHandlePerson" />
+    <property name="ConfirmHandlePersonName" column="ConfirmHandlePersonName" />
+    <property name="CreateDate" />
+    <property name="ConfirmDate"  type="DateTime"/>
+    <property name="OpgSysCode" column="OrgSysCode" />
+    <many-to-one name="SubContractProject" />
+    <property name="TaskHandleName" />
+
+    <property name="RealOperationDate" />
+    <many-to-one name="OperOrgInfo" />
+    <property name="OperOrgInfoName" />
+    <property name="Descript" />
+
+    <property name="BillType" />
+  </class>
+</hibernate-mapping>

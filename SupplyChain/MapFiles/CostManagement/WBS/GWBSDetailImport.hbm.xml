@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSDetailImport,SupplyChain" table="THD_GWBSDetailImport" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <!--<many-to-one name="ParentId" column="ParentId" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain" />-->
+    <property name="ParentId" />
+    <property name="Name" />
+    <property name="Code" />
+    <property name="ProjectID" />
+    <property name="DiagramNumber" />
+    <property name="ContractArtificialPrice" />
+    <property name="ContractMaterialPrice" />
+    <property name="ContractQuantity" />
+    <property name="ResponsibilityArtificialPrice" />
+    <property name="ResponsibilityMaterialPrice" />
+    <property name="ResponsibilityQuantity" />
+    <property name="PlanArtificialPrice" />
+    <property name="PlanMaterialPrice" />
+    <property name="PlanQuantity" />
+    <property name="State" />
+    <property name="OrderNo" />
+  </class>
+</hibernate-mapping>

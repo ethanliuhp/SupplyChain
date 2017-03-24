@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.ProjectDocumentVerify,SupplyChain" lazy="true" table="THD_projectDocumentVerify" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <!--自身的属性-->
+    <version name="Version" column="Version" type="long" unsaved-value="-1" />
+    <property name="AssociateLevel" />
+    <property name="SubmitState" />
+    <property name="DocuemntID"/>
+    <property name="DocumentCode" />
+    <property name="DocumentCategoryCode" />
+    <property name="DocumentCategoryName" />
+    <property name="DocumentWorkflowName" />
+    <property name="DocumentName" />
+    <property name="DocumentDesc"/>
+    <property name="FileSourceURl" />
+    <property name="AlterMode" />
+    <property name="VerifySwitch"/>
+    <many-to-one name="ProjectTask" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree, VirtualMachine" />
+    <property name="ProjectTaskName" />
+    <property name="TaskSyscode" />
+    
+    <property name="ProjectID" />
+    <property name="ProjectName"/>
+    <property name="ProjectCode" />
+  </class>
+</hibernate-mapping>

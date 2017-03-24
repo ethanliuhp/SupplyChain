@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.ProjectTaskAccountMng.Domain.ProjectTaskDetailAccount,SupplyChain" table="THD_ProjectTaskDetailAccount" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <!--<property name="AccountTaskNodeGUID"  />-->
+    <many-to-one name="AccountTaskNodeGUID" column="AccountTaskNodeGUID"  class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain"></many-to-one>
+    <property name="AccountTaskNodeName"  />
+    <property name="AccountTaskNodeSyscode"/>
+    <property name="AccountProjectAmount" />
+    <property name="AccountPrice" />
+    <property name="AccountTotalPrice" />
+    <property name="BalanceState" />
+
+    <many-to-one name="ProjectTaskDtlGUID" column="ProjectTaskDtlGUID"  class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSDetail,SupplyChain"></many-to-one>
+    <property name="ProjectTaskDtlName"/>
+
+    <many-to-one name="BearerGUID" column="BearerGUID" class="Application.Business.Erp.SupplyChain.CostManagement.ContractExcuteMng.Domain.SubContractProject,SupplyChain"/>
+    <many-to-one name="BearerOrg" column="BearerOrg" class="Application.Resource.PersonAndOrganization.SupplierManagement.RelateClass.SupplierRelationInfo,ResourceManager"/>
+    <property name="BearerName"/>
+    <many-to-one name="TheCostItem" column="CostItemGUID" class="Application.Business.Erp.SupplyChain.CostManagement.CostItemMng.Domain.CostItem,SupplyChain"/>
+    <property name="CostItemName"/>
+
+
+    <many-to-one name="QuantityUnitGUID" column="QuantityUnitGUID"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="QuantityUnitName"/>
+
+    <many-to-one name="PriceUnitGUID" column="PriceUnitGUID"  class="Application.Resource.MaterialResource.Domain.StandardUnit,ResourceManager"></many-to-one>
+    <property name="PriceUnitName"/>
+
+    <property name="TheProjectGUID" />
+    <property name="TheProjectName"/>
+
+    <property name="BalanceDtlGUID"/>
+    <property name="Remark"/>
+
+    <many-to-one name="TheAccountBill" column="ParentId" not-null="true" lazy="false" class="Application.Business.Erp.SupplyChain.CostManagement.ProjectTaskAccountMng.Domain.ProjectTaskAccountBill,SupplyChain"></many-to-one>
+
+    <set name="Details" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <cache usage="read-write"/>
+      <key column="ParentId" />
+      <one-to-many class="Application.Business.Erp.SupplyChain.CostManagement.ProjectTaskAccountMng.Domain.ProjectTaskDetailAccountSubject,SupplyChain"/>
+    </set>
+
+    
+    <property name="ContractQuantity" />
+    <property name="ContractPrice" />
+    <property name="ContractTotalPrice" />
+    <property name="ResponsibleQuantity" />
+    
+    <property name="ResponsiblePrice" />
+    <property name="ResponsibleTotalPrice" />
+    <property name="PlanQuantity" />
+    <property name="PlanPrice" />
+    <property name="PlanTotalPrice" />
+    
+    <property name="ConfirmQuantity" />
+    <property name="CurrAccFigureProgress" />
+    <property name="CurrAccEV" />
+    <property name="CurrContractIncomeQny" />
+    <property name="CurrContractIncomeTotal" />
+
+    <property name="CurrResponsibleCostQny" />
+    <property name="CurrResponsibleCostTotal" />
+
+    <many-to-one name="ResponsiblePerson" column="ResponsiblePersonId" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"/>
+    <property name="ResponsiblePersonName"/>
+
+    <property name="MatFeeBlanceFlag"/>
+    <property name="AddupAccountQuantity"/>
+    <property name="AddupAccountProgress"/>
+  </class>
+</hibernate-mapping>
+
+

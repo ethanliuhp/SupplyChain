@@ -1,0 +1,484 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Application.Business.Erp.SupplyChain.Basic.Domain;
+using Application.Business.Erp.SupplyChain.Client.Basic.CommonClass;
+using Application.Business.Erp.SupplyChain.Client.Basic.Template;
+using Application.Business.Erp.SupplyChain.Client.MoneyManage.FinanceMultData;
+using Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain;
+using VirtualMachine.Component.Util;
+using VirtualMachine.Component.WinControls.Controls;
+using VirtualMachine.Component.WinMVC.generic;
+using VirtualMachine.Patterns.BusinessEssence.Domain;
+
+namespace Application.Business.Erp.SupplyChain.Client.MoneyManage
+{
+    public partial class VFundSchemeRequest : TMasterDetailView
+    {
+        private FundPlanningMaster selectFund;
+        private MFinanceMultData mOperate;
+
+        public VFundSchemeRequest()
+        {
+            InitializeComponent();
+
+            InitEvents();
+
+            InitData();
+        }
+
+        private void InitData()
+        {
+            mOperate = new MFinanceMultData();
+            txtCreateTime.Text = DateTime.Now.ToString();
+            ucProjectSelector1.InitData();
+
+            LoadFundScheme();
+        }
+
+        private void InitEvents()
+        {
+            ucProjectSelector1.AfterSelectProjectEvent += AfterSelectProject;
+
+            dgMaster.AutoGenerateColumns = false;
+            dgMaster.CellDoubleClick += new DataGridViewCellEventHandler(dgMaster_CellDoubleClick);
+            dgMaster.RowPostPaint += new DataGridViewRowPostPaintEventHandler(dgMaster_RowPostPaint);
+        }
+
+        private void AfterSelectProject(object sender)
+        {
+            var sp = sender as UcProjectSelector;
+            if (sp == null)
+            {
+                return;
+            }
+
+            if (sp.SelectedProject != null)
+            {
+                txtProjectTime.Text = string.Concat(sp.SelectedProject.BeginDate.ToShortDateString(), "-",
+                                                    sp.SelectedProject.EndDate.ToShortDateString());
+                txtProjectTotalPrice.Text = sp.SelectedProject.ProjectCost.ToString("N2");
+                if (sp.SelectedProject.BeginDate > DateTime.MinValue && sp.SelectedProject.BeginDate < DateTime.MaxValue)
+                {
+                    dtpBeginDate.Value = sp.SelectedProject.BeginDate;
+                }
+                if (sp.SelectedProject.EndDate > DateTime.MinValue && sp.SelectedProject.EndDate < DateTime.MaxValue)
+                {
+                    dtpEndDate.Value = sp.SelectedProject.EndDate;
+                }
+            }
+            else
+            {
+                txtProjectTime.Text = string.Empty;
+                txtProjectTotalPrice.Text = string.Empty;
+            }
+        }
+
+        private void ClearControl(Control c)
+        {
+            foreach (Control cd in c.Controls)
+            {
+                ClearControl(cd);
+            }
+            //自定义控件清空
+            if (c is CustomEdit || c is TextBox)
+            {
+                c.Tag = null;
+                c.Text = "";
+            }
+        }
+
+        //显示数据
+        private bool ModelToView()
+        {
+            try
+            {
+                ClearControl(pnlFloor);
+
+                if (selectFund == null)
+                {
+                    return false;
+                }
+                txtCode.Text = selectFund.Code;
+                ViewCaption = ViewName + "【" + selectFund.Code + "】";
+                var proj = mOperate.CurrentProjectSrv.GetProjectById(selectFund.ProjectId);
+                ucProjectSelector1.SelectedProject = proj;
+                txtGatheringCondition.Text = selectFund.GatheringCondition;
+                txtContractRemark.Text = selectFund.SpecialDescript;
+                dtpBeginDate.Value = selectFund.SchemeBeginDate;
+                dtpEndDate.Value = selectFund.SchemeEndDate;
+                txtCreateTime.Text = selectFund.CreateDate.ToString();
+                txtProfitRate.Text = selectFund.CalculateProfitRate.ToString();
+                txtHandIn.Text = selectFund.TargetHandin.ToString();
+                txtPayRate.Text = selectFund.CostCashRate.ToString();
+                txtPaymentBalance.Text = selectFund.BreakevenPoint.ToString();
+                txtCalculate.Text = selectFund.CalculateSituation;
+                txtTarget.Text = selectFund.PlanningTarget;
+                txtRemark.Text = selectFund.Descript;
+                cmbUnit.Text = selectFund.Unit;
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        /// <summary>
+        /// 保存数据前校验数据
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidView()
+        {
+            if (ucProjectSelector1.SelectedProject == null)
+            {
+                MessageBox.Show("项目不能为空！");
+                return false;
+            }
+
+            decimal tmp = 0;
+            if (!decimal.TryParse(txtProfitRate.Text.Trim(), out tmp) || tmp < -100 || tmp > 100)
+            {
+                txtProfitRate.Focus();
+                MessageBox.Show("请输入正确的测算自行利润率！");
+                return false;
+            }
+
+            if (!decimal.TryParse(txtHandIn.Text.Trim(), out tmp) || tmp < -100 || tmp > 100)
+            {
+                txtHandIn.Focus();
+                MessageBox.Show("请输入正确的目标责任上缴！");
+                return false;
+            }
+
+            if (!decimal.TryParse(txtPayRate.Text.Trim(), out tmp) || tmp < -100 || tmp > 100)
+            {
+                txtPayRate.Focus();
+                MessageBox.Show("请输入正确的成本付现率！");
+                return false;
+            }
+
+            if (!decimal.TryParse(txtPaymentBalance.Text.Trim(), out tmp) || tmp < -100 || tmp > 100)
+            {
+                txtPaymentBalance.Focus();
+                MessageBox.Show("请输入正确的收支平衡点！");
+                return false;
+            }
+
+            return true;
+        }
+
+        //保存数据
+        private bool ViewToModel()
+        {
+            if (!ValidView()) return false;
+            try
+            {
+                if (selectFund == null)
+                {
+                    NewFundScheme();
+                }
+                selectFund.ProjectId = ucProjectSelector1.SelectedProject.Id;
+                selectFund.ProjectName = ucProjectSelector1.SelectedProject.Name;
+                selectFund.ProjectCost = ucProjectSelector1.SelectedProject.ProjectCost;
+                selectFund.GatheringCondition = txtGatheringCondition.Text.Trim();
+                selectFund.ContractDuration = txtProjectTime.Text.Trim();
+                selectFund.SpecialDescript = txtContractRemark.Text.Trim();
+                selectFund.SchemeBeginDate = dtpBeginDate.Value.Date;
+                selectFund.SchemeEndDate = dtpEndDate.Value.Date;
+
+                selectFund.CalculateProfitRate = decimal.Parse(txtProfitRate.Text.Trim());
+                selectFund.TargetHandin = decimal.Parse(txtHandIn.Text.Trim());
+                selectFund.CostCashRate = decimal.Parse(txtPayRate.Text.Trim());
+                selectFund.BreakevenPoint = decimal.Parse(txtPaymentBalance.Text.Trim());
+                selectFund.CalculateSituation = txtCalculate.Text.Trim();
+                selectFund.PlanningTarget = txtTarget.Text.Trim();
+                selectFund.Descript = txtRemark.Text.Trim();
+                selectFund.Unit = cmbUnit.Text;
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("数据错误：" + ExceptionUtil.ExceptionMessage(e));
+                return false;
+            }
+        }
+
+        private void LoadFundScheme()
+        {
+            var list =
+                mOperate.FinanceMultDataSrv.GetFundSchemeByEditor(ConstObject.LoginPersonInfo).OfType
+                    <FundPlanningMaster>().ToList();
+            var proj = StaticMethod.GetProjectInfo();
+            var res = list.FindAll(f => f.ProjectId == proj.Id).OrderByDescending(f => f.Code).ToList();
+            dgMaster.DataSource = res.ToArray();
+        }
+
+        private void NewFundScheme()
+        {
+            selectFund = new FundPlanningMaster();
+            selectFund.DeclareDate = DateTime.Now.Date;
+            selectFund.CreateDate = DateTime.Now;
+            selectFund.CreatePerson = ConstObject.LoginPersonInfo;
+            selectFund.CreatePersonName = ConstObject.LoginPersonInfo.Name;
+            selectFund.CreateYear = ConstObject.LoginDate.Year;
+            selectFund.CreateMonth = ConstObject.LoginDate.Month;
+            selectFund.OperOrgInfoName = ConstObject.TheLogin.TheOperationOrgInfo.Name; //登录人姓名
+            selectFund.OperOrgInfo = ConstObject.TheLogin.TheOperationOrgInfo; //
+            selectFund.OpgSysCode = ConstObject.TheLogin.TheOperationOrgInfo.SysCode;
+            selectFund.HandOrgLevel = ConstObject.TheOperationOrg.Level;
+            selectFund.HandlePerson = ConstObject.LoginPersonInfo;
+            selectFund.HandlePersonName = ConstObject.LoginPersonInfo.Name;
+            selectFund.DocState = DocumentState.Edit;
+            selectFund.SchemeBeginDate = selectFund.SchemeEndDate = DateTime.Now.Date;
+            selectFund.Unit = "万元";
+        }
+
+        private bool SaveFundScheme(bool isSubmit)
+        {
+            try
+            {
+                txtCode.Focus();
+
+                if (!ViewToModel()) return false;
+
+                selectFund.DocState = isSubmit ? DocumentState.InAudit : DocumentState.Edit;
+                selectFund = mOperate.FinanceMultDataSrv.SaveFundScheme(selectFund);
+                txtCode.Text = selectFund.Code;
+
+                //更新Caption
+                LogData log = new LogData();
+                log.BillId = selectFund.Id;
+                log.BillType = "资金策划申请表";
+                log.Code = selectFund.Code;
+                log.OperType = "保存";
+                log.Descript = "";
+                log.OperPerson = ConstObject.LoginPersonInfo.Name;
+                log.ProjectName = selectFund.ProjectName;
+                StaticMethod.InsertLogData(log);
+
+                MessageBox.Show(isSubmit ? "提交" : "保存" + "成功！");
+
+                LoadFundScheme();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("数据保存错误：" + ExceptionUtil.ExceptionMessage(ex));
+                return false;
+            }
+        }
+
+        public override void RefreshState(MainViewState state)
+        {
+            base.RefreshState(state);
+            //控制表格
+            switch (state)
+            {
+                case MainViewState.AddNew:
+                case MainViewState.Modify:
+                    cmbUnit.Enabled = true;
+                    break;
+                case MainViewState.Initialize:
+                case MainViewState.Browser:
+                    cmbUnit.Enabled = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public override void RefreshControls(MainViewState state)
+        {
+            base.RefreshControls(state);
+
+            //控制自身控件
+            if (ViewState == MainViewState.AddNew || ViewState == MainViewState.Modify)
+            {
+                ObjectLock.Unlock(pnlFloor, true);
+
+                if (selectFund != null && ViewState == MainViewState.Modify)
+                {
+                    var details =
+                        mOperate.FinanceMultDataSrv.GetFundSchemeDetail(selectFund, typeof(FundSchemeReportAmount));
+                    if (details != null && details.Count > 0)
+                    {
+                        ObjectLock.Lock(new object[] {dtpBeginDate, dtpEndDate});
+                    }
+                }
+            }
+            else
+            {
+                ObjectLock.Lock(pnlFloor, true);
+            }
+
+            //永久锁定
+            object[] os = new object[] { txtCode, txtProjectTotalPrice, txtProjectTime, txtCreateTime };
+            ObjectLock.Lock(os);
+        }
+
+        /// <summary>
+        /// 新建
+        /// </summary>
+        /// <returns></returns>
+        public override bool NewView()
+        {
+            try
+            {
+                base.NewView();
+
+                NewFundScheme();
+
+                //归属项目
+                if (ucProjectSelector1.SelectedProject != null)
+                {
+                    selectFund.ProjectId = ucProjectSelector1.SelectedProject.Id;
+                    selectFund.ProjectName = ucProjectSelector1.SelectedProject.Name;
+                }
+
+                ModelToView();
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ExceptionUtil.ExceptionMessage(ee), "提示", MessageBoxButtons.OK,
+                                MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+            }
+
+            return true;
+        }
+
+        public override bool ModifyView()
+        {
+            if (selectFund.DocState == DocumentState.Edit)
+            {
+                base.ModifyView();
+
+                return true;
+            }
+
+            string message = "此单状态为【{0}】，不能修改！";
+            message = string.Format(message, ClientUtil.GetDocStateName(selectFund.DocState));
+            MessageBox.Show(message);
+
+            return false;
+        }
+
+        /// <summary>
+        /// 保存
+        /// </summary>
+        /// <returns></returns>
+        public override bool SaveView()
+        {
+            return SaveFundScheme(false);
+        }
+
+        public override bool DeleteView()
+        {
+            if (selectFund == null)
+            {
+                MessageBox.Show("请选择要删除的记录");
+                return false;
+            }
+
+            if (selectFund.DocState != DocumentState.Edit)
+            {
+                MessageBox.Show("此记录不可删除，请选择其他【编辑中】的记录");
+                return false;
+            }
+
+            if (MessageBox.Show("删除后将无法恢复，您确定删除该记录？", "删除确认", MessageBoxButtons.YesNo, MessageBoxIcon.Question) !=
+                DialogResult.Yes)
+            {
+                return false;
+            }
+
+            if (mOperate.FinanceMultDataSrv.Delete(selectFund))
+            {
+                selectFund = null;
+                ClearControl(pnlFloor);
+
+                MessageBox.Show("删除成功");
+
+                LoadFundScheme();
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("删除失败");
+                return false;
+            }
+        }
+
+        public override void RefreshView()
+        {
+            ModelToView();
+        }
+
+        public override bool CancelView()
+        {
+            return true;
+        }
+
+        public override bool SubmitView()
+        {
+            if (selectFund.DocState != DocumentState.Edit)
+            {
+                MessageBox.Show("请选择编辑中的策划表提交审核");
+                return false;
+            }
+
+            var amountList = mOperate.FinanceMultDataSrv.GetFundSchemeDetail(selectFund, typeof (FundSchemeReportAmount));
+            if (amountList == null || amountList.Count == 0)
+            {
+                MessageBox.Show("该策划表没有测算数据，请进入【资金测算表】编制数据再提交审核");
+                return false;
+            }
+
+            if(MessageBox.Show("您确认要提交审核该策划表？","提交确认",MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.No)
+            {
+                return false;
+            }
+
+            return SaveFundScheme(true);
+        }
+
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <returns></returns>
+        private void dgMaster_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.RowIndex > dgMaster.RowCount)
+            {
+                return;
+            }
+
+            selectFund = dgMaster.Rows[e.RowIndex].DataBoundItem as FundPlanningMaster;
+
+            selectFund = mOperate.FinanceMultDataSrv.GetFundSchemeById(selectFund.Id);
+
+            ModelToView();
+
+            RefreshState(MainViewState.Browser);
+        }
+
+        private void dgMaster_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            var item = dgMaster.Rows[e.RowIndex].DataBoundItem as FundPlanningMaster;
+            if (item == null)
+            {
+                return;
+            }
+
+            dgMaster.Rows[e.RowIndex].Cells[colState.Name].Value = ClientUtil.GetDocStateName(item.DocState);
+        }
+    }
+}

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.Basic.Domain.BillComments,SupplyChain" table="THD_BillComments" lazy="true" discriminator-value="-1"> 
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <version name="Version" column="VERSION" type="long" unsaved-value="-1"/>
+    <property name="TheProjectGUID"/>
+    <property name="TheProjectName"/>
+    
+    <property name="BillTypeName"/>
+    <property name="BillID"/>
+    <property name="BillName"/>
+    
+    <many-to-one name="BillHandlePerson" column="BillHandlePerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"></many-to-one>
+    <property name="BillHandlePersonName"/>
+    
+    <many-to-one name="TheHandlePersonOrg" column="TheHandlePersonOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"></many-to-one>
+    <property name="TheHandlePersonOrgName"/>
+    <property name="TheHandlePersonOrgSyscode"/>
+    
+    <property name="BillCreateTime"/>
+    
+    <many-to-one name="PostPerson" column="PostPerson" class="Application.Resource.PersonAndOrganization.HumanResource.RelateClass.PersonInfo,ResourceManager"></many-to-one>
+    <property name="PostPersonName"/>
+    
+    <many-to-one name="PostPersonOrg" column="PostPersonOrg" class="Application.Resource.PersonAndOrganization.OrganizationResource.RelateClass.OperationOrgInfo,ResourceManager"></many-to-one>
+    <property name="PostPersonOrgName"/>
+    
+    <property name="PostPersonJobName"/>
+    
+    <property name="CommentCommitTime"/>
+    <property name="Comment" column="Comments"/>
+  </class>
+</hibernate-mapping>
+
+

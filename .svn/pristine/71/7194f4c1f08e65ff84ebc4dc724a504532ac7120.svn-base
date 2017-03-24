@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.CostManagement.PBS.Domain.Versions,SupplyChain" lazy="true" table="THD_Version" select-before-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="ID" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <property name="ChangeAction" />
+    <property name="IfcPersonAndOrganizationInfo" />
+    <property name="IfcPersonAndOrganizationId" />
+    <property name="IfcApplicationInfo" />
+    <property name="IfcApplicationId" />
+    <property name="State" />
+    <property name="LastUpdateTime" />
+    <property name="LastUpdateApplicationInfo" />
+    <property name="LastUpdateApplicationId" />
+    <property name="LastUpdateUserInfo" />
+    <property name="LastUpdateUserId" />
+  </class>
+</hibernate-mapping>

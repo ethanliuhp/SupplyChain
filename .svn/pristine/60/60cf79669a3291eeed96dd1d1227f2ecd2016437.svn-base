@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.SpeCostSettlementDetail,SupplyChain" table="thd_specostsettlementdetail" lazy="true" discriminator-value="-1">
+    
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <!--工程任务名称-->
+    <property name="EngTaskName"/>
+    <property name="EngTaskSyscode"/>
+    <many-to-one name="EngTask" column="EngTask" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree, SupplyChain"/>
+    <!--价格单位名称-->
+    <property name="PriceUnitName"/>
+    <!--价格计量单位-->
+    <many-to-one name="PriceUom"/>
+    <!--结算金额-->
+    <property name="SettlementMoney"/>
+    <!--应缴规费-->
+    <property name="PayMentFees"/>
+    <!--其他费用-->
+    <property name="OtherAccruals"/>
+    <!--管理费比例-->
+    <property name="ManageAcer"/>
+    <!--水电费比例-->
+    <property name="ElectAcer"/>
+    <!--应缴管理费-->
+    <property name="ManageMoney"/>
+    <!--代缴水电费-->
+    <property name="ElectMoney"/>
+    <!--合同总收入-->
+    <property name="Money"/>
+    <many-to-one name="Master" column="ParentId" not-null="true" class="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.SpeCostSettlementMaster,SupplyChain">
+
+    </many-to-one>
+  </class>
+</hibernate-mapping>
+
+

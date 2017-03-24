@@ -1,0 +1,139 @@
+﻿using System;
+using Iesi.Collections.Generic;
+using VirtualMachine.Core.Attributes;
+
+namespace Application.Business.Erp.SupplyChain.MoneyManage.FinanceMultData.Domain
+{
+    [Serializable]
+    [Entity]
+    public class PaymentRequest
+    {
+        private string _id;
+
+        /// <summary></summary>
+        public virtual string Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
+        private string _requestType;
+
+        /// <summary>申请类型</summary>
+        public virtual string RequestType
+        {
+            get { return _requestType; }
+            set { _requestType = value; }
+        }
+
+        private string _requestUnit;
+
+        /// <summary>填报单位</summary>
+        public virtual string RequestUnit
+        {
+            get { return _requestUnit; }
+            set { _requestUnit = value; }
+        }
+
+        private string _requestUnitName;
+
+        /// <summary>填报单位名称</summary>
+        public virtual string RequestUnitName
+        {
+            get { return _requestUnitName; }
+            set { _requestUnitName = value; }
+        }
+
+        private string _requestUnitSysCode;
+
+        /// <summary>填报单位层次码</summary>
+        public virtual string RequestUnitSysCode
+        {
+            get { return _requestUnitSysCode; }
+            set { _requestUnitSysCode = value; }
+        }
+
+        private DateTime _requestDate;
+
+        /// <summary>申请日期</summary>
+        public virtual DateTime RequestDate
+        {
+            get { return _requestDate; }
+            set { _requestDate = value; }
+        }
+
+        private decimal _currentPlanGether;
+
+        /// <summary>本月计划收款</summary>
+        public virtual decimal CurrentPlanGether
+        {
+            get { return _currentPlanGether; }
+            set { _currentPlanGether = value; }
+        }
+
+        private decimal _currentRealGether;
+
+        /// <summary>本月实际收款</summary>
+        public virtual decimal CurrentRealGether
+        {
+            get { return _currentRealGether; }
+            set { _currentRealGether = value; }
+        }
+
+        private decimal _currentPlanPay;
+
+        /// <summary>本月计划付款</summary>
+        public virtual decimal CurrentPlanPay
+        {
+            get { return _currentPlanPay; }
+            set { _currentPlanPay = value; }
+        }
+
+        private decimal _currentRealPay;
+
+        /// <summary>本月实际付款</summary>
+        public virtual decimal CurrentRealPay
+        {
+            get { return _currentRealPay; }
+            set { _currentRealPay = value; }
+        }
+
+        private int _state;
+
+        /// <summary>状态</summary>
+        public virtual int State
+        {
+            get { return _state; }
+            set { _state = value; }
+        }
+
+        private string _createPerson;
+
+        /// <summary>填报人</summary>
+        public virtual string CreatePerson
+        {
+            get { return _createPerson; }
+            set { _createPerson = value; }
+        }
+
+        private string _createPersonName;
+
+        /// <summary>创建人姓名</summary>
+        public virtual string CreatePersonName
+        {
+            get { return _createPersonName; }
+            set { _createPersonName = value; }
+        }
+
+        private Iesi.Collections.Generic.ISet<PaymentMaster> _payments=new HashedSet<PaymentMaster>();
+
+        /// <summary>
+        /// 资金支付审批单
+        /// </summary>
+        public virtual Iesi.Collections.Generic.ISet<PaymentMaster> Payments
+        {
+            get { return _payments; }
+            set { _payments = value; }
+        }
+    }
+}

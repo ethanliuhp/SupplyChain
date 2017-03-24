@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Application.Business.Erp.SupplyChain.ProductionManagement.ScheduleMangement.Domain.DurationDelayWarn,SupplyChain" table="THD_DurationDelayWarn" lazy="true" discriminator-value="-1">
+    <id name="Id" column="Id" unsaved-value="null">
+      <generator class="VirtualMachine.Component.Util.IFCGuidGenerator,VirtualMachine" />
+    </id>
+    <property name="ProjectId" />
+    <property name="ProjectName" />
+    <many-to-one name="Task" column="TaskId" class="Application.Business.Erp.SupplyChain.CostManagement.WBS.Domain.GWBSTree,SupplyChain"/>
+    <property name="TaskName" />
+    <property name="PlanBeginDate" />
+    <property name="PlanEndDate" />
+    <property name="PlanTime" />
+    <property name="PlanRate" />
+    <property name="RealBeginDate" />
+    <property name="RealRate" />
+    <property name="DelayDays" />
+    <property name="DelayCosts" />
+    <property name="WarnLevel" />
+    <property name="CostDetail" />
+    <property name="TaskFullPath" />
+    <property name="ProjectDelayDays" />
+    <property name="CreateDate" />
+    <property name="OrgSyscode" />
+    <property name="ModifyTime" />
+    <property name="OwnerOrg" />
+    <property name="IsProjectDelay" />
+  </class>
+</hibernate-mapping>
