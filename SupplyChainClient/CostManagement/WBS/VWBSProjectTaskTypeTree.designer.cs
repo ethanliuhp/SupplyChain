@@ -561,7 +561,7 @@ namespace Application.Business.Erp.SupplyChain.Client.CostManagement.WBS
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 25);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -576,7 +576,7 @@ namespace Application.Business.Erp.SupplyChain.Client.CostManagement.WBS
             // 
             this.splitContainer1.Panel2.Controls.Add(this.gbOther);
             this.splitContainer1.Panel2.Controls.Add(this.gbBasic);
-            this.splitContainer1.Size = new System.Drawing.Size(871, 529);
+            this.splitContainer1.Size = new System.Drawing.Size(871, 554);
             this.splitContainer1.SplitterDistance = 193;
             this.splitContainer1.TabIndex = 17;
             this.splitContainer1.Text = "splitContainer1";
@@ -632,7 +632,7 @@ namespace Application.Business.Erp.SupplyChain.Client.CostManagement.WBS
             this.tvwCategory.Location = new System.Drawing.Point(0, 24);
             this.tvwCategory.Name = "tvwCategory";
             this.tvwCategory.SelectedImageIndex = 0;
-            this.tvwCategory.Size = new System.Drawing.Size(193, 505);
+            this.tvwCategory.Size = new System.Drawing.Size(193, 530);
             this.tvwCategory.TabIndex = 0;
             // 
             // gbOther
@@ -656,7 +656,7 @@ namespace Application.Business.Erp.SupplyChain.Client.CostManagement.WBS
             this.gbOther.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbOther.Location = new System.Drawing.Point(0, 162);
             this.gbOther.Name = "gbOther";
-            this.gbOther.Size = new System.Drawing.Size(674, 367);
+            this.gbOther.Size = new System.Drawing.Size(674, 392);
             this.gbOther.TabIndex = 3;
             this.gbOther.TabStop = false;
             this.gbOther.Text = "任务关联文档模版列表";
@@ -668,7 +668,7 @@ namespace Application.Business.Erp.SupplyChain.Client.CostManagement.WBS
             this.cmbAlterMode.DropDownHeight = 200;
             this.cmbAlterMode.FormattingEnabled = true;
             this.cmbAlterMode.IntegralHeight = false;
-            this.cmbAlterMode.Location = new System.Drawing.Point(341, 180);
+            this.cmbAlterMode.Location = new System.Drawing.Point(341, 205);
             this.cmbAlterMode.Name = "cmbAlterMode";
             this.cmbAlterMode.Size = new System.Drawing.Size(157, 20);
             this.cmbAlterMode.TabIndex = 153;
@@ -679,7 +679,7 @@ namespace Application.Business.Erp.SupplyChain.Client.CostManagement.WBS
             this.cmbCheckFlag.DropDownHeight = 200;
             this.cmbCheckFlag.FormattingEnabled = true;
             this.cmbCheckFlag.IntegralHeight = false;
-            this.cmbCheckFlag.Location = new System.Drawing.Point(82, 180);
+            this.cmbCheckFlag.Location = new System.Drawing.Point(82, 205);
             this.cmbCheckFlag.Name = "cmbCheckFlag";
             this.cmbCheckFlag.Size = new System.Drawing.Size(155, 20);
             this.cmbCheckFlag.TabIndex = 153;
@@ -688,7 +688,7 @@ namespace Application.Business.Erp.SupplyChain.Client.CostManagement.WBS
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(246, 185);
+            this.label2.Location = new System.Drawing.Point(246, 210);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 12);
             this.label2.TabIndex = 152;
@@ -698,7 +698,7 @@ namespace Application.Business.Erp.SupplyChain.Client.CostManagement.WBS
             // 
             this.label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label.AutoSize = true;
-            this.label.Location = new System.Drawing.Point(8, 187);
+            this.label.Location = new System.Drawing.Point(8, 212);
             this.label.Name = "label";
             this.label.Size = new System.Drawing.Size(77, 12);
             this.label.TabIndex = 151;
@@ -707,7 +707,7 @@ namespace Application.Business.Erp.SupplyChain.Client.CostManagement.WBS
             // btnOpenDocument
             // 
             this.btnOpenDocument.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpenDocument.Location = new System.Drawing.Point(324, 125);
+            this.btnOpenDocument.Location = new System.Drawing.Point(324, 150);
             this.btnOpenDocument.Name = "btnOpenDocument";
             this.btnOpenDocument.Size = new System.Drawing.Size(75, 23);
             this.btnOpenDocument.TabIndex = 150;
@@ -719,7 +719,7 @@ namespace Application.Business.Erp.SupplyChain.Client.CostManagement.WBS
             // 
             this.txtDocumentDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDocumentDesc.Location = new System.Drawing.Point(290, 154);
+            this.txtDocumentDesc.Location = new System.Drawing.Point(290, 179);
             this.txtDocumentDesc.Name = "txtDocumentDesc";
             this.txtDocumentDesc.ReadOnly = true;
             this.txtDocumentDesc.Size = new System.Drawing.Size(374, 21);
@@ -728,7 +728,7 @@ namespace Application.Business.Erp.SupplyChain.Client.CostManagement.WBS
             // txtDocumentName
             // 
             this.txtDocumentName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtDocumentName.Location = new System.Drawing.Point(82, 154);
+            this.txtDocumentName.Location = new System.Drawing.Point(82, 179);
             this.txtDocumentName.Name = "txtDocumentName";
             this.txtDocumentName.ReadOnly = true;
             this.txtDocumentName.Size = new System.Drawing.Size(142, 21);
@@ -743,7 +743,7 @@ namespace Application.Business.Erp.SupplyChain.Client.CostManagement.WBS
             this.btnAddTemp.Controls.Add(this.btnRemoveFile);
             this.btnAddTemp.Controls.Add(this.btnBatchSave);
             this.btnAddTemp.Controls.Add(this.btnSearchStencil);
-            this.btnAddTemp.Location = new System.Drawing.Point(10, 209);
+            this.btnAddTemp.Location = new System.Drawing.Point(10, 234);
             this.btnAddTemp.Name = "btnAddTemp";
             this.btnAddTemp.Size = new System.Drawing.Size(654, 150);
             this.btnAddTemp.TabIndex = 144;
@@ -898,7 +898,7 @@ namespace Application.Business.Erp.SupplyChain.Client.CostManagement.WBS
             // btnSaveUpdate
             // 
             this.btnSaveUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveUpdate.Location = new System.Drawing.Point(589, 179);
+            this.btnSaveUpdate.Location = new System.Drawing.Point(589, 204);
             this.btnSaveUpdate.Name = "btnSaveUpdate";
             this.btnSaveUpdate.Size = new System.Drawing.Size(75, 23);
             this.btnSaveUpdate.TabIndex = 139;
@@ -908,7 +908,7 @@ namespace Application.Business.Erp.SupplyChain.Client.CostManagement.WBS
             // btnChangeFile
             // 
             this.btnChangeFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnChangeFile.Location = new System.Drawing.Point(508, 179);
+            this.btnChangeFile.Location = new System.Drawing.Point(508, 204);
             this.btnChangeFile.Name = "btnChangeFile";
             this.btnChangeFile.Size = new System.Drawing.Size(75, 23);
             this.btnChangeFile.TabIndex = 140;
@@ -918,7 +918,7 @@ namespace Application.Business.Erp.SupplyChain.Client.CostManagement.WBS
             // btnDeleteDocument
             // 
             this.btnDeleteDocument.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeleteDocument.Location = new System.Drawing.Point(500, 125);
+            this.btnDeleteDocument.Location = new System.Drawing.Point(500, 150);
             this.btnDeleteDocument.Name = "btnDeleteDocument";
             this.btnDeleteDocument.Size = new System.Drawing.Size(75, 23);
             this.btnDeleteDocument.TabIndex = 138;
@@ -928,7 +928,7 @@ namespace Application.Business.Erp.SupplyChain.Client.CostManagement.WBS
             // btnUpdateDocument
             // 
             this.btnUpdateDocument.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUpdateDocument.Location = new System.Drawing.Point(412, 125);
+            this.btnUpdateDocument.Location = new System.Drawing.Point(412, 150);
             this.btnUpdateDocument.Name = "btnUpdateDocument";
             this.btnUpdateDocument.Size = new System.Drawing.Size(75, 23);
             this.btnUpdateDocument.TabIndex = 136;
@@ -938,7 +938,7 @@ namespace Application.Business.Erp.SupplyChain.Client.CostManagement.WBS
             // btnDownLoadDocument
             // 
             this.btnDownLoadDocument.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDownLoadDocument.Location = new System.Drawing.Point(588, 125);
+            this.btnDownLoadDocument.Location = new System.Drawing.Point(588, 150);
             this.btnDownLoadDocument.Name = "btnDownLoadDocument";
             this.btnDownLoadDocument.Size = new System.Drawing.Size(75, 23);
             this.btnDownLoadDocument.TabIndex = 137;
@@ -952,7 +952,7 @@ namespace Application.Business.Erp.SupplyChain.Client.CostManagement.WBS
             this.lblDocumentName.AutoSize = true;
             this.lblDocumentName.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblDocumentName.FontSize = VirtualMachine.Component.WinControls.Style.FontSize.Default;
-            this.lblDocumentName.Location = new System.Drawing.Point(22, 159);
+            this.lblDocumentName.Location = new System.Drawing.Point(22, 184);
             this.lblDocumentName.Name = "lblDocumentName";
             this.lblDocumentName.Size = new System.Drawing.Size(65, 12);
             this.lblDocumentName.TabIndex = 142;
@@ -966,7 +966,7 @@ namespace Application.Business.Erp.SupplyChain.Client.CostManagement.WBS
             this.customLabel9.AutoSize = true;
             this.customLabel9.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.customLabel9.FontSize = VirtualMachine.Component.WinControls.Style.FontSize.Default;
-            this.customLabel9.Location = new System.Drawing.Point(230, 159);
+            this.customLabel9.Location = new System.Drawing.Point(230, 184);
             this.customLabel9.Name = "customLabel9";
             this.customLabel9.Size = new System.Drawing.Size(65, 12);
             this.customLabel9.TabIndex = 143;
@@ -1016,7 +1016,7 @@ namespace Application.Business.Erp.SupplyChain.Client.CostManagement.WBS
             this.gridDocument.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.gridDocument.RowTemplate.Height = 23;
             this.gridDocument.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridDocument.Size = new System.Drawing.Size(654, 99);
+            this.gridDocument.Size = new System.Drawing.Size(654, 124);
             this.gridDocument.TabIndex = 109;
             this.gridDocument.TargetType = null;
             this.gridDocument.VScrollOffset = 0;

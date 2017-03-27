@@ -843,7 +843,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>LFKcnTopNRrooYDCDiSlUDGyblA=</dsig:DigestValue>
+        <dsig:DigestValue>L2DJjOOdWHNgCUVuZhrvBjFwTwc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -1699,13 +1699,13 @@
       <dsig:DigestValue>5KB4g7a/ec3ZJiy1IIkHq5HW8pY=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="SupplyChainClient.exe.config" size="14667">
+  <file name="SupplyChainClient.exe.config" size="14739">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>BXyajHnOxH5RitRxQtzD1s/Mcv4=</dsig:DigestValue>
+      <dsig:DigestValue>UUlIBteqyTpGqGslpx2VOjfhCPw=</dsig:DigestValue>
     </hash>
   </file>
   <file name="SystemContext.xml" size="64" writeableType="applicationData">
